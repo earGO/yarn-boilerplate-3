@@ -2,11 +2,14 @@
 
 # dependencies
 /node_modules
+/packages/*/node_modules
+
+# builds?
+/build
+/packages/*/build
 
 # testing
 /coverage
-
-/build
 
 # misc
 .DS_Store

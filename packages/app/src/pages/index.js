@@ -13,7 +13,7 @@ function Pages() {
       </Helmet>
       <Switch>
         <Route exact path="/" component={Main} />
-        <Route exact path="/nsi" component={Nsi} />
+        <Route path="/nsi" component={Nsi} />
       </Switch>
     </React.Fragment>
   )

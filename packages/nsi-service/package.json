@@ -4,11 +4,12 @@
 	"description": "JS реализация сервиса ws-nsi",
 	"ru_ursip": {
 		"name": "nsi-service",
-		"context": "api/nsi/v1"
+		"context": "http://develop.ursip.local/api/bim-nsi-dev/v1"
 	},
 	"main": "build/index.js",
 	"peerDependencies": {
-		"redux-saga-requests": "^0.17.1"
+    "redux-saga-requests": "^0.17.1",
+    "reselect": "^3.0.1"
 	},
 	"devDependencies": {
 		"@svgr/rollup": "^2.4.1",

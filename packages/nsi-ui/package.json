@@ -22,10 +22,10 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
-    "@ursip/design-system": "^1.0.0",
+    "@ursip/design-system": "^1.0.1",
     "@ursip/nsi-service": "^1.0.0",
     "@ursip/utils": "^1.0.0",
-    "react": "^16.3.1",
+    "react": "^16.7.0",
     "prop-types": "^15.6.2",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.3.1",

@@ -20,8 +20,9 @@ export const actions = {
       type: GET_ALL_BY_CATALOG_ID,
       payload: {
         request: {
-          url: `${context}/${controller}/getAllByCatalogId?id=${id}&catalogId=${catalogId}`,
+          url: `${context}/${controller}/getAllByCatalogId?catalogId=${catalogId}`,
         },
+        catalogId,
       },
       meta: args.meta,
     }
@@ -35,8 +36,12 @@ export const stateSelector = state => {
 /* reducer */
 function reducer(state = {}, { type, payload, meta = {} }) {
   switch (type) {
-    case success(GET_ALL_BY_CATALOG_ID):
-      return meta.normalize ? meta.normalize(payload.data) : payload.data
+    case success(GET_ALL_BY_CATALOG_ID): {
+      return {
+        ...state,
+        [meta.requestAction.payload.catalogId]: payload.data
+      }
+    }
 
     default:
       return state

@@ -1,4 +1,5 @@
 import { success } from 'redux-saga-requests'
+import { createSelector } from 'reselect'
 import { ru_ursip } from '../../package.json'
 
 export const controller = 'catalogs'
@@ -78,6 +79,18 @@ export const actions = {
 
 export const stateSelector = state => {
   return state[name] && state[name][controller]
+}
+
+const id = (_, id) => id
+
+const getCatalogById = createSelector(
+  stateSelector,
+  id,
+  (catalogsList, id) => (catalogsList || []).find(item => item.id === id) || {}
+)
+
+export const reselectors = {
+  getCatalogById,
 }
 
 /* reducer */

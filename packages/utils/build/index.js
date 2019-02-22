@@ -2,21 +2,21 @@
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var history = require('history');
-var reactRedux = _interopDefault(require('react-redux'));
-var createBrowserHistory = _interopDefault(require('history/createBrowserHistory'));
-var thunkMiddleware = _interopDefault(require('redux-thunk'));
-var createSagaMiddleware = require('redux-saga');
-var createSagaMiddleware__default = _interopDefault(createSagaMiddleware);
-var effects = require('redux-saga/effects');
-var redux = require('redux');
-var isObject = _interopDefault(require('lodash/isObject'));
 var React = _interopDefault(require('react'));
 var PropTypes = _interopDefault(require('prop-types'));
-var isEmpty = _interopDefault(require('lodash/isEmpty'));
-var isFunction = _interopDefault(require('lodash/isFunction'));
-var isString = _interopDefault(require('lodash/isString'));
+var history = require('history');
+var reactRedux = _interopDefault(require('react-redux'));
+var effects = require('redux-saga/effects');
+var createSagaMiddleware = require('redux-saga');
+var createSagaMiddleware__default = _interopDefault(createSagaMiddleware);
+var redux = require('redux');
+var createBrowserHistory = _interopDefault(require('history/createBrowserHistory'));
+var thunkMiddleware = _interopDefault(require('redux-thunk'));
 var conformsTo = _interopDefault(require('lodash/conformsTo'));
+var isFunction = _interopDefault(require('lodash/isFunction'));
+var isObject = _interopDefault(require('lodash/isObject'));
+var isEmpty = _interopDefault(require('lodash/isEmpty'));
+var isString = _interopDefault(require('lodash/isString'));
 
 var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 

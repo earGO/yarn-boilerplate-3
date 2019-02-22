@@ -6,13 +6,14 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 
 var React = _interopDefault(require('react'));
 var redux = require('redux');
-require('styled-components');
 var reactRedux = require('react-redux');
-require('reselect');
-require('react-router-dom');
+var reactRouterDom = require('react-router-dom');
 var utils = require('@ursip/utils');
 var nsi = _interopDefault(require('@ursip/nsi-service'));
 var designSystem = require('@ursip/design-system');
+var styled = require('styled-components');
+var styled__default = _interopDefault(styled);
+require('reselect');
 
 function unwrapExports (x) {
 	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x.default : x;
@@ -21,19 +22,6 @@ function unwrapExports (x) {
 function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
-
-var classCallCheck = createCommonjsModule(function (module, exports) {
-
-exports.__esModule = true;
-
-exports.default = function (instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-};
-});
-
-var _classCallCheck = unwrapExports(classCallCheck);
 
 var _global = createCommonjsModule(function (module) {
 // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
@@ -45,7 +33,7 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 });
 
 var _core = createCommonjsModule(function (module) {
-var core = module.exports = { version: '2.6.3' };
+var core = module.exports = { version: '2.6.5' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 });
 var _core_1 = _core.version;
@@ -219,84 +207,6 @@ $export.U = 64;  // safe
 $export.R = 128; // real proto method for `library`
 var _export = $export;
 
-// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-_export(_export.S + _export.F * !_descriptors, 'Object', { defineProperty: _objectDp.f });
-
-var $Object = _core.Object;
-var defineProperty = function defineProperty(it, key, desc) {
-  return $Object.defineProperty(it, key, desc);
-};
-
-var defineProperty$1 = createCommonjsModule(function (module) {
-module.exports = { "default": defineProperty, __esModule: true };
-});
-
-unwrapExports(defineProperty$1);
-
-var createClass = createCommonjsModule(function (module, exports) {
-
-exports.__esModule = true;
-
-
-
-var _defineProperty2 = _interopRequireDefault(defineProperty$1);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      (0, _defineProperty2.default)(target, descriptor.key, descriptor);
-    }
-  }
-
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
-});
-
-var _createClass = unwrapExports(createClass);
-
-// 7.1.4 ToInteger
-var ceil = Math.ceil;
-var floor = Math.floor;
-var _toInteger = function (it) {
-  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
-};
-
-// 7.2.1 RequireObjectCoercible(argument)
-var _defined = function (it) {
-  if (it == undefined) throw TypeError("Can't call method on  " + it);
-  return it;
-};
-
-// true  -> String#at
-// false -> String#codePointAt
-var _stringAt = function (TO_STRING) {
-  return function (that, pos) {
-    var s = String(_defined(that));
-    var i = _toInteger(pos);
-    var l = s.length;
-    var a, b;
-    if (i < 0 || i >= l) return TO_STRING ? '' : undefined;
-    a = s.charCodeAt(i);
-    return a < 0xd800 || a > 0xdbff || i + 1 === l || (b = s.charCodeAt(i + 1)) < 0xdc00 || b > 0xdfff
-      ? TO_STRING ? s.charAt(i) : a
-      : TO_STRING ? s.slice(i, i + 2) : (a - 0xd800 << 10) + (b - 0xdc00) + 0x10000;
-  };
-};
-
-var _library = true;
-
-var _redefine = _hide;
-
 var toString = {}.toString;
 
 var _cof = function (it) {
@@ -310,11 +220,24 @@ var _iobject = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
   return _cof(it) == 'String' ? it.split('') : Object(it);
 };
 
+// 7.2.1 RequireObjectCoercible(argument)
+var _defined = function (it) {
+  if (it == undefined) throw TypeError("Can't call method on  " + it);
+  return it;
+};
+
 // to indexed object, toObject with fallback for non-array-like ES3 strings
 
 
 var _toIobject = function (it) {
   return _iobject(_defined(it));
+};
+
+// 7.1.4 ToInteger
+var ceil = Math.ceil;
+var floor = Math.floor;
+var _toInteger = function (it) {
+  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
 };
 
 // 7.1.15 ToLength
@@ -354,6 +277,8 @@ var _arrayIncludes = function (IS_INCLUDES) {
     } return !IS_INCLUDES && -1;
   };
 };
+
+var _library = true;
 
 var _shared = createCommonjsModule(function (module) {
 var SHARED = '__core-js_shared__';
@@ -408,6 +333,174 @@ var _enumBugKeys = (
 var _objectKeys = Object.keys || function keys(O) {
   return _objectKeysInternal(O, _enumBugKeys);
 };
+
+var f$1 = Object.getOwnPropertySymbols;
+
+var _objectGops = {
+	f: f$1
+};
+
+var f$2 = {}.propertyIsEnumerable;
+
+var _objectPie = {
+	f: f$2
+};
+
+// 7.1.13 ToObject(argument)
+
+var _toObject = function (it) {
+  return Object(_defined(it));
+};
+
+// 19.1.2.1 Object.assign(target, source, ...)
+
+
+
+
+
+var $assign = Object.assign;
+
+// should work with symbols and should have deterministic property order (V8 bug)
+var _objectAssign = !$assign || _fails(function () {
+  var A = {};
+  var B = {};
+  // eslint-disable-next-line no-undef
+  var S = Symbol();
+  var K = 'abcdefghijklmnopqrst';
+  A[S] = 7;
+  K.split('').forEach(function (k) { B[k] = k; });
+  return $assign({}, A)[S] != 7 || Object.keys($assign({}, B)).join('') != K;
+}) ? function assign(target, source) { // eslint-disable-line no-unused-vars
+  var T = _toObject(target);
+  var aLen = arguments.length;
+  var index = 1;
+  var getSymbols = _objectGops.f;
+  var isEnum = _objectPie.f;
+  while (aLen > index) {
+    var S = _iobject(arguments[index++]);
+    var keys = getSymbols ? _objectKeys(S).concat(getSymbols(S)) : _objectKeys(S);
+    var length = keys.length;
+    var j = 0;
+    var key;
+    while (length > j) if (isEnum.call(S, key = keys[j++])) T[key] = S[key];
+  } return T;
+} : $assign;
+
+// 19.1.3.1 Object.assign(target, source)
+
+
+_export(_export.S + _export.F, 'Object', { assign: _objectAssign });
+
+var assign = _core.Object.assign;
+
+var assign$1 = createCommonjsModule(function (module) {
+module.exports = { "default": assign, __esModule: true };
+});
+
+unwrapExports(assign$1);
+
+var _extends = createCommonjsModule(function (module, exports) {
+
+exports.__esModule = true;
+
+
+
+var _assign2 = _interopRequireDefault(assign$1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _assign2.default || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+});
+
+var _extends$1 = unwrapExports(_extends);
+
+var classCallCheck = createCommonjsModule(function (module, exports) {
+
+exports.__esModule = true;
+
+exports.default = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+});
+
+var _classCallCheck = unwrapExports(classCallCheck);
+
+// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
+_export(_export.S + _export.F * !_descriptors, 'Object', { defineProperty: _objectDp.f });
+
+var $Object = _core.Object;
+var defineProperty = function defineProperty(it, key, desc) {
+  return $Object.defineProperty(it, key, desc);
+};
+
+var defineProperty$1 = createCommonjsModule(function (module) {
+module.exports = { "default": defineProperty, __esModule: true };
+});
+
+unwrapExports(defineProperty$1);
+
+var createClass = createCommonjsModule(function (module, exports) {
+
+exports.__esModule = true;
+
+
+
+var _defineProperty2 = _interopRequireDefault(defineProperty$1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      (0, _defineProperty2.default)(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+});
+
+var _createClass = unwrapExports(createClass);
+
+// true  -> String#at
+// false -> String#codePointAt
+var _stringAt = function (TO_STRING) {
+  return function (that, pos) {
+    var s = String(_defined(that));
+    var i = _toInteger(pos);
+    var l = s.length;
+    var a, b;
+    if (i < 0 || i >= l) return TO_STRING ? '' : undefined;
+    a = s.charCodeAt(i);
+    return a < 0xd800 || a > 0xdbff || i + 1 === l || (b = s.charCodeAt(i + 1)) < 0xdc00 || b > 0xdfff
+      ? TO_STRING ? s.charAt(i) : a
+      : TO_STRING ? s.slice(i, i + 2) : (a - 0xd800 << 10) + (b - 0xdc00) + 0x10000;
+  };
+};
+
+var _redefine = _hide;
 
 var _objectDps = _descriptors ? Object.defineProperties : function defineProperties(O, Properties) {
   _anObject(O);
@@ -494,12 +587,6 @@ _hide(IteratorPrototype, _wks('iterator'), function () { return this; });
 var _iterCreate = function (Constructor, NAME, next) {
   Constructor.prototype = _objectCreate(IteratorPrototype, { next: _propertyDesc(1, next) });
   _setToStringTag(Constructor, NAME + ' Iterator');
-};
-
-// 7.1.13 ToObject(argument)
-
-var _toObject = function (it) {
-  return Object(_defined(it));
 };
 
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
@@ -632,10 +719,10 @@ for (var i = 0; i < DOMIterables.length; i++) {
   if (proto && !proto[TO_STRING_TAG]) _hide(proto, TO_STRING_TAG, NAME);
 }
 
-var f$1 = _wks;
+var f$3 = _wks;
 
 var _wksExt = {
-	f: f$1
+	f: f$3
 };
 
 var iterator = _wksExt.f('iterator');
@@ -711,18 +798,6 @@ var defineProperty$3 = _objectDp.f;
 var _wksDefine = function (name) {
   var $Symbol = _core.Symbol || (_core.Symbol = {});
   if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty$3($Symbol, name, { value: _wksExt.f(name) });
-};
-
-var f$2 = Object.getOwnPropertySymbols;
-
-var _objectGops = {
-	f: f$2
-};
-
-var f$3 = {}.propertyIsEnumerable;
-
-var _objectPie = {
-	f: f$3
 };
 
 // all enumerable object keys, includes symbols
@@ -1179,6 +1254,66 @@ exports.default = function (subClass, superClass) {
 
 var _inherits = unwrapExports(inherits);
 
+var objectWithoutProperties = createCommonjsModule(function (module, exports) {
+
+exports.__esModule = true;
+
+exports.default = function (obj, keys) {
+  var target = {};
+
+  for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;
+    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+    target[i] = obj[i];
+  }
+
+  return target;
+};
+});
+
+var _objectWithoutProperties = unwrapExports(objectWithoutProperties);
+
+function arrayToTree(items) {
+  var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { id: 'key', parentId: 'parentId' };
+
+  var rootItems = [];
+  var lookup = {};
+  for (var i = 0, _items = items; i < _items.length; i++) {
+    var item = _items[i];
+    var itemId = item[config.id];
+    var parentId = item[config.parentId];
+    if (!Object.prototype.hasOwnProperty.call(lookup, itemId)) {
+      lookup[itemId] = { data: null, children: [] };
+    }
+    lookup[itemId].data = item;
+    var treeItem = lookup[itemId];
+    if (parentId === null || parentId === '' || !parentId) {
+      rootItems.push(treeItem);
+    } else {
+      if (!Object.prototype.hasOwnProperty.call(lookup, parentId)) {
+        lookup[parentId] = { data: null, children: [] };
+      }
+      lookup[parentId].children.push(treeItem);
+    }
+  }
+  var unnestData = function unnestData(item) {
+    return _extends$1({}, item.data, {
+      children: item.children && item.children.length ? item.children.map(unnestData) : []
+    });
+  };
+  var removeChildrenProp = function removeChildrenProp(_ref) {
+    var children = _ref.children,
+        rest = _objectWithoutProperties(_ref, ['children']);
+
+    return children.length === 0 ? _extends$1({}, rest) : _extends$1({ children: children.map(removeChildrenProp) }, rest);
+  };
+  var niceFormat = rootItems.map(unnestData).map(removeChildrenProp);
+  return {
+    rootItems: niceFormat,
+    lookup: lookup
+  };
+}
+
 var Catalog = function (_React$Component) {
   _inherits(Catalog, _React$Component);
 
@@ -1196,38 +1331,152 @@ var Catalog = function (_React$Component) {
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Catalog.__proto__ || Object.getPrototypeOf(Catalog)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
       loading: false,
       selected: null
+    }, _this.getTableColumns = function () {
+      console.log('Catalog, rows', _this.props.selectedCatalog, _this.props.catalogRows);
+      var attributes = _this.props.selectedCatalog.attributes;
+
+      return (attributes || []).map(function (attribute) {
+        var rndValue = attribute.title.length * 10;
+        return React.createElement(
+          designSystem.Table.Column,
+          { key: attribute.key, flexGrow: 1, minWidth: 160 },
+          React.createElement(
+            designSystem.Table.HeaderCell,
+            null,
+            attribute.title
+          ),
+          React.createElement(designSystem.Table.Cell, { dataKey: attribute.key })
+        );
+      });
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(Catalog, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var _this2 = this;
-
-      this.setState({
-        loading: true,
-        selected: null
+      this.props.getAllByCatalogId({
+        payload: {
+          catalogId: this.props.catalogId
+        }
       });
-
-      this.props.getAll({ meta: { asPromise: true } }).finally(function () {
-        return _this2.setState({ loading: false });
-      });
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (prevProps.catalogId !== this.props.catalogId) {
+        this.props.getAllByCatalogId({
+          payload: {
+            catalogId: this.props.catalogId
+          }
+        });
+      }
     }
   }, {
     key: 'render',
     value: function render() {
       return React.createElement(
-        React.Fragment,
+        designSystem.Box,
         null,
         React.createElement(
-          designSystem.Heading.h1,
-          null,
-          'Hello from nsi'
+          designSystem.Flex,
+          { height: 24, alignItems: 'center' },
+          React.createElement(
+            designSystem.Box,
+            { width: '48px' },
+            React.createElement(
+              designSystem.Text,
+              { fontSize: 1 },
+              '\u0413\u0440\u0443\u043F\u043F\u0430:'
+            )
+          ),
+          React.createElement(
+            designSystem.Text,
+            { fontSize: 1, ml: 4 },
+            'idk \u0442\u0443\u0442 \u043D\u0435\u0442 \u043F\u043E\u043B\u0435 \u0433\u0440\u0443\u043F\u043F\u0430'
+          )
         ),
-        this.state.loading && React.createElement(
-          designSystem.Text,
-          null,
-          'Loading...'
+        React.createElement(
+          designSystem.Flex,
+          { height: 24, alignItems: 'center' },
+          React.createElement(
+            designSystem.Box,
+            { width: '48px' },
+            React.createElement(
+              designSystem.Text,
+              { fontSize: 1 },
+              '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435:'
+            )
+          ),
+          React.createElement(
+            designSystem.Text,
+            { fontSize: 1, ml: 4 },
+            this.props.selectedCatalog.description
+          )
+        ),
+        React.createElement(
+          designSystem.Box,
+          { className: 'tableWrap', border: '1px solid #ecebeb', mt: 32 },
+          React.createElement(
+            designSystem.Flex,
+            { className: 'controls', justifyContent: 'space-between', mt: 16 },
+            React.createElement(
+              designSystem.Box,
+              { ml: 3, width: '336px' },
+              React.createElement(designSystem.Input, { size: 'small', placeholder: '\u041F\u043E\u0438\u0441\u043A', prefix: React.createElement(designSystem.Icon, { name: 'question-circle' }) })
+            ),
+            React.createElement(
+              designSystem.Flex,
+              null,
+              React.createElement(
+                designSystem.Box,
+                { width: '144px' },
+                React.createElement(
+                  designSystem.Button,
+                  { size: 'small' },
+                  React.createElement(designSystem.Icon, { mr: 2, name: 'plus-circle' }),
+                  '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0441\u0442\u0440\u043E\u043A\u0443'
+                )
+              ),
+              React.createElement(
+                designSystem.Box,
+                { width: '192px' },
+                React.createElement(
+                  designSystem.Button,
+                  { size: 'small' },
+                  React.createElement(designSystem.Icon, { mr: 2, name: 'chevron-down' }),
+                  '\u0420\u0430\u0441\u0448\u0438\u0440\u0435\u043D\u043D\u044B\u0439 \u043F\u043E\u0438\u0441\u043A'
+                )
+              ),
+              React.createElement(
+                designSystem.Box,
+                { width: '16px' },
+                React.createElement(designSystem.Icon, { mr: 2, name: 'ellipsis-v' })
+              )
+            )
+          ),
+          React.createElement(
+            designSystem.Box,
+            { mt: 16 },
+            React.createElement(
+              designSystem.Table,
+              { data: this.props.catalogRows, width: 832, isTree: true, height: 376 },
+              this.getTableColumns(),
+              React.createElement(
+                designSystem.Table.Column,
+                { fixed: 'right' },
+                React.createElement(
+                  designSystem.Table.HeaderCell,
+                  { style: { paddingLeft: '16px' } },
+                  '\u0414\u0435\u0439\u0441\u0442\u0432\u0438\u044F'
+                ),
+                React.createElement(
+                  designSystem.Table.Cell,
+                  null,
+                  React.createElement(designSystem.Icon, { name: 'ellipsis-h' })
+                )
+              )
+            )
+          )
         )
       );
     }
@@ -1236,21 +1485,614 @@ var Catalog = function (_React$Component) {
   return Catalog;
 }(React.Component);
 
-Catalog.defaultProps = {
-  data: []
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  var id = ownProps.match.params.id;
+
+  var catalogRows = state[nsi.name].rows[id] || [];
+  var treeRows = arrayToTree(catalogRows);
+  return _extends$1({
+    catalogId: id
+  }, ownProps, {
+    catalogs: nsi.selectors.catalogs(state),
+    selectedCatalog: nsi.reselectors.catalogs.getCatalogById(state, id),
+    catalogRows: treeRows.rootItems
+  });
 };
 
-
 var enhance = redux.compose(utils.injectReducer({
+  key: nsi.name,
+  reducer: redux.combineReducers(nsi.reducers)
+}), reactRedux.connect(mapStateToProps, _extends$1({}, nsi.actions.catalogs, nsi.actions.rows)), reactRouterDom.withRouter);
+
+var Catalog$1 = enhance(Catalog);
+
+// 19.1.2.3 / 15.2.3.7 Object.defineProperties(O, Properties)
+_export(_export.S + _export.F * !_descriptors, 'Object', { defineProperties: _objectDps });
+
+var $Object$2 = _core.Object;
+var defineProperties = function defineProperties(T, D) {
+  return $Object$2.defineProperties(T, D);
+};
+
+var defineProperties$1 = createCommonjsModule(function (module) {
+module.exports = { "default": defineProperties, __esModule: true };
+});
+
+unwrapExports(defineProperties$1);
+
+// most Object methods by ES6 should accept primitives
+
+
+
+var _objectSap = function (KEY, exec) {
+  var fn = (_core.Object || {})[KEY] || Object[KEY];
+  var exp = {};
+  exp[KEY] = exec(fn);
+  _export(_export.S + _export.F * _fails(function () { fn(1); }), 'Object', exp);
+};
+
+// 19.1.2.5 Object.freeze(O)
+
+var meta = _meta.onFreeze;
+
+_objectSap('freeze', function ($freeze) {
+  return function freeze(it) {
+    return $freeze && _isObject(it) ? $freeze(meta(it)) : it;
+  };
+});
+
+var freeze = _core.Object.freeze;
+
+var freeze$1 = createCommonjsModule(function (module) {
+module.exports = { "default": freeze, __esModule: true };
+});
+
+unwrapExports(freeze$1);
+
+var taggedTemplateLiteral = createCommonjsModule(function (module, exports) {
+
+exports.__esModule = true;
+
+
+
+var _defineProperties2 = _interopRequireDefault(defineProperties$1);
+
+
+
+var _freeze2 = _interopRequireDefault(freeze$1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (strings, raw) {
+  return (0, _freeze2.default)((0, _defineProperties2.default)(strings, {
+    raw: {
+      value: (0, _freeze2.default)(raw)
+    }
+  }));
+};
+});
+
+var _taggedTemplateLiteral = unwrapExports(taggedTemplateLiteral);
+
+var _templateObject = _taggedTemplateLiteral(['\n    background: ', ';\n  '], ['\n    background: ', ';\n  ']),
+    _templateObject2 = _taggedTemplateLiteral(['\n  height: 32px;\n  align-items: center;\n  ', '\n  ', '\n'], ['\n  height: 32px;\n  align-items: center;\n  ', '\n  ', '\n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n  text-decoration: none;\n  color: inherit;\n  :visited {\n    color: inherit;\n  }\n'], ['\n  text-decoration: none;\n  color: inherit;\n  :visited {\n    color: inherit;\n  }\n']);
+
+var Panel = designSystem.Collapse.Panel;
+
+var isActive = function isActive(_ref) {
+  var id = _ref.id,
+      activeCatalogId = _ref.activeCatalogId,
+      rest = _objectWithoutProperties(_ref, ['id', 'activeCatalogId']);
+
+  return id && activeCatalogId && id === activeCatalogId && styled.css(_templateObject, rest.theme.colors.lightGrey);
+};
+
+var CollapseItem = styled__default(designSystem.Flex)(_templateObject2, function (props) {
+  return 'border-bottom: 1px solid ' + props.theme.colors.border;
+}, isActive);
+
+var StyledLink = styled__default(reactRouterDom.Link)(_templateObject3);
+
+var CatalogsList = function (_React$Component) {
+  _inherits(CatalogsList, _React$Component);
+
+  function CatalogsList() {
+    var _ref2;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, CatalogsList);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = CatalogsList.__proto__ || Object.getPrototypeOf(CatalogsList)).call.apply(_ref2, [this].concat(args))), _this), _this.state = {
+      isLoading: true
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(CatalogsList, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.props.getAll({ meta: { asPromise: true } }).finally(function () {
+        return _this2.setState({ isLoading: false });
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var activeCatalogId = this.props.match.params.id;
+
+      if (this.state.isLoading) {
+        return React.createElement(
+          designSystem.Text,
+          null,
+          'Loading...'
+        );
+      }
+      var customCatalogs = this.props.data.filter(function (catalog) {
+        return catalog.type;
+      });
+      var systemCatalogs = this.props.data.filter(function (catalog) {
+        return !catalog.type;
+      });
+      // debugger;
+      return React.createElement(
+        designSystem.Box,
+        { width: '100%' },
+        React.createElement(
+          designSystem.Collapse,
+          { defaultActiveKeys: ['system', 'custom'] },
+          React.createElement(
+            Panel,
+            {
+              key: 'system',
+              ml: 24,
+              title: React.createElement(
+                CollapseItem,
+                null,
+                React.createElement(
+                  designSystem.Text,
+                  { bold: true, fontSize: 1 },
+                  '\u0421\u0438\u0441\u0442\u0435\u043C\u043D\u044B\u0435'
+                )
+              )
+            },
+            systemCatalogs.map(function (item) {
+              return React.createElement(
+                CollapseItem,
+                { key: item.id, id: item.id, activeCatalogId: activeCatalogId },
+                React.createElement(
+                  designSystem.Text,
+                  { fontSize: 1 },
+                  React.createElement(
+                    StyledLink,
+                    { to: '/nsi/' + item.id },
+                    item.name
+                  )
+                )
+              );
+            })
+          ),
+          React.createElement(
+            Panel,
+            {
+              key: 'custom',
+              ml: 24,
+              title: React.createElement(
+                CollapseItem,
+                null,
+                React.createElement(
+                  designSystem.Text,
+                  { bold: true, fontSize: 1 },
+                  '\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C\u0441\u043A\u0438\u0435'
+                )
+              )
+            },
+            customCatalogs.map(function (item) {
+              return React.createElement(
+                CollapseItem,
+                { key: item.id, id: item.id, activeCatalogId: activeCatalogId },
+                React.createElement(
+                  designSystem.Text,
+                  { fontSize: 1 },
+                  React.createElement(
+                    StyledLink,
+                    { to: '/nsi/' + item.id },
+                    item.name
+                  )
+                )
+              );
+            })
+          )
+        )
+      );
+    }
+  }]);
+
+  return CatalogsList;
+}(React.Component);
+
+var enhance$1 = redux.compose(utils.injectReducer({
   key: nsi.name,
   reducer: redux.combineReducers(nsi.reducers)
 }), reactRedux.connect(function (state) {
   return {
     data: nsi.selectors.catalogs(state)
   };
-}, nsi.actions.catalogs));
+}, nsi.actions.catalogs), reactRouterDom.withRouter);
 
-var Catalog$1 = enhance(Catalog);
+var CatalogsList$1 = enhance$1(CatalogsList);
+
+var createForm = designSystem.Form.createForm;
+
+var CatalogForm = function (_React$Component) {
+  _inherits(CatalogForm, _React$Component);
+
+  function CatalogForm() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, CatalogForm);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = CatalogForm.__proto__ || Object.getPrototypeOf(CatalogForm)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      attributes: [{
+        key: 1,
+        name: 'HelloTest',
+        type: '123123'
+      }],
+      uuid: 2
+    }, _this.handleAddRow = function () {
+      _this.setState(function (prevState) {
+        return {
+          attributes: prevState.attributes.concat({ key: prevState.uuid, name: prevState.uuid + ' + Name' }),
+          uuid: prevState.uuid + 1
+        };
+      });
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(CatalogForm, [{
+    key: 'render',
+    value: function render() {
+      var getFieldDecorator = this.props.form.getFieldDecorator;
+
+      return React.createElement(
+        designSystem.Box,
+        null,
+        React.createElement(
+          designSystem.Flex,
+          { className: 'fieldWrapper' },
+          React.createElement(
+            designSystem.Flex,
+            { width: '64px', fontSize: 1, alignItems: 'center' },
+            '\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435:'
+          ),
+          React.createElement(
+            designSystem.Flex,
+            { ml: 2, width: '100%' },
+            getFieldDecorator('name', {
+              rules: [{ message: 'Заполните поле name' }]
+            })(React.createElement(designSystem.Input, { placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435' }))
+          )
+        ),
+        React.createElement(
+          designSystem.Flex,
+          { className: 'fieldWrapper', mt: 3 },
+          React.createElement(
+            designSystem.Flex,
+            { width: '64px', fontSize: 1, alignItems: 'center' },
+            '\u0413\u0440\u0443\u043F\u043F\u0430:'
+          ),
+          React.createElement(
+            designSystem.Box,
+            { ml: 2, width: '100%' },
+            getFieldDecorator('group', {
+              rules: [{ message: 'Заполните поле name' }]
+            })(React.createElement(designSystem.Select, { placeholder: '\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u0433\u0440\u0443\u043F\u043F\u0443' }))
+          )
+        ),
+        React.createElement(
+          designSystem.Flex,
+          { className: 'fieldWrapper', mt: 3 },
+          React.createElement(
+            designSystem.Flex,
+            { width: '64px', fontSize: 1, alignItems: 'center' },
+            '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435:'
+          ),
+          React.createElement(
+            designSystem.Flex,
+            { ml: 2, width: '100%' },
+            getFieldDecorator('description', {
+              rules: [{ message: 'Заполните поле name' }]
+            })(React.createElement(designSystem.Input, { placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435' }))
+          )
+        ),
+        React.createElement(
+          designSystem.Box,
+          { mt: 4 },
+          React.createElement(
+            designSystem.Table,
+            { data: this.state.attributes, minHeight: 72 + 48, rowHeight: 72, autoHeight: true, rowKey: 'key' },
+            React.createElement(
+              designSystem.Table.Column,
+              { width: 160, sort: true },
+              React.createElement(
+                designSystem.Table.HeaderCell,
+                { style: { paddingLeft: '16px' } },
+                '\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435'
+              ),
+              React.createElement(designSystem.Table.Cell, { style: { paddingLeft: '16px' }, dataKey: 'name' })
+            ),
+            React.createElement(
+              designSystem.Table.Column,
+              { width: 160, sort: true },
+              React.createElement(
+                designSystem.Table.HeaderCell,
+                { style: { paddingLeft: '16px' } },
+                '\u0422\u0438\u043F'
+              ),
+              React.createElement(designSystem.Table.Cell, { dataKey: 'type' })
+            ),
+            React.createElement(
+              designSystem.Table.Column,
+              { width: 128, sort: true },
+              React.createElement(
+                designSystem.Table.HeaderCell,
+                { style: { paddingLeft: '16px' } },
+                '\u041E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u044C'
+              ),
+              React.createElement(designSystem.Table.Cell, { dataKey: 'type' })
+            ),
+            React.createElement(
+              designSystem.Table.Column,
+              { width: 128, sort: true },
+              React.createElement(
+                designSystem.Table.HeaderCell,
+                { style: { paddingLeft: '16px' } },
+                '\u0423\u043D\u0438\u043A\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u044C'
+              ),
+              React.createElement(designSystem.Table.Cell, { dataKey: 'type' })
+            ),
+            React.createElement(
+              designSystem.Table.Column,
+              { width: 160, sort: true },
+              React.createElement(
+                designSystem.Table.HeaderCell,
+                { style: { paddingLeft: '16px' } },
+                '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435'
+              ),
+              React.createElement(designSystem.Table.Cell, { dataKey: 'type' })
+            ),
+            React.createElement(
+              designSystem.Table.Column,
+              { width: 96 },
+              React.createElement(
+                designSystem.Table.HeaderCell,
+                null,
+                '\u0414\u0435\u0439\u0441\u0442\u0432\u0438\u044F'
+              ),
+              React.createElement(
+                designSystem.Table.Cell,
+                null,
+                function (rowData) {
+                  return React.createElement(designSystem.Icon, { name: 'ellipsis-h', onClick: function onClick() {
+                      alert(rowData.id);
+                    } });
+                }
+              )
+            )
+          ),
+          React.createElement(designSystem.Divider, null),
+          React.createElement(
+            designSystem.Box,
+            { mt: 3 },
+            React.createElement(
+              designSystem.Button,
+              { block: true, onClick: this.handleAddRow },
+              '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0441\u0442\u043E\u043B\u0431\u0435\u0446'
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return CatalogForm;
+}(React.Component);
+
+var CatalogForm$1 = createForm()(CatalogForm);
+
+var _templateObject$1 = _taggedTemplateLiteral(['\n  margin: 0 160px;\n  height: 87px;\n  align-items: center;\n  border-bottom: 1px solid #ecebeb;\n'], ['\n  margin: 0 160px;\n  height: 87px;\n  align-items: center;\n  border-bottom: 1px solid #ecebeb;\n']);
+
+var CreateHeader = function CreateHeader(props) {
+  return React.createElement(
+    designSystem.Flex,
+    { justifyContent: 'space-between', flex: 1, alignItems: 'center' },
+    React.createElement(
+      designSystem.Text,
+      { fontSize: 3 },
+      '\u0421\u043E\u0437\u0434\u0430\u043D\u0438\u0435 \u0441\u043F\u0440\u0430\u0432\u043E\u0447\u043D\u0438\u043A\u0430'
+    ),
+    React.createElement(
+      designSystem.Box,
+      { className: 'buttonsWrapper' },
+      React.createElement(
+        designSystem.Button,
+        null,
+        '\u0421\u043E\u0437\u0434\u0430\u0442\u044C'
+      ),
+      React.createElement(
+        designSystem.Button,
+        { type: 'bordered', ml: 3 },
+        '\u041E\u0442\u043C\u0435\u043D\u0430'
+      )
+    )
+  );
+};
+
+var EditHeader = function EditHeader(props) {
+  var history = props.history;
+
+  return React.createElement(
+    designSystem.Flex,
+    { justifyContent: 'space-between', flex: 1, alignItems: 'center' },
+    React.createElement(
+      designSystem.Text,
+      { fontSize: 3 },
+      '\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435 \u0441\u043F\u0440\u0430\u0432\u043E\u0447\u043D\u0438\u043A\u0430'
+    ),
+    React.createElement(
+      designSystem.Box,
+      { className: 'buttonsWrapper' },
+      React.createElement(
+        designSystem.Button,
+        null,
+        '\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C'
+      ),
+      React.createElement(
+        designSystem.Button,
+        { type: 'bordered', ml: 3, onClick: function onClick() {
+            return history.goBack();
+          } },
+        '\u041E\u0442\u043C\u0435\u043D\u0430'
+      )
+    )
+  );
+};
+
+var ViewHeader = function ViewHeader(props) {
+  var history = props.history,
+      location = props.location;
+
+  console.log('ViewHeader', props);
+  return React.createElement(
+    designSystem.Flex,
+    { justifyContent: 'space-between', flex: 1, alignItems: 'center' },
+    React.createElement(
+      designSystem.Text,
+      { fontSize: 3 },
+      'C\u043F\u0440\u0430\u0432\u043E\u0447\u043D\u0438\u043A'
+    ),
+    React.createElement(
+      designSystem.Box,
+      { className: 'buttonsWrapper' },
+      React.createElement(
+        designSystem.Button,
+        { type: 'flat', onClick: function onClick() {
+            history.push(location.pathname + '/edit');
+          } },
+        React.createElement(designSystem.Icon, { mr: 3, name: 'edit' }),
+        '\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C'
+      ),
+      React.createElement(
+        designSystem.Button,
+        { type: 'flat', ml: 3 },
+        React.createElement(designSystem.Icon, { mr: 3, name: 'save' }),
+        '\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u043A\u0430\u0442\u0430\u043B\u043E\u0433'
+      )
+    )
+  );
+};
+
+var Placeholder = function Placeholder(props) {
+  return React.createElement(
+    designSystem.Box,
+    null,
+    '\u041D\u0415\u0422 \u0422\u0410\u041A\u041E\u0413\u041E \u0412 \u041C\u0410\u041A\u0415\u0422\u0415 \u0423\u0420\u0423\u0420\u0423'
+  );
+};
+
+var HeaderWrapper = styled__default(designSystem.Flex)(_templateObject$1);
+
+var Header = function Header(props) {
+  return React.createElement(
+    HeaderWrapper,
+    null,
+    React.createElement(
+      reactRouterDom.Switch,
+      null,
+      React.createElement(reactRouterDom.Route, { exact: true, path: '/nsi/create', component: CreateHeader }),
+      React.createElement(reactRouterDom.Route, { exact: true, path: '/nsi/:id/edit', component: EditHeader }),
+      React.createElement(reactRouterDom.Route, { path: '/nsi/:id', component: ViewHeader }),
+      React.createElement(reactRouterDom.Route, { exact: true, path: '/nsi', component: Placeholder })
+    )
+  );
+};
+
+var Header$1 = reactRouterDom.withRouter(Header);
+
+var BaseNSITemplate = function (_React$Component) {
+  _inherits(BaseNSITemplate, _React$Component);
+
+  function BaseNSITemplate() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, BaseNSITemplate);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = BaseNSITemplate.__proto__ || Object.getPrototypeOf(BaseNSITemplate)).call.apply(_ref, [this].concat(args))), _this), _this.handleFormSubmit = function (form) {
+      console.log('Haha, got dis form', form);
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(BaseNSITemplate, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return React.createElement(
+        designSystem.Flex,
+        { flexDirection: 'column', width: '1440px', mx: 'auto' },
+        React.createElement(Header$1, { handleFormSubmit: this.handleFormSubmit }),
+        React.createElement(
+          designSystem.Flex,
+          { mt: 3, mx: 160 },
+          React.createElement(
+            designSystem.Box,
+            { flex: '0 0 256px' },
+            React.createElement(reactRouterDom.Route, { path: '/nsi/:id?', component: CatalogsList$1 })
+          ),
+          React.createElement(
+            designSystem.Box,
+            { ml: '32px', flex: '1' },
+            React.createElement(
+              reactRouterDom.Switch,
+              null,
+              React.createElement(reactRouterDom.Route, { exact: true, path: '/nsi/create', component: function component() {
+                  return React.createElement(CatalogForm$1, { handleFormSubmit: _this2.handleFormSubmit });
+                } }),
+              React.createElement(reactRouterDom.Route, { exact: true, path: '/nsi/:id/edit', component: function component() {
+                  return React.createElement(CatalogForm$1, { handleFormSubmit: _this2.handleFormSubmit });
+                } }),
+              React.createElement(reactRouterDom.Route, { path: '/nsi/:id', component: Catalog$1 })
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return BaseNSITemplate;
+}(React.Component);
+
+var index = reactRouterDom.withRouter(BaseNSITemplate);
 
 exports.Catalog = Catalog$1;
+exports.CatalogsList = CatalogsList$1;
+exports.BaseNSITemplate = index;
 //# sourceMappingURL=index.js.map

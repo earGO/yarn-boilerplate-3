@@ -1,6 +1,7 @@
 'use strict';
 
 var reduxSagaRequests = require('redux-saga-requests');
+var reselect = require('reselect');
 
 function unwrapExports (x) {
 	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x.default : x;
@@ -20,7 +21,7 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 });
 
 var _core = createCommonjsModule(function (module) {
-var core = module.exports = { version: '2.6.3' };
+var core = module.exports = { version: '2.6.5' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 });
 var _core_1 = _core.version;
@@ -238,7 +239,7 @@ var _defineProperty = unwrapExports(defineProperty$3);
 
 var ru_ursip = {
 	name: "nsi-service",
-	context: "api/nsi/v1"
+	context: "http://develop.ursip.local/api/bim-nsi-dev/v1"
 };
 
 var controller = 'catalogs';
@@ -326,8 +327,21 @@ var stateSelector = function stateSelector(state) {
   return state[name$1] && state[name$1][controller];
 };
 
-/* reducer */
-function reducer() {
+var id = function id(_, _id) {
+  return _id;
+};
+
+var getCatalogById = reselect.createSelector(stateSelector, id, function (catalogsList, id) {
+  return (catalogsList || []).find(function (item) {
+    return item.id === id;
+  }) || {};
+});
+
+var reselectors = {
+  getCatalogById: getCatalogById
+
+  /* reducer */
+};function reducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var _ref = arguments[1];
   var type = _ref.type,
@@ -348,6 +362,7 @@ var catalogs = /*#__PURE__*/Object.freeze({
 	types: types,
 	actions: actions,
 	stateSelector: stateSelector,
+	reselectors: reselectors,
 	default: reducer
 });
 
@@ -414,6 +429,225 @@ var elements = /*#__PURE__*/Object.freeze({
 	default: reducer$1
 });
 
+var toString = {}.toString;
+
+var _cof = function (it) {
+  return toString.call(it).slice(8, -1);
+};
+
+// fallback for non-array-like ES3 and non-enumerable old V8 strings
+
+// eslint-disable-next-line no-prototype-builtins
+var _iobject = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
+  return _cof(it) == 'String' ? it.split('') : Object(it);
+};
+
+// 7.2.1 RequireObjectCoercible(argument)
+var _defined = function (it) {
+  if (it == undefined) throw TypeError("Can't call method on  " + it);
+  return it;
+};
+
+// to indexed object, toObject with fallback for non-array-like ES3 strings
+
+
+var _toIobject = function (it) {
+  return _iobject(_defined(it));
+};
+
+// 7.1.4 ToInteger
+var ceil = Math.ceil;
+var floor = Math.floor;
+var _toInteger = function (it) {
+  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
+};
+
+// 7.1.15 ToLength
+
+var min = Math.min;
+var _toLength = function (it) {
+  return it > 0 ? min(_toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
+};
+
+var max = Math.max;
+var min$1 = Math.min;
+var _toAbsoluteIndex = function (index, length) {
+  index = _toInteger(index);
+  return index < 0 ? max(index + length, 0) : min$1(index, length);
+};
+
+// false -> Array#indexOf
+// true  -> Array#includes
+
+
+
+var _arrayIncludes = function (IS_INCLUDES) {
+  return function ($this, el, fromIndex) {
+    var O = _toIobject($this);
+    var length = _toLength(O.length);
+    var index = _toAbsoluteIndex(fromIndex, length);
+    var value;
+    // Array#includes uses SameValueZero equality algorithm
+    // eslint-disable-next-line no-self-compare
+    if (IS_INCLUDES && el != el) while (length > index) {
+      value = O[index++];
+      // eslint-disable-next-line no-self-compare
+      if (value != value) return true;
+    // Array#indexOf ignores holes, Array#includes - not
+    } else for (;length > index; index++) if (IS_INCLUDES || index in O) {
+      if (O[index] === el) return IS_INCLUDES || index || 0;
+    } return !IS_INCLUDES && -1;
+  };
+};
+
+var _library = true;
+
+var _shared = createCommonjsModule(function (module) {
+var SHARED = '__core-js_shared__';
+var store = _global[SHARED] || (_global[SHARED] = {});
+
+(module.exports = function (key, value) {
+  return store[key] || (store[key] = value !== undefined ? value : {});
+})('versions', []).push({
+  version: _core.version,
+  mode: _library ? 'pure' : 'global',
+  copyright: '© 2019 Denis Pushkarev (zloirock.ru)'
+});
+});
+
+var id$1 = 0;
+var px = Math.random();
+var _uid = function (key) {
+  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id$1 + px).toString(36));
+};
+
+var shared = _shared('keys');
+
+var _sharedKey = function (key) {
+  return shared[key] || (shared[key] = _uid(key));
+};
+
+var arrayIndexOf = _arrayIncludes(false);
+var IE_PROTO = _sharedKey('IE_PROTO');
+
+var _objectKeysInternal = function (object, names) {
+  var O = _toIobject(object);
+  var i = 0;
+  var result = [];
+  var key;
+  for (key in O) if (key != IE_PROTO) _has(O, key) && result.push(key);
+  // Don't enum bug & hidden keys
+  while (names.length > i) if (_has(O, key = names[i++])) {
+    ~arrayIndexOf(result, key) || result.push(key);
+  }
+  return result;
+};
+
+// IE 8- don't enum bug keys
+var _enumBugKeys = (
+  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
+).split(',');
+
+// 19.1.2.14 / 15.2.3.14 Object.keys(O)
+
+
+
+var _objectKeys = Object.keys || function keys(O) {
+  return _objectKeysInternal(O, _enumBugKeys);
+};
+
+var f$1 = Object.getOwnPropertySymbols;
+
+var _objectGops = {
+	f: f$1
+};
+
+var f$2 = {}.propertyIsEnumerable;
+
+var _objectPie = {
+	f: f$2
+};
+
+// 7.1.13 ToObject(argument)
+
+var _toObject = function (it) {
+  return Object(_defined(it));
+};
+
+// 19.1.2.1 Object.assign(target, source, ...)
+
+
+
+
+
+var $assign = Object.assign;
+
+// should work with symbols and should have deterministic property order (V8 bug)
+var _objectAssign = !$assign || _fails(function () {
+  var A = {};
+  var B = {};
+  // eslint-disable-next-line no-undef
+  var S = Symbol();
+  var K = 'abcdefghijklmnopqrst';
+  A[S] = 7;
+  K.split('').forEach(function (k) { B[k] = k; });
+  return $assign({}, A)[S] != 7 || Object.keys($assign({}, B)).join('') != K;
+}) ? function assign(target, source) { // eslint-disable-line no-unused-vars
+  var T = _toObject(target);
+  var aLen = arguments.length;
+  var index = 1;
+  var getSymbols = _objectGops.f;
+  var isEnum = _objectPie.f;
+  while (aLen > index) {
+    var S = _iobject(arguments[index++]);
+    var keys = getSymbols ? _objectKeys(S).concat(getSymbols(S)) : _objectKeys(S);
+    var length = keys.length;
+    var j = 0;
+    var key;
+    while (length > j) if (isEnum.call(S, key = keys[j++])) T[key] = S[key];
+  } return T;
+} : $assign;
+
+// 19.1.3.1 Object.assign(target, source)
+
+
+_export(_export.S + _export.F, 'Object', { assign: _objectAssign });
+
+var assign = _core.Object.assign;
+
+var assign$1 = createCommonjsModule(function (module) {
+module.exports = { "default": assign, __esModule: true };
+});
+
+unwrapExports(assign$1);
+
+var _extends = createCommonjsModule(function (module, exports) {
+
+exports.__esModule = true;
+
+
+
+var _assign2 = _interopRequireDefault(assign$1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _assign2.default || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+});
+
+var _extends$1 = unwrapExports(_extends);
+
 var controller$2 = 'rows';
 var name$3 = ru_ursip.name,
     context$2 = ru_ursip.context;
@@ -439,8 +673,9 @@ var types$2 = {
       type: GET_ALL_BY_CATALOG_ID$1,
       payload: {
         request: {
-          url: context$2 + '/' + controller$2 + '/getAllByCatalogId?id=' + id + '&catalogId=' + catalogId
-        }
+          url: context$2 + '/' + controller$2 + '/getAllByCatalogId?catalogId=' + catalogId
+        },
+        catalogId: catalogId
       },
       meta: args.meta
     };
@@ -462,7 +697,9 @@ function reducer$2() {
 
   switch (type) {
     case reduxSagaRequests.success(GET_ALL_BY_CATALOG_ID$1):
-      return meta.normalize ? meta.normalize(payload.data) : payload.data;
+      {
+        return _extends$1({}, state, _defineProperty({}, meta.requestAction.payload.catalogId, payload.data));
+      }
 
     default:
       return state;
@@ -487,13 +724,15 @@ function extract(controllers$$1) {
     acc.actions[key] = controllers$$1[key].actions;
     acc.selectors[key] = controllers$$1[key].stateSelector;
     acc.reducers[key] = controllers$$1[key].default;
+    acc.reselectors[key] = controllers$$1[key].reselectors;
 
     return acc;
   }, {
     types: {},
     actions: {},
     selectors: {},
-    reducers: {}
+    reducers: {},
+    reselectors: {}
   });
 }
 
@@ -501,11 +740,13 @@ var _extract = extract(controllers),
     selectors = _extract.selectors,
     actions$3 = _extract.actions,
     reducers = _extract.reducers,
-    types$3 = _extract.types;
+    types$3 = _extract.types,
+    reselectors$1 = _extract.reselectors;
 
 var name$4 = ru_ursip.name;
 
 var index = {
+  reselectors: reselectors$1,
   name: name$4,
   types: types$3,
   actions: actions$3,
