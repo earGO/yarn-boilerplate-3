@@ -45,9 +45,9 @@ class CatalogsList extends React.Component {
     if (this.state.isLoading) {
       return <Text>Loading...</Text>
     }
+    /** На самом деле там никаких разделений нет, поле type хз что значит, но можно по нему разбить в 2 группы */
     const customCatalogs = this.props.data.filter(catalog => catalog.type)
     const systemCatalogs = this.props.data.filter(catalog => !catalog.type)
-    // debugger;
     return (
       <Box width="100%">
         <Collapse defaultActiveKeys={['system', 'custom']}>

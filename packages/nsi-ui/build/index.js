@@ -14,6 +14,7 @@ var designSystem = require('@ursip/design-system');
 var styled = require('styled-components');
 var styled__default = _interopDefault(styled);
 require('reselect');
+var propTypes = _interopDefault(require('prop-types'));
 
 function unwrapExports (x) {
 	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x.default : x;
@@ -86,11 +87,11 @@ var _descriptors = !_fails(function () {
   return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
 });
 
-var document = _global.document;
+var document$1 = _global.document;
 // typeof document.createElement is 'object' in old IE
-var is = _isObject(document) && _isObject(document.createElement);
+var is = _isObject(document$1) && _isObject(document$1.createElement);
 var _domCreate = function (it) {
-  return is ? document.createElement(it) : {};
+  return is ? document$1.createElement(it) : {};
 };
 
 var _ie8DomDefine = !_descriptors && !_fails(function () {
@@ -512,8 +513,8 @@ var _objectDps = _descriptors ? Object.defineProperties : function definePropert
   return O;
 };
 
-var document$1 = _global.document;
-var _html = document$1 && document$1.documentElement;
+var document$2 = _global.document;
+var _html = document$2 && document$2.documentElement;
 
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 
@@ -609,8 +610,6 @@ var FF_ITERATOR = '@@iterator';
 var KEYS = 'keys';
 var VALUES = 'values';
 
-var returnThis = function () { return this; };
-
 var _iterDefine = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED) {
   _iterCreate(Constructor, NAME, next);
   var getMethod = function (kind) {
@@ -635,8 +634,6 @@ var _iterDefine = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORC
     if (IteratorPrototype !== Object.prototype && IteratorPrototype.next) {
       // Set @@toStringTag to native iterators
       _setToStringTag(IteratorPrototype, TAG, true);
-      // fix for some old engines
-      if (!_library && typeof IteratorPrototype[ITERATOR] != 'function') _hide(IteratorPrototype, ITERATOR, returnThis);
     }
   }
   // fix Array#{values, @@iterator}.name in V8 / FF
@@ -645,7 +642,7 @@ var _iterDefine = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORC
     $default = function values() { return $native.call(this); };
   }
   // Define iterator
-  if ((!_library || FORCED) && (BUGGY || VALUES_BUG || !proto[ITERATOR])) {
+  if ((FORCED) && (BUGGY || VALUES_BUG || !proto[ITERATOR])) {
     _hide(proto, ITERATOR, $default);
   }
   if (DEFAULT) {
@@ -1332,11 +1329,10 @@ var Catalog = function (_React$Component) {
       loading: false,
       selected: null
     }, _this.getTableColumns = function () {
-      console.log('Catalog, rows', _this.props.selectedCatalog, _this.props.catalogRows);
+      // console.log('Catalog, rows', this.props.selectedCatalog, this.props.catalogRows )
       var attributes = _this.props.selectedCatalog.attributes;
 
       return (attributes || []).map(function (attribute) {
-        var rndValue = attribute.title.length * 10;
         return React.createElement(
           designSystem.Table.Column,
           { key: attribute.key, flexGrow: 1, minWidth: 160 },
@@ -1429,10 +1425,10 @@ var Catalog = function (_React$Component) {
               null,
               React.createElement(
                 designSystem.Box,
-                { width: '144px' },
+                { width: '160px' },
                 React.createElement(
                   designSystem.Button,
-                  { size: 'small' },
+                  { type: 'secondary', size: 'small' },
                   React.createElement(designSystem.Icon, { mr: 2, name: 'plus-circle' }),
                   '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0441\u0442\u0440\u043E\u043A\u0443'
                 )
@@ -1442,14 +1438,14 @@ var Catalog = function (_React$Component) {
                 { width: '192px' },
                 React.createElement(
                   designSystem.Button,
-                  { size: 'small' },
+                  { type: 'flat', size: 'small' },
                   React.createElement(designSystem.Icon, { mr: 2, name: 'chevron-down' }),
                   '\u0420\u0430\u0441\u0448\u0438\u0440\u0435\u043D\u043D\u044B\u0439 \u043F\u043E\u0438\u0441\u043A'
                 )
               ),
               React.createElement(
-                designSystem.Box,
-                { width: '16px' },
+                designSystem.Flex,
+                { width: '16px', alignItems: 'center' },
                 React.createElement(designSystem.Icon, { mr: 2, name: 'ellipsis-v' })
               )
             )
@@ -1634,13 +1630,13 @@ var CatalogsList = function (_React$Component) {
           'Loading...'
         );
       }
+      /** На самом деле там никаких разделений нет, поле type хз что значит, но можно по нему разбить в 2 группы */
       var customCatalogs = this.props.data.filter(function (catalog) {
         return catalog.type;
       });
       var systemCatalogs = this.props.data.filter(function (catalog) {
         return !catalog.type;
       });
-      // debugger;
       return React.createElement(
         designSystem.Box,
         { width: '100%' },
@@ -1728,7 +1724,174 @@ var enhance$1 = redux.compose(utils.injectReducer({
 
 var CatalogsList$1 = enhance$1(CatalogsList);
 
+var defineProperty$4 = createCommonjsModule(function (module, exports) {
+
+exports.__esModule = true;
+
+
+
+var _defineProperty2 = _interopRequireDefault(defineProperty$1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (obj, key, value) {
+  if (key in obj) {
+    (0, _defineProperty2.default)(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+};
+});
+
+var _defineProperty = unwrapExports(defineProperty$4);
+
+var typeOptions = [{ label: 'Строка', value: 'string' }, { label: 'Дата', value: 'date' }, { label: 'Целое число', value: 'number' }, { label: 'Логическое', value: 'boolean' }, { label: 'Другой справочник', value: 'ref_link' }];
+
+var CatalogTable = function CatalogTable(_ref) {
+  var handleItemChange = _ref.handleItemChange,
+      handleItemDelete = _ref.handleItemDelete,
+      attributes = _ref.attributes;
+
+  return React.createElement(
+    designSystem.Table,
+    { data: attributes, minHeight: 72 + 48, rowHeight: 72, autoHeight: true, rowKey: 'id' },
+    React.createElement(
+      designSystem.Table.Column,
+      { width: 160, sort: true },
+      React.createElement(
+        designSystem.Table.HeaderCell,
+        { style: { paddingLeft: '16px' } },
+        '\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435'
+      ),
+      React.createElement(
+        designSystem.Table.Cell,
+        { style: { paddingLeft: '16px' }, dataKey: 'title' },
+        function (rowData) {
+          return React.createElement(designSystem.Input, { value: rowData.title, onChange: handleItemChange('title', rowData.id) });
+        }
+      )
+    ),
+    React.createElement(
+      designSystem.Table.Column,
+      { width: 160, sort: true },
+      React.createElement(
+        designSystem.Table.HeaderCell,
+        { style: { paddingLeft: '16px' } },
+        '\u0422\u0438\u043F'
+      ),
+      React.createElement(
+        designSystem.Table.Cell,
+        { style: { paddingLeft: '16px', flex: 1 }, dataKey: 'type', flexGrow: 1 },
+        function (rowData) {
+          return React.createElement(
+            designSystem.Box,
+            { flex: '1' },
+            React.createElement(designSystem.Select, {
+              options: typeOptions
+              // temp
+              , value: typeOptions.find(function (item) {
+                return item.value === rowData.type;
+              })
+              // value={rowData.type}
+              , menuPortalTarget: document.getElementById('tableWrapper'),
+              onChange: handleItemChange('type', rowData.id)
+            })
+          );
+        }
+      )
+    ),
+    React.createElement(
+      designSystem.Table.Column,
+      { width: 128, sort: true },
+      React.createElement(
+        designSystem.Table.HeaderCell,
+        { style: { justifyContent: 'center' } },
+        '\u041E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u044C'
+      ),
+      React.createElement(
+        designSystem.Table.Cell,
+        { style: { paddingLeft: 16, justifyContent: 'center' }, dataKey: 'required' },
+        function (rowData) {
+          return React.createElement(designSystem.Toggle, { checked: rowData.required, onChange: handleItemChange('required', rowData.id) });
+        }
+      )
+    ),
+    React.createElement(
+      designSystem.Table.Column,
+      { width: 128, sort: true },
+      React.createElement(
+        designSystem.Table.HeaderCell,
+        { style: { justifyContent: 'center' } },
+        '\u0423\u043D\u0438\u043A\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u044C'
+      ),
+      React.createElement(
+        designSystem.Table.Cell,
+        { style: { paddingLeft: 16, justifyContent: 'center' }, dataKey: 'unique' },
+        function (rowData) {
+          return React.createElement(designSystem.Toggle, { checked: rowData.unique, onChange: handleItemChange('unique', rowData.id) });
+        }
+      )
+    ),
+    React.createElement(
+      designSystem.Table.Column,
+      { width: 160, sort: true },
+      React.createElement(
+        designSystem.Table.HeaderCell,
+        { style: { paddingLeft: '16px' } },
+        '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435'
+      ),
+      React.createElement(
+        designSystem.Table.Cell,
+        { dataKey: 'description' },
+        function (rowData) {
+          return React.createElement(designSystem.Input, { value: rowData.description, onChange: handleItemChange('description', rowData.id) });
+        }
+      )
+    ),
+    React.createElement(
+      designSystem.Table.Column,
+      { width: 96 },
+      React.createElement(
+        designSystem.Table.HeaderCell,
+        null,
+        '\u0414\u0435\u0439\u0441\u0442\u0432\u0438\u044F'
+      ),
+      React.createElement(
+        designSystem.Table.Cell,
+        null,
+        function (rowData) {
+          return React.createElement(designSystem.Icon, {
+            name: 'ellipsis-h',
+            onClick: function onClick() {
+              alert(rowData.id);
+            }
+          });
+        }
+      )
+    )
+  );
+};
+
+CatalogTable.propTypes = {
+  attributes: propTypes.array,
+  handleItemChange: propTypes.func,
+  handleItemDelete: propTypes.func
+};
+
 var createForm = designSystem.Form.createForm;
+
+// attributes: [{key: "2a0d678e-464d-4b7b-aea6-eb37f5855feb"}]
+// description: "Описания нужны."
+// group: "Группаааа"
+// name: "Тестовый каталог"
+// type: false
 
 var CatalogForm = function (_React$Component) {
   _inherits(CatalogForm, _React$Component);
@@ -1745,26 +1908,59 @@ var CatalogForm = function (_React$Component) {
     }
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = CatalogForm.__proto__ || Object.getPrototypeOf(CatalogForm)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-      attributes: [{
-        key: 1,
-        name: 'HelloTest',
-        type: '123123'
-      }],
+      // В оригинальном коде эти uuid генерились, через пакет uuid().
       uuid: 2
     }, _this.handleAddRow = function () {
+      var form = _this.props.form;
+
+      var attributes = form.getFieldValue('attributes') || [];
+      form.setFieldsValue({
+        attributes: attributes.concat({ id: _this.state.uuid })
+      });
       _this.setState(function (prevState) {
         return {
-          attributes: prevState.attributes.concat({ key: prevState.uuid, name: prevState.uuid + ' + Name' }),
           uuid: prevState.uuid + 1
         };
+      });
+    }, _this.handleItemChange = function (field, id) {
+      return function (value) {
+        var form = _this.props.form;
+
+        var attributes = form.getFieldValue('attributes');
+        var attributeIndex = attributes.findIndex(function (item) {
+          return item.id === id;
+        });
+        var updatedAttribute = _extends$1({}, attributes[attributeIndex], _defineProperty({}, field, value));
+        var attributesCopy = attributes.slice();
+        attributesCopy[attributeIndex] = updatedAttribute;
+        form.setFieldsValue({
+          attributes: attributesCopy
+        });
+      };
+    }, _this.handleItemDelete = function (id) {
+      var form = _this.props.form;
+
+      var attributes = form.getFieldValue('attributes');
+      console.log('Deleting row with id', id);
+      form.setFieldsValue({
+        attributes: attributes.filter(function (attr) {
+          return attr.id !== id;
+        })
       });
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(CatalogForm, [{
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+      console.log('Update redux state here maybe?', this.props.form.getFieldsValue());
+    }
+  }, {
     key: 'render',
     value: function render() {
       var getFieldDecorator = this.props.form.getFieldDecorator;
+      var _props$catalogToEdit = this.props.catalogToEdit,
+          catalogToEdit = _props$catalogToEdit === undefined ? {} : _props$catalogToEdit;
 
       return React.createElement(
         designSystem.Box,
@@ -1781,6 +1977,7 @@ var CatalogForm = function (_React$Component) {
             designSystem.Flex,
             { ml: 2, width: '100%' },
             getFieldDecorator('name', {
+              initialValue: catalogToEdit.name,
               rules: [{ message: 'Заполните поле name' }]
             })(React.createElement(designSystem.Input, { placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435' }))
           )
@@ -1797,6 +1994,7 @@ var CatalogForm = function (_React$Component) {
             designSystem.Box,
             { ml: 2, width: '100%' },
             getFieldDecorator('group', {
+              initialValue: catalogToEdit.group,
               rules: [{ message: 'Заполните поле name' }]
             })(React.createElement(designSystem.Select, { placeholder: '\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u0433\u0440\u0443\u043F\u043F\u0443' }))
           )
@@ -1813,92 +2011,28 @@ var CatalogForm = function (_React$Component) {
             designSystem.Flex,
             { ml: 2, width: '100%' },
             getFieldDecorator('description', {
+              initialValue: catalogToEdit.description,
               rules: [{ message: 'Заполните поле name' }]
             })(React.createElement(designSystem.Input, { placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435' }))
           )
         ),
+        getFieldDecorator('attributes', { initialValue: catalogToEdit.attributes })(React.createElement(designSystem.Input, { style: { display: 'none' } })),
         React.createElement(
           designSystem.Box,
-          { mt: 4 },
-          React.createElement(
-            designSystem.Table,
-            { data: this.state.attributes, minHeight: 72 + 48, rowHeight: 72, autoHeight: true, rowKey: 'key' },
-            React.createElement(
-              designSystem.Table.Column,
-              { width: 160, sort: true },
-              React.createElement(
-                designSystem.Table.HeaderCell,
-                { style: { paddingLeft: '16px' } },
-                '\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435'
-              ),
-              React.createElement(designSystem.Table.Cell, { style: { paddingLeft: '16px' }, dataKey: 'name' })
-            ),
-            React.createElement(
-              designSystem.Table.Column,
-              { width: 160, sort: true },
-              React.createElement(
-                designSystem.Table.HeaderCell,
-                { style: { paddingLeft: '16px' } },
-                '\u0422\u0438\u043F'
-              ),
-              React.createElement(designSystem.Table.Cell, { dataKey: 'type' })
-            ),
-            React.createElement(
-              designSystem.Table.Column,
-              { width: 128, sort: true },
-              React.createElement(
-                designSystem.Table.HeaderCell,
-                { style: { paddingLeft: '16px' } },
-                '\u041E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u044C'
-              ),
-              React.createElement(designSystem.Table.Cell, { dataKey: 'type' })
-            ),
-            React.createElement(
-              designSystem.Table.Column,
-              { width: 128, sort: true },
-              React.createElement(
-                designSystem.Table.HeaderCell,
-                { style: { paddingLeft: '16px' } },
-                '\u0423\u043D\u0438\u043A\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u044C'
-              ),
-              React.createElement(designSystem.Table.Cell, { dataKey: 'type' })
-            ),
-            React.createElement(
-              designSystem.Table.Column,
-              { width: 160, sort: true },
-              React.createElement(
-                designSystem.Table.HeaderCell,
-                { style: { paddingLeft: '16px' } },
-                '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435'
-              ),
-              React.createElement(designSystem.Table.Cell, { dataKey: 'type' })
-            ),
-            React.createElement(
-              designSystem.Table.Column,
-              { width: 96 },
-              React.createElement(
-                designSystem.Table.HeaderCell,
-                null,
-                '\u0414\u0435\u0439\u0441\u0442\u0432\u0438\u044F'
-              ),
-              React.createElement(
-                designSystem.Table.Cell,
-                null,
-                function (rowData) {
-                  return React.createElement(designSystem.Icon, { name: 'ellipsis-h', onClick: function onClick() {
-                      alert(rowData.id);
-                    } });
-                }
-              )
-            )
-          ),
+          { mt: 4, id: 'tableWrapper' },
+          React.createElement(CatalogTable, {
+            attributes: this.props.form.getFieldValue('attributes'),
+            handleItemChange: this.handleItemChange,
+            handleItemDelete: this.handleItemDelete
+          }),
           React.createElement(designSystem.Divider, null),
           React.createElement(
             designSystem.Box,
-            { mt: 3 },
+            { mt: 3, alignItems: 'center' },
             React.createElement(
               designSystem.Button,
-              { block: true, onClick: this.handleAddRow },
+              { type: 'secondary', block: true, onClick: this.handleAddRow },
+              React.createElement(designSystem.Icon, { name: 'plus-circle', mr: 2 }),
               '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0441\u0442\u043E\u043B\u0431\u0435\u0446'
             )
           )
@@ -1910,10 +2044,27 @@ var CatalogForm = function (_React$Component) {
   return CatalogForm;
 }(React.Component);
 
-var CatalogForm$1 = createForm()(CatalogForm);
+var mapStateToProps$1 = function mapStateToProps(state, ownProps) {
+  var id = ownProps.match.params.id;
+
+  if (id) {
+    var catalogToEdit = nsi.reselectors.catalogs.getCatalogById(state, id);
+    return _extends$1({}, ownProps, {
+      catalogToEdit: catalogToEdit
+    });
+  }
+  return _extends$1({}, ownProps);
+};
+
+var enhanced = redux.compose(createForm(), reactRouterDom.withRouter, reactRedux.connect(mapStateToProps$1));
+
+var CatalogForm$1 = enhanced(CatalogForm);
 
 var _templateObject$1 = _taggedTemplateLiteral(['\n  margin: 0 160px;\n  height: 87px;\n  align-items: center;\n  border-bottom: 1px solid #ecebeb;\n'], ['\n  margin: 0 160px;\n  height: 87px;\n  align-items: center;\n  border-bottom: 1px solid #ecebeb;\n']);
 
+/** Вот как из отсюда забрать данные из формы?
+ * Как вариант - пихать состояние формы в редакс,
+ * по клику Создать - забирать оттуда значения, отправлять. */
 var CreateHeader = function CreateHeader(props) {
   return React.createElement(
     designSystem.Flex,
@@ -2035,26 +2186,14 @@ var BaseNSITemplate = function (_React$Component) {
   _inherits(BaseNSITemplate, _React$Component);
 
   function BaseNSITemplate() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
     _classCallCheck(this, BaseNSITemplate);
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = BaseNSITemplate.__proto__ || Object.getPrototypeOf(BaseNSITemplate)).call.apply(_ref, [this].concat(args))), _this), _this.handleFormSubmit = function (form) {
-      console.log('Haha, got dis form', form);
-    }, _temp), _possibleConstructorReturn(_this, _ret);
+    return _possibleConstructorReturn(this, (BaseNSITemplate.__proto__ || Object.getPrototypeOf(BaseNSITemplate)).apply(this, arguments));
   }
 
   _createClass(BaseNSITemplate, [{
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       return React.createElement(
         designSystem.Flex,
         { flexDirection: 'column', width: '1440px', mx: 'auto' },
@@ -2073,12 +2212,8 @@ var BaseNSITemplate = function (_React$Component) {
             React.createElement(
               reactRouterDom.Switch,
               null,
-              React.createElement(reactRouterDom.Route, { exact: true, path: '/nsi/create', component: function component() {
-                  return React.createElement(CatalogForm$1, { handleFormSubmit: _this2.handleFormSubmit });
-                } }),
-              React.createElement(reactRouterDom.Route, { exact: true, path: '/nsi/:id/edit', component: function component() {
-                  return React.createElement(CatalogForm$1, { handleFormSubmit: _this2.handleFormSubmit });
-                } }),
+              React.createElement(reactRouterDom.Route, { exact: true, path: '/nsi/create', component: CatalogForm$1 }),
+              React.createElement(reactRouterDom.Route, { exact: true, path: '/nsi/:id/edit', component: CatalogForm$1 }),
               React.createElement(reactRouterDom.Route, { path: '/nsi/:id', component: Catalog$1 })
             )
           )
@@ -2089,6 +2224,34 @@ var BaseNSITemplate = function (_React$Component) {
 
   return BaseNSITemplate;
 }(React.Component);
+
+/* Возможно, будет лучше такой вариант? */
+// const CreateCatalog = () => (
+//   <Flex flexDirection="column" width="1440px" mx="auto">
+//     <CreateCatalogHeader />
+//   <Flex mt={3} mx={160}>
+//     <Box flex="0 0 256px">
+//       <CatalogsList />
+//     </Box>
+//     <Box ml="32px" flex="1">
+//       <CatalogForm />
+//     </Box>
+//   </Flex>
+// </Flex>
+// )
+// const mstp = (state) => ({...state})
+// const ConnectedCatalog = connect(mstp)(CreateCatalog)
+// class __BaseNSITemplate extends React.Component {
+//   render() {
+//     return (
+//       <Switch>
+//         <Route exact path="/nsi/create" component={ConnectedCatalog} />
+//         <Route exact path="/nsi/:id/edit" component={EditCatalog} />
+//         <Route path="/nsi/:id" component={ViewCatalogs} />
+//       </Switch>
+//     )
+//   }
+// }
 
 var index = reactRouterDom.withRouter(BaseNSITemplate);
 

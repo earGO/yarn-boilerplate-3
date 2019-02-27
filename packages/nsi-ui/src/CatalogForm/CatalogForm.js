@@ -1,5 +1,10 @@
 import React from 'react'
-import { Table, Select, Input, Form, Toggle, Icon, Divider, Box, Button, Flex } from '@ursip/design-system'
+import { Select, Input, Form, Icon, Divider, Box, Button, Flex } from '@ursip/design-system'
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
+import nsi from '@ursip/nsi-service'
+import CatalogTable from './CatalogTable'
 
 const createForm = Form.createForm
 
@@ -9,53 +14,51 @@ const createForm = Form.createForm
 // name: "Тестовый каталог"
 // type: false
 
-const EditableCell = props => {
-  const { rowData, dataKey, editRowId, handleCellChange, updatedItem } = props
-  return (
-    <Table.Cell {...props}>
-      {editRowId === rowData.id ? (
-        <Input size="small" value={updatedItem[dataKey]} onChange={handleCellChange} />
-      ) : (
-        rowData[dataKey]
-      )}
-    </Table.Cell>
-  )
-}
-
-const EditCell = props => {
-  const { onEditClick, handleSave, rowData, editRowId } = props
-  return (
-    <Table.Cell {...props}>
-      {editRowId === rowData.id ? (
-        <Icon name="save" onClick={() => handleSave(rowData.id)} />
-      ) : (
-        <Icon name="edit" onClick={() => onEditClick(rowData.id)} />
-      )}
-    </Table.Cell>
-  )
-}
-
 class CatalogForm extends React.Component {
   state = {
-    attributes: [
-      {
-        key: 1,
-        name: 'HelloTest',
-        type: '123123',
-      },
-    ],
+    // В оригинальном коде эти uuid генерились, через пакет uuid().
     uuid: 2,
   }
 
+  componentDidUpdate() {
+    console.log('Update redux state here maybe?', this.props.form.getFieldsValue());
+  }
+
   handleAddRow = () => {
+    const { form } = this.props
+    const attributes = form.getFieldValue('attributes') || []
+    form.setFieldsValue({
+      attributes: attributes.concat({ id: this.state.uuid }),
+    })
     this.setState(prevState => ({
-      attributes: prevState.attributes.concat({ key: prevState.uuid, name: `${prevState.uuid} + Name` }),
       uuid: prevState.uuid + 1,
     }))
   }
 
+  handleItemChange = (field, id) => value => {
+    const { form } = this.props
+    const attributes = form.getFieldValue('attributes')
+    let attributeIndex = attributes.findIndex(item => item.id === id)
+    let updatedAttribute = { ...attributes[attributeIndex], [field]: value }
+    let attributesCopy = attributes.slice()
+    attributesCopy[attributeIndex] = updatedAttribute
+    form.setFieldsValue({
+      attributes: attributesCopy,
+    })
+  }
+
+  handleItemDelete = (id) => {
+    const { form } = this.props
+    const attributes = form.getFieldValue('attributes')
+    console.log('Deleting row with id', id);
+    form.setFieldsValue({
+      attributes: attributes.filter(attr => attr.id !== id),
+    })
+  }
+
   render() {
     const { getFieldDecorator } = this.props.form
+    const { catalogToEdit = {} } = this.props
     return (
       <Box>
         <Flex className="fieldWrapper">
@@ -64,6 +67,7 @@ class CatalogForm extends React.Component {
           </Flex>
           <Flex ml={2} width="100%">
             {getFieldDecorator('name', {
+              initialValue: catalogToEdit.name,
               rules: [{ message: 'Заполните поле name' }],
             })(<Input placeholder="Введите название" />)}
           </Flex>
@@ -75,6 +79,7 @@ class CatalogForm extends React.Component {
           </Flex>
           <Box ml={2} width="100%">
             {getFieldDecorator('group', {
+              initialValue: catalogToEdit.group,
               rules: [{ message: 'Заполните поле name' }],
             })(<Select placeholder="Укажите группу" />)}
           </Box>
@@ -86,57 +91,25 @@ class CatalogForm extends React.Component {
           </Flex>
           <Flex ml={2} width="100%">
             {getFieldDecorator('description', {
+              initialValue: catalogToEdit.description,
               rules: [{ message: 'Заполните поле name' }],
             })(<Input placeholder="Введите описание" />)}
           </Flex>
         </Flex>
+        {/** Просто регистрируем поле.*/}
+        {getFieldDecorator('attributes', { initialValue: catalogToEdit.attributes })(<Input style={{ display: 'none' }} />)}
 
-        <Box mt={4}>
-          <Table data={this.state.attributes} minHeight={72 + 48} rowHeight={72} autoHeight rowKey="key">
-            <Table.Column width={160} sort>
-              <Table.HeaderCell style={{ paddingLeft: '16px' }}>Название</Table.HeaderCell>
-              <Table.Cell style={{ paddingLeft: '16px'}} dataKey="name" />
-            </Table.Column>
-
-            <Table.Column width={160} sort>
-              <Table.HeaderCell style={{ paddingLeft: '16px' }}>Тип</Table.HeaderCell>
-              <Table.Cell dataKey="type" />
-            </Table.Column>
-
-            <Table.Column width={128} sort>
-              <Table.HeaderCell style={{ paddingLeft: '16px' }}>Обязательность</Table.HeaderCell>
-              <Table.Cell dataKey="type" />
-            </Table.Column>
-
-            <Table.Column width={128} sort>
-              <Table.HeaderCell style={{ paddingLeft: '16px' }}>Уникальность</Table.HeaderCell>
-              <Table.Cell dataKey="type" />
-            </Table.Column>
-
-            <Table.Column width={160} sort>
-              <Table.HeaderCell style={{ paddingLeft: '16px' }}>Описание</Table.HeaderCell>
-              <Table.Cell dataKey="type" />
-            </Table.Column>
-
-            <Table.Column width={96}>
-              <Table.HeaderCell>Действия</Table.HeaderCell>
-              <Table.Cell>
-                  {rowData => (
-                    <Icon name="ellipsis-h" onClick={() => { alert(rowData.id)}} />
-                  )}
-              </Table.Cell>
-              {/* <EditCell
-                onEditClick={this.handleOnEditClick}
-                handleSave={this.handleSave}
-                editRowId={this.state.editRowId}
-              /> */}
-            </Table.Column>
-          </Table>
-
+        <Box mt={4} id="tableWrapper">
+          <CatalogTable
+            attributes={this.props.form.getFieldValue('attributes')}
+            handleItemChange={this.handleItemChange}
+            handleItemDelete={this.handleItemDelete}
+          />
           <Divider />
 
-          <Box mt={3}>
-            <Button block onClick={this.handleAddRow}>
+          <Box mt={3} alignItems="center">
+            <Button type="secondary" block onClick={this.handleAddRow}>
+              <Icon name="plus-circle" mr={2} />
               Добавить столбец
             </Button>
           </Box>
@@ -146,4 +119,24 @@ class CatalogForm extends React.Component {
   }
 }
 
-export default createForm()(CatalogForm)
+const mapStateToProps = (state, ownProps) => {
+  const { id } = ownProps.match.params
+  if (id) {
+    const catalogToEdit = nsi.reselectors.catalogs.getCatalogById(state, id)
+    return {
+      ...ownProps,
+      catalogToEdit,
+    }
+  }
+  return {
+    ...ownProps,
+  }
+}
+
+const enhanced = compose(
+  createForm(),
+  withRouter,
+  connect(mapStateToProps),
+)
+
+export default enhanced(CatalogForm)

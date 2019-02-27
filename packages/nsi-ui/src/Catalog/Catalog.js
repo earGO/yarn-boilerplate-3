@@ -32,10 +32,9 @@ class Catalog extends React.Component {
   }
 
   getTableColumns = () => {
-    console.log('Catalog, rows', this.props.selectedCatalog, this.props.catalogRows )
+    // console.log('Catalog, rows', this.props.selectedCatalog, this.props.catalogRows )
     const { attributes } = this.props.selectedCatalog
     return (attributes || []).map(attribute => {
-      let rndValue = attribute.title.length * 10
       return (
         <Table.Column key={attribute.key} flexGrow={1} minWidth={160}>
           <Table.HeaderCell>{attribute.title}</Table.HeaderCell>
@@ -70,21 +69,21 @@ class Catalog extends React.Component {
               <Input size="small" placeholder="Поиск" prefix={<Icon name="question-circle" />} />
             </Box>
             <Flex>
-              <Box width="144px">
-                <Button size="small">
+              <Box width="160px">
+                <Button type="secondary" size="small">
                   <Icon mr={2} name="plus-circle" />
                   Добавить строку
                 </Button>
               </Box>
               <Box width="192px">
-                <Button size="small">
+                <Button type="flat" size="small">
                   <Icon mr={2} name="chevron-down" />
                   Расширенный поиск
                 </Button>
               </Box>
-              <Box width="16px">
+              <Flex width="16px" alignItems="center">
                 <Icon mr={2} name="ellipsis-v" />
-              </Box>
+              </Flex>
             </Flex>
           </Flex>
           <Box mt={16}>

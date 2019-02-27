@@ -3,6 +3,9 @@ import styled from 'styled-components'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import { Text, Box, Flex, Button, Icon } from '@ursip/design-system'
 
+/** Вот как из отсюда забрать данные из формы?
+ * Как вариант - пихать состояние формы в редакс,
+ * по клику Создать - забирать оттуда значения, отправлять. */
 const CreateHeader = props => {
   return (
     <Flex justifyContent="space-between" flex={1} alignItems="center">

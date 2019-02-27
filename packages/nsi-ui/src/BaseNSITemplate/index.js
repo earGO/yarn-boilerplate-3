@@ -7,10 +7,6 @@ import Catalog from '../Catalog'
 import Header from '../Header'
 
 class BaseNSITemplate extends React.Component {
-  handleFormSubmit = (form) => {
-    console.log('Haha, got dis form', form);
-  }
-
   render() {
     return (
       <Flex flexDirection="column" width="1440px" mx="auto">
@@ -21,8 +17,11 @@ class BaseNSITemplate extends React.Component {
           </Box>
           <Box ml="32px" flex="1">
             <Switch>
-              <Route exact path="/nsi/create" component={() => <CatalogForm handleFormSubmit={this.handleFormSubmit} />} />
-              <Route exact path="/nsi/:id/edit" component={() => <CatalogForm handleFormSubmit={this.handleFormSubmit} />} />
+              {/* По хорошему тут бы закидывать данные 
+                в CatalogForm в зависимости от того, редактирование это или создание.
+              */}
+              <Route exact path="/nsi/create" component={CatalogForm} />
+              <Route exact path="/nsi/:id/edit" component={CatalogForm} />
               <Route path="/nsi/:id" component={Catalog} />
             </Switch>
           </Box>
@@ -31,5 +30,33 @@ class BaseNSITemplate extends React.Component {
     )
   }
 }
+
+/* Возможно, будет лучше такой вариант? */
+// const CreateCatalog = () => (
+//   <Flex flexDirection="column" width="1440px" mx="auto">
+//     <CreateCatalogHeader />
+//   <Flex mt={3} mx={160}>
+//     <Box flex="0 0 256px">
+//       <CatalogsList />
+//     </Box>
+//     <Box ml="32px" flex="1">
+//       <CatalogForm />
+//     </Box>
+//   </Flex>
+// </Flex>
+// )
+// const mstp = (state) => ({...state})
+// const ConnectedCatalog = connect(mstp)(CreateCatalog)
+// class __BaseNSITemplate extends React.Component {
+//   render() {
+//     return (
+//       <Switch>
+//         <Route exact path="/nsi/create" component={ConnectedCatalog} />
+//         <Route exact path="/nsi/:id/edit" component={EditCatalog} />
+//         <Route path="/nsi/:id" component={ViewCatalogs} />
+//       </Switch>
+//     )
+//   }
+// }
 
 export default withRouter(BaseNSITemplate)
