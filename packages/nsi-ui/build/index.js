@@ -5,16 +5,17 @@ Object.defineProperty(exports, '__esModule', { value: true });
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 var React = _interopDefault(require('react'));
+var designSystem = require('@ursip/design-system');
 var redux = require('redux');
 var reactRedux = require('react-redux');
 var reactRouterDom = require('react-router-dom');
 var utils = require('@ursip/utils');
 var nsi = _interopDefault(require('@ursip/nsi-service'));
-var designSystem = require('@ursip/design-system');
 var styled = require('styled-components');
 var styled__default = _interopDefault(styled);
 require('reselect');
 var propTypes = _interopDefault(require('prop-types'));
+var ReactDOM = _interopDefault(require('react-dom'));
 
 function unwrapExports (x) {
 	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x.default : x;
@@ -207,6 +208,48 @@ $export.W = 32;  // wrap
 $export.U = 64;  // safe
 $export.R = 128; // real proto method for `library`
 var _export = $export;
+
+// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
+_export(_export.S + _export.F * !_descriptors, 'Object', { defineProperty: _objectDp.f });
+
+var $Object = _core.Object;
+var defineProperty = function defineProperty(it, key, desc) {
+  return $Object.defineProperty(it, key, desc);
+};
+
+var defineProperty$1 = createCommonjsModule(function (module) {
+module.exports = { "default": defineProperty, __esModule: true };
+});
+
+unwrapExports(defineProperty$1);
+
+var defineProperty$3 = createCommonjsModule(function (module, exports) {
+
+exports.__esModule = true;
+
+
+
+var _defineProperty2 = _interopRequireDefault(defineProperty$1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (obj, key, value) {
+  if (key in obj) {
+    (0, _defineProperty2.default)(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+};
+});
+
+var _defineProperty = unwrapExports(defineProperty$3);
 
 var toString = {}.toString;
 
@@ -439,20 +482,6 @@ exports.default = function (instance, Constructor) {
 });
 
 var _classCallCheck = unwrapExports(classCallCheck);
-
-// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-_export(_export.S + _export.F * !_descriptors, 'Object', { defineProperty: _objectDp.f });
-
-var $Object = _core.Object;
-var defineProperty = function defineProperty(it, key, desc) {
-  return $Object.defineProperty(it, key, desc);
-};
-
-var defineProperty$1 = createCommonjsModule(function (module) {
-module.exports = { "default": defineProperty, __esModule: true };
-});
-
-unwrapExports(defineProperty$1);
 
 var createClass = createCommonjsModule(function (module, exports) {
 
@@ -791,10 +820,10 @@ var _meta_3 = _meta.fastKey;
 var _meta_4 = _meta.getWeak;
 var _meta_5 = _meta.onFreeze;
 
-var defineProperty$3 = _objectDp.f;
+var defineProperty$4 = _objectDp.f;
 var _wksDefine = function (name) {
   var $Symbol = _core.Symbol || (_core.Symbol = {});
-  if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty$3($Symbol, name, { value: _wksExt.f(name) });
+  if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty$4($Symbol, name, { value: _wksExt.f(name) });
 };
 
 // all enumerable object keys, includes symbols
@@ -1251,6 +1280,26 @@ exports.default = function (subClass, superClass) {
 
 var _inherits = unwrapExports(inherits);
 
+// Пока нет datepicker, input.number, ref_link.
+var ElementsMap = {
+  string: designSystem.Input,
+  date: designSystem.Input,
+  number: designSystem.Input,
+  boolean: designSystem.Toggle,
+  ref_link: designSystem.Input
+
+  // Запихнем id ряда, id колонки в хендлер, поменяем данные в контейнере.
+};var EditableCell = function EditableCell(_ref) {
+  var attribute = _ref.attribute,
+      rowData = _ref.rowData,
+      rowFromState = _ref.rowFromState,
+      handleEditableRowChange = _ref.handleEditableRowChange;
+
+  var curriedHandler = handleEditableRowChange(rowData.key, attribute.key);
+  var Element = ElementsMap[attribute.type];
+  return React.createElement(Element, { value: rowFromState[attribute.key], onChange: curriedHandler });
+};
+
 var objectWithoutProperties = createCommonjsModule(function (module, exports) {
 
 exports.__esModule = true;
@@ -1314,37 +1363,83 @@ function arrayToTree(items) {
 var Catalog = function (_React$Component) {
   _inherits(Catalog, _React$Component);
 
-  function Catalog() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
+  function Catalog(props) {
     _classCallCheck(this, Catalog);
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
+    var _this = _possibleConstructorReturn(this, (Catalog.__proto__ || Object.getPrototypeOf(Catalog)).call(this, props));
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Catalog.__proto__ || Object.getPrototypeOf(Catalog)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-      loading: false,
-      selected: null
-    }, _this.getTableColumns = function () {
-      // console.log('Catalog, rows', this.props.selectedCatalog, this.props.catalogRows )
+    _this.getTableColumns = function () {
       var attributes = _this.props.selectedCatalog.attributes;
 
       return (attributes || []).map(function (attribute) {
+        // Magic numbers
+        var minWidth = attribute.title.length < 21 ? 160 : attribute.title.length * 10;
         return React.createElement(
           designSystem.Table.Column,
-          { key: attribute.key, flexGrow: 1, minWidth: 160 },
+          { key: attribute.key, flexGrow: 1, minWidth: minWidth },
           React.createElement(
             designSystem.Table.HeaderCell,
             null,
             attribute.title
           ),
-          React.createElement(designSystem.Table.Cell, { dataKey: attribute.key })
+          React.createElement(
+            designSystem.Table.Cell,
+            null,
+            function (rowData) {
+              return rowData.key === _this.state.editableRowId ? React.createElement(EditableCell, {
+                attribute: attribute,
+                rowData: rowData,
+                handleEditableRowChange: _this.handleEditableRowChange,
+                rowFromState: _this.state.editableRowData[rowData.key]
+              }) : React.createElement(
+                'div',
+                { style: { wordBreak: 'break-word ' } },
+                rowData[attribute.key]
+              );
+            }
+          )
         );
       });
-    }, _temp), _possibleConstructorReturn(_this, _ret);
+    };
+
+    _this.onRowAdd = function (addedRow) {
+      _this.setState({
+        editableRowId: addedRow.id
+      });
+    };
+
+    _this.handleAddRow = function () {
+      console.log('Trying to add the row', _this.props);
+      /* this.props.createRow({
+        catalogId: this.props.catalogId
+      }) 
+      */
+      // Ответ добавит новый row в пропсы автоматом.
+    };
+
+    _this.handleEditRow = function (rowData) {
+      console.log('Trying to edit the row');
+      _this.setState(_extends$1({}, _this.state, {
+        editableRowId: rowData.key,
+        editableRowData: _extends$1({}, _this.state.editableRowData, _defineProperty({}, rowData.key, rowData))
+      }));
+    };
+
+    _this.handleEditableRowChange = function (rowKey, attributeKey) {
+      return function (value) {
+        _this.setState(_extends$1({}, _this.state, {
+          editableRowData: _extends$1({}, _this.state.editableRowData, _defineProperty({}, rowKey, _extends$1({}, _this.state.editableRowData[rowKey], _defineProperty({}, attributeKey, value))))
+        }));
+      };
+    };
+
+    _this.state = {
+      loading: false,
+      selected: null,
+      editableRowId: null,
+      editableRowData: {}
+    };
+    return _this;
   }
 
   _createClass(Catalog, [{
@@ -1370,6 +1465,8 @@ var Catalog = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       return React.createElement(
         designSystem.Box,
         null,
@@ -1378,7 +1475,7 @@ var Catalog = function (_React$Component) {
           { height: 24, alignItems: 'center' },
           React.createElement(
             designSystem.Box,
-            { width: '48px' },
+            { flex: '0 0 48px' },
             React.createElement(
               designSystem.Text,
               { fontSize: 1 },
@@ -1396,7 +1493,7 @@ var Catalog = function (_React$Component) {
           { height: 24, alignItems: 'center' },
           React.createElement(
             designSystem.Box,
-            { width: '48px' },
+            { flex: '0 0 48px' },
             React.createElement(
               designSystem.Text,
               { fontSize: 1 },
@@ -1414,7 +1511,7 @@ var Catalog = function (_React$Component) {
           { className: 'tableWrap', border: '1px solid #ecebeb', mt: 32 },
           React.createElement(
             designSystem.Flex,
-            { className: 'controls', justifyContent: 'space-between', mt: 16 },
+            { className: 'controls', justifyContent: 'space-between', alignItems: 'center', mt: 16 },
             React.createElement(
               designSystem.Box,
               { ml: 3, width: '336px' },
@@ -1425,17 +1522,17 @@ var Catalog = function (_React$Component) {
               null,
               React.createElement(
                 designSystem.Box,
-                { width: '160px' },
+                { width: '144px' },
                 React.createElement(
                   designSystem.Button,
-                  { type: 'secondary', size: 'small' },
+                  { type: 'secondary', size: 'small', block: true, onClick: this.handleAddRow },
                   React.createElement(designSystem.Icon, { mr: 2, name: 'plus-circle' }),
                   '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0441\u0442\u0440\u043E\u043A\u0443'
                 )
               ),
               React.createElement(
                 designSystem.Box,
-                { width: '192px' },
+                { width: '160px' },
                 React.createElement(
                   designSystem.Button,
                   { type: 'flat', size: 'small' },
@@ -1455,7 +1552,7 @@ var Catalog = function (_React$Component) {
             { mt: 16 },
             React.createElement(
               designSystem.Table,
-              { data: this.props.catalogRows, width: 832, isTree: true, height: 376 },
+              { data: this.props.catalogRows, width: 832, isTree: true, wordWrap: true, height: 376 },
               this.getTableColumns(),
               React.createElement(
                 designSystem.Table.Column,
@@ -1468,7 +1565,12 @@ var Catalog = function (_React$Component) {
                 React.createElement(
                   designSystem.Table.Cell,
                   null,
-                  React.createElement(designSystem.Icon, { name: 'ellipsis-h' })
+                  function (rowData) {
+                    // Popover пока нет в библиотеке. Тут еще должно быть удаление row.
+                    return React.createElement(designSystem.Icon, { name: 'ellipsis-h', title: '\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C', onClick: function onClick() {
+                        return _this2.handleEditRow(rowData);
+                      } });
+                  }
                 )
               )
             )
@@ -1571,7 +1673,7 @@ exports.default = function (strings, raw) {
 var _taggedTemplateLiteral = unwrapExports(taggedTemplateLiteral);
 
 var _templateObject = _taggedTemplateLiteral(['\n    background: ', ';\n  '], ['\n    background: ', ';\n  ']),
-    _templateObject2 = _taggedTemplateLiteral(['\n  height: 32px;\n  align-items: center;\n  ', '\n  ', '\n'], ['\n  height: 32px;\n  align-items: center;\n  ', '\n  ', '\n']),
+    _templateObject2 = _taggedTemplateLiteral(['\n  min-height: 32px;\n  align-items: center;\n  ', '\n  ', '\n'], ['\n  min-height: 32px;\n  align-items: center;\n  ', '\n  ', '\n']),
     _templateObject3 = _taggedTemplateLiteral(['\n  text-decoration: none;\n  color: inherit;\n  :visited {\n    color: inherit;\n  }\n'], ['\n  text-decoration: none;\n  color: inherit;\n  :visited {\n    color: inherit;\n  }\n']);
 
 var Panel = designSystem.Collapse.Panel;
@@ -1723,34 +1825,6 @@ var enhance$1 = redux.compose(utils.injectReducer({
 }, nsi.actions.catalogs), reactRouterDom.withRouter);
 
 var CatalogsList$1 = enhance$1(CatalogsList);
-
-var defineProperty$4 = createCommonjsModule(function (module, exports) {
-
-exports.__esModule = true;
-
-
-
-var _defineProperty2 = _interopRequireDefault(defineProperty$1);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function (obj, key, value) {
-  if (key in obj) {
-    (0, _defineProperty2.default)(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-};
-});
-
-var _defineProperty = unwrapExports(defineProperty$4);
 
 var typeOptions = [{ label: 'Строка', value: 'string' }, { label: 'Дата', value: 'date' }, { label: 'Целое число', value: 'number' }, { label: 'Логическое', value: 'boolean' }, { label: 'Другой справочник', value: 'ref_link' }];
 
@@ -1947,13 +2021,29 @@ var CatalogForm = function (_React$Component) {
           return attr.id !== id;
         })
       });
+    }, _this.handleSave = function (form) {
+      console.log('I can handle catalog save now!', form.getFieldsValue());
+    }, _this.renderSaveButton = function () {
+      var targetNode = document.getElementById('createCatalogButtonContainer');
+      return targetNode ? ReactDOM.createPortal(React.createElement(
+        designSystem.Button,
+        { onClick: function onClick() {
+            return _this.handleSave(_this.props.form);
+          } },
+        '\u0421\u043E\u0437\u0434\u0430\u0442\u044C'
+      ), document.getElementById('createCatalogButtonContainer')) : null;
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(CatalogForm, [{
-    key: 'componentDidUpdate',
-    value: function componentDidUpdate() {
-      console.log('Update redux state here maybe?', this.props.form.getFieldsValue());
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      // Mounts the save button!
+      setTimeout(function () {
+        _this2.forceUpdate();
+      }, 0);
     }
   }, {
     key: 'render',
@@ -1967,51 +2057,51 @@ var CatalogForm = function (_React$Component) {
         null,
         React.createElement(
           designSystem.Flex,
-          { className: 'fieldWrapper' },
+          { className: 'fieldWrapper', alignItems: 'center' },
           React.createElement(
-            designSystem.Flex,
-            { width: '64px', fontSize: 1, alignItems: 'center' },
+            designSystem.Box,
+            { flex: '0 0 64px', fontSize: 1 },
             '\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435:'
           ),
           React.createElement(
-            designSystem.Flex,
-            { ml: 2, width: '100%' },
+            designSystem.Box,
+            { ml: 2, flex: 1 },
             getFieldDecorator('name', {
-              initialValue: catalogToEdit.name,
+              initialValue: catalogToEdit.name || '',
               rules: [{ message: 'Заполните поле name' }]
             })(React.createElement(designSystem.Input, { placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435' }))
           )
         ),
         React.createElement(
           designSystem.Flex,
-          { className: 'fieldWrapper', mt: 3 },
+          { className: 'fieldWrapper', mt: 3, alignItems: 'center' },
           React.createElement(
-            designSystem.Flex,
-            { width: '64px', fontSize: 1, alignItems: 'center' },
+            designSystem.Box,
+            { flex: '0 0 64px', fontSize: 1 },
             '\u0413\u0440\u0443\u043F\u043F\u0430:'
           ),
           React.createElement(
             designSystem.Box,
-            { ml: 2, width: '100%' },
+            { ml: 2, flex: 1 },
             getFieldDecorator('group', {
-              initialValue: catalogToEdit.group,
+              initialValue: catalogToEdit.group || '',
               rules: [{ message: 'Заполните поле name' }]
             })(React.createElement(designSystem.Select, { placeholder: '\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u0433\u0440\u0443\u043F\u043F\u0443' }))
           )
         ),
         React.createElement(
           designSystem.Flex,
-          { className: 'fieldWrapper', mt: 3 },
+          { className: 'fieldWrapper', mt: 3, alignItems: 'center' },
           React.createElement(
-            designSystem.Flex,
-            { width: '64px', fontSize: 1, alignItems: 'center' },
+            designSystem.Box,
+            { flex: '0 0 64px', fontSize: 1 },
             '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435:'
           ),
           React.createElement(
-            designSystem.Flex,
-            { ml: 2, width: '100%' },
+            designSystem.Box,
+            { ml: 2, flex: 1 },
             getFieldDecorator('description', {
-              initialValue: catalogToEdit.description,
+              initialValue: catalogToEdit.description || '',
               rules: [{ message: 'Заполните поле name' }]
             })(React.createElement(designSystem.Input, { placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435' }))
           )
@@ -2036,7 +2126,8 @@ var CatalogForm = function (_React$Component) {
               '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0441\u0442\u043E\u043B\u0431\u0435\u0446'
             )
           )
-        )
+        ),
+        this.renderSaveButton()
       );
     }
   }]);
@@ -2065,6 +2156,7 @@ var _templateObject$1 = _taggedTemplateLiteral(['\n  margin: 0 160px;\n  height:
 /** Вот как из отсюда забрать данные из формы?
  * Как вариант - пихать состояние формы в редакс,
  * по клику Создать - забирать оттуда значения, отправлять. */
+/* НО ПОКА- ИДЕАЛЬНОЕ РЕШЕНИЕ! */
 var CreateHeader = function CreateHeader(props) {
   return React.createElement(
     designSystem.Flex,
@@ -2077,14 +2169,12 @@ var CreateHeader = function CreateHeader(props) {
     React.createElement(
       designSystem.Box,
       { className: 'buttonsWrapper' },
+      React.createElement(designSystem.Box, { style: { display: 'inline-block ' }, id: 'createCatalogButtonContainer' }),
       React.createElement(
         designSystem.Button,
-        null,
-        '\u0421\u043E\u0437\u0434\u0430\u0442\u044C'
-      ),
-      React.createElement(
-        designSystem.Button,
-        { type: 'bordered', ml: 3 },
+        { type: 'bordered', ml: 3, onClick: function onClick() {
+            return props.history.goBack();
+          } },
         '\u041E\u0442\u043C\u0435\u043D\u0430'
       )
     )
@@ -2197,7 +2287,7 @@ var BaseNSITemplate = function (_React$Component) {
       return React.createElement(
         designSystem.Flex,
         { flexDirection: 'column', width: '1440px', mx: 'auto' },
-        React.createElement(Header$1, { handleFormSubmit: this.handleFormSubmit }),
+        React.createElement(Header$1, null),
         React.createElement(
           designSystem.Flex,
           { mt: 3, mx: 160 },

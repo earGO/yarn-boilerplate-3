@@ -17,7 +17,7 @@ const isActive = ({ id, activeCatalogId, ...rest}) => {
 }
 
 const CollapseItem = styled(Flex)`
-  height: 32px;
+  min-height: 32px;
   align-items: center;
   ${props => `border-bottom: 1px solid ${props.theme.colors.border}` }
   ${isActive}

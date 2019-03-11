@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import { Select, Input, Form, Icon, Divider, Box, Button, Flex } from '@ursip/design-system'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -19,9 +20,11 @@ class CatalogForm extends React.Component {
     // В оригинальном коде эти uuid генерились, через пакет uuid().
     uuid: 2,
   }
-
-  componentDidUpdate() {
-    console.log('Update redux state here maybe?', this.props.form.getFieldsValue());
+  componentDidMount() {
+    // Mounts the save button!
+    setTimeout(() => {
+      this.forceUpdate()
+    }, 0)
   }
 
   handleAddRow = () => {
@@ -56,45 +59,57 @@ class CatalogForm extends React.Component {
     })
   }
 
+  handleSave = (form) => {
+    console.log('I can handle catalog save now!', form.getFieldsValue())
+  }
+
+  renderSaveButton = () => {
+    let targetNode = document.getElementById('createCatalogButtonContainer');
+    return targetNode ? ReactDOM.createPortal(
+      <Button onClick={() => this.handleSave(this.props.form)}>Создать</Button>,
+      document.getElementById('createCatalogButtonContainer')
+    ) : null
+  }
+
   render() {
     const { getFieldDecorator } = this.props.form
     const { catalogToEdit = {} } = this.props
     return (
       <Box>
-        <Flex className="fieldWrapper">
-          <Flex width="64px" fontSize={1} alignItems="center">
+        <Flex className="fieldWrapper" alignItems="center">
+          <Box flex="0 0 64px" fontSize={1} >
             Название:
-          </Flex>
-          <Flex ml={2} width="100%">
+          </Box>
+          <Box ml={2} flex={1}>
             {getFieldDecorator('name', {
-              initialValue: catalogToEdit.name,
+              initialValue: catalogToEdit.name || '',
               rules: [{ message: 'Заполните поле name' }],
             })(<Input placeholder="Введите название" />)}
-          </Flex>
+          </Box>
         </Flex>
 
-        <Flex className="fieldWrapper" mt={3}>
-          <Flex width="64px" fontSize={1} alignItems="center">
+        <Flex className="fieldWrapper" mt={3} alignItems="center">
+          <Box flex="0 0 64px" fontSize={1}>
             Группа:
-          </Flex>
-          <Box ml={2} width="100%">
+          </Box>
+          <Box ml={2} flex={1}>
             {getFieldDecorator('group', {
-              initialValue: catalogToEdit.group,
+              initialValue: catalogToEdit.group || '',
               rules: [{ message: 'Заполните поле name' }],
             })(<Select placeholder="Укажите группу" />)}
           </Box>
         </Flex>
 
-        <Flex className="fieldWrapper" mt={3}>
-          <Flex width="64px" fontSize={1} alignItems="center">
+        <Flex className="fieldWrapper" mt={3} alignItems="center">
+          <Box flex="0 0 64px" fontSize={1} >
             Описание:
-          </Flex>
-          <Flex ml={2} width="100%">
+          </Box>
+          <Box ml={2} flex={1}>
             {getFieldDecorator('description', {
-              initialValue: catalogToEdit.description,
+              initialValue: catalogToEdit.description || '',
               rules: [{ message: 'Заполните поле name' }],
             })(<Input placeholder="Введите описание" />)}
-          </Flex>
+          </Box>
         </Flex>
         {/** Просто регистрируем поле.*/}
         {getFieldDecorator('attributes', { initialValue: catalogToEdit.attributes })(<Input style={{ display: 'none' }} />)}
@@ -114,6 +129,7 @@ class CatalogForm extends React.Component {
             </Button>
           </Box>
         </Box>
+        {this.renderSaveButton()}
       </Box>
     )
   }

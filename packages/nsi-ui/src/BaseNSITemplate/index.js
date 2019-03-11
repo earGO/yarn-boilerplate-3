@@ -10,7 +10,7 @@ class BaseNSITemplate extends React.Component {
   render() {
     return (
       <Flex flexDirection="column" width="1440px" mx="auto">
-        <Header handleFormSubmit={this.handleFormSubmit} />
+        <Header />
         <Flex mt={3} mx={160}>
           <Box flex="0 0 256px">
             <Route path="/nsi/:id?" component={CatalogsList} />

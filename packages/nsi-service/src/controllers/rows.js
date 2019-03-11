@@ -7,6 +7,8 @@ const namespace = `${name}/${controller}`
 
 /* Types */
 const GET_ALL_BY_CATALOG_ID = `${namespace}/GET_ALL_BY_CATALOG_ID`
+const CREATE_ROW = `${namespace}/CREATE_ROW`
+const UPDATE_ROW = `${namespace}UPDATE_ROW`
 
 export const types = {
   GET_ALL_BY_CATALOG_ID,
@@ -27,6 +29,30 @@ export const actions = {
       meta: args.meta,
     }
   },
+  createRow(args = {}) {
+    return {
+      type: CREATE_ROW,
+      payload: {
+        request: {
+          url: `${context}/${controller}/create`,
+          method: 'POST',
+          body: JSON.stringify(args.body),
+        }
+      }
+    }
+  },
+  updateRow(args = {}) {
+    return {
+      type: UPDATE_ROW,
+      payload: {
+        request: {
+          url: `${context}/${controller}/update`,
+          method: 'POST',
+          body: JSON.stringify(args.body),
+        }
+      }
+    }
+  }
 }
 
 export const stateSelector = state => {

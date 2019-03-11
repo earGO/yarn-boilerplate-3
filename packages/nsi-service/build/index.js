@@ -239,7 +239,7 @@ var _defineProperty = unwrapExports(defineProperty$3);
 
 var ru_ursip = {
 	name: "nsi-service",
-	context: "http://develop.ursip.local/api/bim-nsi-dev/v1"
+	context: "http://develop.ursip.local/api/bim-nsi-dev/v1/"
 };
 
 var controller = 'catalogs';
@@ -656,6 +656,8 @@ var namespace$2 = name$3 + '/' + controller$2;
 
 /* Types */
 var GET_ALL_BY_CATALOG_ID$1 = namespace$2 + '/GET_ALL_BY_CATALOG_ID';
+var CREATE_ROW = namespace$2 + '/CREATE_ROW';
+var UPDATE_ROW = namespace$2 + 'UPDATE_ROW';
 
 var types$2 = {
   GET_ALL_BY_CATALOG_ID: GET_ALL_BY_CATALOG_ID$1
@@ -678,6 +680,34 @@ var types$2 = {
         catalogId: catalogId
       },
       meta: args.meta
+    };
+  },
+  createRow: function createRow() {
+    var args = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    return {
+      type: CREATE_ROW,
+      payload: {
+        request: {
+          url: context$2 + '/' + controller$2 + '/create',
+          method: 'POST',
+          body: JSON.stringify(args.body)
+        }
+      }
+    };
+  },
+  updateRow: function updateRow() {
+    var args = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    return {
+      type: UPDATE_ROW,
+      payload: {
+        request: {
+          url: context$2 + '/' + controller$2 + '/update',
+          method: 'POST',
+          body: JSON.stringify(args.body)
+        }
+      }
     };
   }
 };

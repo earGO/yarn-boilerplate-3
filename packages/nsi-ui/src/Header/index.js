@@ -6,13 +6,14 @@ import { Text, Box, Flex, Button, Icon } from '@ursip/design-system'
 /** Вот как из отсюда забрать данные из формы?
  * Как вариант - пихать состояние формы в редакс,
  * по клику Создать - забирать оттуда значения, отправлять. */
+/* НО ПОКА- ИДЕАЛЬНОЕ РЕШЕНИЕ! */
 const CreateHeader = props => {
   return (
     <Flex justifyContent="space-between" flex={1} alignItems="center">
       <Text fontSize={3}>Создание справочника</Text>
       <Box className="buttonsWrapper">
-        <Button>Создать</Button>
-        <Button type="bordered" ml={3}>
+        <Box style={{ display: 'inline-block '}} id="createCatalogButtonContainer" />
+        <Button type="bordered" ml={3} onClick={() => props.history.goBack()}>
           Отмена
         </Button>
       </Box>
