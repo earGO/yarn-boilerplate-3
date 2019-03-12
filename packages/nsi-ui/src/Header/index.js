@@ -7,15 +7,18 @@ import { Text, Box, Flex, Button, Icon } from '@ursip/design-system'
  * Как вариант - пихать состояние формы в редакс,
  * по клику Создать - забирать оттуда значения, отправлять. */
 /* НО ПОКА- ИДЕАЛЬНОЕ РЕШЕНИЕ! */
+// Получились создание и редактирование немного одинаковыми. :(
 const CreateHeader = props => {
   return (
     <Flex justifyContent="space-between" flex={1} alignItems="center">
       <Text fontSize={3}>Создание справочника</Text>
       <Box className="buttonsWrapper">
-        <Box style={{ display: 'inline-block '}} id="createCatalogButtonContainer" />
-        <Button type="bordered" ml={3} onClick={() => props.history.goBack()}>
-          Отмена
-        </Button>
+        <Box width={96} style={{ display: 'inline-block' }} id="createCatalogButtonContainer" />
+        <Box ml={3} width={96} style={{ display: 'inline-block'}}>
+          <Button type="bordered" block onClick={() => props.history.goBack()}>
+            Отмена
+          </Button>
+        </Box>
       </Box>
     </Flex>
   )
@@ -27,10 +30,12 @@ const EditHeader = props => {
     <Flex justifyContent="space-between" flex={1} alignItems="center">
       <Text fontSize={3}>Редактирование справочника</Text>
       <Box className="buttonsWrapper">
-        <Button>Сохранить</Button>
-        <Button type="bordered" ml={3} onClick={() => history.goBack()}>
-          Отмена
-        </Button>
+        <Box width={96} style={{ display: 'inline-block' }} id="editCatalogButtonContainer" />
+        <Box ml={3} width={96} style={{ display: 'inline-block'}}>
+          <Button block type="bordered" onClick={() => history.goBack()}>
+            Отмена
+          </Button>
+        </Box>
       </Box>
     </Flex>
   )
@@ -38,12 +43,16 @@ const EditHeader = props => {
 
 const ViewHeader = props => {
   const { history, location } = props
-  console.log('ViewHeader', props);
   return (
     <Flex justifyContent="space-between" flex={1} alignItems="center">
       <Text fontSize={3}>Cправочник</Text>
       <Box className="buttonsWrapper">
-        <Button type="flat" onClick={() => { history.push(`${location.pathname}/edit`)}}>
+        <Button
+          type="flat"
+          onClick={() => {
+            history.push(`${location.pathname}/edit`)
+          }}
+        >
           <Icon mr={3} name="edit" />
           Редактировать
         </Button>
@@ -56,7 +65,26 @@ const ViewHeader = props => {
   )
 }
 
-const Placeholder = props => <Box>НЕТ ТАКОГО В МАКЕТЕ УРУРУ</Box>
+const Placeholder = props => {
+  const { history, location } = props
+  // I wanna kms.
+  const withoutLastSlash = location.pathname.replace(/\/$/, '');
+  return (
+    <Flex justifyContent="space-between" flex={1} alignItems="center">
+      <Text fontSize={3}>Cправочники</Text>
+      <Box className="buttonsWrapper">
+        <Button
+          onClick={() => {
+            history.push(`${withoutLastSlash}/create`)
+          }}
+        >
+          <Icon mr={2} name="plus-circle" />
+          Создать справочник
+        </Button>
+      </Box>
+    </Flex>
+  )
+}
 
 const HeaderWrapper = styled(Flex)`
   margin: 0 160px;

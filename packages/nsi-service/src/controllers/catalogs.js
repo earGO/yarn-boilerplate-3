@@ -40,8 +40,11 @@ export const actions = {
       payload: {
         request: {
           method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
           url: `${context}/${controller}/create`,
-          body: args.payload,
+          body: JSON.stringify(args.payload),
         },
       },
       meta: args.meta,
@@ -68,8 +71,11 @@ export const actions = {
       payload: {
         request: {
           method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
           url: `${context}/${controller}/update`,
-          body: args.payload,
+          body: JSON.stringify(args.payload),
         },
       },
       meta: args.meta,
@@ -98,6 +104,19 @@ export default function reducer(state = [], { type, payload, meta = {} }) {
   switch (type) {
     case success(GET_ALL):
       return meta.normalize && typeof meta.normalize === 'function' ? meta.normalize(payload.data) : payload.data
+    case success(CREATE): {
+      // #Пиздос
+      // Я хз, это какое то говно
+      // Короче, вот поэтому клепать дефолтный уи без своих sagas в nsi-ui - не очень выйдет.
+      // Банально негде запихнуть вот этот redirect на страницу справочника после создания.
+      // Конечно, если делать все виджетами, и держать логику не в nsi-ui, а в app, такой траблы не будет.
+      // Но тогда мне не очень понятно, как писать сами компоненты. Будет очень сложно, как мне кажется.
+      // meta.onSuccess === (catalogId) => history.push(`/nsi/${catalogId}`)
+      setTimeout(() => { meta.onSuccess && meta.onSuccess(payload.data.id) }, 0)
+      return [ ...state, payload.data ]
+    }
+    case success(UPDATE):
+      return state.map(item => item.id === payload.data.id ? payload.data : item)
     default:
       return state
   }

@@ -56,7 +56,7 @@ class CatalogsList extends React.Component {
             ml={24}
             title={
               <CollapseItem>
-                <Text bold fontSize={1}>
+                <Text fontSize={0} bold>
                   Системные
                 </Text>
               </CollapseItem>
@@ -64,8 +64,8 @@ class CatalogsList extends React.Component {
           >
             {systemCatalogs.map(item => (
               <CollapseItem key={item.id} id={item.id} activeCatalogId={activeCatalogId}>
-                <Text fontSize={1}>
-                  <StyledLink to={`/nsi/${item.id}`}>{item.name}</StyledLink>
+                <Text fontSize={0}>
+                  <StyledLink title={item.name} to={`/nsi/${item.id}`}>{item.name}</StyledLink>
                 </Text>
               </CollapseItem>
             ))}
@@ -75,7 +75,7 @@ class CatalogsList extends React.Component {
             ml={24}
             title={
               <CollapseItem>
-                <Text bold fontSize={1}>
+                <Text fontSize={0} bold>
                   Пользовательские
                 </Text>
               </CollapseItem>
@@ -83,8 +83,8 @@ class CatalogsList extends React.Component {
           >
             {customCatalogs.map(item => (
               <CollapseItem key={item.id} id={item.id} activeCatalogId={activeCatalogId}>
-                <Text fontSize={1}>
-                  <StyledLink to={`/nsi/${item.id}`}>{item.name}</StyledLink>
+                <Text fontSize={0}>
+                  <StyledLink title={item.name} to={`/nsi/${item.id}`}>{item.name}</StyledLink>
                 </Text>
               </CollapseItem>
             ))}

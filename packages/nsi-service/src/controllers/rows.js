@@ -30,27 +30,33 @@ export const actions = {
     }
   },
   createRow(args = {}) {
+    const { newRow, catalogId } = args.payload || {}
     return {
       type: CREATE_ROW,
       payload: {
         request: {
           url: `${context}/${controller}/create`,
           method: 'POST',
-          body: JSON.stringify(args.body),
-        }
-      }
+          body: JSON.stringify(newRow),
+        },
+        catalogId
+      },
+      meta: args.meta,
     }
   },
   updateRow(args = {}) {
+    const { updatedRow, catalogId } = args.payload || {}
     return {
       type: UPDATE_ROW,
       payload: {
         request: {
           url: `${context}/${controller}/update`,
           method: 'POST',
-          body: JSON.stringify(args.body),
-        }
-      }
+          body: JSON.stringify(updatedRow),
+        },
+        catalogId,
+      },
+      meta: args.meta,
     }
   }
 }
@@ -66,6 +72,22 @@ function reducer(state = {}, { type, payload, meta = {} }) {
       return {
         ...state,
         [meta.requestAction.payload.catalogId]: payload.data
+      }
+    }
+
+    case success(CREATE_ROW): {
+      const slice = state[meta.requestAction.payload.catalogId]
+      return {
+        ...state,
+        [meta.requestAction.payload.catalogId]: [...slice, payload]
+      }
+    }
+
+    case success(UPDATE_ROW): {
+      const slice = state[meta.requestAction.payload.catalogId]
+      return {
+        ...state,
+        [meta.requestAction.payload.catalogId]: slice.map(row => row.key === payload.key ? payload : row)
       }
     }
 

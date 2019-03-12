@@ -38,7 +38,13 @@ export default {
       ]
     }),
     resolve(),
-    commonjs(),
+    commonjs({
+      include: ['node_modules/**'],
+      exclude: ['node_modules/process-es6/**'],
+      namedExports: {
+        'node_modules/uuid/lib/rng.js': ['crypto'],
+      }
+    }),
     json()
   ]
 }

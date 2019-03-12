@@ -1,25 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Select, Input, Form, Icon, Divider, Box, Button, Flex } from '@ursip/design-system'
+import { Select, Input, Form, Icon, Divider, Box, Button, Flex, Text } from '@ursip/design-system'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import nsi from '@ursip/nsi-service'
 import CatalogTable from './CatalogTable'
+// Использовалось в старом НСИ.
+import uuid from 'uuid/v4'
 
+
+const { create: createCatalog, update: updateCatalog } = nsi.actions.catalogs
 const createForm = Form.createForm
 
-// attributes: [{key: "2a0d678e-464d-4b7b-aea6-eb37f5855feb"}]
-// description: "Описания нужны."
-// group: "Группаааа"
-// name: "Тестовый каталог"
-// type: false
-
 class CatalogForm extends React.Component {
-  state = {
-    // В оригинальном коде эти uuid генерились, через пакет uuid().
-    uuid: 2,
-  }
   componentDidMount() {
     // Mounts the save button!
     setTimeout(() => {
@@ -30,18 +24,16 @@ class CatalogForm extends React.Component {
   handleAddRow = () => {
     const { form } = this.props
     const attributes = form.getFieldValue('attributes') || []
+    const newKey = uuid();
     form.setFieldsValue({
-      attributes: attributes.concat({ id: this.state.uuid }),
+      attributes: attributes.concat({ key: newKey }),
     })
-    this.setState(prevState => ({
-      uuid: prevState.uuid + 1,
-    }))
   }
 
-  handleItemChange = (field, id) => value => {
+  handleItemChange = (field, key) => value => {
     const { form } = this.props
     const attributes = form.getFieldValue('attributes')
-    let attributeIndex = attributes.findIndex(item => item.id === id)
+    let attributeIndex = attributes.findIndex(item => item.key === key)
     let updatedAttribute = { ...attributes[attributeIndex], [field]: value }
     let attributesCopy = attributes.slice()
     attributesCopy[attributeIndex] = updatedAttribute
@@ -50,24 +42,47 @@ class CatalogForm extends React.Component {
     })
   }
 
-  handleItemDelete = (id) => {
+  handleItemDelete = (key) => {
     const { form } = this.props
     const attributes = form.getFieldValue('attributes')
-    console.log('Deleting row with id', id);
     form.setFieldsValue({
-      attributes: attributes.filter(attr => attr.id !== id),
+      attributes: attributes.filter(attr => attr.key !== key),
     })
   }
 
   handleSave = (form) => {
     console.log('I can handle catalog save now!', form.getFieldsValue())
+    const { validateFieldsAndScroll } = form
+    const { history } = this.props
+    validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        const formattedValues = {
+          ...values,
+          // Уберем вложенность из значения селекта "Тип"
+          attributes: values.attributes.map(item => ({ ...item, type: item.type ? item.type.value : null }))
+        }
+        // #Пиздос.
+        const payload = {
+          payload: formattedValues,
+          meta: {
+            onSuccess: (catalogId) => history.push(`/nsi/${catalogId}`)
+          }
+        }
+        values.id
+          ? this.props.updateCatalog(payload)
+          : this.props.createCatalog(payload)
+      }
+    })
   }
 
-  renderSaveButton = () => {
-    let targetNode = document.getElementById('createCatalogButtonContainer');
+  renderSaveButton = (id) => {
+    // #Пиздос
+    let targetNode = id
+      ? document.getElementById('editCatalogButtonContainer')
+      : document.getElementById('createCatalogButtonContainer')
     return targetNode ? ReactDOM.createPortal(
-      <Button onClick={() => this.handleSave(this.props.form)}>Создать</Button>,
-      document.getElementById('createCatalogButtonContainer')
+      <Button block onClick={() => this.handleSave(this.props.form)}>Сохранить</Button>,
+      targetNode
     ) : null
   }
 
@@ -76,51 +91,52 @@ class CatalogForm extends React.Component {
     const { catalogToEdit = {} } = this.props
     return (
       <Box>
+        {/** Скрытое поле id */}
+        {getFieldDecorator('id', { initialValue: catalogToEdit.id })(<Input style={{ display: 'none'}} />)}
+        {/** Просто регистрируем поле, чтобы работать с ним через form.*/}
+        {getFieldDecorator('attributes', { initialValue: catalogToEdit.attributes })(<Input style={{ display: 'none' }} />)}
         <Flex className="fieldWrapper" alignItems="center">
-          <Box flex="0 0 64px" fontSize={1} >
-            Название:
+          <Box flex="0 0 64px">
+            <Text fontSize={0}>Название:</Text>
           </Box>
           <Box ml={2} flex={1}>
             {getFieldDecorator('name', {
               initialValue: catalogToEdit.name || '',
-              rules: [{ message: 'Заполните поле name' }],
+              rules: [{ message: 'Заполните поле название' }],
             })(<Input placeholder="Введите название" />)}
           </Box>
         </Flex>
 
         <Flex className="fieldWrapper" mt={3} alignItems="center">
-          <Box flex="0 0 64px" fontSize={1}>
-            Группа:
+          <Box flex="0 0 64px">
+            <Text fontSize={0}>Группа:</Text>
           </Box>
           <Box ml={2} flex={1}>
             {getFieldDecorator('group', {
               initialValue: catalogToEdit.group || '',
-              rules: [{ message: 'Заполните поле name' }],
+              rules: [{ message: 'Заполните поле группа' }],
             })(<Select placeholder="Укажите группу" />)}
           </Box>
         </Flex>
 
         <Flex className="fieldWrapper" mt={3} alignItems="center">
-          <Box flex="0 0 64px" fontSize={1} >
-            Описание:
+          <Box flex="0 0 64px" >
+            <Text fontSize={0}>Описание:</Text>
           </Box>
           <Box ml={2} flex={1}>
             {getFieldDecorator('description', {
               initialValue: catalogToEdit.description || '',
-              rules: [{ message: 'Заполните поле name' }],
+              rules: [{ message: 'Заполните поле описание' }],
             })(<Input placeholder="Введите описание" />)}
           </Box>
         </Flex>
-        {/** Просто регистрируем поле.*/}
-        {getFieldDecorator('attributes', { initialValue: catalogToEdit.attributes })(<Input style={{ display: 'none' }} />)}
-
+  
         <Box mt={4} id="tableWrapper">
           <CatalogTable
             attributes={this.props.form.getFieldValue('attributes')}
             handleItemChange={this.handleItemChange}
             handleItemDelete={this.handleItemDelete}
           />
-          <Divider />
 
           <Box mt={3} alignItems="center">
             <Button type="secondary" block onClick={this.handleAddRow}>
@@ -129,7 +145,7 @@ class CatalogForm extends React.Component {
             </Button>
           </Box>
         </Box>
-        {this.renderSaveButton()}
+        {this.renderSaveButton(catalogToEdit.id)}
       </Box>
     )
   }
@@ -152,7 +168,7 @@ const mapStateToProps = (state, ownProps) => {
 const enhanced = compose(
   createForm(),
   withRouter,
-  connect(mapStateToProps),
+  connect(mapStateToProps, { createCatalog, updateCatalog }),
 )
 
 export default enhanced(CatalogForm)
