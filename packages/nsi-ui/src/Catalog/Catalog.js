@@ -164,7 +164,7 @@ class Catalog extends React.Component {
             <Text fontSize={0}>Группа:</Text>
           </Box>
           <Text fontSize={0} ml={4}>
-            {''}
+            {'-'}
           </Text>
         </Flex>
         <Flex height={24} alignItems="center">

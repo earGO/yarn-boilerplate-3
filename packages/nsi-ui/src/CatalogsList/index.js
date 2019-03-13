@@ -10,16 +10,21 @@ import { Text, Heading, Collapse, Box, Flex } from '@ursip/design-system'
 
 const Panel = Collapse.Panel
 
-const isActive = ({ id, activeCatalogId, ...rest}) => {
-  return id && activeCatalogId && id === activeCatalogId && css`
-    background: ${rest.theme.colors.lightGrey};
-  `
+const isActive = ({ id, activeCatalogId, ...rest }) => {
+  return (
+    id &&
+    activeCatalogId &&
+    id === activeCatalogId &&
+    css`
+      background: ${rest.theme.colors.lightGrey};
+    `
+  )
 }
 
 const CollapseItem = styled(Flex)`
   min-height: 32px;
   align-items: center;
-  ${props => `border-bottom: 1px solid ${props.theme.colors.border}` }
+  ${props => `border-bottom: 1px solid ${props.theme.colors.border}`}
   ${isActive}
 `
 
@@ -63,11 +68,11 @@ class CatalogsList extends React.Component {
             }
           >
             {systemCatalogs.map(item => (
-              <CollapseItem key={item.id} id={item.id} activeCatalogId={activeCatalogId}>
-                <Text fontSize={0}>
-                  <StyledLink title={item.name} to={`/nsi/${item.id}`}>{item.name}</StyledLink>
-                </Text>
-              </CollapseItem>
+              <StyledLink title={item.name} to={`/nsi/${item.id}`}>
+                <CollapseItem key={item.id} id={item.id} activeCatalogId={activeCatalogId}>
+                  <Text fontSize={0}>{item.name}</Text>
+                </CollapseItem>
+              </StyledLink>
             ))}
           </Panel>
           <Panel
@@ -82,11 +87,11 @@ class CatalogsList extends React.Component {
             }
           >
             {customCatalogs.map(item => (
-              <CollapseItem key={item.id} id={item.id} activeCatalogId={activeCatalogId}>
-                <Text fontSize={0}>
-                  <StyledLink title={item.name} to={`/nsi/${item.id}`}>{item.name}</StyledLink>
-                </Text>
-              </CollapseItem>
+              <StyledLink title={item.name} to={`/nsi/${item.id}`}>
+                <CollapseItem key={item.id} id={item.id} activeCatalogId={activeCatalogId}>
+                  <Text fontSize={0}>{item.name}</Text>
+                </CollapseItem>
+              </StyledLink>
             ))}
           </Panel>
         </Collapse>
