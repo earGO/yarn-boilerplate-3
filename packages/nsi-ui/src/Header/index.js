@@ -40,8 +40,8 @@ const EditHeader = props => {
       <Text fontSize={3}>Редактирование справочника</Text>
       <Box className="buttonsWrapper">
         <Box width={96} style={{ display: 'inline-block' }} id="editCatalogButtonContainer" />
-        <Box ml={3} width={96} style={{ display: 'inline-block' }}>
-          <Button block type="bordered" onClick={() => history.goBack()}>
+        <Box ml={3} width={96} style={{ display: 'inline-block'}}>
+          <Button block type="secondary" onClick={() => history.goBack()}>
             Отмена
           </Button>
         </Box>

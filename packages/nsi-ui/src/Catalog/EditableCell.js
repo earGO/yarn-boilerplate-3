@@ -10,9 +10,18 @@ const ElementsMap = {
   ref_link: Input,
 }
 
+const placeholderValues = {
+  string: '',
+  date: undefined,
+  number: 0,
+  boolean: false,
+  // чтобы упал.
+  ref_link: null,
+}
+
 // Запихнем id ряда, id колонки в хендлер, поменяем данные в контейнере.
 export const EditableCell = ({ attribute, rowData, rowFromState, handleEditableRowChange }) => {
   const curriedHandler = handleEditableRowChange(rowData.key, attribute.key)
   const Element = ElementsMap[attribute.type]
-  return <Element value={rowFromState[attribute.key]} onChange={curriedHandler} />
+  return <Element value={rowFromState[attribute.key] || placeholderValues[attribute.type]} onChange={curriedHandler} />
 }
