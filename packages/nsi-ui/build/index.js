@@ -1486,13 +1486,41 @@ var Catalog = function (_React$Component) {
     _this.handleAddRow = function () {
       var payload = {
         payload: {
-          catalogId: _this.props.catalogId,
-          key: uuid()
+          newRow: {
+            catalogId: _this.props.catalogId,
+            key: uuid()
+          },
+          catalogId: _this.props.catalogId
         }
       };
       console.log('Trying to add the row', _this.props, payload);
       // Ответ добавит новый row в пропсы автоматом.
-      // this.props.createRow(payload)
+      _this.props.createRow(payload);
+    };
+
+    _this.handleRowSave = function (key) {
+      var updatedRowData = _this.state.editableRowData[key];
+      // Remove null fields? Не очень понимаю почему так.
+      var withoutNullFields = {};
+      for (var _key in updatedRowData) {
+        if (updatedRowData[_key] !== null) {
+          withoutNullFields = _extends$1({}, withoutNullFields, _defineProperty({}, _key, updatedRowData[_key]));
+        }
+      }
+      var callback = function callback() {
+        return _this.setState({ editableRowId: null });
+      };
+      var payload = {
+        payload: {
+          updatedRow: withoutNullFields,
+          catalogId: _this.props.catalogId
+        },
+        meta: {
+          onSuccess: callback
+        }
+      };
+      console.log('Trying to update the row on backend', payload);
+      _this.props.updateRow(payload);
     };
 
     _this.handleEditRow = function (rowData) {
@@ -1645,7 +1673,10 @@ var Catalog = function (_React$Component) {
                   null,
                   function (rowData) {
                     // Popover пока нет в библиотеке. Тут еще должно быть удаление row.
-                    return React.createElement(designSystem.Icon, { name: 'ellipsis-h', title: '\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C', onClick: function onClick() {
+                    // Временно будет сохранение.
+                    return rowData.key === _this2.state.editableRowId ? React.createElement(designSystem.Icon, { name: 'save', title: '\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C', onClick: function onClick() {
+                        return _this2.handleRowSave(rowData.key);
+                      } }) : React.createElement(designSystem.Icon, { name: 'ellipsis-h', title: '\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C', onClick: function onClick() {
                         return _this2.handleEditRow(rowData);
                       } });
                   }
@@ -2201,13 +2232,17 @@ var enhanced = redux.compose(createForm(), reactRouterDom.withRouter, reactRedux
 
 var CatalogForm$1 = enhanced(CatalogForm);
 
-var _templateObject$3 = _taggedTemplateLiteral(['\n  margin: 0 160px;\n  height: 87px;\n  align-items: center;\n  border-bottom: 1px solid #ecebeb;\n'], ['\n  margin: 0 160px;\n  height: 87px;\n  align-items: center;\n  border-bottom: 1px solid #ecebeb;\n']);
+var _templateObject$3 = _taggedTemplateLiteral(['\n  text-decoration: none;\n  color: inherit;\n  :visited {\n    color: inherit;\n  }\n'], ['\n  text-decoration: none;\n  color: inherit;\n  :visited {\n    color: inherit;\n  }\n']),
+    _templateObject2$1 = _taggedTemplateLiteral(['\n  margin: 0 160px;\n  height: 87px;\n  align-items: center;\n  border-bottom: 1px solid #ecebeb;\n'], ['\n  margin: 0 160px;\n  height: 87px;\n  align-items: center;\n  border-bottom: 1px solid #ecebeb;\n']);
 
 /** Вот как из отсюда забрать данные из формы?
  * Как вариант - пихать состояние формы в редакс,
  * по клику Создать - забирать оттуда значения, отправлять. */
 /* НО ПОКА- ИДЕАЛЬНОЕ РЕШЕНИЕ! */
 // Получились создание и редактирование немного одинаковыми. :(
+
+var StyledLink$1 = styled__default(reactRouterDom.Link)(_templateObject$3);
+
 var CreateHeader = function CreateHeader(props) {
   return React.createElement(
     designSystem.Flex,
@@ -2274,9 +2309,13 @@ var ViewHeader = function ViewHeader(props) {
     designSystem.Flex,
     { justifyContent: 'space-between', flex: 1, alignItems: 'center' },
     React.createElement(
-      designSystem.Text,
-      { fontSize: 3 },
-      'C\u043F\u0440\u0430\u0432\u043E\u0447\u043D\u0438\u043A'
+      StyledLink$1,
+      { to: '/nsi' },
+      React.createElement(
+        designSystem.Text,
+        { fontSize: 3 },
+        'C\u043F\u0440\u0430\u0432\u043E\u0447\u043D\u0438\u043A'
+      )
     ),
     React.createElement(
       designSystem.Box,
@@ -2333,7 +2372,7 @@ var Placeholder = function Placeholder(props) {
   );
 };
 
-var HeaderWrapper = styled__default(designSystem.Flex)(_templateObject$3);
+var HeaderWrapper = styled__default(designSystem.Flex)(_templateObject2$1);
 
 var Header = function Header(props) {
   return React.createElement(

@@ -8,7 +8,7 @@ const namespace = `${name}/${controller}`
 /* Types */
 const GET_ALL_BY_CATALOG_ID = `${namespace}/GET_ALL_BY_CATALOG_ID`
 const CREATE_ROW = `${namespace}/CREATE_ROW`
-const UPDATE_ROW = `${namespace}UPDATE_ROW`
+const UPDATE_ROW = `${namespace}/UPDATE_ROW`
 
 export const types = {
   GET_ALL_BY_CATALOG_ID,
@@ -37,6 +37,9 @@ export const actions = {
         request: {
           url: `${context}/${controller}/create`,
           method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
           body: JSON.stringify(newRow),
         },
         catalogId
@@ -52,6 +55,9 @@ export const actions = {
         request: {
           url: `${context}/${controller}/update`,
           method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
           body: JSON.stringify(updatedRow),
         },
         catalogId,
@@ -79,15 +85,17 @@ function reducer(state = {}, { type, payload, meta = {} }) {
       const slice = state[meta.requestAction.payload.catalogId]
       return {
         ...state,
-        [meta.requestAction.payload.catalogId]: [...slice, payload]
+        [meta.requestAction.payload.catalogId]: [...slice, payload.data]
       }
     }
 
     case success(UPDATE_ROW): {
       const slice = state[meta.requestAction.payload.catalogId]
+      // Сделаем ряд снова нередактируемым.
+      setTimeout(() => { meta.onSuccess && meta.onSuccess() }, 0)
       return {
         ...state,
-        [meta.requestAction.payload.catalogId]: slice.map(row => row.key === payload.key ? payload : row)
+        [meta.requestAction.payload.catalogId]: slice.map(row => row.key === payload.data.key ? payload.data : row)
       }
     }
 

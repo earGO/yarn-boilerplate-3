@@ -86,24 +86,50 @@ class Catalog extends React.Component {
   handleAddRow = () => {
     const payload = {
       payload: {
+        newRow: {
+          catalogId: this.props.catalogId,
+          key: uuid(),
+        },
         catalogId: this.props.catalogId,
-        key: uuid(),
-      }
+      },
     }
-    console.log('Trying to add the row', this.props, payload);
+    console.log('Trying to add the row', this.props, payload)
     // Ответ добавит новый row в пропсы автоматом.
-    // this.props.createRow(payload)
+    this.props.createRow(payload)
   }
 
-  handleEditRow = (rowData) => {
-    console.log('Trying to edit the row');
+  handleRowSave = (key) => {
+    const updatedRowData = this.state.editableRowData[key]
+    // Remove null fields? Не очень понимаю почему так.
+    let withoutNullFields = {}
+    for (let key in updatedRowData) {
+      if (updatedRowData[key] !== null) {
+        withoutNullFields = { ...withoutNullFields, [key]: updatedRowData[key] }
+      }
+    }
+    const callback = () => this.setState({ editableRowId: null })
+    const payload = {
+      payload: {
+        updatedRow: withoutNullFields,
+        catalogId: this.props.catalogId,
+      },
+      meta: {
+        onSuccess: callback,
+      },
+    }
+    console.log('Trying to update the row on backend', payload);
+    this.props.updateRow(payload)
+  }
+
+  handleEditRow = rowData => {
+    console.log('Trying to edit the row')
     this.setState({
       ...this.state,
       editableRowId: rowData.key,
       editableRowData: {
         ...this.state.editableRowData,
         [rowData.key]: rowData,
-      }
+      },
     })
   }
 
@@ -170,7 +196,10 @@ class Catalog extends React.Component {
                 <CenteredTableCell>
                   {rowData => {
                     // Popover пока нет в библиотеке. Тут еще должно быть удаление row.
-                    return (
+                    // Временно будет сохранение.
+                    return rowData.key === this.state.editableRowId ? (
+                      <Icon name="save" title="Сохранить" onClick={() => this.handleRowSave(rowData.key)} />
+                    ) : (
                       <Icon name="ellipsis-h" title="Редактировать" onClick={() => this.handleEditRow(rowData)} />
                     )
                   }}

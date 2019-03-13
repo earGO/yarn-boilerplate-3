@@ -1021,7 +1021,7 @@ var namespace$2 = name$3 + '/' + controller$2;
 /* Types */
 var GET_ALL_BY_CATALOG_ID$1 = namespace$2 + '/GET_ALL_BY_CATALOG_ID';
 var CREATE_ROW = namespace$2 + '/CREATE_ROW';
-var UPDATE_ROW = namespace$2 + 'UPDATE_ROW';
+var UPDATE_ROW = namespace$2 + '/UPDATE_ROW';
 
 var types$2 = {
   GET_ALL_BY_CATALOG_ID: GET_ALL_BY_CATALOG_ID$1
@@ -1059,6 +1059,9 @@ var types$2 = {
         request: {
           url: context$2 + '/' + controller$2 + '/create',
           method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
           body: JSON.stringify(newRow)
         },
         catalogId: catalogId
@@ -1079,6 +1082,9 @@ var types$2 = {
         request: {
           url: context$2 + '/' + controller$2 + '/update',
           method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
           body: JSON.stringify(updatedRow)
         },
         catalogId: catalogId
@@ -1110,14 +1116,18 @@ function reducer$2() {
     case reduxSagaRequests.success(CREATE_ROW):
       {
         var slice = state[meta.requestAction.payload.catalogId];
-        return _extends$1({}, state, _defineProperty({}, meta.requestAction.payload.catalogId, [].concat(_toConsumableArray(slice), [payload])));
+        return _extends$1({}, state, _defineProperty({}, meta.requestAction.payload.catalogId, [].concat(_toConsumableArray(slice), [payload.data])));
       }
 
     case reduxSagaRequests.success(UPDATE_ROW):
       {
         var _slice = state[meta.requestAction.payload.catalogId];
+        // Сделаем ряд снова нередактируемым.
+        setTimeout(function () {
+          meta.onSuccess && meta.onSuccess();
+        }, 0);
         return _extends$1({}, state, _defineProperty({}, meta.requestAction.payload.catalogId, _slice.map(function (row) {
-          return row.key === payload.key ? payload : row;
+          return row.key === payload.data.key ? payload.data : row;
         })));
       }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Route, Switch, withRouter } from 'react-router-dom'
+import { Route, Switch, withRouter, Link } from 'react-router-dom'
 import { Text, Box, Flex, Button, Icon } from '@ursip/design-system'
 
 /** Вот как из отсюда забрать данные из формы?
@@ -8,6 +8,15 @@ import { Text, Box, Flex, Button, Icon } from '@ursip/design-system'
  * по клику Создать - забирать оттуда значения, отправлять. */
 /* НО ПОКА- ИДЕАЛЬНОЕ РЕШЕНИЕ! */
 // Получились создание и редактирование немного одинаковыми. :(
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+  :visited {
+    color: inherit;
+  }
+`
+
 const CreateHeader = props => {
   return (
     <Flex justifyContent="space-between" flex={1} alignItems="center">
@@ -45,7 +54,9 @@ const ViewHeader = props => {
   const { history, location } = props
   return (
     <Flex justifyContent="space-between" flex={1} alignItems="center">
-      <Text fontSize={3}>Cправочник</Text>
+      <StyledLink to="/nsi">
+        <Text fontSize={3}>Cправочник</Text>
+      </StyledLink>
       <Box className="buttonsWrapper">
         <Button
           type="flat"
