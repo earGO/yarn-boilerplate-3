@@ -1,21 +1,15 @@
 import React from 'react'
+
 import styled from 'styled-components'
-import { Route, Switch, withRouter, Link } from 'react-router-dom'
-import { Text, Box, Flex, Button, Icon } from '@ursip/design-system'
+import ViewHeader from './ViewCatalogHeader'
+import { Route, Switch } from 'react-router-dom'
+import { Text, Box, Flex, Button } from '@ursip/design-system'
 
 /** Вот как из отсюда забрать данные из формы?
  * Как вариант - пихать состояние формы в редакс,
  * по клику Создать - забирать оттуда значения, отправлять. */
 /* НО ПОКА- ИДЕАЛЬНОЕ РЕШЕНИЕ! */
 // Получились создание и редактирование немного одинаковыми. :(
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: inherit;
-  :visited {
-    color: inherit;
-  }
-`
 
 const CreateHeader = props => {
   return (
@@ -50,49 +44,10 @@ const EditHeader = props => {
   )
 }
 
-const ViewHeader = props => {
-  const { history, location } = props
-  return (
-    <Flex justifyContent="space-between" flex={1} alignItems="center">
-      <StyledLink to="/nsi">
-        <Text fontSize={3}>Cправочник</Text>
-      </StyledLink>
-      <Box className="buttonsWrapper">
-        <Button
-          type="flat"
-          onClick={() => {
-            history.push(`${location.pathname}/edit`)
-          }}
-        >
-          <Icon mr={3} name="edit" />
-          Редактировать
-        </Button>
-        <Button type="flat" ml={3}>
-          <Icon mr={3} name="save" />
-          Удалить каталог
-        </Button>
-      </Box>
-    </Flex>
-  )
-}
-
 const Placeholder = props => {
-  const { history, location } = props
-  // I wanna kms.
-  const withoutLastSlash = location.pathname.replace(/\/$/, '')
   return (
     <Flex justifyContent="space-between" flex={1} alignItems="center">
       <Text fontSize={3}>Cправочники</Text>
-      <Box className="buttonsWrapper">
-        {/* <Button
-          onClick={() => {
-            history.push(`${withoutLastSlash}/create`)
-          }}
-        >
-          <Icon mr={2} name="plus-circle" />
-          Создать справочник
-        </Button> */}
-      </Box>
     </Flex>
   )
 }
@@ -103,7 +58,7 @@ const HeaderWrapper = styled(Flex)`
   border-bottom: 1px solid #ecebeb;
 `
 
-const Header = props => {
+const Header = () => {
   return (
     <HeaderWrapper>
       <Switch>
@@ -116,4 +71,4 @@ const Header = props => {
   )
 }
 
-export default withRouter(Header)
+export default Header

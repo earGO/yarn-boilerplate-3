@@ -25,8 +25,12 @@ class CatalogForm extends React.Component {
     const { form } = this.props
     const attributes = form.getFieldValue('attributes') || []
     const newKey = uuid();
+    const placeholderItem = {
+      key: newKey,
+      type: { label: 'Строка', value: 'string' }
+    }
     form.setFieldsValue({
-      attributes: attributes.concat({ key: newKey }),
+      attributes: attributes.concat(placeholderItem),
     })
   }
 
@@ -62,7 +66,7 @@ class CatalogForm extends React.Component {
           attributes: values.attributes.map(item => ({ ...item, type: item.type ? item.type.value : null }))
         }
         // Редиректнем на страницу созданного каталога.
-        const callback = (action) => history.push(`/nsi${action.payload.data.id}`)
+        const callback = (action) => history.push(`/nsi/${action.payload.data.id}`)
         const payload = {
           payload: formattedValues,
           meta: { asPromise: true },

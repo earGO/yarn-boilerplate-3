@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { injectReducer } from '@ursip/utils'
 import nsi from '@ursip/nsi-service'
-import { Text, Box, Flex, Table, Input, Icon, Button, Tooltip } from '@ursip/design-system'
+import { Text, Box, Flex, Table, Input, Icon, Button, Popover, Divider } from '@ursip/design-system'
 import { EditableCell } from './EditableCell'
 import { arrayToTree } from '../utils'
 // Использовалось в старом НСИ.
@@ -27,9 +27,17 @@ class Catalog extends React.Component {
     this.state = {
       loading: false,
       selected: null,
+      expandedRowKeys: [],
       editableRowId: null,
       editableRowData: {},
     }
+  }
+  handleExpandedRowsChange = (expanded, rowData) => {
+    this.setState({
+      expandedRowKeys: expanded
+        ? [...this.state.expandedRowKeys, rowData.key]
+        : this.state.expandedRowKeys.filter(key => key !== rowData.key),
+    })
   }
 
   componentDidMount() {
@@ -68,7 +76,7 @@ class Catalog extends React.Component {
                   rowFromState={this.state.editableRowData[rowData.key]}
                 />
               ) : (
-                <div style={{ wordBreak: 'break-word' }}>{rowData[attribute.key]}</div>
+                <div style={{ wordBreak: 'break-word', display: 'inline-block' }}>{rowData[attribute.key]}</div>
               )
             }}
           </Table.Cell>
@@ -103,8 +111,8 @@ class Catalog extends React.Component {
           ...this.state.editableRowData,
           [newKey]: {
             key: newKey,
-          }
-        }
+          },
+        },
       })
     })
   }
@@ -143,6 +151,19 @@ class Catalog extends React.Component {
     })
   }
 
+  handleRowDelete = rowData => {
+    const deletedRow = { ...rowData, removed: true }
+    // Remove service _parent prop.
+    const { _parent, ...rest } = deletedRow
+    const payload = {
+      payload: {
+        deletedRow: rest,
+        catalogId: this.props.catalogId,
+      },
+    }
+    this.props.deleteRow(payload)
+  }
+
   handleEditableRowChange = (rowKey, attributeKey) => value => {
     this.setState({
       ...this.state,
@@ -154,6 +175,37 @@ class Catalog extends React.Component {
         },
       },
     })
+  }
+
+  getTooltip = rowData => {
+    const content = (
+      <Flex flexDirection="column" width={88} height={48}>
+        {rowData.key === this.state.editableRowId ? (
+          <Box onClick={() => this.handleRowSave(rowData.key)}>
+            <Text align="left" style={{ cursor: 'pointer' }} fontSize={0}>
+              Сохранить
+            </Text>
+          </Box>
+        ) : (
+          <Box onClick={() => this.handleEditRow(rowData)}>
+            <Text align="left" style={{ cursor: 'pointer' }} fontSize={0}>
+              Редактировать
+            </Text>
+          </Box>
+        )}
+        <Divider my={2} />
+        <Box onClick={() => this.handleRowDelete(rowData)}>
+          <Text align="left" style={{ cursor: 'pointer' }} fontSize={0}>
+            Удалить
+          </Text>
+        </Box>
+      </Flex>
+    )
+    return (
+      <Popover placement="bottom" events={['click']} content={content} transitionName={null}>
+        <Icon name="ellipsis-h" />
+      </Popover>
+    )
   }
 
   render() {
@@ -199,21 +251,26 @@ class Catalog extends React.Component {
             </Flex>
           </Flex>
           <Box mt={16} borderTop="1px solid #ecebeb">
-            <Table data={this.props.catalogRows} width={832} isTree wordWrap height={376}>
+            <Table
+              renderTreeToggle={(icon, rowData) => {
+                return this.state.expandedRowKeys.includes(rowData.key) ? (
+                  <Icon name="chevron-up" onClick={icon.props.onClick} />
+                ) : (
+                  <Icon name="chevron-down" onClick={icon.props.onClick} />
+                )
+              }}
+              expandedRowKeys={this.state.expandedRowKeys}
+              onExpandChange={this.handleExpandedRowsChange}
+              data={this.props.catalogRows}
+              width={832}
+              isTree
+              wordWrap
+              height={376}
+            >
               {this.getTableColumns()}
               <Table.Column fixed="right" width={96}>
                 <CenteredHeaderCell>Действия</CenteredHeaderCell>
-                <CenteredTableCell>
-                  {rowData => {
-                    // Popover пока нет в библиотеке. Тут еще должно быть удаление row.
-                    // Временно будет сохранение.
-                    return rowData.key === this.state.editableRowId ? (
-                      <Icon name="save" title="Сохранить" onClick={() => this.handleRowSave(rowData.key)} />
-                    ) : (
-                      <Icon name="ellipsis-h" title="Редактировать" onClick={() => this.handleEditRow(rowData)} />
-                    )
-                  }}
-                </CenteredTableCell>
+                <CenteredTableCell>{this.getTooltip}</CenteredTableCell>
               </Table.Column>
             </Table>
           </Box>

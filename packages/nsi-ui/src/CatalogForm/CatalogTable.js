@@ -46,7 +46,7 @@ const CatalogTable = ({ handleItemChange, handleItemDelete, attributes }) => {
                 <Select
                   options={typeOptions}
                   // temp
-                  value={typeOptions.find(item => item.value === rowData.type)}
+                  value={typeOptions.find(item => item.value === rowData.type.value)}
                   // value={rowData.type}
                   menuPortalTarget={document.getElementById('tableWrapper')}
                   onChange={handleItemChange('type', rowData.key)}

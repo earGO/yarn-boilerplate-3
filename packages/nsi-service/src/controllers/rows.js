@@ -9,9 +9,13 @@ const namespace = `${name}/${controller}`
 const GET_ALL_BY_CATALOG_ID = `${namespace}/GET_ALL_BY_CATALOG_ID`
 const CREATE_ROW = `${namespace}/CREATE_ROW`
 const UPDATE_ROW = `${namespace}/UPDATE_ROW`
+const DELETE_ROW = `${namespace}/DELETE_ROW`
 
 export const types = {
   GET_ALL_BY_CATALOG_ID,
+  CREATE_ROW,
+  UPDATE_ROW,
+  DELETE_ROW,
 }
 
 /* Action creators */
@@ -64,6 +68,24 @@ export const actions = {
       },
       meta: args.meta,
     }
+  },
+  deleteRow(args = {}) {
+    const { deletedRow, catalogId } = args.payload || {}
+    return {
+      type: DELETE_ROW,
+      payload: {
+        request: {
+          url: `${context}/${controller}/markDeleted`,
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(deletedRow),
+        },
+        catalogId,
+        keyToRemove: deletedRow.key,
+      },
+    }
   }
 }
 
@@ -94,6 +116,15 @@ function reducer(state = {}, { type, payload, meta = {} }) {
       return {
         ...state,
         [meta.requestAction.payload.catalogId]: slice.map(row => row.key === payload.data.key ? payload.data : row)
+      }
+    }
+
+    case success(DELETE_ROW): {
+      const slice = state[meta.requestAction.payload.catalogId]
+      const keyToRemove = meta.requestAction.payload.keyToRemove
+      return {
+        ...state,
+        [meta.requestAction.payload.catalogId]: slice.filter(row => row.key !== keyToRemove),
       }
     }
 

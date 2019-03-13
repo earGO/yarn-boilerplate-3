@@ -54,7 +54,10 @@ class CatalogsList extends React.Component {
     const customCatalogs = this.props.data.filter(catalog => catalog.type)
     const systemCatalogs = this.props.data.filter(catalog => !catalog.type)
     return (
-      <Box width="100%">
+      // #TODO
+      // Временно дам ключ врапперу, чтобы ререндерился когда добавляешь, удаляешь каталоги.
+      // make Collapse measure it's content height after rerenders in design system
+      <Box key={this.props.data.length} width="100%">
         <Collapse defaultActiveKeys={['system', 'custom']}>
           <Panel
             key="system"
@@ -68,8 +71,8 @@ class CatalogsList extends React.Component {
             }
           >
             {systemCatalogs.map(item => (
-              <StyledLink title={item.name} to={`/nsi/${item.id}`}>
-                <CollapseItem key={item.id} id={item.id} activeCatalogId={activeCatalogId}>
+              <StyledLink key={item.id} title={item.name} to={`/nsi/${item.id}`}>
+                <CollapseItem id={item.id} activeCatalogId={activeCatalogId}>
                   <Text fontSize={0}>{item.name}</Text>
                 </CollapseItem>
               </StyledLink>
@@ -87,8 +90,8 @@ class CatalogsList extends React.Component {
             }
           >
             {customCatalogs.map(item => (
-              <StyledLink title={item.name} to={`/nsi/${item.id}`}>
-                <CollapseItem key={item.id} id={item.id} activeCatalogId={activeCatalogId}>
+              <StyledLink key={item.id} title={item.name} to={`/nsi/${item.id}`}>
+                <CollapseItem id={item.id} activeCatalogId={activeCatalogId}>
                   <Text fontSize={0}>{item.name}</Text>
                 </CollapseItem>
               </StyledLink>

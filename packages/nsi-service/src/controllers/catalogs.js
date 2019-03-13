@@ -57,9 +57,13 @@ export const actions = {
       payload: {
         request: {
           method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
           url: `${context}/${controller}/markDeleted`,
-          body: args.payload,
+          body: JSON.stringify(args.payload),
         },
+        idToRemove: args.payload.id,
       },
       meta: args.meta,
     }
@@ -109,6 +113,10 @@ export default function reducer(state = [], { type, payload, meta = {} }) {
     }
     case success(UPDATE):
       return state.map(item => item.id === payload.data.id ? payload.data : item)
+    case success(MARK_DELETED): {
+      const idToRemove = meta.requestAction.payload.idToRemove
+      return state.filter(item => item.id !== idToRemove)
+    }
     default:
       return state
   }
