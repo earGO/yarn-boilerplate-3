@@ -833,16 +833,6 @@ var reselectors = {
       return meta.normalize && typeof meta.normalize === 'function' ? meta.normalize(payload.data) : payload.data;
     case reduxSagaRequests.success(CREATE):
       {
-        // #Пиздос
-        // Я хз, это какое то говно
-        // Короче, вот поэтому клепать дефолтный уи без своих sagas в nsi-ui - не очень выйдет.
-        // Банально негде запихнуть вот этот redirect на страницу справочника после создания.
-        // Конечно, если делать все виджетами, и держать логику не в nsi-ui, а в app, такой траблы не будет.
-        // Но тогда мне не очень понятно, как писать сами компоненты. Будет очень сложно, как мне кажется.
-        // meta.onSuccess === (catalogId) => history.push(`/nsi/${catalogId}`)
-        setTimeout(function () {
-          meta.onSuccess && meta.onSuccess(payload.data.id);
-        }, 0);
         return [].concat(_toConsumableArray(state), [payload.data]);
       }
     case reduxSagaRequests.success(UPDATE):
@@ -1115,17 +1105,13 @@ function reducer$2() {
 
     case reduxSagaRequests.success(CREATE_ROW):
       {
-        var slice = state[meta.requestAction.payload.catalogId];
+        var slice = state[meta.requestAction.payload.catalogId] || [];
         return _extends$1({}, state, _defineProperty({}, meta.requestAction.payload.catalogId, [].concat(_toConsumableArray(slice), [payload.data])));
       }
 
     case reduxSagaRequests.success(UPDATE_ROW):
       {
         var _slice = state[meta.requestAction.payload.catalogId];
-        // Сделаем ряд снова нередактируемым.
-        setTimeout(function () {
-          meta.onSuccess && meta.onSuccess();
-        }, 0);
         return _extends$1({}, state, _defineProperty({}, meta.requestAction.payload.catalogId, _slice.map(function (row) {
           return row.key === payload.data.key ? payload.data : row;
         })));

@@ -84,41 +84,51 @@ class Catalog extends React.Component {
   }
 
   handleAddRow = () => {
+    const newKey = uuid()
     const payload = {
       payload: {
         newRow: {
           catalogId: this.props.catalogId,
-          key: uuid(),
+          key: newKey,
         },
         catalogId: this.props.catalogId,
       },
     }
     console.log('Trying to add the row', this.props, payload)
-    // Ответ добавит новый row в пропсы автоматом.
-    this.props.createRow(payload)
+    // Ответ добавит новый row в пропсы автоматом. Откроем его сразу на редактирование.
+    this.props.createRow(payload).then(() => {
+      this.setState({
+        editableRowId: newKey,
+        editableRowData: {
+          ...this.state.editableRowData,
+          [newKey]: {
+            key: newKey,
+          }
+        }
+      })
+    })
   }
 
-  handleRowSave = (key) => {
+  handleRowSave = key => {
     const updatedRowData = this.state.editableRowData[key]
     // Remove null fields? Не очень понимаю почему так.
     let withoutNullFields = {}
-    for (let key in updatedRowData) {
+    for (let key of Object.keys(updatedRowData)) {
       if (updatedRowData[key] !== null) {
         withoutNullFields = { ...withoutNullFields, [key]: updatedRowData[key] }
       }
     }
-    const callback = () => this.setState({ editableRowId: null })
     const payload = {
       payload: {
         updatedRow: withoutNullFields,
         catalogId: this.props.catalogId,
       },
       meta: {
-        onSuccess: callback,
+        asPromise: true,
       },
     }
-    console.log('Trying to update the row on backend', payload);
-    this.props.updateRow(payload)
+    console.log('Trying to update the row on backend', payload)
+    this.props.updateRow(payload).then(() => this.setState({ editableRowId: null }))
   }
 
   handleEditRow = rowData => {

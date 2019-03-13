@@ -61,16 +61,15 @@ class CatalogForm extends React.Component {
           // Уберем вложенность из значения селекта "Тип"
           attributes: values.attributes.map(item => ({ ...item, type: item.type ? item.type.value : null }))
         }
-        // #Пиздос.
+        // Редиректнем на страницу созданного каталога.
+        const callback = (action) => history.push(`/nsi${action.payload.data.id}`)
         const payload = {
           payload: formattedValues,
-          meta: {
-            onSuccess: (catalogId) => history.push(`/nsi/${catalogId}`)
-          }
+          meta: { asPromise: true },
         }
         values.id
-          ? this.props.updateCatalog(payload)
-          : this.props.createCatalog(payload)
+          ? this.props.updateCatalog(payload).then((hello) => { console.log(hello) })
+          : this.props.createCatalog(payload).then(callback)
       }
     })
   }

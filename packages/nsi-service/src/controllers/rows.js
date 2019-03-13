@@ -82,7 +82,7 @@ function reducer(state = {}, { type, payload, meta = {} }) {
     }
 
     case success(CREATE_ROW): {
-      const slice = state[meta.requestAction.payload.catalogId]
+      const slice = state[meta.requestAction.payload.catalogId] || []
       return {
         ...state,
         [meta.requestAction.payload.catalogId]: [...slice, payload.data]
@@ -91,8 +91,6 @@ function reducer(state = {}, { type, payload, meta = {} }) {
 
     case success(UPDATE_ROW): {
       const slice = state[meta.requestAction.payload.catalogId]
-      // Сделаем ряд снова нередактируемым.
-      setTimeout(() => { meta.onSuccess && meta.onSuccess() }, 0)
       return {
         ...state,
         [meta.requestAction.payload.catalogId]: slice.map(row => row.key === payload.data.key ? payload.data : row)

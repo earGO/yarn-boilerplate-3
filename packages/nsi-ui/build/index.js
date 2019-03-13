@@ -1484,43 +1484,72 @@ var Catalog = function (_React$Component) {
     };
 
     _this.handleAddRow = function () {
+      var newKey = uuid();
       var payload = {
         payload: {
           newRow: {
             catalogId: _this.props.catalogId,
-            key: uuid()
+            key: newKey
           },
           catalogId: _this.props.catalogId
         }
       };
       console.log('Trying to add the row', _this.props, payload);
-      // Ответ добавит новый row в пропсы автоматом.
-      _this.props.createRow(payload);
+      // Ответ добавит новый row в пропсы автоматом. Откроем его сразу на редактирование.
+      _this.props.createRow(payload).then(function () {
+        _this.setState({
+          editableRowId: newKey,
+          editableRowData: _extends$1({}, _this.state.editableRowData, _defineProperty({}, newKey, {
+            key: newKey
+          }))
+        });
+      });
     };
 
     _this.handleRowSave = function (key) {
       var updatedRowData = _this.state.editableRowData[key];
       // Remove null fields? Не очень понимаю почему так.
       var withoutNullFields = {};
-      for (var _key in updatedRowData) {
-        if (updatedRowData[_key] !== null) {
-          withoutNullFields = _extends$1({}, withoutNullFields, _defineProperty({}, _key, updatedRowData[_key]));
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = Object.keys(updatedRowData)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var _key = _step.value;
+
+          if (updatedRowData[_key] !== null) {
+            withoutNullFields = _extends$1({}, withoutNullFields, _defineProperty({}, _key, updatedRowData[_key]));
+          }
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
         }
       }
-      var callback = function callback() {
-        return _this.setState({ editableRowId: null });
-      };
+
       var payload = {
         payload: {
           updatedRow: withoutNullFields,
           catalogId: _this.props.catalogId
         },
         meta: {
-          onSuccess: callback
+          asPromise: true
         }
       };
       console.log('Trying to update the row on backend', payload);
-      _this.props.updateRow(payload);
+      _this.props.updateRow(payload).then(function () {
+        return _this.setState({ editableRowId: null });
+      });
     };
 
     _this.handleEditRow = function (rowData) {
@@ -2079,16 +2108,17 @@ var CatalogForm = function (_React$Component) {
             attributes: values.attributes.map(function (item) {
               return _extends$1({}, item, { type: item.type ? item.type.value : null });
             })
-            // #Пиздос.
-          });var payload = {
-            payload: formattedValues,
-            meta: {
-              onSuccess: function onSuccess(catalogId) {
-                return history.push('/nsi/' + catalogId);
-              }
-            }
+            // Редиректнем на страницу созданного каталога.
+          });var callback = function callback(action) {
+            return history.push('/nsi' + action.payload.data.id);
           };
-          values.id ? _this.props.updateCatalog(payload) : _this.props.createCatalog(payload);
+          var payload = {
+            payload: formattedValues,
+            meta: { asPromise: true }
+          };
+          values.id ? _this.props.updateCatalog(payload).then(function (hello) {
+            console.log(hello);
+          }) : _this.props.createCatalog(payload).then(callback);
         }
       });
     }, _this.renderSaveButton = function (id) {
