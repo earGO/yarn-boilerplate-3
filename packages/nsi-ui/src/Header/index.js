@@ -23,7 +23,7 @@ const CreateHeader = props => {
       <Text fontSize={3}>Создание справочника</Text>
       <Box className="buttonsWrapper">
         <Box width={96} style={{ display: 'inline-block' }} id="createCatalogButtonContainer" />
-        <Box ml={3} width={96} style={{ display: 'inline-block'}}>
+        <Box ml={3} width={96} style={{ display: 'inline-block' }}>
           <Button type="bordered" block onClick={() => props.history.goBack()}>
             Отмена
           </Button>
@@ -40,7 +40,7 @@ const EditHeader = props => {
       <Text fontSize={3}>Редактирование справочника</Text>
       <Box className="buttonsWrapper">
         <Box width={96} style={{ display: 'inline-block' }} id="editCatalogButtonContainer" />
-        <Box ml={3} width={96} style={{ display: 'inline-block'}}>
+        <Box ml={3} width={96} style={{ display: 'inline-block' }}>
           <Button block type="bordered" onClick={() => history.goBack()}>
             Отмена
           </Button>
@@ -79,26 +79,25 @@ const ViewHeader = props => {
 const Placeholder = props => {
   const { history, location } = props
   // I wanna kms.
-  const withoutLastSlash = location.pathname.replace(/\/$/, '');
+  const withoutLastSlash = location.pathname.replace(/\/$/, '')
   return (
     <Flex justifyContent="space-between" flex={1} alignItems="center">
       <Text fontSize={3}>Cправочники</Text>
       <Box className="buttonsWrapper">
-        <Button
+        {/* <Button
           onClick={() => {
             history.push(`${withoutLastSlash}/create`)
           }}
         >
           <Icon mr={2} name="plus-circle" />
           Создать справочник
-        </Button>
+        </Button> */}
       </Box>
     </Flex>
   )
 }
 
 const HeaderWrapper = styled(Flex)`
-  margin: 0 160px;
   height: 87px;
   align-items: center;
   border-bottom: 1px solid #ecebeb;

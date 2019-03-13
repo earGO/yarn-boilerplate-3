@@ -9,9 +9,9 @@ import Header from '../Header'
 class BaseNSITemplate extends React.Component {
   render() {
     return (
-      <Flex flexDirection="column" width="1440px" mx="auto">
+      <Flex flexDirection="column" mx="auto">
         <Header />
-        <Flex mt={3} mx={160}>
+        <Flex mt={3}>
           <Box flex="0 0 256px">
             <Route path="/nsi/:id?" component={CatalogsList} />
           </Box>

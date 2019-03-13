@@ -4,15 +4,7 @@ import { Flex, Card, Heading, Text } from '@ursip/design-system'
 
 class Main extends React.PureComponent {
   render() {
-    return (
-      <Flex justifyContent="center" alignItems="center">
-        <Card boxShadowSize="md" p={2}>
-          <Heading align="center">Main page</Heading>
-          <Text align="center">Hello from main page</Text>
-          <Link to="/nsi">nsi</Link>
-        </Card>
-      </Flex>
-    )
+    return <Heading>Main page</Heading>
   }
 }
 

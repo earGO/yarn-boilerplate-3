@@ -11,6 +11,8 @@ import Pages from './pages'
 
 import './assets/fonts/PTSans/font.css'
 import '@ursip/design-system/build/index.es.css'
+import './normalize.css'
+import './index.css'
 
 render(
   <Provider store={store}>
