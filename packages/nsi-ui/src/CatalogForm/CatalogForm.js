@@ -4,6 +4,7 @@ import { Select, Input, Form, Icon, Divider, Box, Button, Flex, Text } from '@ur
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
+import produce from 'immer'
 import nsi from '@ursip/nsi-service'
 import CatalogTable from './CatalogTable'
 // Использовалось в старом НСИ.
@@ -46,6 +47,31 @@ class CatalogForm extends React.Component {
     })
   }
 
+  handleRefLinkChange = (rowKey, key) => (valueObj) => {
+    const { form } = this.props
+    const attributes = form.getFieldValue('attributes')
+    const nextAttributes = produce(attributes, draft => {
+      let attributeIndex = attributes.findIndex(item => item.key === rowKey)
+      switch (key) {
+        case 'type': {
+          draft[attributeIndex].type = valueObj
+          break;
+        }
+        case 'catalogId': {
+          draft[attributeIndex].type.catalogId = valueObj.value;
+          draft[attributeIndex].type.attributeId = null;
+          break;
+        }
+        case 'attributeId': {
+          draft[attributeIndex].type.attributeId = valueObj.value;
+        }
+      }
+    })
+    form.setFieldsValue({
+      attributes: nextAttributes,
+    })
+  }
+
   handleItemDelete = (key) => {
     const { form } = this.props
     const attributes = form.getFieldValue('attributes')
@@ -58,12 +84,20 @@ class CatalogForm extends React.Component {
     console.log('I can handle catalog save now!', form.getFieldsValue())
     const { validateFieldsAndScroll } = form
     const { history } = this.props
+    const handleReflinkField = (object) => {
+      const { label, ...rest } = object
+      return rest
+    }
+    const handleTypeField = (typeObject) => {
+      return typeObject.value === 'ref_link' ? handleReflinkField(typeObject) : typeObject.value
+    }
+
     validateFieldsAndScroll((err, values) => {
       if (!err) {
         const formattedValues = {
           ...values,
-          // Уберем вложенность из значения селекта "Тип"
-          attributes: values.attributes.map(item => ({ ...item, type: item.type ? item.type.value : null }))
+          // Уберем вложенность из значения селекта "Тип", захендлим ref_link.
+          attributes: values.attributes.map(item => ({ ...item, type: item.type ? handleTypeField(item.type) : null }))
         }
         // Редиректнем на страницу созданного каталога.
         const callback = (action) => history.push(`/nsi/${action.payload.data.id}`)
@@ -136,9 +170,11 @@ class CatalogForm extends React.Component {
   
         <Box mt={4} id="tableWrapper">
           <CatalogTable
+            refCatalogs={this.props.catalogs}
             attributes={this.props.form.getFieldValue('attributes')}
             handleItemChange={this.handleItemChange}
             handleItemDelete={this.handleItemDelete}
+            handleRefLinkChange={this.handleRefLinkChange}
           />
 
           <Box mt={3} alignItems="center">
@@ -161,10 +197,12 @@ const mapStateToProps = (state, ownProps) => {
     return {
       ...ownProps,
       catalogToEdit,
+      catalogs: nsi.selectors.catalogs(state),
     }
   }
   return {
     ...ownProps,
+    catalogs: nsi.selectors.catalogs(state),
   }
 }
 

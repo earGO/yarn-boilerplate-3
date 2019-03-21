@@ -10,7 +10,6 @@ const ViewHeader = props => {
   const { history, location, selectedCatalog, match } = props
   const { id } = match.params
   const handleDeleteCatalog = () => {
-    debugger;
     const deletedCatalog = { ...selectedCatalog, removed: true }
     const payload = {
       payload: deletedCatalog,

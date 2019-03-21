@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { compose, combineReducers } from 'redux'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import produce from 'immer'
 import { injectReducer } from '@ursip/utils'
 import nsi from '@ursip/nsi-service'
 import { Text, Box, Flex, Table, Input, Icon, Button, Popover, Divider } from '@ursip/design-system'
@@ -27,6 +28,7 @@ class Catalog extends React.Component {
     this.state = {
       loading: false,
       selected: null,
+      searchQuery: '',
       expandedRowKeys: [],
       editableRowId: null,
       editableRowData: {},
@@ -76,12 +78,18 @@ class Catalog extends React.Component {
                   rowFromState={this.state.editableRowData[rowData.key]}
                 />
               ) : (
-                <div style={{ wordBreak: 'break-word', display: 'inline-block' }}>{rowData[attribute.key]}</div>
+                <Box style={{ wordBreak: 'break-word', display: 'inline-block' }}>{rowData[attribute.key]}</Box>
               )
             }}
           </Table.Cell>
         </Table.Column>
       )
+    })
+  }
+
+  handleSearch = (query) => {
+    this.setState({
+      searchQuery: query,
     })
   }
 
@@ -141,14 +149,20 @@ class Catalog extends React.Component {
 
   handleEditRow = rowData => {
     console.log('Trying to edit the row')
-    this.setState({
-      ...this.state,
-      editableRowId: rowData.key,
-      editableRowData: {
-        ...this.state.editableRowData,
-        [rowData.key]: rowData,
-      },
+    const producer = produce(draft => {
+      draft.editableRowId = rowData.key;
+      draft.editableRowData[rowData.key] = rowData;
     })
+    this.setState(producer)
+    // this.setState({
+    //   ...this.state,
+    //   editableRowId: rowData.key,
+    //   editableRowData: {
+    //     ...this.state.editableRowData,
+    //     [rowData.key]: rowData,
+    //   },
+    // })
+
   }
 
   handleRowDelete = rowData => {
@@ -165,16 +179,20 @@ class Catalog extends React.Component {
   }
 
   handleEditableRowChange = (rowKey, attributeKey) => value => {
-    this.setState({
-      ...this.state,
-      editableRowData: {
-        ...this.state.editableRowData,
-        [rowKey]: {
-          ...this.state.editableRowData[rowKey],
-          [attributeKey]: value,
-        },
-      },
+    const producer = produce(draft => {
+      draft.editableRowData[rowKey][attributeKey] = value;
     })
+    this.setState(producer);
+    // this.setState({
+    //   ...this.state,
+    //   editableRowData: {
+    //     ...this.state.editableRowData,
+    //     [rowKey]: {
+    //       ...this.state.editableRowData[rowKey],
+    //       [attributeKey]: value,
+    //     },
+    //   },
+    // })
   }
 
   getTooltip = rowData => {
@@ -208,9 +226,27 @@ class Catalog extends React.Component {
     )
   }
 
+  getFilteredCatalogRow = () => {
+    const { catalogRows, rawRows } = this.props
+    const { searchQuery } = this.state
+    if (searchQuery) {
+      const filteredRaw = rawRows.filter(item => {
+        const { key, catalogId, ...rest } = item
+        const values = Object.values(rest)
+        return JSON.stringify(values).includes(searchQuery)
+      } )
+      return filteredRaw
+      // И как работать с деревом тут?))
+      // + нужно добавить ноды, чтобы дерево таки построилось.
+      const grouped = arrayToTree(filteredRaw)
+      return grouped.rootItems
+    }
+    return catalogRows
+  }
+
   render() {
     return (
-      <Box>
+      <Box id="catalogWrapper">
         <Flex height={24} alignItems="center">
           <Box flex="0 0 64px">
             <Text fontSize={0}>Группа:</Text>
@@ -230,7 +266,7 @@ class Catalog extends React.Component {
         <Box className="tableWrap" style={{ border: '1px solid #ecebeb' }} mt={32}>
           <Flex className="controls" justifyContent="space-between" alignItems="center" mt={16}>
             <Box ml={3} width="336px">
-              <Input size="small" placeholder="Поиск" prefix={<Icon fontSize="12px" name="search" />} />
+              <Input size="small" placeholder="Поиск" prefix={<Icon fontSize="12px" name="search" />} onChange={this.handleSearch} />
             </Box>
             <Flex alignItems="center">
               <Box width="144px">
@@ -261,7 +297,7 @@ class Catalog extends React.Component {
               }}
               expandedRowKeys={this.state.expandedRowKeys}
               onExpandChange={this.handleExpandedRowsChange}
-              data={this.props.catalogRows}
+              data={this.getFilteredCatalogRow()}
               width={832}
               isTree
               wordWrap
@@ -270,7 +306,7 @@ class Catalog extends React.Component {
               {this.getTableColumns()}
               <Table.Column fixed="right" width={96}>
                 <CenteredHeaderCell>Действия</CenteredHeaderCell>
-                <CenteredTableCell>{this.getTooltip}</CenteredTableCell>
+                <Table.Cell>{this.getTooltip}</Table.Cell>
               </Table.Column>
             </Table>
           </Box>
@@ -290,6 +326,7 @@ const mapStateToProps = (state, ownProps) => {
     catalogs: nsi.selectors.catalogs(state),
     selectedCatalog: nsi.reselectors.catalogs.getCatalogById(state, id),
     catalogRows: treeRows.rootItems,
+    rawRows: catalogRows,
   }
 }
 

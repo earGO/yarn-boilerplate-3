@@ -9,7 +9,8 @@
   "main": "build/index.js",
   "peerDependencies": {
     "redux-saga-requests": "^0.17.1",
-    "reselect": "^3.0.1"
+    "reselect": "^3.0.1",
+    "immer": "^2.0.0"
   },
   "devDependencies": {
     "@svgr/rollup": "^2.4.1",

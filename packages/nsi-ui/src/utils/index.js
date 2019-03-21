@@ -1,3 +1,6 @@
+import { injectReducer } from '@ursip/utils'
+import { combineReducers } from 'redux'
+
 export function arrayToTree(items, config = { id: 'key', parentId: 'parentId' }) {
   const rootItems = [];
   const lookup = {};
@@ -34,3 +37,8 @@ export function arrayToTree(items, config = { id: 'key', parentId: 'parentId' })
     lookup,
   };
 }
+
+export const simpleInject = (item) => injectReducer({
+  key: item.name,
+  reducer: combineReducers(item.reducers),
+})

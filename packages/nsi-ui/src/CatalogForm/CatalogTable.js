@@ -5,10 +5,10 @@ import propTypes from 'prop-types'
 
 const typeOptions = [
   { label: 'Строка', value: 'string' },
-  { label: 'Дата', value: 'date'},
-  { label: 'Целое число', value: 'number'},
-  { label: 'Логическое', value: 'boolean'},
-  { label: 'Другой справочник', value: 'ref_link'},
+  { label: 'Дата', value: 'date' },
+  { label: 'Целое число', value: 'number' },
+  { label: 'Логическое', value: 'boolean' },
+  { label: 'Другой справочник', value: 'ref_link' },
 ]
 
 const CenteredHeaderCell = styled(Table.HeaderCell)`
@@ -21,9 +21,66 @@ const CenteredTableCell = styled(Table.Cell)`
   justify-content: center;
 `
 
-const CatalogTable = ({ handleItemChange, handleItemDelete, attributes }) => {
+const getCatalogsOptions = catalogs => {
+  return catalogs.map(item => ({
+    label: item.name,
+    value: item.id,
+  }))
+}
+
+const getAttributeOptions = (catalogs, catalogId) => {
+  const catalog = catalogs.find(item => item.id === catalogId)
+  return catalog.attributes.map(item => ({
+    label: item.title,
+    value: item.key,
+  }))
+}
+
+const handleRowHeight = rowData => {
+  if (rowData.type.value === 'ref_link' && rowData.type.catalogId) {
+    return 72 + 48 + 48
+  }
+  if (rowData.type.value === 'ref_link') {
+    return 72 + 48
+  }
+  return 72
+}
+
+const RefCatalogSelect = ({ refCatalogs, rowData, handleChange }) => {
+  const options = getCatalogsOptions(refCatalogs)
   return (
-    <Table data={attributes} minHeight={72 + 48} rowHeight={72} autoHeight rowKey="key">
+    <Box mt={2}>
+      <Select
+        options={options}
+        // temp
+        value={options.find(item => item.value === rowData.type.catalogId)}
+        // value={rowData.type}
+        menuPortalTarget={document.getElementById('tableWrapper')}
+        onChange={handleChange}
+      />
+    </Box>
+  )
+}
+
+const RefCatalogAttributeSelect = ({ refCatalogs, catalogId, rowData, handleChange }) => {
+  const options = getAttributeOptions(refCatalogs, catalogId)
+  return (
+    <Box key={catalogId} mt={2}>
+      <Select
+        options={options}
+        // temp
+        value={options.find(item => item.value === rowData.type.attributeId)}
+        // value={rowData.type}
+        menuPortalTarget={document.getElementById('tableWrapper')}
+        onChange={handleChange}
+      />
+    </Box>
+  )
+}
+
+const CatalogTable = ({ handleItemChange, handleItemDelete, handleRefLinkChange, attributes, refCatalogs }) => {
+  return (
+    <Table setRowHeight={handleRowHeight} data={attributes} minHeight={72 + 48} rowHeight={72} autoHeight rowKey="key">
       <Table.Column width={160} sort>
         <Table.HeaderCell style={{ paddingLeft: '16px' }}>Название</Table.HeaderCell>
         <Table.Cell style={{ paddingLeft: '16px' }} dataKey="title">
@@ -49,8 +106,23 @@ const CatalogTable = ({ handleItemChange, handleItemDelete, attributes }) => {
                   value={typeOptions.find(item => item.value === rowData.type.value)}
                   // value={rowData.type}
                   menuPortalTarget={document.getElementById('tableWrapper')}
-                  onChange={handleItemChange('type', rowData.key)}
+                  onChange={handleRefLinkChange(rowData.key, 'type')}
                 />
+                {rowData.type.value === 'ref_link' && (
+                  <RefCatalogSelect
+                    rowData={rowData}
+                    refCatalogs={refCatalogs}
+                    handleChange={handleRefLinkChange(rowData.key, 'catalogId')}
+                  />
+                )}
+                {rowData.type.value === 'ref_link' && rowData.type.catalogId && (
+                  <RefCatalogAttributeSelect
+                    rowData={rowData}
+                    refCatalogs={refCatalogs}
+                    catalogId={rowData.type.catalogId}
+                    handleChange={handleRefLinkChange(rowData.key, 'attributeId')}
+                  />
+                )}
               </Box>
             )
           }}
@@ -108,8 +180,10 @@ const CatalogTable = ({ handleItemChange, handleItemDelete, attributes }) => {
 
 CatalogTable.propTypes = {
   attributes: propTypes.array,
+  refCatalogs: propTypes.array,
   handleItemChange: propTypes.func,
   handleItemDelete: propTypes.func,
+  handleRefLinkChange: propTypes.func,
 }
 
 export default CatalogTable
