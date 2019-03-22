@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Toggle, Select } from '@ursip/design-system'
+import { Input, Toggle, Select, Datepicker } from '@ursip/design-system'
 import RefLinkInput from './RefLinkInput'
 
 // Пока нет datepicker, input.number, ref_link.
@@ -29,7 +29,7 @@ export const EditableCell = ({ attribute, rowData, rowFromState, handleEditableR
     case 'string':
       return <Input {...common} />
     case 'date':
-      return <Input {...common} />
+      return <Datepicker {...common} appendToBody />
     case 'number':
       return <Input {...common} type="number" />
     case 'boolean':

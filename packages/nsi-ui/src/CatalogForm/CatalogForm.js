@@ -28,7 +28,7 @@ class CatalogForm extends React.Component {
     const newKey = uuid();
     const placeholderItem = {
       key: newKey,
-      type: { label: 'Строка', value: 'string' }
+      type: 'string'
     }
     form.setFieldsValue({
       attributes: attributes.concat(placeholderItem),
@@ -49,24 +49,35 @@ class CatalogForm extends React.Component {
 
   handleRefLinkChange = (rowKey, key) => (valueObj) => {
     const { form } = this.props
+    const actualValue = valueObj.value || null;
     const attributes = form.getFieldValue('attributes')
+    console.log('Before', attributes)
     const nextAttributes = produce(attributes, draft => {
       let attributeIndex = attributes.findIndex(item => item.key === rowKey)
       switch (key) {
         case 'type': {
-          draft[attributeIndex].type = valueObj
+          if (actualValue === 'ref_link') {
+            draft[attributeIndex].type = {
+              type: actualValue,
+              catalogId: null,
+              attributeId: null
+            }
+          } else {
+            draft[attributeIndex].type = actualValue
+          }
           break;
         }
         case 'catalogId': {
-          draft[attributeIndex].type.catalogId = valueObj.value;
+          draft[attributeIndex].type.catalogId = actualValue;
           draft[attributeIndex].type.attributeId = null;
           break;
         }
         case 'attributeId': {
-          draft[attributeIndex].type.attributeId = valueObj.value;
+          draft[attributeIndex].type.attributeId = actualValue;
         }
       }
     })
+    console.log('After', nextAttributes);
     form.setFieldsValue({
       attributes: nextAttributes,
     })
@@ -84,29 +95,17 @@ class CatalogForm extends React.Component {
     console.log('I can handle catalog save now!', form.getFieldsValue())
     const { validateFieldsAndScroll } = form
     const { history } = this.props
-    const handleReflinkField = (object) => {
-      const { label, ...rest } = object
-      return rest
-    }
-    const handleTypeField = (typeObject) => {
-      return typeObject.value === 'ref_link' ? handleReflinkField(typeObject) : typeObject.value
-    }
 
     validateFieldsAndScroll((err, values) => {
       if (!err) {
-        const formattedValues = {
-          ...values,
-          // Уберем вложенность из значения селекта "Тип", захендлим ref_link.
-          attributes: values.attributes.map(item => ({ ...item, type: item.type ? handleTypeField(item.type) : null }))
-        }
-        // Редиректнем на страницу созданного каталога.
+        // Редиректнем на страницу созданного/измененного каталога.
         const callback = (action) => history.push(`/nsi/${action.payload.data.id}`)
         const payload = {
-          payload: formattedValues,
+          payload: values,
           meta: { asPromise: true },
         }
         values.id
-          ? this.props.updateCatalog(payload).then((hello) => { console.log(hello) })
+          ? this.props.updateCatalog(payload).then(callback)
           : this.props.createCatalog(payload).then(callback)
       }
     })

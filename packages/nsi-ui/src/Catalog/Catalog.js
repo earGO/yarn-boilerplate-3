@@ -306,7 +306,7 @@ class Catalog extends React.Component {
               {this.getTableColumns()}
               <Table.Column fixed="right" width={96}>
                 <CenteredHeaderCell>Действия</CenteredHeaderCell>
-                <Table.Cell>{this.getTooltip}</Table.Cell>
+                <CenteredTableCell>{this.getTooltip}</CenteredTableCell>
               </Table.Column>
             </Table>
           </Box>

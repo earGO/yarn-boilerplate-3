@@ -15,7 +15,7 @@ class BaseNSITemplate extends React.Component {
           <Box flex="0 0 256px">
             <Route path="/nsi/:id?" component={CatalogsList} />
           </Box>
-          <Box ml="32px" flex="1">
+          <Box ml="32px" flex="1" id="nsiwrap">
             <Switch>
               {/* По хорошему тут бы закидывать данные 
                 в CatalogForm в зависимости от того, редактирование это или создание.

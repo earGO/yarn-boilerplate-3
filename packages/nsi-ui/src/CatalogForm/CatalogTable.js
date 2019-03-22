@@ -37,10 +37,11 @@ const getAttributeOptions = (catalogs, catalogId) => {
 }
 
 const handleRowHeight = rowData => {
-  if (rowData.type.value === 'ref_link' && rowData.type.catalogId) {
+  const isObject = rowData.type instanceof Object
+  if (isObject && rowData.type.catalogId) {
     return 72 + 48 + 48
   }
-  if (rowData.type.value === 'ref_link') {
+  if (isObject) {
     return 72 + 48
   }
   return 72
@@ -52,10 +53,8 @@ const RefCatalogSelect = ({ refCatalogs, rowData, handleChange }) => {
     <Box mt={2}>
       <Select
         options={options}
-        // temp
         value={options.find(item => item.value === rowData.type.catalogId)}
-        // value={rowData.type}
-        menuPortalTarget={document.getElementById('tableWrapper')}
+        menuPortalTarget={document.getElementById('nsiwrap')}
         onChange={handleChange}
       />
     </Box>
@@ -68,10 +67,8 @@ const RefCatalogAttributeSelect = ({ refCatalogs, catalogId, rowData, handleChan
     <Box key={catalogId} mt={2}>
       <Select
         options={options}
-        // temp
         value={options.find(item => item.value === rowData.type.attributeId)}
-        // value={rowData.type}
-        menuPortalTarget={document.getElementById('tableWrapper')}
+        menuPortalTarget={document.getElementById('nsiwrap')}
         onChange={handleChange}
       />
     </Box>
@@ -102,20 +99,18 @@ const CatalogTable = ({ handleItemChange, handleItemDelete, handleRefLinkChange,
               <Box flex="1">
                 <Select
                   options={typeOptions}
-                  // temp
-                  value={typeOptions.find(item => item.value === rowData.type.value)}
-                  // value={rowData.type}
-                  menuPortalTarget={document.getElementById('tableWrapper')}
+                  value={typeOptions.find(item => item.value === (typeof rowData.type === 'string' ? rowData.type : rowData.type.type))}
+                  menuPortalTarget={document.getElementById('nsiwrap')}
                   onChange={handleRefLinkChange(rowData.key, 'type')}
                 />
-                {rowData.type.value === 'ref_link' && (
+                {rowData.type.type === 'ref_link' && (
                   <RefCatalogSelect
                     rowData={rowData}
                     refCatalogs={refCatalogs}
                     handleChange={handleRefLinkChange(rowData.key, 'catalogId')}
                   />
                 )}
-                {rowData.type.value === 'ref_link' && rowData.type.catalogId && (
+                {rowData.type.type === 'ref_link' && rowData.type.catalogId && (
                   <RefCatalogAttributeSelect
                     rowData={rowData}
                     refCatalogs={refCatalogs}
