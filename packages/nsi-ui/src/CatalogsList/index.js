@@ -53,10 +53,7 @@ class CatalogsList extends React.Component {
     const customCatalogs = this.props.data.filter(catalog => catalog.type)
     const systemCatalogs = this.props.data.filter(catalog => !catalog.type)
     return (
-      // #TODO
-      // Временно дам ключ врапперу, чтобы ререндерился когда добавляешь, удаляешь каталоги.
-      // make Collapse measure it's content height after rerenders in design system
-      <Box key={this.props.data.length} width="100%">
+      <Box width="100%">
         <Collapse defaultActiveKeys={['system', 'custom']}>
           <Panel
             key="system"

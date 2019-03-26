@@ -8,13 +8,13 @@ import { Input, Toggle, Select } from '@ursip/design-system'
 class RefLinkInput extends React.Component {
   componentDidMount() {
     const { catalogId, attributeId } = this.props
-    const IDKLUL = {
+    const payload = {
       payload: {
         catalogId,
         attributeId,
       },
     }
-    this.props.getAllByCatalogId(IDKLUL)
+    this.props.getAllByCatalogId(payload)
   }
 
   render() {

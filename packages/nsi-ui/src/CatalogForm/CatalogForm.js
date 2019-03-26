@@ -173,7 +173,6 @@ class CatalogForm extends React.Component {
           <Box ml={2} flex={1}>
             {getFieldDecorator('type', {
               initialValue: catalogToEdit.type || false,
-              rules: [{ message: 'Заполните поле тип' }],
             })(<Toggle />)}
           </Box>
         </Flex>
