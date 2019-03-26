@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Select, Input, Form, Icon, Divider, Box, Button, Flex, Text } from '@ursip/design-system'
+import { Select, Input, Form, Icon, Divider, Box, Button, Flex, Text, Toggle } from '@ursip/design-system'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
@@ -164,6 +164,17 @@ class CatalogForm extends React.Component {
               initialValue: catalogToEdit.description || '',
               rules: [{ message: 'Заполните поле описание' }],
             })(<Input placeholder="Введите описание" />)}
+          </Box>
+        </Flex>
+        <Flex className="fieldWrapper" mt={3} alignItems="center">
+          <Box flex="0 0 64px" >
+            <Text fontSize={0}>Иерархический:</Text>
+          </Box>
+          <Box ml={2} flex={1}>
+            {getFieldDecorator('type', {
+              initialValue: catalogToEdit.type || false,
+              rules: [{ message: 'Заполните поле тип' }],
+            })(<Toggle />)}
           </Box>
         </Flex>
   

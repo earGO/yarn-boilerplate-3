@@ -8,7 +8,7 @@ import { injectReducer } from '@ursip/utils'
 import nsi from '@ursip/nsi-service'
 import { Text, Box, Flex, Table, Input, Icon, Button, Popover, Divider } from '@ursip/design-system'
 import { EditableCell } from './EditableCell'
-import { arrayToTree } from '../utils'
+import { arrayToTree, simpleInject } from '../utils'
 // Использовалось в старом НСИ.
 import uuid from 'uuid/v4'
 
@@ -125,6 +125,34 @@ class Catalog extends React.Component {
     })
   }
 
+  handleRowAddAsChild = (rowData) => {
+    const newKey = uuid();
+    const newRow = {
+      catalogId: this.props.catalogId,
+      key: newKey,
+      removed: false,
+      parentId: rowData.key,
+    }
+    const payload = {
+      payload: {
+        newRow,
+        catalogId: this.props.catalogId,
+      },
+      meta: { asPromise: true },
+    }
+    console.log('Adding a row as a child to', rowData, 'sending this data:', payload)
+    // Добавим данные в стейт, откроем его родителя, поставим новый ряд на редактирование.
+    const producer = (draft => {
+      const withNewOpenKey = [ ...new Set(this.state.expandedRowKeys.concat(rowData.key)) ]
+      draft.expandedRowKeys = withNewOpenKey;
+      draft.editableRowId = newKey;
+      draft.editableRowData[newKey] = { ...newRow };
+    })
+    this.props.createRow(payload).then(() => {
+      this.setState(producer)
+    })
+  }
+
   handleRowSave = key => {
     const updatedRowData = this.state.editableRowData[key]
     // Remove null fields? Не очень понимаю почему так.
@@ -154,21 +182,12 @@ class Catalog extends React.Component {
       draft.editableRowData[rowData.key] = rowData;
     })
     this.setState(producer)
-    // this.setState({
-    //   ...this.state,
-    //   editableRowId: rowData.key,
-    //   editableRowData: {
-    //     ...this.state.editableRowData,
-    //     [rowData.key]: rowData,
-    //   },
-    // })
-
   }
 
   handleRowDelete = rowData => {
     const deletedRow = { ...rowData, removed: true }
-    // Remove service _parent prop.
-    const { _parent, ...rest } = deletedRow
+    // Уберем служебные поля.
+    const { _parent, children, ...rest } = deletedRow
     const payload = {
       payload: {
         deletedRow: rest,
@@ -183,36 +202,36 @@ class Catalog extends React.Component {
       draft.editableRowData[rowKey][attributeKey] = value;
     })
     this.setState(producer);
-    // this.setState({
-    //   ...this.state,
-    //   editableRowData: {
-    //     ...this.state.editableRowData,
-    //     [rowKey]: {
-    //       ...this.state.editableRowData[rowKey],
-    //       [attributeKey]: value,
-    //     },
-    //   },
-    // })
   }
 
   getTooltip = rowData => {
+    const { selectedCatalog } = this.props
+    const isHierarchical = selectedCatalog.type
     const content = (
-      <Flex flexDirection="column" width={88} height={48}>
+      <Flex flexDirection="column" width={120}>
         {rowData.key === this.state.editableRowId ? (
-          <Box onClick={() => this.handleRowSave(rowData.key)}>
+          <Box onClick={() => this.handleRowSave(rowData.key)} pl={3} py={2}>
             <Text align="left" style={{ cursor: 'pointer' }} fontSize={0}>
               Сохранить
             </Text>
           </Box>
         ) : (
-          <Box onClick={() => this.handleEditRow(rowData)}>
+          <Box onClick={() => this.handleEditRow(rowData)} pl={3} py={2}>
             <Text align="left" style={{ cursor: 'pointer' }} fontSize={0}>
               Редактировать
             </Text>
           </Box>
         )}
-        <Divider my={2} />
-        <Box onClick={() => this.handleRowDelete(rowData)}>
+        {isHierarchical && (<React.Fragment>
+          <Divider my={0} />
+          <Box onClick={() => this.handleRowAddAsChild(rowData)} pl={3} py={2}>
+          <Text align="left" style={{ cursor: 'pointer' }} fontSize={0}>
+            Добавить.
+          </Text>
+        </Box>
+        </React.Fragment>)}
+        <Divider my={0} />
+        <Box onClick={() => this.handleRowDelete(rowData)} pl={3} py={2}>
           <Text align="left" style={{ cursor: 'pointer' }} fontSize={0}>
             Удалить
           </Text>
@@ -331,10 +350,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const enhance = compose(
-  injectReducer({
-    key: nsi.name,
-    reducer: combineReducers(nsi.reducers),
-  }),
+  simpleInject(nsi),
   connect(
     mapStateToProps,
     { ...nsi.actions.catalogs, ...nsi.actions.rows },
