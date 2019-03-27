@@ -87,7 +87,7 @@ class Catalog extends React.Component {
     })
   }
 
-  handleSearch = (query) => {
+  handleSearch = query => {
     this.setState({
       searchQuery: query,
     })
@@ -125,8 +125,8 @@ class Catalog extends React.Component {
     })
   }
 
-  handleRowAddAsChild = (rowData) => {
-    const newKey = uuid();
+  handleRowAddAsChild = rowData => {
+    const newKey = uuid()
     const newRow = {
       catalogId: this.props.catalogId,
       key: newKey,
@@ -142,12 +142,12 @@ class Catalog extends React.Component {
     }
     console.log('Adding a row as a child to', rowData, 'sending this data:', payload)
     // Добавим данные в стейт, откроем его родителя, поставим новый ряд на редактирование.
-    const producer = (draft => {
-      const withNewOpenKey = [ ...new Set(this.state.expandedRowKeys.concat(rowData.key)) ]
-      draft.expandedRowKeys = withNewOpenKey;
-      draft.editableRowId = newKey;
-      draft.editableRowData[newKey] = { ...newRow };
-    })
+    const producer = draft => {
+      const withNewOpenKey = [...new Set(this.state.expandedRowKeys.concat(rowData.key))]
+      draft.expandedRowKeys = withNewOpenKey
+      draft.editableRowId = newKey
+      draft.editableRowData[newKey] = { ...newRow }
+    }
     this.props.createRow(payload).then(() => {
       this.setState(producer)
     })
@@ -178,8 +178,8 @@ class Catalog extends React.Component {
   handleEditRow = rowData => {
     console.log('Trying to edit the row')
     const producer = produce(draft => {
-      draft.editableRowId = rowData.key;
-      draft.editableRowData[rowData.key] = rowData;
+      draft.editableRowId = rowData.key
+      draft.editableRowData[rowData.key] = rowData
     })
     this.setState(producer)
   }
@@ -199,9 +199,9 @@ class Catalog extends React.Component {
 
   handleEditableRowChange = (rowKey, attributeKey) => value => {
     const producer = produce(draft => {
-      draft.editableRowData[rowKey][attributeKey] = value;
+      draft.editableRowData[rowKey][attributeKey] = value
     })
-    this.setState(producer);
+    this.setState(producer)
   }
 
   getTooltip = rowData => {
@@ -211,28 +211,30 @@ class Catalog extends React.Component {
       <Flex flexDirection="column" width={120}>
         {rowData.key === this.state.editableRowId ? (
           <Box onClick={() => this.handleRowSave(rowData.key)} pl={3} py={2}>
-            <Text align="left" style={{ cursor: 'pointer' }} fontSize={0}>
+            <Text align="left" style={{ cursor: 'pointer' }}>
               Сохранить
             </Text>
           </Box>
         ) : (
           <Box onClick={() => this.handleEditRow(rowData)} pl={3} py={2}>
-            <Text align="left" style={{ cursor: 'pointer' }} fontSize={0}>
+            <Text align="left" style={{ cursor: 'pointer' }}>
               Редактировать
             </Text>
           </Box>
         )}
-        {isHierarchical && (<React.Fragment>
-          <Divider my={0} />
-          <Box onClick={() => this.handleRowAddAsChild(rowData)} pl={3} py={2}>
-          <Text align="left" style={{ cursor: 'pointer' }} fontSize={0}>
-            Добавить.
-          </Text>
-        </Box>
-        </React.Fragment>)}
+        {isHierarchical && (
+          <React.Fragment>
+            <Divider my={0} />
+            <Box onClick={() => this.handleRowAddAsChild(rowData)} pl={3} py={2}>
+              <Text align="left" style={{ cursor: 'pointer' }}>
+                Добавить.
+              </Text>
+            </Box>
+          </React.Fragment>
+        )}
         <Divider my={0} />
         <Box onClick={() => this.handleRowDelete(rowData)} pl={3} py={2}>
-          <Text align="left" style={{ cursor: 'pointer' }} fontSize={0}>
+          <Text align="left" style={{ cursor: 'pointer' }}>
             Удалить
           </Text>
         </Box>
@@ -253,7 +255,7 @@ class Catalog extends React.Component {
         const { key, catalogId, ...rest } = item
         const values = Object.values(rest)
         return JSON.stringify(values).includes(searchQuery)
-      } )
+      })
       return filteredRaw
       // И как работать с деревом тут?))
       // + нужно добавить ноды, чтобы дерево таки построилось.
@@ -268,24 +270,25 @@ class Catalog extends React.Component {
       <Box id="catalogWrapper">
         <Flex height={24} alignItems="center">
           <Box flex="0 0 64px">
-            <Text fontSize={0}>Группа:</Text>
+            <Text>Группа:</Text>
           </Box>
-          <Text fontSize={0} ml={4}>
-            {'-'}
-          </Text>
+          <Text ml={4}>{'-'}</Text>
         </Flex>
         <Flex height={24} alignItems="center">
           <Box flex="0 0 64px">
-            <Text fontSize={0}>Описание:</Text>
+            <Text>Описание:</Text>
           </Box>
-          <Text fontSize={0} ml={4}>
-            {this.props.selectedCatalog.description}
-          </Text>
+          <Text ml={4}>{this.props.selectedCatalog.description}</Text>
         </Flex>
         <Box className="tableWrap" style={{ border: '1px solid #ecebeb' }} mt={32}>
           <Flex className="controls" justifyContent="space-between" alignItems="center" mt={16}>
             <Box ml={3} width="336px">
-              <Input size="small" placeholder="Поиск" prefix={<Icon fontSize="12px" name="search" />} onChange={this.handleSearch} />
+              <Input
+                size="small"
+                placeholder="Поиск"
+                prefix={<Icon fontSize="12px" name="search" />}
+                onChange={this.handleSearch}
+              />
             </Box>
             <Flex alignItems="center">
               <Box width="144px">

@@ -133,7 +133,7 @@ class CatalogForm extends React.Component {
         {getFieldDecorator('attributes', { initialValue: catalogToEdit.attributes })(<Input style={{ display: 'none' }} />)}
         <Flex className="fieldWrapper" alignItems="center">
           <Box flex="0 0 64px">
-            <Text fontSize={0}>Название:</Text>
+            <Text>Название:</Text>
           </Box>
           <Box ml={2} flex={1}>
             {getFieldDecorator('name', {
@@ -145,7 +145,7 @@ class CatalogForm extends React.Component {
 
         <Flex className="fieldWrapper" mt={3} alignItems="center">
           <Box flex="0 0 64px">
-            <Text fontSize={0}>Группа:</Text>
+            <Text>Группа:</Text>
           </Box>
           <Box ml={2} flex={1}>
             {getFieldDecorator('group', {
@@ -157,7 +157,7 @@ class CatalogForm extends React.Component {
 
         <Flex className="fieldWrapper" mt={3} alignItems="center">
           <Box flex="0 0 64px" >
-            <Text fontSize={0}>Описание:</Text>
+            <Text>Описание:</Text>
           </Box>
           <Box ml={2} flex={1}>
             {getFieldDecorator('description', {
@@ -168,7 +168,7 @@ class CatalogForm extends React.Component {
         </Flex>
         <Flex className="fieldWrapper" mt={3} alignItems="center">
           <Box flex="0 0 64px" >
-            <Text fontSize={0}>Иерархический:</Text>
+            <Text>Иерархический:</Text>
           </Box>
           <Box ml={2} flex={1}>
             {getFieldDecorator('type', {

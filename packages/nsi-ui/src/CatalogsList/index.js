@@ -60,16 +60,14 @@ class CatalogsList extends React.Component {
             ml={24}
             title={
               <CollapseItem>
-                <Text fontSize={0} bold>
-                  Системные
-                </Text>
+                <Text bold>Системные</Text>
               </CollapseItem>
             }
           >
             {systemCatalogs.map(item => (
               <StyledLink key={item.id} title={item.name} to={`/nsi/${item.id}`}>
                 <CollapseItem id={item.id} activeCatalogId={activeCatalogId}>
-                  <Text fontSize={0}>{item.name}</Text>
+                  <Text>{item.name}</Text>
                 </CollapseItem>
               </StyledLink>
             ))}
@@ -79,16 +77,14 @@ class CatalogsList extends React.Component {
             ml={24}
             title={
               <CollapseItem>
-                <Text fontSize={0} bold>
-                  Пользовательские
-                </Text>
+                <Text bold>Пользовательские</Text>
               </CollapseItem>
             }
           >
             {customCatalogs.map(item => (
               <StyledLink key={item.id} title={item.name} to={`/nsi/${item.id}`}>
                 <CollapseItem id={item.id} activeCatalogId={activeCatalogId}>
-                  <Text fontSize={0}>{item.name}</Text>
+                  <Text>{item.name}</Text>
                 </CollapseItem>
               </StyledLink>
             ))}
