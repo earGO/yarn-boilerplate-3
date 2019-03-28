@@ -47,7 +47,7 @@ class CatalogForm extends React.Component {
     })
   }
 
-  handleRefLinkChange = (rowKey, key) => (valueObj) => {
+  handleTypeChange = (rowKey, key) => (valueObj) => {
     const { form } = this.props
     const actualValue = valueObj.value || null;
     const attributes = form.getFieldValue('attributes')
@@ -183,7 +183,7 @@ class CatalogForm extends React.Component {
             attributes={this.props.form.getFieldValue('attributes')}
             handleItemChange={this.handleItemChange}
             handleItemDelete={this.handleItemDelete}
-            handleRefLinkChange={this.handleRefLinkChange}
+            handleTypeChange={this.handleTypeChange}
           />
 
           <Box mt={3} alignItems="center">

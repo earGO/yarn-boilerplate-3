@@ -75,7 +75,7 @@ const RefCatalogAttributeSelect = ({ refCatalogs, catalogId, rowData, handleChan
   )
 }
 
-const CatalogTable = ({ handleItemChange, handleItemDelete, handleRefLinkChange, attributes, refCatalogs }) => {
+const CatalogTable = ({ handleItemChange, handleItemDelete, handleTypeChange, attributes, refCatalogs }) => {
   return (
     <Table setRowHeight={handleRowHeight} data={attributes} minHeight={72 + 48} rowHeight={72} autoHeight rowKey="key">
       <Table.Column width={160} sort>
@@ -101,13 +101,13 @@ const CatalogTable = ({ handleItemChange, handleItemDelete, handleRefLinkChange,
                   options={typeOptions}
                   value={typeOptions.find(item => item.value === (typeof rowData.type === 'string' ? rowData.type : rowData.type.type))}
                   menuPortalTarget={document.getElementById('nsiwrap')}
-                  onChange={handleRefLinkChange(rowData.key, 'type')}
+                  onChange={handleTypeChange(rowData.key, 'type')}
                 />
                 {rowData.type.type === 'ref_link' && (
                   <RefCatalogSelect
                     rowData={rowData}
                     refCatalogs={refCatalogs}
-                    handleChange={handleRefLinkChange(rowData.key, 'catalogId')}
+                    handleChange={handleTypeChange(rowData.key, 'catalogId')}
                   />
                 )}
                 {rowData.type.type === 'ref_link' && rowData.type.catalogId && (
@@ -115,7 +115,7 @@ const CatalogTable = ({ handleItemChange, handleItemDelete, handleRefLinkChange,
                     rowData={rowData}
                     refCatalogs={refCatalogs}
                     catalogId={rowData.type.catalogId}
-                    handleChange={handleRefLinkChange(rowData.key, 'attributeId')}
+                    handleChange={handleTypeChange(rowData.key, 'attributeId')}
                   />
                 )}
               </Box>
@@ -178,7 +178,7 @@ CatalogTable.propTypes = {
   refCatalogs: propTypes.array,
   handleItemChange: propTypes.func,
   handleItemDelete: propTypes.func,
-  handleRefLinkChange: propTypes.func,
+  handleTypeChange: propTypes.func,
 }
 
 export default CatalogTable

@@ -3,7 +3,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { simpleInject } from '../utils'
 import nsi from '@ursip/nsi-service'
-import { Input, Toggle, Select } from '@ursip/design-system'
+import { Select } from '@ursip/design-system'
 
 class RefLinkInput extends React.Component {
   componentDidMount() {

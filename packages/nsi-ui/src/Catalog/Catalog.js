@@ -1,16 +1,20 @@
 import React from 'react'
 import styled from 'styled-components'
-import { compose, combineReducers } from 'redux'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import produce from 'immer'
-import { injectReducer } from '@ursip/utils'
 import nsi from '@ursip/nsi-service'
 import { Text, Box, Flex, Table, Input, Icon, Button, Popover, Divider } from '@ursip/design-system'
 import { EditableCell } from './EditableCell'
-import { arrayToTree, simpleInject } from '../utils'
+import { arrayToTree, simpleInject, SORTERS } from '../utils'
 // Использовалось в старом НСИ.
 import uuid from 'uuid/v4'
+
+const DEFAULT_SORT = {
+  order: 'desc',
+  columnKey: null,
+}
 
 const CenteredHeaderCell = styled(Table.HeaderCell)`
   padding-left: 16px;
@@ -22,18 +26,53 @@ const CenteredTableCell = styled(Table.Cell)`
   justify-content: center;
 `
 
+const SortIcon = styled(Icon)`
+  cursor: pointer;
+  opacity: 0.7;
+  transform: scale(0.7);
+  color: ${props => props.isCurrentlyActive ? 'blue' : 'black'};
+`
+
+const ColumnWithSorter = ({ attribute, handleSortChange, activeSort, ...rest }) => {
+  const isCurrentlyActive = (order) => (activeSort.columnKey === attribute.key && order === activeSort.order)
+  return (
+    <Table.HeaderCell {...rest}>
+      {attribute.title}
+      <Flex ml={1} flexDirection="column">
+        <SortIcon
+          isCurrentlyActive={isCurrentlyActive('asc')}
+          name="arrow-up"
+          onClick={() => {
+            handleSortChange('asc', attribute.key)
+          }}
+        />
+        <SortIcon
+          isCurrentlyActive={isCurrentlyActive('desc')}
+          name="arrow-down"
+          onClick={() => {
+            handleSortChange('desc', attribute.key)
+          }}
+        />
+      </Flex>
+    </Table.HeaderCell>
+  )
+}
+
 class Catalog extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      loading: false,
-      selected: null,
       searchQuery: '',
+      activeSort: DEFAULT_SORT,
       expandedRowKeys: [],
       editableRowId: null,
       editableRowData: {},
     }
   }
+
+  /** Так как в Table стремные дефолтные иконки expand-collapse ряда в таблице, придется делать
+   * ее controlled и пихать свои иконки.
+   */
   handleExpandedRowsChange = (expanded, rowData) => {
     this.setState({
       expandedRowKeys: expanded
@@ -50,16 +89,24 @@ class Catalog extends React.Component {
     })
   }
 
+  // Скинем сортировки в таблице на дефолтные при выборе другого каталога.
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.catalogId !== this.props.catalogId) {
-      this.props.getAllByCatalogId({
-        payload: {
-          catalogId: this.props.catalogId,
-        },
+      this.setState({
+        activeSort: DEFAULT_SORT,
+      }, () => {
+        this.props.getAllByCatalogId({
+          payload: {
+            catalogId: this.props.catalogId,
+          },
+        })
       })
     }
   }
 
+  /** Заполняем колонки таблицы для открытого каталога.
+   * #TBD: Можно ли сделать нормальную динамическую ширину?
+   */
   getTableColumns = () => {
     const { attributes } = this.props.selectedCatalog
     return (attributes || []).map(attribute => {
@@ -67,7 +114,7 @@ class Catalog extends React.Component {
       const minWidth = attribute.title.length < 21 ? 160 : attribute.title.length * 10
       return (
         <Table.Column key={attribute.key} flexGrow={1} minWidth={minWidth}>
-          <Table.HeaderCell>{attribute.title}</Table.HeaderCell>
+          <ColumnWithSorter attribute={attribute} handleSortChange={this.handleSortChange} activeSort={this.state.activeSort}/>
           <Table.Cell>
             {rowData => {
               return rowData.key === this.state.editableRowId ? (
@@ -93,12 +140,19 @@ class Catalog extends React.Component {
     })
   }
 
-  onRowAdd = addedRow => {
+  handleSortChange = (order, columnKey) => {
     this.setState({
-      editableRowId: addedRow.id,
+      activeSort: {
+        order,
+        columnKey,
+      },
     })
   }
 
+  /**
+   * Добавление ряда в табличку.
+   * Ответ добавит новый row в пропсы автоматом. Откроем его сразу на редактирование.
+   */
   handleAddRow = () => {
     const newKey = uuid()
     const payload = {
@@ -110,8 +164,6 @@ class Catalog extends React.Component {
         catalogId: this.props.catalogId,
       },
     }
-    console.log('Trying to add the row', this.props, payload)
-    // Ответ добавит новый row в пропсы автоматом. Откроем его сразу на редактирование.
     this.props.createRow(payload).then(() => {
       this.setState({
         editableRowId: newKey,
@@ -125,6 +177,7 @@ class Catalog extends React.Component {
     })
   }
 
+  // Отдельный хендлер добавления ряда для иерархического справочника.
   handleRowAddAsChild = rowData => {
     const newKey = uuid()
     const newRow = {
@@ -153,9 +206,11 @@ class Catalog extends React.Component {
     })
   }
 
+  /**
+   * Пока нет валидации, подчистим null поля перед сохранением, иначе 400 в лицо)
+   */
   handleRowSave = key => {
     const updatedRowData = this.state.editableRowData[key]
-    // Remove null fields? Не очень понимаю почему так.
     let withoutNullFields = {}
     for (let key of Object.keys(updatedRowData)) {
       if (updatedRowData[key] !== null) {
@@ -175,8 +230,8 @@ class Catalog extends React.Component {
     this.props.updateRow(payload).then(() => this.setState({ editableRowId: null }))
   }
 
+  // Делает ряд редактируемым.
   handleEditRow = rowData => {
-    console.log('Trying to edit the row')
     const producer = produce(draft => {
       draft.editableRowId = rowData.key
       draft.editableRowData[rowData.key] = rowData
@@ -197,6 +252,7 @@ class Catalog extends React.Component {
     this.props.deleteRow(payload)
   }
 
+  // Общий хендлер для все полей ряда на редактировании.
   handleEditableRowChange = (rowKey, attributeKey) => value => {
     const producer = produce(draft => {
       draft.editableRowData[rowKey][attributeKey] = value
@@ -204,6 +260,9 @@ class Catalog extends React.Component {
     this.setState(producer)
   }
 
+  /**
+   * Контролсы для последней колонки в таблице.
+   */
   getTooltip = rowData => {
     const { selectedCatalog } = this.props
     const isHierarchical = selectedCatalog.type
@@ -227,7 +286,7 @@ class Catalog extends React.Component {
             <Divider my={0} />
             <Box onClick={() => this.handleRowAddAsChild(rowData)} pl={3} py={2}>
               <Text align="left" style={{ cursor: 'pointer' }}>
-                Добавить.
+                Добавить
               </Text>
             </Box>
           </React.Fragment>
@@ -247,11 +306,11 @@ class Catalog extends React.Component {
     )
   }
 
-  getFilteredCatalogRow = () => {
-    const { catalogRows, rawRows } = this.props
+  getFilteredCatalogRows = (sortedRows) => {
     const { searchQuery } = this.state
+    // Если есть query поиска.
     if (searchQuery) {
-      const filteredRaw = rawRows.filter(item => {
+      const filteredRaw = sortedRows.filter(item => {
         const { key, catalogId, ...rest } = item
         const values = Object.values(rest)
         return JSON.stringify(values).includes(searchQuery)
@@ -262,7 +321,45 @@ class Catalog extends React.Component {
       const grouped = arrayToTree(filteredRaw)
       return grouped.rootItems
     }
-    return catalogRows
+    return sortedRows
+  }
+
+  getPresortedData = (rawRows) => {
+    const { attributes: catalogAttributes} = this.props.selectedCatalog
+    const { columnKey, order } = this.state.activeSort
+    let result = []
+    // Если есть активная сортировка.
+    if (columnKey) {
+      const sortedColumn = catalogAttributes.find(item => item.key === columnKey)
+      // Косяк, что при переключении каталогов не сразу сбрасывается сортировка.
+      // #TODO: разобраться с key для враппера этого каталога, понять, почему не ремаунтится компонент.
+      if (!sortedColumn) {
+        return rawRows
+      }
+      const sortFunction = (a, b) => SORTERS[sortedColumn.type](a[columnKey], b[columnKey])
+      rawRows.sort(sortFunction)
+      // idk, без спреда не работает))))
+      result = order === 'desc' ? [ ...rawRows ] : [ ...rawRows.reverse() ]
+    } else {
+      result = [ ...rawRows]
+    }
+    return result
+  }
+
+  getTableDataSource = (catalogRows) => {
+    // Итак.
+    // 1) Сортируем данные
+    // 2) Фильтруем, если запущен поиск 
+    // 3) Собираем дерево.
+    // 4) ???
+    // 5) Profit.
+    const handleDataSource = compose(
+      arrayToTree,
+      this.getFilteredCatalogRows,
+      this.getPresortedData,
+    )
+    const { rootItems } = handleDataSource(catalogRows)
+    return rootItems;
   }
 
   render() {
@@ -319,7 +416,7 @@ class Catalog extends React.Component {
               }}
               expandedRowKeys={this.state.expandedRowKeys}
               onExpandChange={this.handleExpandedRowsChange}
-              data={this.getFilteredCatalogRow()}
+              data={this.getTableDataSource(this.props.rawRows)}
               width={832}
               isTree
               wordWrap

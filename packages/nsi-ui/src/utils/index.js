@@ -42,3 +42,26 @@ export const simpleInject = (item) => injectReducer({
   key: item.name,
   reducer: combineReducers(item.reducers),
 })
+
+
+export const SORTERS = {
+  string: (a, b) => {
+    debugger;
+    if (typeof a !== 'string') {
+      return 1
+    }
+    if (typeof b !== 'string') {
+      return -1
+    }
+    return b.localeCompare(a)
+  },
+  number: (a, b) => b - a,
+  date: (a, b) => {
+    // moment here?
+    // temp
+    return b - a;
+  },
+  // Хз как сортировать по этому полю.
+  ref_link: () => {},
+  boolean: (a, b) => Number(b) - Number(a),
+}
