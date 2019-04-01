@@ -23,9 +23,11 @@ const isActive = ({ id, activeCatalogId, ...rest }) => {
 const CollapseItem = styled(Flex)`
   min-height: 32px;
   align-items: center;
-  /* padding-left: 24px; */
   ${props => `border-bottom: 1px solid ${props.theme.colors.border}`}
   ${isActive}
+  &:hover {
+    opacity: 0.7;
+  }
 `
 
 const StyledLink = styled(Link)`
@@ -42,14 +44,14 @@ class CatalogsList extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getAll({ meta: { asPromise: true } }).finally(() => this.setState({ isLoading: false }))
+    const { getAll, history } = this.props
+    getAll({ meta: { asPromise: true } })
+      .then(res => res.payload.data[0] && history.push('/nsi/' + res.payload.data[0].id))
+      .finally(() => this.setState({ isLoading: false }))
   }
 
   render() {
     const { id: activeCatalogId } = this.props.match.params
-    if (this.state.isLoading) {
-      return <Text>Loading...</Text>
-    }
     /** На самом деле там никаких разделений нет, поле type хз что значит, но можно по нему разбить в 2 группы */
     const customCatalogs = this.props.data.filter(catalog => catalog.type)
     const systemCatalogs = this.props.data.filter(catalog => !catalog.type)

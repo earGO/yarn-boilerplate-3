@@ -22,10 +22,10 @@ class Header extends React.PureComponent {
             <SearchInput />
           </Box>
           <Box ml="auto">
-            <Text inline color="#f5f5f5" mr={4}>
+            {/* <Text inline color="#f5f5f5" mr={4}>
               <Badge mr={2}>3</Badge>
               Уведомления
-            </Text>
+            </Text> */}
             <Button
               size="small"
               type="bordered"

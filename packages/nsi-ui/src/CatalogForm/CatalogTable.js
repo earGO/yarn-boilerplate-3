@@ -173,13 +173,18 @@ const CatalogTable = ({ handleItemChange, handleItemDelete, handleTypeChange, at
         <CenteredHeaderCell>Действия</CenteredHeaderCell>
         <CenteredTableCell>
           {rowData => (
-            <Icon
-              name="ellipsis-h"
-              title="Удалить"
-              onClick={() => {
-                handleItemDelete(rowData.key)
-              }}
-            />
+            <Tooltip text="удалить">
+              <Icon
+                style={{ cursor: 'pointer' }}
+                name="trash-alt"
+                title="Удалить"
+                onClick={() => {
+                  if (confirm('Вы действительно хотите удалить поле?')) {
+                    handleItemDelete(rowData.key)
+                  }
+                }}
+              />
+            </Tooltip>
           )}
         </CenteredTableCell>
       </Table.Column>

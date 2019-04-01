@@ -41,10 +41,10 @@ const DropdownTrigger = styled(Icon)`
   }
 `
 const DropdownMenuItem = styled(Box)`
-cursor: pointer;
-&:hover {
-  opacity: 0.7;
-}
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
 `
 
 const ColumnWithSorter = ({ attribute, handleSortChange, activeSort, ...rest }) => {
@@ -129,7 +129,7 @@ class Catalog extends React.Component {
     return (attributes || []).map(attribute => {
       // Magic numbers
       // #TODO: remove this stupid check
-      let minWidth = 160;
+      let minWidth = 160
       if (attribute.title) {
         minWidth = attribute.title.length < 21 ? 160 : attribute.title.length * 10
       }
@@ -176,7 +176,7 @@ class Catalog extends React.Component {
     })
   }
 
-  handleRowHeight = (rowData) => {
+  handleRowHeight = rowData => {
     return this.state.editableRowId === rowData.key ? 72 : 48
   }
 
@@ -185,13 +185,11 @@ class Catalog extends React.Component {
   // Потом вместо id в (attributeType === 'ref_link') показывать реальное значение?
   getFormattedValue = (value, attributeType) => {
     if (attributeType === 'date') {
-      return value
-        ? moment(+value).format('DD.MM.YYYY') 
-        : null
+      return value ? moment(+value).format('DD.MM.YYYY') : null
     }
     if (attributeType === 'boolean') {
       //#TODO: как он умудряется сохранять undefined?
-      return String(value);
+      return String(value)
     }
     return value
   }
@@ -211,7 +209,7 @@ class Catalog extends React.Component {
         catalogId: this.props.catalogId,
       },
     }
-    this.props.createRow(payload).then((response) => {
+    this.props.createRow(payload).then(response => {
       this.setState({
         editableRowId: newKey,
         editableRowData: {
@@ -261,7 +259,7 @@ class Catalog extends React.Component {
     let withoutNullFields = {}
     for (let key of Object.keys(updatedRowData)) {
       if (updatedRowData[key] !== null) {
-          withoutNullFields = { ...withoutNullFields, [key]: updatedRowData[key] }
+        withoutNullFields = { ...withoutNullFields, [key]: updatedRowData[key] }
       }
     }
     const payload = {
@@ -301,14 +299,13 @@ class Catalog extends React.Component {
     if (confirm('Удалить строку?')) {
       this.props.deleteRow(payload)
     }
-
   }
 
   // Общий хендлер для все полей ряда на редактировании.
   // Отдельно перегоняем дату из momentObject в unixtimestamp.
   handleEditableRowChange = (rowKey, attributeKey, type) => value => {
     const producer = produce(draft => {
-      draft.editableRowData[rowKey][attributeKey] = type === 'date' ? value.format('x') : value;
+      draft.editableRowData[rowKey][attributeKey] = type === 'date' ? value.format('x') : value
     })
     this.setState(producer)
   }
@@ -323,41 +320,31 @@ class Catalog extends React.Component {
       <Flex flexDirection="column" width={120}>
         {rowData.key === this.state.editableRowId ? (
           <DropdownMenuItem onClick={() => this.handleRowSave(rowData.key)} pl={3} py={2}>
-            <Text align="left">
-              Сохранить
-            </Text>
+            <Text align="left">Сохранить</Text>
           </DropdownMenuItem>
         ) : (
           <DropdownMenuItem onClick={() => this.handleEditRow(rowData)} pl={3} py={2}>
-            <Text align="left">
-              Редактировать
-            </Text>
+            <Text align="left">Редактировать</Text>
           </DropdownMenuItem>
         )}
         {isHierarchical && (
           <React.Fragment>
             <Divider my={0} />
             <DropdownMenuItem onClick={() => this.handleRowAddAsChild(rowData)} pl={3} py={2}>
-              <Text align="left">
-                Добавить
-              </Text>
+              <Text align="left">Добавить</Text>
             </DropdownMenuItem>
           </React.Fragment>
         )}
         <Divider my={0} />
         <DropdownMenuItem onClick={() => this.handleRowDelete(rowData)} pl={3} py={2}>
-          <Text align="left">
-            Удалить
-          </Text>
+          <Text align="left">Удалить</Text>
         </DropdownMenuItem>
 
         <Divider my={0} />
 
         {rowData.key === this.state.editableRowId && (
-            <DropdownMenuItem onClick={this.handleCancelRow} pl={3} py={2}>
-            <Text align="left">
-              Отмена
-            </Text>
+          <DropdownMenuItem onClick={this.handleCancelRow} pl={3} py={2}>
+            <Text align="left">Отмена</Text>
           </DropdownMenuItem>
         )}
       </Flex>
@@ -426,20 +413,21 @@ class Catalog extends React.Component {
   }
 
   render() {
+    console.log(this.props.selectedCatalog)
     return (
       <Box id="catalogWrapper">
-        <Flex height={24} alignItems="center">
-          <Box flex="0 0 104px">
-            <Text>Группа:</Text>
-          </Box>
-          <Text ml={4}>{'-'}</Text>
-        </Flex>
-        <Flex height={24} alignItems="center">
-          <Box flex="0 0 104px">
-            <Text>Описание:</Text>
-          </Box>
-          <Text ml={4}>{this.props.selectedCatalog.description}</Text>
-        </Flex>
+        <Text mb={2}>
+          Группа:{' '}
+          <Text inline bold>
+            {this.props.selectedCatalog.group || <i>&mdash;</i>}
+          </Text>
+        </Text>
+        <Text>
+          Описание:{' '}
+          <Text inline bold>
+            {this.props.selectedCatalog.description || <i>&mdash;</i>}
+          </Text>
+        </Text>
         <Box className="tableWrap" style={{ border: '1px solid #ecebeb' }} mt={32}>
           <Flex className="controls" justifyContent="space-between" alignItems="center" mt={16}>
             <Box ml={3} width="336px">
@@ -461,9 +449,9 @@ class Catalog extends React.Component {
             <Table
               renderTreeToggle={(icon, rowData) => {
                 return this.state.expandedRowKeys.includes(rowData.key) ? (
-                  <Icon name="chevron-up" onClick={icon.props.onClick} />
+                  <Icon style={{ outline: 'none' }} name="chevron-up" onClick={icon.props.onClick} />
                 ) : (
-                  <Icon name="chevron-down" onClick={icon.props.onClick} />
+                  <Icon style={{ outline: 'none' }} name="chevron-down" onClick={icon.props.onClick} />
                 )
               }}
               expandedRowKeys={this.state.expandedRowKeys}

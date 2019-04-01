@@ -5,7 +5,7 @@ import { Flex, Box, Text, Input, Button, Card } from '@ursip/design-system'
 import Header from './Header'
 import Menu from './Menu'
 
-const width = 1120 + 80 + 80 
+const width = 1120 + 80 + 80
 
 const menuItems = [
   {
@@ -20,20 +20,20 @@ const menuItems = [
         url: '/nsi',
         qs: null,
       },
-      {
-        key: '0-1',
-        name: 'Вьювер',
-        url: '/viewer',
-        qs: null,
-      },
+      // {
+      //   key: '0-1',
+      //   name: 'Вьювер',
+      //   url: '/viewer',
+      //   qs: null,
+      // },
     ],
   },
-  {
-    key: '1',
-    name: 'О компании',
-    url: '/about',
-    qs: null,
-  },
+  // {
+  //   key: '1',
+  //   name: 'О компании',
+  //   url: '/about',
+  //   qs: null,
+  // },
 ]
 
 class Layout extends Component {
