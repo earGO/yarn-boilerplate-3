@@ -15,9 +15,13 @@ const ViewHeader = props => {
       payload: deletedCatalog,
       meta: { asPromise: true },
     }
-    props.markDeleted(payload).then(() => {
-      history.push('/nsi')
-    })
+    
+    if (confirm('Вы действительно хотите удалить каталог?')) {
+      props.markDeleted(payload).then(() => {
+        history.push('/nsi')
+      })
+    }
+
   }
   return (
     <Flex justifyContent="space-between" flex={1} alignItems="center">

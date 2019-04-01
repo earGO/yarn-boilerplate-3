@@ -45,16 +45,7 @@ class Layout extends Component {
     return (
       <StickyContainer>
         <Sticky topOffset={0}>
-          {({
-            style,
-
-            // the following are also available but unused in this example
-            isSticky,
-            wasSticky,
-            distanceFromTop,
-            distanceFromBottom,
-            calculatedHeight,
-          }) => (
+          {({ style }) => (
             <div style={{ ...style, zIndex: 10 }}>
               <Header width={width} />
               <Menu items={menuItems} width={width} />
@@ -63,6 +54,11 @@ class Layout extends Component {
         </Sticky>
         <Box width={width} mx="auto">
           {this.props.children}
+        </Box>
+        <Box width={width} mx="auto" py={3}>
+          <Text align="right" fontSize={0}>
+            URSiP &copy; 2019
+          </Text>
         </Box>
       </StickyContainer>
     )

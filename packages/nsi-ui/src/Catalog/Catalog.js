@@ -30,11 +30,24 @@ const SortIcon = styled(Icon)`
   cursor: pointer;
   opacity: 0.7;
   transform: scale(0.7);
-  color: ${props => props.isCurrentlyActive ? 'blue' : 'black'};
+  color: ${props => (props.isCurrentlyActive ? 'blue' : 'black')};
+`
+
+const DropdownTrigger = styled(Icon)`
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
+`
+const DropdownMenuItem = styled(Box)`
+cursor: pointer;
+&:hover {
+  opacity: 0.7;
+}
 `
 
 const ColumnWithSorter = ({ attribute, handleSortChange, activeSort, ...rest }) => {
-  const isCurrentlyActive = (order) => (activeSort.columnKey === attribute.key && order === activeSort.order)
+  const isCurrentlyActive = order => activeSort.columnKey === attribute.key && order === activeSort.order
   return (
     <Table.HeaderCell {...rest}>
       {attribute.title}
@@ -92,15 +105,18 @@ class Catalog extends React.Component {
   // Скинем сортировки в таблице на дефолтные при выборе другого каталога.
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.catalogId !== this.props.catalogId) {
-      this.setState({
-        activeSort: DEFAULT_SORT,
-      }, () => {
-        this.props.getAllByCatalogId({
-          payload: {
-            catalogId: this.props.catalogId,
-          },
-        })
-      })
+      this.setState(
+        {
+          activeSort: DEFAULT_SORT,
+        },
+        () => {
+          this.props.getAllByCatalogId({
+            payload: {
+              catalogId: this.props.catalogId,
+            },
+          })
+        },
+      )
     }
   }
 
@@ -114,7 +130,11 @@ class Catalog extends React.Component {
       const minWidth = attribute.title.length < 21 ? 160 : attribute.title.length * 10
       return (
         <Table.Column key={attribute.key} flexGrow={1} minWidth={minWidth}>
-          <ColumnWithSorter attribute={attribute} handleSortChange={this.handleSortChange} activeSort={this.state.activeSort}/>
+          <ColumnWithSorter
+            attribute={attribute}
+            handleSortChange={this.handleSortChange}
+            activeSort={this.state.activeSort}
+          />
           <Table.Cell>
             {rowData => {
               return rowData.key === this.state.editableRowId ? (
@@ -164,14 +184,16 @@ class Catalog extends React.Component {
         catalogId: this.props.catalogId,
       },
     }
+
+    console.log(this.state.editableRowData)
     this.props.createRow(payload).then(() => {
       this.setState({
         editableRowId: newKey,
         editableRowData: {
-          ...this.state.editableRowData,
           [newKey]: {
             key: newKey,
           },
+          ...this.state.editableRowData,
         },
       })
     })
@@ -230,6 +252,8 @@ class Catalog extends React.Component {
     this.props.updateRow(payload).then(() => this.setState({ editableRowId: null }))
   }
 
+  handleCancelRow = () => this.setState({ editableRowId: null })
+
   // Делает ряд редактируемым.
   handleEditRow = rowData => {
     const producer = produce(draft => {
@@ -249,7 +273,10 @@ class Catalog extends React.Component {
         catalogId: this.props.catalogId,
       },
     }
-    this.props.deleteRow(payload)
+    if (confirm('Удалить строку?')) {
+      this.props.deleteRow(payload)
+    }
+
   }
 
   // Общий хендлер для все полей ряда на редактировании.
@@ -269,44 +296,54 @@ class Catalog extends React.Component {
     const content = (
       <Flex flexDirection="column" width={120}>
         {rowData.key === this.state.editableRowId ? (
-          <Box onClick={() => this.handleRowSave(rowData.key)} pl={3} py={2}>
-            <Text align="left" style={{ cursor: 'pointer' }}>
+          <DropdownMenuItem onClick={() => this.handleRowSave(rowData.key)} pl={3} py={2}>
+            <Text align="left">
               Сохранить
             </Text>
-          </Box>
+          </DropdownMenuItem>
         ) : (
-          <Box onClick={() => this.handleEditRow(rowData)} pl={3} py={2}>
-            <Text align="left" style={{ cursor: 'pointer' }}>
+          <DropdownMenuItem onClick={() => this.handleEditRow(rowData)} pl={3} py={2}>
+            <Text align="left">
               Редактировать
             </Text>
-          </Box>
+          </DropdownMenuItem>
         )}
         {isHierarchical && (
           <React.Fragment>
             <Divider my={0} />
-            <Box onClick={() => this.handleRowAddAsChild(rowData)} pl={3} py={2}>
-              <Text align="left" style={{ cursor: 'pointer' }}>
+            <DropdownMenuItem onClick={() => this.handleRowAddAsChild(rowData)} pl={3} py={2}>
+              <Text align="left">
                 Добавить
               </Text>
-            </Box>
+            </DropdownMenuItem>
           </React.Fragment>
         )}
         <Divider my={0} />
-        <Box onClick={() => this.handleRowDelete(rowData)} pl={3} py={2}>
-          <Text align="left" style={{ cursor: 'pointer' }}>
+        <DropdownMenuItem onClick={() => this.handleRowDelete(rowData)} pl={3} py={2}>
+          <Text align="left">
             Удалить
           </Text>
-        </Box>
+        </DropdownMenuItem>
+
+        <Divider my={0} />
+
+        {rowData.key === this.state.editableRowId && (
+            <DropdownMenuItem onClick={this.handleCancelRow} pl={3} py={2}>
+            <Text align="left">
+              Отмена
+            </Text>
+          </DropdownMenuItem>
+        )}
       </Flex>
     )
     return (
       <Popover placement="bottom" events={['click']} content={content} transitionName={null}>
-        <Icon name="ellipsis-h" />
+        <DropdownTrigger name="ellipsis-h" />
       </Popover>
     )
   }
 
-  getFilteredCatalogRows = (sortedRows) => {
+  getFilteredCatalogRows = sortedRows => {
     const { searchQuery } = this.state
     // Если есть query поиска.
     if (searchQuery) {
@@ -324,8 +361,8 @@ class Catalog extends React.Component {
     return sortedRows
   }
 
-  getPresortedData = (rawRows) => {
-    const { attributes: catalogAttributes} = this.props.selectedCatalog
+  getPresortedData = rawRows => {
+    const { attributes: catalogAttributes } = this.props.selectedCatalog
     const { columnKey, order } = this.state.activeSort
     let result = []
     // Если есть активная сортировка.
@@ -339,17 +376,17 @@ class Catalog extends React.Component {
       const sortFunction = (a, b) => SORTERS[sortedColumn.type](a[columnKey], b[columnKey])
       rawRows.sort(sortFunction)
       // idk, без спреда не работает))))
-      result = order === 'desc' ? [ ...rawRows ] : [ ...rawRows.reverse() ]
+      result = order === 'desc' ? [...rawRows] : [...rawRows.reverse()]
     } else {
-      result = [ ...rawRows]
+      result = [...rawRows]
     }
     return result
   }
 
-  getTableDataSource = (catalogRows) => {
+  getTableDataSource = catalogRows => {
     // Итак.
     // 1) Сортируем данные
-    // 2) Фильтруем, если запущен поиск 
+    // 2) Фильтруем, если запущен поиск
     // 3) Собираем дерево.
     // 4) ???
     // 5) Profit.
@@ -359,7 +396,7 @@ class Catalog extends React.Component {
       this.getPresortedData,
     )
     const { rootItems } = handleDataSource(catalogRows)
-    return rootItems;
+    return rootItems
   }
 
   render() {
@@ -387,23 +424,12 @@ class Catalog extends React.Component {
                 onChange={this.handleSearch}
               />
             </Box>
-            <Flex alignItems="center">
-              <Box width="144px">
-                <Button type="secondary" block size="small" onClick={this.handleAddRow}>
-                  <Icon mr={2} name="plus-circle" />
-                  Добавить строку
-                </Button>
-              </Box>
-              <Box width="160px" ml={32}>
-                <Button pl={1} type="flat" size="small">
-                  <Icon mr={2} name="chevron-down" />
-                  Расширенный поиск
-                </Button>
-              </Box>
-              <Flex ml={32} mr={16} width="16px" alignItems="center">
-                <Icon mr={2} name="ellipsis-v" />
-              </Flex>
-            </Flex>
+            <Box width="144px" mr={3}>
+              <Button type="secondary" block size="small" onClick={this.handleAddRow}>
+                <Icon mr={2} name="plus" />
+                Добавить строку
+              </Button>
+            </Box>
           </Flex>
           <Box mt={16} borderTop="1px solid #ecebeb">
             <Table
