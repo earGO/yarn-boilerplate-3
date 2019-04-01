@@ -5,7 +5,7 @@ import { Flex, Box, Text, Input, Button, Card } from '@ursip/design-system'
 import Header from './Header'
 import Menu from './Menu'
 
-const width = 1120
+const width = 1120 + 80 + 80 
 
 const menuItems = [
   {

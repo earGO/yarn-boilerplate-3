@@ -132,7 +132,7 @@ class CatalogForm extends React.Component {
         {/** Просто регистрируем поле, чтобы работать с ним через form.*/}
         {getFieldDecorator('attributes', { initialValue: catalogToEdit.attributes })(<Input style={{ display: 'none' }} />)}
         <Flex className="fieldWrapper" alignItems="center">
-          <Box flex="0 0 64px">
+          <Box flex="0 0 104px">
             <Text>Название:</Text>
           </Box>
           <Box ml={2} flex={1}>
@@ -144,7 +144,7 @@ class CatalogForm extends React.Component {
         </Flex>
 
         <Flex className="fieldWrapper" mt={3} alignItems="center">
-          <Box flex="0 0 64px">
+          <Box flex="0 0 104px">
             <Text>Группа:</Text>
           </Box>
           <Box ml={2} flex={1}>
@@ -156,7 +156,7 @@ class CatalogForm extends React.Component {
         </Flex>
 
         <Flex className="fieldWrapper" mt={3} alignItems="center">
-          <Box flex="0 0 64px" >
+          <Box flex="0 0 104px" >
             <Text>Описание:</Text>
           </Box>
           <Box ml={2} flex={1}>
@@ -167,7 +167,7 @@ class CatalogForm extends React.Component {
           </Box>
         </Flex>
         <Flex className="fieldWrapper" mt={3} alignItems="center">
-          <Box flex="0 0 64px" >
+          <Box flex="0 0 104px" >
             <Text>Иерархический:</Text>
           </Box>
           <Box ml={2} flex={1}>

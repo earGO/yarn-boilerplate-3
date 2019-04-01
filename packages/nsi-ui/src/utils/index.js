@@ -46,7 +46,6 @@ export const simpleInject = (item) => injectReducer({
 
 export const SORTERS = {
   string: (a, b) => {
-    debugger;
     if (typeof a !== 'string') {
       return 1
     }

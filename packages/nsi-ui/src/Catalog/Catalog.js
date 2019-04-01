@@ -4,6 +4,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import produce from 'immer'
+import moment from 'moment'
 import nsi from '@ursip/nsi-service'
 import { Text, Box, Flex, Table, Input, Icon, Button, Popover, Divider } from '@ursip/design-system'
 import { EditableCell } from './EditableCell'
@@ -25,8 +26,8 @@ const CenteredTableCell = styled(Table.Cell)`
   padding-left: 16px;
   justify-content: center;
 `
-
-const SortIcon = styled(Icon)`
+// remove isCurrentlyActive from DOM element
+const SortIcon = styled(({ isCurrentlyActive, ...rest }) => <Icon {...rest} />)`
   cursor: pointer;
   opacity: 0.7;
   transform: scale(0.7);
@@ -127,7 +128,11 @@ class Catalog extends React.Component {
     const { attributes } = this.props.selectedCatalog
     return (attributes || []).map(attribute => {
       // Magic numbers
-      const minWidth = attribute.title.length < 21 ? 160 : attribute.title.length * 10
+      // #TODO: remove this stupid check
+      let minWidth = 160;
+      if (attribute.title) {
+        minWidth = attribute.title.length < 21 ? 160 : attribute.title.length * 10
+      }
       return (
         <Table.Column key={attribute.key} flexGrow={1} minWidth={minWidth}>
           <ColumnWithSorter
@@ -145,7 +150,9 @@ class Catalog extends React.Component {
                   rowFromState={this.state.editableRowData[rowData.key]}
                 />
               ) : (
-                <Box style={{ wordBreak: 'break-word', display: 'inline-block' }}>{rowData[attribute.key]}</Box>
+                <Box style={{ wordBreak: 'break-word', display: 'inline-block' }}>
+                  {this.getFormattedValue(rowData[attribute.key], attribute.type)}
+                </Box>
               )
             }}
           </Table.Cell>
@@ -169,6 +176,26 @@ class Catalog extends React.Component {
     })
   }
 
+  handleRowHeight = (rowData) => {
+    return this.state.editableRowId === rowData.key ? 72 : 48
+  }
+
+  // Отображение значений в ячейке таблице. Пока только покажем дату.
+  // #TODO
+  // Потом вместо id в (attributeType === 'ref_link') показывать реальное значение?
+  getFormattedValue = (value, attributeType) => {
+    if (attributeType === 'date') {
+      return value
+        ? moment(+value).format('DD.MM.YYYY') 
+        : null
+    }
+    if (attributeType === 'boolean') {
+      //#TODO: как он умудряется сохранять undefined?
+      return String(value);
+    }
+    return value
+  }
+
   /**
    * Добавление ряда в табличку.
    * Ответ добавит новый row в пропсы автоматом. Откроем его сразу на редактирование.
@@ -184,16 +211,14 @@ class Catalog extends React.Component {
         catalogId: this.props.catalogId,
       },
     }
-
-    console.log(this.state.editableRowData)
-    this.props.createRow(payload).then(() => {
+    this.props.createRow(payload).then((response) => {
       this.setState({
         editableRowId: newKey,
         editableRowData: {
-          [newKey]: {
-            key: newKey,
-          },
           ...this.state.editableRowData,
+          [newKey]: {
+            ...response.payload.data,
+          },
         },
       })
     })
@@ -236,7 +261,7 @@ class Catalog extends React.Component {
     let withoutNullFields = {}
     for (let key of Object.keys(updatedRowData)) {
       if (updatedRowData[key] !== null) {
-        withoutNullFields = { ...withoutNullFields, [key]: updatedRowData[key] }
+          withoutNullFields = { ...withoutNullFields, [key]: updatedRowData[key] }
       }
     }
     const payload = {
@@ -280,9 +305,10 @@ class Catalog extends React.Component {
   }
 
   // Общий хендлер для все полей ряда на редактировании.
-  handleEditableRowChange = (rowKey, attributeKey) => value => {
+  // Отдельно перегоняем дату из momentObject в unixtimestamp.
+  handleEditableRowChange = (rowKey, attributeKey, type) => value => {
     const producer = produce(draft => {
-      draft.editableRowData[rowKey][attributeKey] = value
+      draft.editableRowData[rowKey][attributeKey] = type === 'date' ? value.format('x') : value;
     })
     this.setState(producer)
   }
@@ -403,13 +429,13 @@ class Catalog extends React.Component {
     return (
       <Box id="catalogWrapper">
         <Flex height={24} alignItems="center">
-          <Box flex="0 0 64px">
+          <Box flex="0 0 104px">
             <Text>Группа:</Text>
           </Box>
           <Text ml={4}>{'-'}</Text>
         </Flex>
         <Flex height={24} alignItems="center">
-          <Box flex="0 0 64px">
+          <Box flex="0 0 104px">
             <Text>Описание:</Text>
           </Box>
           <Text ml={4}>{this.props.selectedCatalog.description}</Text>
@@ -443,7 +469,7 @@ class Catalog extends React.Component {
               expandedRowKeys={this.state.expandedRowKeys}
               onExpandChange={this.handleExpandedRowsChange}
               data={this.getTableDataSource(this.props.rawRows)}
-              width={832}
+              width={990}
               isTree
               wordWrap
               height={376}
