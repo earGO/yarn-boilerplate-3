@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import { injectReducer } from '@ursip/utils'
 import nsi from '@ursip/nsi-service'
-import { Text, Heading, Collapse, Box, Flex } from '@ursip/design-system'
+import { Text, Collapse, Box, Flex } from '@ursip/design-system'
 
 const Panel = Collapse.Panel
 
@@ -23,6 +23,7 @@ const isActive = ({ id, activeCatalogId, ...rest }) => {
 const CollapseItem = styled(Flex)`
   min-height: 32px;
   align-items: center;
+  /* padding-left: 24px; */
   ${props => `border-bottom: 1px solid ${props.theme.colors.border}`}
   ${isActive}
 `
@@ -53,11 +54,10 @@ class CatalogsList extends React.Component {
     const customCatalogs = this.props.data.filter(catalog => catalog.type)
     const systemCatalogs = this.props.data.filter(catalog => !catalog.type)
     return (
-      <Box width="100%">
+      <Box width="100%" width={256}>
         <Collapse defaultActiveKeys={['system', 'custom']}>
           <Panel
             key="system"
-            ml={24}
             title={
               <CollapseItem>
                 <Text bold>Системные</Text>
@@ -67,14 +67,15 @@ class CatalogsList extends React.Component {
             {systemCatalogs.map(item => (
               <StyledLink key={item.id} title={item.name} to={`/nsi/${item.id}`}>
                 <CollapseItem id={item.id} activeCatalogId={activeCatalogId}>
-                  <Text>{item.name}</Text>
+                  <Text truncated pl={24}>
+                    {item.name}
+                  </Text>
                 </CollapseItem>
               </StyledLink>
             ))}
           </Panel>
           <Panel
             key="custom"
-            ml={24}
             title={
               <CollapseItem>
                 <Text bold>Пользовательские</Text>
@@ -84,7 +85,9 @@ class CatalogsList extends React.Component {
             {customCatalogs.map(item => (
               <StyledLink key={item.id} title={item.name} to={`/nsi/${item.id}`}>
                 <CollapseItem id={item.id} activeCatalogId={activeCatalogId}>
-                  <Text>{item.name}</Text>
+                  <Text truncated pl={24}>
+                    {item.name}
+                  </Text>
                 </CollapseItem>
               </StyledLink>
             ))}

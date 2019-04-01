@@ -29,11 +29,11 @@ const ViewHeader = props => {
             history.push(`${location.pathname}/edit`)
           }}
         >
-          <Icon mr={3} name="edit" />
+          <Icon mr={3} name="pencil-alt" />
           Редактировать
         </Button>
         <Button disabled={!id} onClick={handleDeleteCatalog} type="flat" ml={3} >
-          <Icon mr={3} name="save" />
+          <Icon mr={3} name="trash-alt" />
           Удалить каталог
         </Button>
       </Box>
