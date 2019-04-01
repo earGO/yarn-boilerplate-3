@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, Select, Input, Toggle, Icon, Box, Tooltip } from '@ursip/design-system'
+import { Table, Select, Input, Toggle, Icon, Box, Flex, Tooltip } from '@ursip/design-system'
 import styled from 'styled-components'
 import propTypes from 'prop-types'
 
@@ -77,8 +77,16 @@ const RefCatalogAttributeSelect = ({ refCatalogs, catalogId, rowData, handleChan
 
 const CatalogTable = ({ handleItemChange, handleItemDelete, handleTypeChange, attributes, refCatalogs }) => {
   return (
-    <Table setRowHeight={handleRowHeight} data={attributes} minHeight={72 + 48} rowHeight={72} autoHeight rowKey="key">
-      <Table.Column width={160} sort>
+    <Table
+      width={990}
+      setRowHeight={handleRowHeight}
+      data={attributes}
+      minHeight={72 + 48}
+      rowHeight={72}
+      autoHeight
+      rowKey="key"
+    >
+      <Table.Column width={160}>
         <Table.HeaderCell style={{ paddingLeft: '16px' }}>Название</Table.HeaderCell>
         <Table.Cell style={{ paddingLeft: '16px' }} dataKey="title">
           {rowData => {
@@ -91,7 +99,7 @@ const CatalogTable = ({ handleItemChange, handleItemDelete, handleTypeChange, at
         </Table.Cell>
       </Table.Column>
 
-      <Table.Column width={160} sort>
+      <Table.Column width={160}>
         <Table.HeaderCell style={{ paddingLeft: '16px' }}>Тип</Table.HeaderCell>
         <Table.Cell style={{ paddingLeft: '16px' }} dataKey="type" flexGrow={1}>
           {rowData => {
@@ -99,7 +107,9 @@ const CatalogTable = ({ handleItemChange, handleItemDelete, handleTypeChange, at
               <Box flex="1">
                 <Select
                   options={typeOptions}
-                  value={typeOptions.find(item => item.value === (typeof rowData.type === 'string' ? rowData.type : rowData.type.type))}
+                  value={typeOptions.find(
+                    item => item.value === (typeof rowData.type === 'string' ? rowData.type : rowData.type.type),
+                  )}
                   menuPortalTarget={document.getElementById('nsiwrap')}
                   onChange={handleTypeChange(rowData.key, 'type')}
                 />
@@ -137,7 +147,11 @@ const CatalogTable = ({ handleItemChange, handleItemDelete, handleTypeChange, at
         <CenteredTableCell>Уникальность</CenteredTableCell>
         <CenteredTableCell dataKey="unique">
           {rowData => {
-            return <Toggle checked={rowData.unique} onChange={handleItemChange('unique', rowData.key)} />
+            return (
+              <Flex justifyContent="center">
+                <Toggle checked={rowData.unique} onChange={handleItemChange('unique', rowData.key)} />
+              </Flex>
+            )
           }}
         </CenteredTableCell>
       </Table.Column>
