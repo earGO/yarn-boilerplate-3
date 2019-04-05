@@ -25,7 +25,7 @@ const ViewHeader = props => {
   }
   return (
     <Flex justifyContent="space-between" flex={1} alignItems="center">
-      <Text fontSize={3}>Cправочник</Text>
+      <Text fontSize={3}>{selectedCatalog.name}</Text>
       <Box className="buttonsWrapper">
         <Button
           type="flat"

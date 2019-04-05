@@ -57,10 +57,20 @@ export const SORTERS = {
   number: (a, b) => b - a,
   date: (a, b) => {
     // moment here?
+    // хранится как unix timestamp, так что можно.
     // temp
-    return b - a;
+    return Number(b) - Number(a);
   },
   // Хз как сортировать по этому полю.
   ref_link: () => {},
-  boolean: (a, b) => Number(b) - Number(a),
+  boolean: (a, b) => {
+    // Хранятся как строки "true" / "false"
+    if (typeof a !== 'string') {
+      return 1
+    }
+    if (typeof b !== 'string') {
+      return -1
+    }
+    return b.localeCompare(a)
+  }
 }

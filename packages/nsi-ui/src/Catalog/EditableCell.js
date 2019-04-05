@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input, Toggle, Datepicker } from '@ursip/design-system'
+import { Input, Toggle, Datepicker, Box } from '@ursip/design-system'
 import RefLinkInput from './RefLinkInput'
 import moment from 'moment'
 
@@ -19,12 +19,30 @@ const getDatepickerValue = value => {
   if (value === null) {
     return null
   }
+  if (value === '') {
+    return null
+  }
   let buffer = moment(+value)
   return buffer.isValid() ? buffer : null
 }
 
+const getToggleValue = value => {
+  if (value === null) {
+    return false
+  }
+  return value === 'true'
+}
+
+// Враппер нужен, потому что у первой колонки ряда в иерархическом справочнике
+// при включении редактирования ряда едет положение элемента из-за невидимого span. Такое дерьмо, да.
+export const EditableCell = ({ fixColumnAlign, ...rest }) => (
+  <Box style={{ marginTop: fixColumnAlign ? -20 : 0 }}>
+    <EditableCellContent {...rest} />
+  </Box>
+)
+
 // Запихнем id ряда, id колонки в хендлер, поменяем данные в контейнере.
-export const EditableCell = ({ attribute, rowData, rowFromState, handleEditableRowChange }) => {
+export const EditableCellContent = ({ attribute, rowData, rowFromState, handleEditableRowChange }) => {
   const curriedHandler = handleEditableRowChange(rowData.key, attribute.key, attribute.type)
   const common = {
     value: rowFromState[attribute.key] || placeholderValues[attribute.type],
@@ -44,12 +62,13 @@ export const EditableCell = ({ attribute, rowData, rowFromState, handleEditableR
           value={getDatepickerValue(common.value)}
           onChange={curriedHandler}
           placeholder="Выберите дату"
+          // openDirection="up"
         />
       )
     case 'number':
       return <Input {...common} type="number" />
     case 'boolean':
-      return <Toggle {...common} />
+      return <Toggle checked={getToggleValue(common.value)} onChange={curriedHandler} />
     default:
       return <Input />
   }

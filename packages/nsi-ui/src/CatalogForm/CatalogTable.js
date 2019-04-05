@@ -78,7 +78,7 @@ const RefCatalogAttributeSelect = ({ refCatalogs, catalogId, rowData, handleChan
 const CatalogTable = ({ handleItemChange, handleItemDelete, handleTypeChange, attributes, refCatalogs }) => {
   return (
     <Table
-      width={990}
+      // width={990}
       setRowHeight={handleRowHeight}
       data={attributes}
       minHeight={72 + 48}
@@ -86,7 +86,7 @@ const CatalogTable = ({ handleItemChange, handleItemDelete, handleTypeChange, at
       autoHeight
       rowKey="key"
     >
-      <Table.Column width={160}>
+      <Table.Column flexGrow={1}>
         <Table.HeaderCell style={{ paddingLeft: '16px' }}>Название</Table.HeaderCell>
         <Table.Cell style={{ paddingLeft: '16px' }} dataKey="title">
           {rowData => {
@@ -99,7 +99,7 @@ const CatalogTable = ({ handleItemChange, handleItemDelete, handleTypeChange, at
         </Table.Cell>
       </Table.Column>
 
-      <Table.Column width={160}>
+      <Table.Column flexGrow={1}>
         <Table.HeaderCell style={{ paddingLeft: '16px' }}>Тип</Table.HeaderCell>
         <Table.Cell style={{ paddingLeft: '16px' }} dataKey="type" flexGrow={1}>
           {rowData => {
@@ -134,29 +134,8 @@ const CatalogTable = ({ handleItemChange, handleItemDelete, handleTypeChange, at
         </Table.Cell>
       </Table.Column>
 
-      <Table.Column width={128} sort>
-        <CenteredTableCell>Обязательность</CenteredTableCell>
-        <CenteredTableCell dataKey="required">
-          {rowData => {
-            return <Toggle checked={rowData.required} onChange={handleItemChange('required', rowData.key)} />
-          }}
-        </CenteredTableCell>
-      </Table.Column>
-
-      <Table.Column width={128} sort>
-        <CenteredTableCell>Уникальность</CenteredTableCell>
-        <CenteredTableCell dataKey="unique">
-          {rowData => {
-            return (
-              <Flex justifyContent="center">
-                <Toggle checked={rowData.unique} onChange={handleItemChange('unique', rowData.key)} />
-              </Flex>
-            )
-          }}
-        </CenteredTableCell>
-      </Table.Column>
-
-      <Table.Column width={160} sort>
+      
+      <Table.Column flexGrow={1}>
         <Table.HeaderCell style={{ paddingLeft: '16px' }}>Описание</Table.HeaderCell>
         <Table.Cell dataKey="description">
           {rowData => {
@@ -167,6 +146,54 @@ const CatalogTable = ({ handleItemChange, handleItemDelete, handleTypeChange, at
             )
           }}
         </Table.Cell>
+      </Table.Column>
+
+      <Table.Column flexGrow={1}>
+        <Table.HeaderCell style={{ paddingLeft: '16px' }}>Код</Table.HeaderCell>
+        <Table.Cell dataKey="description">
+          {rowData => {
+            return (
+              <Box flex="1">
+                <Input value={rowData.code} onChange={handleItemChange('code', rowData.key)} />
+              </Box>
+            )
+          }}
+        </Table.Cell>
+      </Table.Column>
+
+      <Table.Column width={96}>
+        <Table.HeaderCell style={{ paddingLeft: '16px' }}>Сортировка</Table.HeaderCell>
+        <Table.Cell dataKey="number">
+          {rowData => {
+            return (
+              <Flex justifyContent="center">
+                <Input type="number" value={rowData.number} onChange={handleItemChange('number', rowData.key)} />
+              </Flex>
+            )
+          }}
+        </Table.Cell>
+      </Table.Column>
+
+      <Table.Column width={128}>
+        <CenteredTableCell>Обязательность</CenteredTableCell>
+        <CenteredTableCell dataKey="required">
+          {rowData => {
+            return <Toggle checked={rowData.required} onChange={handleItemChange('required', rowData.key)} />
+          }}
+        </CenteredTableCell>
+      </Table.Column>
+
+      <Table.Column width={128}>
+        <CenteredTableCell>Уникальность</CenteredTableCell>
+        <CenteredTableCell dataKey="unique">
+          {rowData => {
+            return (
+              <Flex justifyContent="center">
+                <Toggle checked={rowData.unique} onChange={handleItemChange('unique', rowData.key)} />
+              </Flex>
+            )
+          }}
+        </CenteredTableCell>
       </Table.Column>
 
       <Table.Column width={96}>

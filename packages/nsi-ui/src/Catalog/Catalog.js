@@ -17,9 +17,23 @@ const DEFAULT_SORT = {
   columnKey: null,
 }
 
+const DEFAULT_VALUES = {
+  string: '',
+  date: '',
+  number: '',
+  boolean: 'false',
+  ref_link: '',
+}
+
 const CenteredHeaderCell = styled(Table.HeaderCell)`
   padding-left: 16px;
   justify-content: center;
+`
+
+const SortableHeaderCell = styled(Table.HeaderCell)`
+  .rs-table-cell-content {
+    border-right: 1px solid #ecebeb;
+  }
 `
 
 const CenteredTableCell = styled(Table.Cell)`
@@ -31,7 +45,7 @@ const SortIcon = styled(({ isCurrentlyActive, ...rest }) => <Icon {...rest} />)`
   cursor: pointer;
   opacity: 0.7;
   transform: scale(0.7);
-  color: ${props => (props.isCurrentlyActive ? 'blue' : 'black')};
+  color: ${props => (props.isCurrentlyActive ? '#0091ea' : 'black')};
 `
 
 const DropdownTrigger = styled(Icon)`
@@ -50,7 +64,7 @@ const DropdownMenuItem = styled(Box)`
 const ColumnWithSorter = ({ attribute, handleSortChange, activeSort, ...rest }) => {
   const isCurrentlyActive = order => activeSort.columnKey === attribute.key && order === activeSort.order
   return (
-    <Table.HeaderCell {...rest}>
+    <SortableHeaderCell {...rest}>
       {attribute.title}
       <Flex ml={1} flexDirection="column">
         <SortIcon
@@ -68,7 +82,7 @@ const ColumnWithSorter = ({ attribute, handleSortChange, activeSort, ...rest }) 
           }}
         />
       </Flex>
-    </Table.HeaderCell>
+    </SortableHeaderCell>
   )
 }
 
@@ -122,19 +136,21 @@ class Catalog extends React.Component {
   }
 
   /** Заполняем колонки таблицы для открытого каталога.
+   * Порядок - по полю number.
    * #TBD: Можно ли сделать нормальную динамическую ширину?
    */
   getTableColumns = () => {
-    const { attributes } = this.props.selectedCatalog
-    return (attributes || []).map(attribute => {
+    const { attributes = [], type: isHierarchical } = this.props.selectedCatalog
+    if (attributes.length && attributes.length > 0) {
+      attributes.sort((a, b) => a.number - b.number)
+    }
+    // #TODO: remove "removed" check;
+    return attributes.filter(item => !item.removed).map((attribute, idx) => {
       // Magic numbers
       // #TODO: remove this stupid check
-      let minWidth = 160
-      if (attribute.title) {
-        minWidth = attribute.title.length < 21 ? 160 : attribute.title.length * 10
-      }
+      let minWidth = 200
       return (
-        <Table.Column key={attribute.key} flexGrow={1} minWidth={minWidth}>
+        <Table.Column key={attribute.key} width={minWidth} resizable>
           <ColumnWithSorter
             attribute={attribute}
             handleSortChange={this.handleSortChange}
@@ -144,6 +160,9 @@ class Catalog extends React.Component {
             {rowData => {
               return rowData.key === this.state.editableRowId ? (
                 <EditableCell
+                  // #Пиздос. Для первой колонки, иерархического справочника, и если есть иконка раскрыть-скрыть.
+                  fixColumnAlign={isHierarchical && idx === 0 && rowData.children }
+                  // #Пиздос end
                   attribute={attribute}
                   rowData={rowData}
                   handleEditableRowChange={this.handleEditableRowChange}
@@ -159,6 +178,14 @@ class Catalog extends React.Component {
         </Table.Column>
       )
     })
+  }
+
+  getDefaultValues = (catalog) => {
+    const { attributes = [] } = catalog
+    return attributes.reduce((acc, attribute) => ({
+      ...acc,
+      [attribute.key]: DEFAULT_VALUES[attribute.type],
+    }), {})
   }
 
   handleSearch = query => {
@@ -188,8 +215,14 @@ class Catalog extends React.Component {
       return value ? moment(+value).format('DD.MM.YYYY') : null
     }
     if (attributeType === 'boolean') {
-      //#TODO: как он умудряется сохранять undefined?
-      return String(value)
+      switch (value) {
+        case 'true':
+          return 'да'
+        case 'false':
+          return 'нет'
+        default:
+          return 'undefined'
+      }
     }
     return value
   }
@@ -197,12 +230,22 @@ class Catalog extends React.Component {
   /**
    * Добавление ряда в табличку.
    * Ответ добавит новый row в пропсы автоматом. Откроем его сразу на редактирование.
+   * #TODO:
+   * Проблема будет в таком случае:
+   *  У нас есть колонка attribute с типом boolean.
+   *  Когда мы создаем новый ряд, [attribute.key] в свежесозданном объекте не будет.
+   * Тумблер в таблице выглядит как false.
+   * Пользователь, не кликая на колонку, сохраняет ряд, думая что для тумблера он сохранил false - а на деле этого поля просто не будет в объекте.
+   * Сумбурная фигня, но вы понели.
    */
   handleAddRow = () => {
+    const { selectedCatalog } = this.props
     const newKey = uuid()
+    const defaultValues = this.getDefaultValues(selectedCatalog)
     const payload = {
       payload: {
         newRow: {
+          ...defaultValues,
           catalogId: this.props.catalogId,
           key: newKey,
         },
@@ -210,22 +253,23 @@ class Catalog extends React.Component {
       },
     }
     this.props.createRow(payload).then(response => {
-      this.setState({
+      this.setState(prevState => ({
         editableRowId: newKey,
         editableRowData: {
-          ...this.state.editableRowData,
-          [newKey]: {
-            ...response.payload.data,
-          },
-        },
-      })
+          ...prevState.editableRowData,
+          [newKey]: response.payload.data,
+        }
+      }))
     })
   }
 
   // Отдельный хендлер добавления ряда для иерархического справочника.
   handleRowAddAsChild = rowData => {
+    const { selectedCatalog } = this.props
     const newKey = uuid()
+    const defaultValues = this.getDefaultValues(selectedCatalog)
     const newRow = {
+      ...defaultValues,
       catalogId: this.props.catalogId,
       key: newKey,
       removed: false,
@@ -239,15 +283,15 @@ class Catalog extends React.Component {
       meta: { asPromise: true },
     }
     console.log('Adding a row as a child to', rowData, 'sending this data:', payload)
-    // Добавим данные в стейт, откроем его родителя, поставим новый ряд на редактирование.
-    const producer = draft => {
-      const withNewOpenKey = [...new Set(this.state.expandedRowKeys.concat(rowData.key))]
-      draft.expandedRowKeys = withNewOpenKey
-      draft.editableRowId = newKey
-      draft.editableRowData[newKey] = { ...newRow }
-    }
     this.props.createRow(payload).then(() => {
-      this.setState(producer)
+      this.setState(prevState => ({
+        editableRowId: newKey,
+        expandedRowKeys: [ ...new Set(prevState.expandedRowKeys.concat(rowData.key)) ],
+        editableRowData: {
+          ...prevState.editableRowData,
+          [newKey]: newRow,
+        }
+      }))
     })
   }
 
@@ -279,17 +323,22 @@ class Catalog extends React.Component {
 
   // Делает ряд редактируемым.
   handleEditRow = rowData => {
-    const producer = produce(draft => {
-      draft.editableRowId = rowData.key
-      draft.editableRowData[rowData.key] = rowData
-    })
-    this.setState(producer)
+    // Уберем служебные поля children/ _parent
+    const { children, _parent, ...rest } = rowData
+    this.setState(prevState => ({
+      ...prevState,
+      editableRowId: rowData.key,
+      editableRowData: {
+        ...prevState.editableRowData,
+        [rowData.key]: rest,
+      }
+    }))
   }
 
   handleRowDelete = rowData => {
     const deletedRow = { ...rowData, removed: true }
-    // Уберем служебные поля.
-    const { _parent, children, ...rest } = deletedRow
+    // Уберем служебные поля children/ _parent
+    const { children, _parent, ...rest } = deletedRow
     const payload = {
       payload: {
         deletedRow: rest,
@@ -303,9 +352,19 @@ class Catalog extends React.Component {
 
   // Общий хендлер для все полей ряда на редактировании.
   // Отдельно перегоняем дату из momentObject в unixtimestamp.
+  // И отдельно перегоняет boolean значение в строки, т.к они хранятся как строки.
   handleEditableRowChange = (rowKey, attributeKey, type) => value => {
     const producer = produce(draft => {
-      draft.editableRowData[rowKey][attributeKey] = type === 'date' ? value.format('x') : value
+      switch (type) {
+        case 'date':
+          draft.editableRowData[rowKey][attributeKey] = value.format('x')
+          break
+        case 'boolean':
+          draft.editableRowData[rowKey][attributeKey] = String(value)
+          break
+        default:
+          draft.editableRowData[rowKey][attributeKey] = value
+      }
     })
     this.setState(producer)
   }
@@ -413,13 +472,14 @@ class Catalog extends React.Component {
   }
 
   render() {
-    console.log(this.props.selectedCatalog)
+    const currentScale = screen.width / window.innerWidth;
+    const mp = Math.floor(1 / currentScale)
     return (
       <Box id="catalogWrapper">
-        <Text mb={2}>
-          Группа:{' '}
+        <Text>
+          Код справочника:{' '}
           <Text inline bold>
-            {this.props.selectedCatalog.group || <i>&mdash;</i>}
+            {this.props.selectedCatalog.code || <i>&mdash;</i>}
           </Text>
         </Text>
         <Text>
@@ -448,6 +508,10 @@ class Catalog extends React.Component {
           <Box mt={16} borderTop="1px solid #ecebeb">
             <Table
               renderTreeToggle={(icon, rowData) => {
+                // Не показывает иконку для ряда на редактировании.
+                if (rowData.key === this.state.editableRowId) {
+                  return null
+                }
                 return this.state.expandedRowKeys.includes(rowData.key) ? (
                   <Icon style={{ outline: 'none' }} name="chevron-up" onClick={icon.props.onClick} />
                 ) : (
@@ -457,10 +521,10 @@ class Catalog extends React.Component {
               expandedRowKeys={this.state.expandedRowKeys}
               onExpandChange={this.handleExpandedRowsChange}
               data={this.getTableDataSource(this.props.rawRows)}
-              width={990}
               isTree
               wordWrap
-              height={376}
+              height={550 * mp}
+              autoHeight
             >
               {this.getTableColumns()}
               <Table.Column fixed="right" width={96}>

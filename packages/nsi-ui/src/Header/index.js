@@ -54,7 +54,7 @@ const Placeholder = props => {
 }
 
 const HeaderWrapper = styled(Flex)`
-  height: 87px;
+  height: 54px;
   align-items: center;
   border-bottom: 1px solid #ecebeb;
   background-color: white;

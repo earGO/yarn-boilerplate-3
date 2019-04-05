@@ -6,6 +6,7 @@ import { Link, withRouter } from 'react-router-dom'
 import { injectReducer } from '@ursip/utils'
 import nsi from '@ursip/nsi-service'
 import { Text, Collapse, Box, Flex } from '@ursip/design-system'
+import * as R from 'ramda'
 
 const Panel = Collapse.Panel
 
@@ -53,20 +54,21 @@ class CatalogsList extends React.Component {
   render() {
     const { id: activeCatalogId } = this.props.match.params
     /** На самом деле там никаких разделений нет, поле type хз что значит, но можно по нему разбить в 2 группы */
-    const customCatalogs = this.props.data.filter(catalog => catalog.type)
-    const systemCatalogs = this.props.data.filter(catalog => !catalog.type)
+    const byType = R.groupBy(catalog => catalog.group)
+    const grouped = byType(this.props.data);
     return (
       <Box width="100%" width={256}>
         <Collapse defaultActiveKeys={['system', 'custom']}>
-          <Panel
-            key="system"
-            title={
-              <CollapseItem>
-                <Text bold>Системные</Text>
-              </CollapseItem>
-            }
-          >
-            {systemCatalogs.map(item => (
+          {Object.keys(grouped).map(group => (
+            <Panel
+              key={group}
+              title={
+                <CollapseItem>
+                  <Text bold>{group}</Text>
+                </CollapseItem>
+              }
+            >
+            {(grouped[group] || []).map(item => (
               <StyledLink key={item.id} title={item.name} to={`/nsi/${item.id}`}>
                 <CollapseItem id={item.id} activeCatalogId={activeCatalogId}>
                   <Text truncated pl={24}>
@@ -75,25 +77,8 @@ class CatalogsList extends React.Component {
                 </CollapseItem>
               </StyledLink>
             ))}
-          </Panel>
-          <Panel
-            key="custom"
-            title={
-              <CollapseItem>
-                <Text bold>Пользовательские</Text>
-              </CollapseItem>
-            }
-          >
-            {customCatalogs.map(item => (
-              <StyledLink key={item.id} title={item.name} to={`/nsi/${item.id}`}>
-                <CollapseItem id={item.id} activeCatalogId={activeCatalogId}>
-                  <Text truncated pl={24}>
-                    {item.name}
-                  </Text>
-                </CollapseItem>
-              </StyledLink>
-            ))}
-          </Panel>
+            </Panel>
+          ))}
         </Collapse>
       </Box>
     )

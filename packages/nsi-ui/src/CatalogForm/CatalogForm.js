@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Select, Input, Form, Icon, Divider, Box, Button, Flex, Text, Toggle } from '@ursip/design-system'
+import { Input, Form, Icon, Divider, Box, Button, Flex, Text, Toggle } from '@ursip/design-system'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
@@ -28,6 +28,7 @@ class CatalogForm extends React.Component {
     const placeholderItem = {
       key: newKey,
       type: 'string',
+      removed: false,
     }
     form.setFieldsValue({
       attributes: attributes.concat(placeholderItem),
@@ -85,8 +86,13 @@ class CatalogForm extends React.Component {
   handleItemDelete = key => {
     const { form } = this.props
     const attributes = form.getFieldValue('attributes')
+    const updatedAttributes = attributes.map(attribute => {
+      return attribute.key === key
+        ? { ...attribute, removed: true }
+        : attribute
+    });
     form.setFieldsValue({
-      attributes: attributes.filter(attr => attr.key !== key),
+      attributes: updatedAttributes
     })
   }
 
@@ -103,7 +109,9 @@ class CatalogForm extends React.Component {
           payload: values,
           meta: { asPromise: true },
         }
-        values.id ? this.props.updateCatalog(payload).then(callback) : this.props.createCatalog(payload).then(callback)
+        values.id
+          ? this.props.updateCatalog(payload).then(callback) 
+          : this.props.createCatalog(payload).then(callback)
       }
     })
   }
@@ -123,6 +131,11 @@ class CatalogForm extends React.Component {
       : null
   }
 
+  getCatalogTableDatasource = () => {
+    const allAttributes = this.props.form.getFieldValue('attributes') || []
+    return allAttributes.filter(item => item.removed === false)
+  }
+
   render() {
     const { getFieldDecorator } = this.props.form
     const { catalogToEdit = {} } = this.props
@@ -135,7 +148,7 @@ class CatalogForm extends React.Component {
           <Input style={{ display: 'none' }} />,
         )}
         <Flex className="fieldWrapper" alignItems="center">
-          <Box flex="0 0 104px">
+          <Box flex="0 0 128px">
             <Text>Название:</Text>
           </Box>
           <Box ml={2} flex={1}>
@@ -147,19 +160,31 @@ class CatalogForm extends React.Component {
         </Flex>
 
         <Flex className="fieldWrapper" mt={3} alignItems="center">
-          <Box flex="0 0 104px">
+          <Box flex="0 0 128px">
+            <Text>Код справочника:</Text>
+          </Box>
+          <Box ml={2} flex={1}>
+            {getFieldDecorator('code', {
+              initialValue: catalogToEdit.code || '',
+              rules: [{ message: 'Заполните поле код' }],
+            })(<Input placeholder="Введите код" />)}
+          </Box>
+        </Flex>
+
+        <Flex className="fieldWrapper" mt={3} alignItems="center">
+          <Box flex="0 0 128px">
             <Text>Группа:</Text>
           </Box>
           <Box ml={2} flex={1}>
             {getFieldDecorator('group', {
               initialValue: catalogToEdit.group || '',
               rules: [{ message: 'Заполните поле группа' }],
-            })(<Select placeholder="Укажите группу" />)}
+            })(<Input placeholder="Укажите группу" />)}
           </Box>
         </Flex>
 
         <Flex className="fieldWrapper" mt={3} alignItems="center">
-          <Box flex="0 0 104px">
+          <Box flex="0 0 128px">
             <Text>Описание:</Text>
           </Box>
           <Box ml={2} flex={1}>
@@ -170,7 +195,7 @@ class CatalogForm extends React.Component {
           </Box>
         </Flex>
         <Flex className="fieldWrapper" mt={3} alignItems="center">
-          <Box flex="0 0 104px">
+          <Box flex="0 0 128px">
             <Text>Иерархический:</Text>
           </Box>
           <Box ml={2} flex={1}>
@@ -183,7 +208,7 @@ class CatalogForm extends React.Component {
         <Box mt={4} id="tableWrapper">
           <CatalogTable
             refCatalogs={this.props.catalogs}
-            attributes={this.props.form.getFieldValue('attributes')}
+            attributes={this.getCatalogTableDatasource()}
             handleItemChange={this.handleItemChange}
             handleItemDelete={this.handleItemDelete}
             handleTypeChange={this.handleTypeChange}

@@ -3,7 +3,8 @@ import { StickyContainer, Sticky } from 'react-sticky'
 import { Flex, Box, Text, Button, Icon } from '@ursip/design-system'
 import SearchInput from './SearchInput'
 import Badge from './Badge'
-import logo from './logo.svg'
+// import logo from './logo.svg'
+import logo from '../assets/ursip-logo.svg'
 import store from '../store'
 
 class Header extends React.PureComponent {
@@ -13,10 +14,7 @@ class Header extends React.PureComponent {
       <Flex height={56} bg="primary">
         <Flex width={width} alignItems="center" style={{ margin: '0 auto' }}>
           <Flex alignItems="center">
-            <img src={logo} />
-            <Text ml={2} fontSize={2} color="#f5f5f5">
-              BIM
-            </Text>
+            <img style={{ width: 50, height: 50}} src={logo} />
           </Flex>
           <Box ml={4}>
             <SearchInput />

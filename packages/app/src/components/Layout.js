@@ -5,12 +5,12 @@ import { Flex, Box, Text, Input, Button, Card } from '@ursip/design-system'
 import Header from './Header'
 import Menu from './Menu'
 
-const width = 1120 + 80 + 80
+const width = '90%'
 
 const menuItems = [
   {
     key: '0',
-    name: 'Главная',
+    name: 'Инструменты',
     url: '/',
     qs: null,
     children: [
