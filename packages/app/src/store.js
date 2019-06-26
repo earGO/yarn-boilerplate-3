@@ -7,10 +7,11 @@ import { getSagaExtension } from 'redux-dynamic-modules-saga'
 import { fork } from 'redux-saga/effects'
 import { createBrowserHistory } from 'history'
 import mocks from './services/mocks'
+import { logger } from 'redux-logger/src'
 
 const history = createBrowserHistory()
 
-const useMocks = true
+const useMocks = false
 
 const requestSaga = function*() {
   yield createRequestInstance({
@@ -27,6 +28,7 @@ const modules = [
       router: connectRouter(history),
     },
     middlewares: [
+      logger,
       routerMiddleware(history),
       requestsPromiseMiddleware({
         auto: true,
