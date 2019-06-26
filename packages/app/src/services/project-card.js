@@ -31,7 +31,7 @@ function normalizeProject(response) {}
 export default function projectCardReducer(state = {}, { type, payload }) {
   switch (type) {
     case success(types.LOAD_PROJECT):
-      return state.concat.payload
+      return payload.data
     default:
       return state
   }
