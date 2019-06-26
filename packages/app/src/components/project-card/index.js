@@ -9,8 +9,10 @@ import { DynamicModuleLoader } from 'redux-dynamic-modules'
 
 /*other import goes here*/
 
-function ProjectPage({ props }) {
+function ProjectCard({ props }) {
   const loading = useSelector(selectors.loading)
+  const projectData = useSelector(selectors.projectSelector)
+  console.log(projectData)
   return (
     <DynamicModuleLoader modules={[projectCard.default]}>
       {loading ? (
@@ -24,8 +26,8 @@ function ProjectPage({ props }) {
   )
 }
 
-ProjectPage.propTypes = {}
+ProjectCard.propTypes = {}
 
-ProjectPage.defaultProps = {}
+ProjectCard.defaultProps = {}
 
-export default ProjectPage
+export default ProjectCard

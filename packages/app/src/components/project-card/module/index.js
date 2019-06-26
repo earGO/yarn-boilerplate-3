@@ -4,7 +4,7 @@ import reducers, { initialState } from './reducers'
 
 import sagas from './sagas'
 
-export const baseRoute = '/project-page'
+export const baseRoute = '/project-card'
 
 export default {
   id: namespace,

@@ -7,7 +7,7 @@ import { name as appName } from '../package.json'
 
 import { baseRoute as nsiModuleRoute } from './components/nsi/module'
 
-import { baseRoute as projectPageRoute } from './components/project-page/module'
+import { baseRoute as projectCardRoute } from './components/project-card/module'
 
 import Layout from './components/common/Layout'
 import Loading from './components/common/Loading'
@@ -26,9 +26,9 @@ const routes = [
     component: React.lazy(() => import('./components/nsi')),
   },
   {
-    key: 'project-page',
-    path: projectPageRoute,
-    component: React.lazy(() => import('./components/project-page')),
+    key: 'project-card',
+    path: projectCardRoute,
+    component: React.lazy(() => import('./components/project-card')),
   },
 ]
 

@@ -1,6 +1,6 @@
 import { success, error } from 'redux-saga-requests'
 
-export const name = 'project-page-service'
+export const name = 'project-card-service'
 
 export const api = 'http://localhost:3000/project'
 
