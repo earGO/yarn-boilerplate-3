@@ -1,10 +1,9 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "SPA",
+  "name": "Ursip SPA application",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "192x192",
+      "src": "/favicon.ico",
       "type": "image/png"
     }
   ],

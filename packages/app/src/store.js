@@ -1,13 +1,43 @@
-import { configureStore } from '@ursip/utils'
-import { createLogger } from 'redux-logger'
+import { createStore } from 'redux-dynamic-modules'
+import { routerMiddleware, connectRouter } from 'connected-react-router'
+import { requestsPromiseMiddleware, createRequestInstance, watchRequests } from 'redux-saga-requests'
+import { createDriver } from 'redux-saga-requests-fetch'
+import { createDriver as createMockDriver } from 'redux-saga-requests-mock'
+import { getSagaExtension } from 'redux-dynamic-modules-saga'
+import { fork } from 'redux-saga/effects'
+import { createBrowserHistory } from 'history'
+import mocks from './services/mocks'
 
-export default configureStore({
-  request: {
-    asPromise: true
+const history = createBrowserHistory()
+
+const useMocks = true
+
+const requestSaga = function*() {
+  yield createRequestInstance({
+    driver: useMocks ? createMockDriver(mocks) : createDriver(window.fetch),
+  })
+
+  yield fork(watchRequests)
+}
+
+const modules = [
+  {
+    id: 'initial',
+    reducerMap: {
+      router: connectRouter(history),
+    },
+    middlewares: [
+      routerMiddleware(history),
+      requestsPromiseMiddleware({
+        auto: true,
+      }),
+    ],
+    sagas: [requestSaga],
   },
-  middlewares: [
-    createLogger({
-      collapsed: false
-    })
-  ]
-})
+]
+
+const store = createStore({}, [], [getSagaExtension()], modules)
+
+store.history = history
+
+export default store

@@ -2,14 +2,13 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "start": "lerna run start --scope app",
-    "dev": "lerna run start --parallel",
     "bootstrap": "lerna bootstrap",
+    "start": "lerna run start --parallel",
     "clean": "lerna clean",
     "build:prod": "lerna run build:prod",
     "test": "npm run build:prod && lerna run test"
   },
   "devDependencies": {
-    "lerna": "^3.5.1"
+    "lerna": "^3.14.1"
   }
 }
