@@ -20,7 +20,7 @@ function ProjectCard({ props }) {
       {loading ? (
         <Loading overlay>Загрузка карточки проекта</Loading>
       ) : (
-        <Flex style={{ height: '100%' }}>
+        <Flex style={{ height: '100%' }} flexDirection={'column'} justifyContent={'flex-start'}>
           <Title projectTitle={projectTitle} />
         </Flex>
       )}
