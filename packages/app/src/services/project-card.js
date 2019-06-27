@@ -2,7 +2,7 @@ import { success, error } from 'redux-saga-requests'
 
 export const name = 'project-card-service'
 
-export const api = 'http://localhost:3000/project'
+export const api = 'http://localhost:3000/'
 
 /*Types*/
 
@@ -12,6 +12,19 @@ export const types = {
   LOAD_PROJECT,
 }
 
+/*Endpoints*/
+const project = api + 'project'
+const tabs = api + 'tabs'
+const sections = api + 'sections'
+const fields = api + 'tabs'
+
+export const endpoints = {
+  project,
+  tabs,
+  sections,
+  fields,
+}
+
 /* Action creators */
 export const actions = {
   loadProject() {
@@ -19,7 +32,7 @@ export const actions = {
       type: types.LOAD_PROJECT,
       payload: {
         request: {
-          url: `${api}`,
+          url: `${project}`,
         },
       },
     }
