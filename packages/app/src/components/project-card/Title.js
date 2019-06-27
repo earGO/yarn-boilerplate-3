@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Flex, Box, Text } from '@ursip/design-system'
 import styled from 'styled-components'
 import OptionWithIcon from '../common/OptionWithIcon'
+import FlexContainerBottomDivider from '../common/FlexContainerBottomDivider'
 
 const OffsetBox = styled(Box)`
   padding: 0;
@@ -10,15 +11,10 @@ const OffsetBox = styled(Box)`
   position: relative;
   top: -12%;
 `
-const OffsetFlexContainer = styled(Flex)`
-  padding: 33px;
-  margin: 0;
-  align-self: center;
-  border-bottom: solid 1px #ecebeb;
-  width: 100%;
-`
 
 const ContentBox = styled(Flex)`
+  padding-top: 33px;
+  padding-bottom: 20px;
   align-self: center;
   justify-content: space-between;
   margin: 0 auto;
@@ -30,7 +26,7 @@ const AdressText = styled(Text)``
 function Title({ projectTitle }) {
   if (projectTitle !== undefined) {
     return (
-      <OffsetFlexContainer>
+      <FlexContainerBottomDivider dividercolor={'border'}>
         <ContentBox>
           <Flex id-={'leftBox'}>
             <Box id={'greenLine'} bg="#2e7d32" width={'8px'} height={'40px'}></Box>
@@ -69,8 +65,10 @@ function Title({ projectTitle }) {
             </Flex>
           </Box>
         </ContentBox>
-      </OffsetFlexContainer>
+      </FlexContainerBottomDivider>
     )
+  } else {
+    return null
   }
 }
 

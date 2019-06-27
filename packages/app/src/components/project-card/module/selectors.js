@@ -1,11 +1,8 @@
 import { createSelector } from 'reselect'
-import * as R from 'ramda'
 
 import { namespace } from './types'
 import { initialState } from './reducers'
 import * as projectCard from '../../../services/project-card'
-
-const projectName = projectCard.name
 
 const stateSelector = state => state[namespace] || initialState
 const serviceDataSelector = state => state[projectCard.name] || initialState
@@ -30,7 +27,23 @@ export const projectSelector = createSelector(
   serviceDataSelector,
   state => state.project,
 )
+
 export const projectTitleSelector = createSelector(
   projectSelector,
   state => getProjectTitle(state),
+)
+
+export const tabsSelector = createSelector(
+  serviceDataSelector,
+  state => state.tabs,
+)
+
+export const sectionsSelector = createSelector(
+  serviceDataSelector,
+  state => state.sections,
+)
+
+export const fieldsSelector = createSelector(
+  serviceDataSelector,
+  state => state.fields,
 )
