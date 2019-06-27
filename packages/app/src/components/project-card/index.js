@@ -3,16 +3,11 @@ import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import * as projectCard from './module'
 import Loading from '../common/Loading'
-import { Flex, Box, Divider } from '@ursip/design-system'
+import { Flex } from '@ursip/design-system'
 import * as selectors from './module/selectors'
 import { DynamicModuleLoader } from 'redux-dynamic-modules'
 import Title from './Title'
 import ModuleNaviTab from './ModuleNaviTab'
-import styled from 'styled-components'
-
-const debugDivider = styled(Divider)`
-  border: 1px solid blue;
-`
 
 function ProjectCard({ props }) {
   const loading = useSelector(selectors.projectLoading)
@@ -27,9 +22,7 @@ function ProjectCard({ props }) {
       ) : (
         <Flex style={{ height: '100%' }} flexDirection={'column'} justifyContent={'flex-start'}>
           <Title projectTitle={projectTitle} />
-          <debugDivider m={0} p={0} color={'border'} />
           <ModuleNaviTab projectTabs={projectTabs} />
-          <debugDivider m={0} p={0} color={'border'} />
         </Flex>
       )}
     </DynamicModuleLoader>

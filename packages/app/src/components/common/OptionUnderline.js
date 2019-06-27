@@ -11,6 +11,8 @@ const MyButton = styled.button`
   cursor: pointer;
   overflow: hidden;
   outline: none;
+  position: relative;
+  top: 1px;
 
   &:hover {
     border-bottom: 1px solid blue;

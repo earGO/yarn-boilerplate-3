@@ -4,6 +4,7 @@ import { Flex, Box, Text } from '@ursip/design-system'
 import styled from 'styled-components'
 import OptionWithIcon from '../common/OptionWithIcon'
 import FlexContainerBottomDivider from '../common/FlexContainerBottomDivider'
+import ContentBox from '../common/ContentBox'
 
 const OffsetBox = styled(Box)`
   padding: 0;
@@ -12,22 +13,13 @@ const OffsetBox = styled(Box)`
   top: -12%;
 `
 
-const ContentBox = styled(Flex)`
-  padding-top: 33px;
-  padding-bottom: 20px;
-  align-self: center;
-  justify-content: space-between;
-  margin: 0 auto;
-  width: 1440px;
-`
-
 const AdressText = styled(Text)``
 
 function Title({ projectTitle }) {
   if (projectTitle !== undefined) {
     return (
       <FlexContainerBottomDivider dividercolor={'border'}>
-        <ContentBox>
+        <ContentBox padding={33} justifyContent={'space-between'}>
           <Flex id-={'leftBox'}>
             <Box id={'greenLine'} bg="#2e7d32" width={'8px'} height={'40px'}></Box>
             <Flex
