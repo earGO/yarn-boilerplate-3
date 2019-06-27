@@ -15,7 +15,7 @@ function Layout({ children, width, maxWidth, history, ...props }) {
 
   return (
     <Flex height="100vh" flexDirection="column" alignItems="stretch" {...props}>
-      {/* <Box bg="primary">
+      {/*      <Box bg="primary">
         <Flex px={2} mx="auto" alignItems="center" height={53} style={{ maxWidth }}>
           <Box>
             <Logo style={{ cursor: 'pointer' }} onClick={handleLogoClick} />
@@ -28,7 +28,7 @@ function Layout({ children, width, maxWidth, history, ...props }) {
           </Box>
           <Box ml={3} />
         </Flex>
-      </Box> */}
+      </Box>*/}
       <Box flex={1} style={{ overflow: 'hidden' }}>
         {children}
       </Box>

@@ -1,33 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Flex, Box, Text } from '@ursip/design-system'
-import styled from 'styled-components'
+import { Box, Flex, Text } from '@ursip/design-system'
 import OptionWithIcon from '../common/OptionWithIcon'
 
-const OffsetBox = styled(Box)`
-  padding: 0;
-  margin: 0;
-  position: relative;
-  top: -12%;
-`
-const OffsetFlexContainer = styled(Flex)`
-  padding: 33px;
-  margin: 0;
-  align-self: center;
-  border-bottom: solid 1px #ecebeb;
-  width: 100%;
-`
+/*other import goes here*/
 
-const ContentBox = styled(Flex)`
-  align-self: center;
-  justify-content: space-between;
-  margin: 0 auto;
-  width: 1440px;
-`
-
-const AdressText = styled(Text)``
-
-function Title({ projectTitle }) {
+function ModuleNaviTab({ props }) {
   /*some private methods*/
   return (
     <OffsetFlexContainer>
@@ -73,16 +51,16 @@ function Title({ projectTitle }) {
   )
 }
 
-Title.propTypes = {
+ModuleNaviTab.propTypes = {
   jokes: PropTypes.array,
   seen: PropTypes.array,
   opened: PropTypes.array,
 }
 
-Title.defaultProps = {
+ModuleNaviTab.defaultProps = {
   jokes: [],
   seen: [],
   opened: [],
 }
 
-export default Title
+export default ModuleNaviTab

@@ -7,6 +7,7 @@ import { Flex, Box } from '@ursip/design-system'
 import * as selectors from './module/selectors'
 import { DynamicModuleLoader } from 'redux-dynamic-modules'
 import Title from './Title'
+import ModuleNaviTab from './ModuleNaviTab'
 
 /*other import goes here*/
 
@@ -22,6 +23,7 @@ function ProjectCard({ props }) {
       ) : (
         <Flex style={{ height: '100%' }} flexDirection={'column'} justifyContent={'flex-start'}>
           <Title projectTitle={projectTitle} />
+          <ModuleNaviTab />
         </Flex>
       )}
     </DynamicModuleLoader>
