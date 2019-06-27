@@ -1,19 +1,28 @@
 import { success, error } from 'redux-saga-requests'
 import { types as serviceTypes } from '../../../services/project-card'
-import * as types from './types'
 
 export const initialState = {
-  loading: false,
+  projectLoading: false,
+  tabsLoading: false,
 }
 
 export default {
   [serviceTypes.LOAD_PROJECT]: () => ({
-    loading: true,
+    projectLoading: true,
   }),
   [success(serviceTypes.LOAD_PROJECT)]: () => ({
-    loading: false,
+    projectLoading: false,
   }),
   [error(serviceTypes.LOAD_PROJECT)]: () => ({
-    loading: false,
+    projectLoading: false,
+  }),
+  [serviceTypes.LOAD_TABS]: () => ({
+    tabsLoading: true,
+  }),
+  [success(serviceTypes.LOAD_TABS)]: () => ({
+    tabsLoading: false,
+  }),
+  [error(serviceTypes.LOAD_TABS)]: () => ({
+    tabsLoading: false,
   }),
 }

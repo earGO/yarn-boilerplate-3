@@ -12,7 +12,7 @@ import ModuleNaviTab from './ModuleNaviTab'
 /*other import goes here*/
 
 function ProjectCard({ props }) {
-  const loading = useSelector(selectors.loading)
+  const loading = useSelector(selectors.projectLoading)
   const projectData = useSelector(selectors.projectSelector)
   const projectTitle = useSelector(selectors.projectTitleSelector)
   console.log(projectData)

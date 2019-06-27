@@ -19,9 +19,9 @@ function getProjectTitle(projectObject) {
   }
 }
 
-export const loading = createSelector(
+export const projectLoading = createSelector(
   stateSelector,
-  state => state.loading,
+  state => state.projectLoading,
 )
 
 export const projectSelector = createSelector(
