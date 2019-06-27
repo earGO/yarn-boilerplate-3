@@ -15,14 +15,18 @@ function ProjectCard({ props }) {
   const loading = useSelector(selectors.projectLoading)
   const projectData = useSelector(selectors.projectSelector)
   const projectTitle = useSelector(selectors.projectTitleSelector)
-  console.log(projectData)
+  const mockTitle = {
+    projectName: 'projectName',
+    projectAdress: 'projectAdress',
+  }
+  const notReady = loading && !(projectData !== undefined)
   return (
     <DynamicModuleLoader modules={[projectCard.default]}>
-      {loading ? (
+      {notReady ? (
         <Loading overlay>Загрузка карточки проекта</Loading>
       ) : (
         <Flex style={{ height: '100%' }} flexDirection={'column'} justifyContent={'flex-start'}>
-          <Title projectTitle={projectTitle} />
+          <Title projectTitle={mockTitle} />
           <ModuleNaviTab />
         </Flex>
       )}

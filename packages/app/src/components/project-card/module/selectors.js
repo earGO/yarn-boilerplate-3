@@ -8,14 +8,16 @@ import * as projectCard from '../../../services/project-card'
 const projectName = projectCard.name
 
 const stateSelector = state => state[namespace] || initialState
-const projectDataSelector = state => state[projectCard.name] || initialState
+const serviceDataSelector = state => state[projectCard.name] || initialState
 
 function getProjectTitle(projectObject) {
-  const projectName = projectObject.objectName
-  const projectAdress = projectObject.addressGenerated
-  return {
-    projectName: projectName,
-    projectAdress: projectAdress,
+  if (projectObject !== undefined && projectObject.hasOwnProperty('objectName')) {
+    const projectName = projectObject.objectName
+    const projectAdress = projectObject.addressGenerated
+    return {
+      projectName: projectName,
+      projectAdress: projectAdress,
+    }
   }
 }
 
@@ -25,10 +27,10 @@ export const projectLoading = createSelector(
 )
 
 export const projectSelector = createSelector(
-  projectDataSelector,
-  state => state,
+  serviceDataSelector,
+  state => state.project,
 )
 export const projectTitleSelector = createSelector(
-  projectDataSelector,
+  projectSelector,
   state => getProjectTitle(state),
 )
