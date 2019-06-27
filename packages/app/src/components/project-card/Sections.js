@@ -2,21 +2,24 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import SectionsItem from './SectionsItem'
 import { Flex } from '@ursip/design-system'
+import styled from 'styled-components'
 import ContentBox from '../common/ContentBox'
 import AddSection from './AddSection'
+
+const Bordered = styled(Flex)``
 
 function Sections({ projectSections }) {
   if (projectSections !== undefined) {
     return (
-      <ContentBox>
-        <Flex flexDirection={'column'}>
+      <ContentBox width={352} style={{ alignSelf: 'flex-start' }}>
+        <Bordered flexDirection={'column'}>
           <AddSection />
           <Flex flexDirection={'column'}>
             {projectSections.map((section, key) => {
               return <SectionsItem key={key}>{section.name}</SectionsItem>
             })}
           </Flex>
-        </Flex>
+        </Bordered>
       </ContentBox>
     )
   } else {

@@ -1,15 +1,35 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Box, Text } from '@ursip/design-system'
+import styled from 'styled-components'
+import FlexContainerBottomDivider from '../common/FlexContainerBottomDivider'
 
-/*other import goes here*/
+const SectionItemBox = styled(Box)`
+  width: 352px;
+  height: 32px;
+  &:hover {
+    cursor: pointer;
+    background-color: ${props => props.theme.colors[props.background]};
+  }
+`
 
 function SectionsItem({ children, ...props }) {
   /*some private methods*/
-  return <div>{children}</div>
+  return (
+    <FlexContainerBottomDivider>
+      <SectionItemBox background={'border'} p={2}>
+        <Text fontSize={1}>{children}</Text>
+      </SectionItemBox>
+    </FlexContainerBottomDivider>
+  )
 }
 
-SectionsItem.propTypes = {}
+SectionsItem.propTypes = {
+  background: PropTypes.string,
+}
 
-SectionsItem.defaultProps = {}
+SectionsItem.defaultProps = {
+  background: 'border',
+}
 
 export default SectionsItem

@@ -10,6 +10,7 @@ import Title from './Title'
 import ModuleNaviTab from './ModuleNaviTab'
 import Sections from './Sections'
 import Fields from './Fields'
+import ContentBox from '../common/ContentBox'
 
 function ProjectCard({ props }) {
   const loading = useSelector(selectors.projectLoading)
@@ -28,10 +29,10 @@ function ProjectCard({ props }) {
         <Flex style={{ height: '100%' }} flexDirection={'column'} justifyContent={'flex-start'}>
           <Title projectTitle={projectTitle} />
           <ModuleNaviTab projectTabs={projectTabs} />
-          <Flex flexDirection={'row'} justifyContent={'flex-start'}>
+          <ContentBox flexDirection={'row'} alignItems={'flex-start'}>
             <Sections projectSections={projectSections} />
             <Fields projectFields={projectFields} />
-          </Flex>
+          </ContentBox>
         </Flex>
       )}
     </DynamicModuleLoader>
