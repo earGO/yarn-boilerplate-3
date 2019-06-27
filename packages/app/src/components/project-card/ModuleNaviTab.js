@@ -13,7 +13,11 @@ function ModuleNaviTab({ projectTabs }) {
       <FlexContainerBottomDivider>
         <ContentBox>
           {projectTabs.map((tab, key) => {
-            return <OptionUnderline key={key}>{tab.name}</OptionUnderline>
+            return (
+              <OptionUnderline key={key} bottomColor={'primary'}>
+                {tab.name}
+              </OptionUnderline>
+            )
           })}
         </ContentBox>
       </FlexContainerBottomDivider>

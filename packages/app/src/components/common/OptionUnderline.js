@@ -15,16 +15,22 @@ const MyButton = styled.button`
   top: 1px;
 
   &:hover {
-    border-bottom: 1px solid blue;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-color: ${props => props.theme.colors[props.bottomColor]};
     cursor: pointer;
   }
 `
-function OptionUnderline({ children, ...props }) {
-  return <MyButton>{children}</MyButton>
+function OptionUnderline({ children, bottomColor, ...props }) {
+  return <MyButton bottomColor={bottomColor}>{children}</MyButton>
 }
 
-OptionUnderline.propTypes = {}
+OptionUnderline.propTypes = {
+  bottomColor: PropTypes.string,
+}
 
-OptionUnderline.defaultProps = {}
+OptionUnderline.defaultProps = {
+  bottomColor: 'primary',
+}
 
 export default OptionUnderline

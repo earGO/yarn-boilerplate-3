@@ -13,8 +13,13 @@ const IconSized = styled(Box)`
   top: 20%;
 `
 const FlexedItem = styled(Flex)`
+  transition: all 0.4s ease-in-out;
   padding: 0;
   margin: 0;
+  &:hover {
+    transform: scale(1.01);
+    cursor: pointer;
+  }
 `
 const IconedItemText = styled(Text)`
   padding-left: 4px;
@@ -34,15 +39,13 @@ function OptionWithIcon({ icon, option }) {
 }
 
 OptionWithIcon.propTypes = {
-  jokes: PropTypes.array,
-  seen: PropTypes.array,
-  opened: PropTypes.array,
+  icon: PropTypes.string,
+  option: PropTypes.string,
 }
 
 OptionWithIcon.defaultProps = {
-  jokes: [],
-  seen: [],
-  opened: [],
+  icon: 'question',
+  option: 'somethingWrong',
 }
 
 export default OptionWithIcon
