@@ -1,4 +1,5 @@
 import { all, call, put, takeEvery, takeLatest, select } from 'redux-saga/effects'
+import { success } from 'redux-saga-requests'
 import * as projectService from '../../../services/project-card'
 
 import * as types from './types'
@@ -10,7 +11,7 @@ const loadTabs = function*() {
   const projectId = yield select(selectors.projectIdSelector)
   yield put(projectService.actions.loadTabs(projectId.projectId))
 }
-
+/*it loads sections based on current selected tabid*/
 const loadSections = function*() {
   const tabId = yield select(selectors.selectedTabsSelector)
   console.log(tabId)
@@ -31,9 +32,9 @@ const emptySaga = function*() {
 
 export default function*() {
   yield all([
-    takeEvery('project-card/LOAD_FIELDS_SUCCESS', emptySaga),
-    takeLatest('project-card/LOAD_FIELDS_SUCCESS', loadTabs),
-    takeLatest('project-card/LOAD_TABS_SUCCESS', preSelectTab),
-    takeLatest('@ursip-project-card/PRESELECT_TAB', loadSections),
+    takeLatest(success(projectService.types.LOAD_PROJECT), loadTabs),
+    takeLatest(success(projectService.types.LOAD_TABS), preSelectTab),
+    takeLatest(types.PRESELECT_TAB, loadSections),
+    takeEvery(types.SELECT_TAB, loadSections),
   ])
 }

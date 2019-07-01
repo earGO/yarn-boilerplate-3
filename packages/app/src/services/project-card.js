@@ -1,4 +1,4 @@
-import { success, error } from 'redux-saga-requests'
+import { success } from 'redux-saga-requests'
 
 export const name = 'project-card'
 
