@@ -46,15 +46,8 @@ export default {
   }),
   [types.PRESELECT_SECTION]: (_, { payload }) => {
     const sections = payload.sections
-    const selectedSection = payload.selectedSection
-    if (selectedSection === '') {
-      return {
-        selectedTab: sections[0].id,
-      }
-    } else {
-      return {
-        selectedSection: selectedSection,
-      }
+    return {
+      selectedSection: sections[0].id,
     }
   },
   [types.SELECT_SECTION]: (_, { payload }) => ({

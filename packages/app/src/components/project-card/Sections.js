@@ -5,10 +5,14 @@ import { Flex } from '@ursip/design-system'
 import styled from 'styled-components'
 import ContentBox from '../common/ContentBox'
 import AddSection from './AddSection'
+import { useDispatch } from 'react-redux'
+import * as actions from './module/actions'
 
 const Bordered = styled(Flex)``
 
 function Sections({ projectSections }) {
+  const dispatch = useDispatch()
+  const selectSection = id => dispatch(actions.selectSection(id))
   if (projectSections !== undefined) {
     return (
       <ContentBox width={352} style={{ alignSelf: 'flex-start' }}>
@@ -16,7 +20,11 @@ function Sections({ projectSections }) {
           <AddSection />
           <Flex flexDirection={'column'}>
             {projectSections.map((section, key) => {
-              return <SectionsItem key={key}>{section.name}</SectionsItem>
+              return (
+                <SectionsItem key={key} sectionId={section.id} selectSection={selectSection}>
+                  {section.name}
+                </SectionsItem>
+              )
             })}
           </Flex>
         </Bordered>

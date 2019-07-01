@@ -25,9 +25,10 @@ const preSelectTab = function*() {
   yield put(actions.preselectTab(TABS, selectedTab))
 }
 
-const emptySaga = function*() {
-  const projectId = yield select(selectors.projectIdSelector)
-  yield call(console.log, projectId)
+/*It preselects a tab based on current state and */
+const preSelectSection = function*() {
+  const sections = yield select(selectors.sectionsSelector)
+  yield put(actions.preselectSection(sections))
 }
 
 export default function*() {
@@ -35,6 +36,7 @@ export default function*() {
     takeLatest(success(projectService.types.LOAD_PROJECT), loadTabs),
     takeLatest(success(projectService.types.LOAD_TABS), preSelectTab),
     takeLatest(types.PRESELECT_TAB, loadSections),
+    takeEvery(success(projectService.types.LOAD_SECTIONS), preSelectSection),
     takeEvery(types.SELECT_TAB, loadSections),
   ])
 }

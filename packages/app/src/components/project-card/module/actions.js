@@ -16,10 +16,10 @@ export const selectTab = tabId => {
   }
 }
 
-export const preselectSection = (sections, selectedSection) => {
+export const preselectSection = sections => {
   return {
     type: types.PRESELECT_SECTION,
-    payload: { sections: sections, selectedSection: selectedSection },
+    payload: { sections },
   }
 }
 
