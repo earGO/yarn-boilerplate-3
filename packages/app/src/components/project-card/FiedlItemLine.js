@@ -5,12 +5,20 @@ import { Box, Flex } from '@ursip/design-system'
 /*other import goes here*/
 
 function FiedlItemLine({ fieldline }) {
-  return (
-    <Flex flexDirection={'row'} justifyContent={'space-between'}>
-      <Box>{fieldline.name}</Box>
-      <Box>{fieldline.value}</Box>
-    </Flex>
-  )
+  if (fieldline.type === 'group') {
+    return (
+      <Flex flexDirection={'row'} justifyContent={'space-between'}>
+        <Box>{fieldline.name}</Box>
+      </Flex>
+    )
+  } else {
+    return (
+      <Flex flexDirection={'row'} justifyContent={'space-between'}>
+        <Box>{fieldline.name}</Box>
+        <Box>{fieldline.value}</Box>
+      </Flex>
+    )
+  }
 }
 
 FiedlItemLine.propTypes = {}
