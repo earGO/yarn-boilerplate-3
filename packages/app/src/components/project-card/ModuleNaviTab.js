@@ -6,15 +6,14 @@ import ContentBox from '../common/ContentBox'
 
 /*other import goes here*/
 
-function ModuleNaviTab({ projectTabs }) {
+function ModuleNaviTab({ projectTabs, tabSelected }) {
   if (projectTabs !== undefined) {
-    console.log(projectTabs)
     return (
       <FlexContainerBottomDivider>
         <ContentBox>
           {projectTabs.map((tab, key) => {
             return (
-              <OptionUnderline key={key} bottomColor={'primary'}>
+              <OptionUnderline key={key} bottomColor={'primary'} tabSelected={tabSelected} tabId={tab.id}>
                 {tab.name}
               </OptionUnderline>
             )

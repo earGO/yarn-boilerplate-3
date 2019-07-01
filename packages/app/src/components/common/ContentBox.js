@@ -29,13 +29,13 @@ function ContentBox({ children, padding, justifyContent, alignItems, contentwidt
 }
 
 ContentBox.propTypes = {
-  padding: PropTypes.string,
+  padding: PropTypes.number,
   justifyContent: PropTypes.string,
   contentwidth: PropTypes.number,
 }
 
 ContentBox.defaultProps = {
-  padding: '0',
+  padding: 0,
   justifyContent: 'flex-start',
   contentwidth: 1120,
 }

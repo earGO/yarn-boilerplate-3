@@ -28,7 +28,7 @@ export default {
   [error(serviceTypes.LOAD_TABS)]: () => ({
     tabsLoading: false,
   }),
-  [types.SELECT_TAB]: (_, { payload }) => {
+  [types.PRESELECT_TAB]: (_, { payload }) => {
     const tabs = payload.tabs
     const selectedTab = payload.selectedTab
     if (selectedTab === '') {

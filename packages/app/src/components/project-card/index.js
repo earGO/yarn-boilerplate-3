@@ -19,6 +19,7 @@ function ProjectCard({ props }) {
   const projectTabs = useSelector(selectors.tabsSelector)
   const projectSections = useSelector(selectors.sectionsSelector)
   const projectFields = useSelector(selectors.fieldsSelector)
+  const tabSelected = useSelector(selectors.selectedTabsSelector)
   const notReady =
     loading && !(projectData !== undefined) && !(projectSections !== undefined) && !(projectFields !== undefined)
   return (
@@ -28,7 +29,7 @@ function ProjectCard({ props }) {
       ) : (
         <Flex style={{ height: '100%' }} flexDirection={'column'} justifyContent={'flex-start'}>
           <Title projectTitle={projectTitle} />
-          <ModuleNaviTab projectTabs={projectTabs} />
+          <ModuleNaviTab projectTabs={projectTabs} tabSelected={tabSelected} />
           <ContentBox flexDirection={'row'} alignItems={'flex-start'}>
             <Sections projectSections={projectSections} />
             <Fields projectFields={projectFields} />

@@ -5,15 +5,17 @@ import * as types from './types'
 import * as actions from './actions'
 import * as selectors from './selectors'
 
+/*It takes Project ID from loaded project, and loads tabs array on it*/
 const loadTabs = function*() {
   const projectId = yield select(selectors.projectIdSelector)
   yield put(projectService.actions.loadTabs(projectId.projectId))
 }
 
+/*It preselects a tab based on current state and */
 const preSelectTab = function*() {
   const TABS = yield select(selectors.tabsSelector)
   const selectedTab = yield select(selectors.selectedTabsSelector)
-  yield put(actions.selectTab(TABS, selectedTab))
+  yield put(actions.preselectTab(TABS, selectedTab))
 }
 
 const emptySaga = function*() {
