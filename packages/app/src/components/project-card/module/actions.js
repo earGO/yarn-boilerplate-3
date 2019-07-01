@@ -1,4 +1,3 @@
-import { endpoints } from '../../../services/project-card'
 import * as types from './types'
 
 /*It preselects tab on first loading of a project */
@@ -6,5 +5,13 @@ export const preselectTab = (tabs, selectedTab) => {
   return {
     type: types.PRESELECT_TAB,
     payload: { tabs: tabs, selectedTab: selectedTab },
+  }
+}
+
+/*It selects tab on click loading of a project */
+export const selectTab = tabId => {
+  return {
+    type: types.SELECT_TAB,
+    payload: { tabId },
   }
 }

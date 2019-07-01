@@ -41,6 +41,9 @@ export default {
       }
     }
   },
+  [types.SELECT_TAB]: (_, { payload }) => ({
+    selectedTab: payload.tabId,
+  }),
   [types.SELECT_SECTION]: (_, { payload }) => ({
     selectedSection: payload,
   }),

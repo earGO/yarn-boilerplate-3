@@ -36,11 +36,20 @@ const SelectedUnderlinedButton = styled.button`
   border-bottom-width: 1px;
   border-color: ${props => props.theme.colors[props.bottomColor]};
 `
-function OptionUnderline({ children, bottomColor, tabSelected, tabId, ...props }) {
+
+function OptionUnderline({ children, bottomColor, tabSelected, tabId, selectTab, ...props }) {
   if (tabId === tabSelected) {
-    return <SelectedUnderlinedButton bottomColor={bottomColor}>{children}</SelectedUnderlinedButton>
+    return (
+      <SelectedUnderlinedButton bottomColor={bottomColor} onClick={() => selectTab(tabId)}>
+        {children}
+      </SelectedUnderlinedButton>
+    )
   } else {
-    return <UnderlinedButton bottomColor={bottomColor}>{children}</UnderlinedButton>
+    return (
+      <UnderlinedButton bottomColor={bottomColor} onClick={() => selectTab(tabId)}>
+        {children}
+      </UnderlinedButton>
+    )
   }
 }
 

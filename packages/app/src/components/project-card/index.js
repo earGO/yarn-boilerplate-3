@@ -5,6 +5,7 @@ import * as projectCard from './module'
 import Loading from '../common/Loading'
 import { Flex } from '@ursip/design-system'
 import * as selectors from './module/selectors'
+import * as actions from './module/actions'
 import { DynamicModuleLoader } from 'redux-dynamic-modules'
 import Title from './Title'
 import ModuleNaviTab from './ModuleNaviTab'
@@ -20,6 +21,7 @@ function ProjectCard({ props }) {
   const projectSections = useSelector(selectors.sectionsSelector)
   const projectFields = useSelector(selectors.fieldsSelector)
   const tabSelected = useSelector(selectors.selectedTabsSelector)
+
   const notReady =
     loading && !(projectData !== undefined) && !(projectSections !== undefined) && !(projectFields !== undefined)
   return (
