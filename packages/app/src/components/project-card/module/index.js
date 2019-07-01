@@ -18,7 +18,6 @@ export default {
   sagas: [sagas],
   initialActions: [
     projectCard.actions.loadProject(),
-    projectCard.actions.loadTabs(),
     projectCard.actions.loadSections(),
     projectCard.actions.loadFields(),
   ],

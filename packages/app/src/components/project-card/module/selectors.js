@@ -4,7 +4,7 @@ import { namespace } from './types'
 import { initialState } from './reducers'
 import * as projectCard from '../../../services/project-card'
 
-const stateSelector = state => state[namespace] || initialState
+const namespaceStateSelector = state => state[namespace] || initialState
 const serviceDataSelector = state => state[projectCard.name] || initialState
 
 function getProjectTitle(projectObject) {
@@ -18,8 +18,16 @@ function getProjectTitle(projectObject) {
   }
 }
 
+function getProjectId(projectObject) {
+  if (projectObject !== undefined && projectObject.hasOwnProperty('idProject')) {
+    return {
+      projectId: projectObject.idProject,
+    }
+  }
+}
+
 export const projectLoading = createSelector(
-  stateSelector,
+  namespaceStateSelector,
   state => state.projectLoading,
 )
 
@@ -33,9 +41,19 @@ export const projectTitleSelector = createSelector(
   state => getProjectTitle(state),
 )
 
+export const projectIdSelector = createSelector(
+  projectSelector,
+  state => getProjectId(state),
+)
+
 export const tabsSelector = createSelector(
   serviceDataSelector,
   state => state.tabs,
+)
+
+export const selectedTabsSelector = createSelector(
+  namespaceStateSelector,
+  state => state.selectedTab,
 )
 
 export const sectionsSelector = createSelector(

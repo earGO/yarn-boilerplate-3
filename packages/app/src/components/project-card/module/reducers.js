@@ -1,9 +1,12 @@
 import { success, error } from 'redux-saga-requests'
 import { types as serviceTypes } from '../../../services/project-card'
+import * as types from './types'
 
 export const initialState = {
   projectLoading: false,
   tabsLoading: false,
+  selectedTab: '',
+  selectedSection: '',
 }
 
 export default {
@@ -24,5 +27,21 @@ export default {
   }),
   [error(serviceTypes.LOAD_TABS)]: () => ({
     tabsLoading: false,
+  }),
+  [types.SELECT_TAB]: (_, { payload }) => {
+    const tabs = payload.tabs
+    const selectedTab = payload.selectedTab
+    if (selectedTab === '') {
+      return {
+        selectedTab: tabs[0].id,
+      }
+    } else {
+      return {
+        selectedTab: selectedTab,
+      }
+    }
+  },
+  [types.SELECT_SECTION]: (_, { payload }) => ({
+    selectedSection: payload,
   }),
 }

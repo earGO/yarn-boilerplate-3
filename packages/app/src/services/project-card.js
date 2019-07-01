@@ -15,16 +15,16 @@ const LOAD_FIELDS = `${name}/LOAD_FIELDS`
 
 export const types = {
   LOAD_PROJECT,
-  LOAD_TABS,
   LOAD_SECTIONS,
   LOAD_FIELDS,
+  LOAD_TABS,
 }
 
 /*Endpoints*/
-const project = api + 'project'
-const tabs = api + 'tabs'
-const sections = api + 'sections'
-const fields = api + 'fields'
+const project = api + 'project/'
+const tabs = api + 'tabs/'
+const sections = api + 'sections/'
+const fields = api + 'fields/'
 
 export const endpoints = {
   project,
@@ -55,22 +55,22 @@ export const actions = {
       },
     }
   },
-  loadTabs() {
-    return {
-      type: types.LOAD_TABS,
-      payload: {
-        request: {
-          url: `${endpoints.tabs}`,
-        },
-      },
-    }
-  },
   loadFields() {
     return {
       type: types.LOAD_FIELDS,
       payload: {
         request: {
           url: `${endpoints.fields}`,
+        },
+      },
+    }
+  },
+  loadTabs(projectId) {
+    return {
+      type: types.LOAD_TABS,
+      payload: {
+        request: {
+          url: `${endpoints.tabs}` + `${projectId}`,
         },
       },
     }
@@ -87,7 +87,7 @@ export default function projectCardReducer(state = {}, { type, payload }) {
     case success(types.LOAD_TABS):
       return {
         ...state,
-        tabs: payload.data,
+        tabs: payload.data.data,
       }
     case success(types.LOAD_SECTIONS):
       return {
