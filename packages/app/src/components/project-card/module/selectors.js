@@ -51,14 +51,19 @@ export const tabsSelector = createSelector(
   state => state.tabs,
 )
 
+export const sectionsSelector = createSelector(
+  serviceDataSelector,
+  state => state.sections,
+)
+
 export const selectedTabsSelector = createSelector(
   namespaceStateSelector,
   state => state.selectedTab,
 )
 
-export const sectionsSelector = createSelector(
-  serviceDataSelector,
-  state => state.sections,
+export const selectedSectionSelector = createSelector(
+  namespaceStateSelector,
+  state => state.selectedSection,
 )
 
 export const fieldsSelector = createSelector(

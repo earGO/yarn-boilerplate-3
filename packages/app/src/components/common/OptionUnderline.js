@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Box, Text } from '@ursip/design-system'
 import styled from 'styled-components'
 
+/*a button to render when tab is notselected*/
 const UnderlinedButton = styled.button`
   height: 58px;
   background-color: Transparent;
@@ -21,7 +21,7 @@ const UnderlinedButton = styled.button`
     cursor: pointer;
   }
 `
-
+/*a button to render when tab is selected*/
 const SelectedUnderlinedButton = styled.button`
   height: 58px;
   background-color: Transparent;
@@ -38,6 +38,7 @@ const SelectedUnderlinedButton = styled.button`
 `
 
 function OptionUnderline({ children, bottomColor, tabSelected, tabId, selectTab, ...props }) {
+  /*if tab is selected - render this button*/
   if (tabId === tabSelected) {
     return (
       <SelectedUnderlinedButton bottomColor={bottomColor} onClick={() => selectTab(tabId)}>
@@ -45,6 +46,7 @@ function OptionUnderline({ children, bottomColor, tabSelected, tabId, selectTab,
       </SelectedUnderlinedButton>
     )
   } else {
+    /*if tab is not selected - render this button*/
     return (
       <UnderlinedButton bottomColor={bottomColor} onClick={() => selectTab(tabId)}>
         {children}

@@ -11,6 +11,12 @@ const loadTabs = function*() {
   yield put(projectService.actions.loadTabs(projectId.projectId))
 }
 
+const loadSections = function*() {
+  const tabId = yield select(selectors.selectedTabsSelector)
+  console.log(tabId)
+  yield put(projectService.actions.loadSections(tabId))
+}
+
 /*It preselects a tab based on current state and */
 const preSelectTab = function*() {
   const TABS = yield select(selectors.tabsSelector)
@@ -28,5 +34,6 @@ export default function*() {
     takeEvery('project-card/LOAD_FIELDS_SUCCESS', emptySaga),
     takeLatest('project-card/LOAD_FIELDS_SUCCESS', loadTabs),
     takeLatest('project-card/LOAD_TABS_SUCCESS', preSelectTab),
+    takeLatest('@ursip-project-card/PRESELECT_TAB', loadSections),
   ])
 }

@@ -44,7 +44,20 @@ export default {
   [types.SELECT_TAB]: (_, { payload }) => ({
     selectedTab: payload.tabId,
   }),
+  [types.PRESELECT_SECTION]: (_, { payload }) => {
+    const sections = payload.sections
+    const selectedSection = payload.selectedSection
+    if (selectedSection === '') {
+      return {
+        selectedTab: sections[0].id,
+      }
+    } else {
+      return {
+        selectedSection: selectedSection,
+      }
+    }
+  },
   [types.SELECT_SECTION]: (_, { payload }) => ({
-    selectedSection: payload,
+    selectedSection: payload.sectionId,
   }),
 }

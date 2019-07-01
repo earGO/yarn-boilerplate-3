@@ -15,3 +15,18 @@ export const selectTab = tabId => {
     payload: { tabId },
   }
 }
+
+export const preselectSection = (sections, selectedSection) => {
+  return {
+    type: types.PRESELECT_SECTION,
+    payload: { sections: sections, selectedSection: selectedSection },
+  }
+}
+
+/*It selects tab on click loading of a project */
+export const selectSection = sectionId => {
+  return {
+    type: types.SELECT_SECTION,
+    payload: { sectionId },
+  }
+}

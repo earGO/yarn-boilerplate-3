@@ -45,12 +45,12 @@ export const actions = {
       },
     }
   },
-  loadSections() {
+  loadSections(tabId) {
     return {
       type: types.LOAD_SECTIONS,
       payload: {
         request: {
-          url: `${endpoints.sections}`,
+          url: `${endpoints.sections}` + `${tabId}`,
         },
       },
     }
@@ -92,7 +92,7 @@ export default function projectCardReducer(state = {}, { type, payload }) {
     case success(types.LOAD_SECTIONS):
       return {
         ...state,
-        sections: payload.data,
+        sections: payload.data.data,
       }
     case success(types.LOAD_FIELDS):
       return {

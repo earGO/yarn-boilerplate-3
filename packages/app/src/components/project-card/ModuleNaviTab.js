@@ -10,7 +10,8 @@ import { useDispatch } from 'react-redux'
 
 function ModuleNaviTab({ projectTabs, tabSelected }) {
   const dispatch = useDispatch()
-  const selectTab = tabId => dispatch(actions.selectTab(tabId))
+
+  const selectTab = tabId => dispatch(actions.selectTab(tabId)) //The action to select  a tab
 
   if (projectTabs !== undefined) {
     return (
