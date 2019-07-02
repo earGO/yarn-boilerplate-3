@@ -11,8 +11,16 @@ const IconSized = styled(Box)`
   padding-left: 10px;
   margin: 0;
   position: relative;
-  top: 20%;
+  top: 40%;
+  cursor: pointer;
   color: ${props => props.theme.colors[props.color]};
+`
+const Labelizer = styled(Box)`
+  padding: 0;
+  padding-bottom: 8px;
+  position: relative;
+  top: -5px;
+  cursor: pointer;
 `
 
 function AddSection({ props }) {
@@ -21,8 +29,9 @@ function AddSection({ props }) {
       <IconSized color={'primary'}>
         <i className={'material-icons'}>add_circle_outline</i>
       </IconSized>
-
-      <Text color={'primary'}>Добавить подраздел</Text>
+      <Labelizer>
+        <Text color={'primary'}>Добавить подраздел</Text>
+      </Labelizer>
     </Flex>
   )
 }

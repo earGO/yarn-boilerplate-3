@@ -12,7 +12,9 @@ const UnderlinedButton = styled.button`
   overflow: hidden;
   outline: none;
   position: relative;
+  margin-right: 6px;
   top: 1px;
+  font-size: 13px;
 
   &:hover {
     border-bottom-style: solid;
@@ -31,7 +33,9 @@ const SelectedUnderlinedButton = styled.button`
   overflow: hidden;
   outline: none;
   position: relative;
+  margin-right: 6px;
   top: 1px;
+  font-size: 13px;
   border-bottom-style: solid;
   border-bottom-width: 1px;
   border-color: ${props => props.theme.colors[props.bottomColor]};

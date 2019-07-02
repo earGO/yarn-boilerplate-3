@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import SectionsItem from './SectionsItem'
-import { Flex } from '@ursip/design-system'
+import { Flex, Box } from '@ursip/design-system'
 import styled from 'styled-components'
 import ContentBox from '../common/ContentBox'
 import AddSection from './AddSection'
@@ -17,7 +17,10 @@ function Sections({ projectSections }) {
     return (
       <ContentBox contentwidth={352} style={{ alignSelf: 'flex-start' }}>
         <Bordered flexDirection={'column'}>
-          <AddSection />
+          <Box mb={1}>
+            <AddSection />
+          </Box>
+
           <Flex flexDirection={'column'}>
             {projectSections.map((section, key) => {
               return (

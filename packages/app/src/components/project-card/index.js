@@ -32,7 +32,7 @@ function ProjectCard({ props }) {
         <Flex style={{ height: '100%' }} flexDirection={'column'} justifyContent={'flex-start'}>
           <Title projectTitle={projectTitle} />
           <ModuleNaviTab projectTabs={projectTabs} tabSelected={tabSelected} />
-          <ContentBox flexDirection={'row'} alignItems={'flex-start'}>
+          <ContentBox flexDirection={'row'} alignItems={'flex-start'} padding={16}>
             <Sections projectSections={projectSections} />
             <Fields projectFields={projectFields} />
           </ContentBox>

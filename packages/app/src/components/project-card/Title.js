@@ -21,10 +21,9 @@ function Title({ projectTitle }) {
       <FlexContainerBottomDivider dividercolor={'border'}>
         <ContentBox padding={33} justifyContent={'space-between'}>
           <Flex id-={'leftBox'}>
-            <Box id={'greenLine'} bg="#2e7d32" width={'8px'} height={'40px'}></Box>
+            <Box id={'greenLine'} bg="#2e7d32" width={'8px'} height={'40px'} mr={16}></Box>
             <Flex
               id={'projectNameAndAdress'}
-              ml={1}
               flexDirection="column"
               height={'40px'}
               align-content={'space-between'}
