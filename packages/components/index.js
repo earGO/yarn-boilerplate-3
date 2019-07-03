@@ -1,3 +1,2 @@
-export {default as CompOne} from './src/CompOne';
-export {default as CompTwo} from './src/CompTwo';
-export {default as Weather} from './src/Weather';
+export {default as Common} from './src/common'
+export {default as Main} from './src/main'

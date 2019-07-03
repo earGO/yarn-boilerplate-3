@@ -12,11 +12,11 @@ import theme from './theme'
 import Routes from './routes'
 
 render(
-<Provider store={store}>
-	<ThemeProvider theme={theme}>
-	<Normalize />
-	<Routes history={store.history} />
-</ThemeProvider>
-</Provider>,
+	<Provider store={store}>
+		<ThemeProvider theme={theme}>
+			<Normalize />
+			<Routes history={store.history} />
+		</ThemeProvider>
+	</Provider>,
 document.getElementById('root'),
 )
