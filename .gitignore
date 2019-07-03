@@ -6,8 +6,8 @@ node_modules/
 # builds
 build/
 # misc
-/.idea
-/.vscode
+.idea
+.vscode
 .DS_Store
 
 npm-debug.log*
