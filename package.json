@@ -14,6 +14,8 @@
     "packages": [
       "packages/apps/*",
       "packages/components",
+      "packages/services",
+      "packages/utils",
       "packages/storybook"
     ],
     "nohoist": [
