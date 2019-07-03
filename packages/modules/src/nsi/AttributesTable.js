@@ -1,97 +1,77 @@
-import React from 'react';
-import styled from 'styled-components';
-import {
-	Table,
-	Toggle,
-	Flex,
-	Box,
-	Text,
-	Icon,
-	Tooltip,
-	Button
-} from '@ursip/design-system';
-import SortAttributeRow from './SortAttributeRow';
-import AttributeForm from './AttributeForm';
-import Modal from '@project/components/common/';
+import React from 'react'
+import styled from 'styled-components'
+import { Table, Toggle, Flex, Box, Text, Icon, Tooltip, Button } from '@ursip/design-system'
+import SortAttributeRow from './SortAttributeRow'
+import AttributeForm from './AttributeForm'
+import Modal from '@project/components/common/'
 
 function HeaderCell(props) {
-	const {children, align, ...rest} = props;
-	const Cell = styled(Table.HeaderCell)``;
+	const { children, align, ...rest } = props
+	const Cell = styled(Table.HeaderCell)``
 
 	return (
 		<Cell {...rest}>
-			<Text
-				align={align}
-				truncated
-				children={children}
-				title={children}
-				style={{width: '100%'}}
-			/>
+			<Text align={align} truncated children={children} title={children} style={{ width: '100%' }} />
 		</Cell>
-	);
+	)
 }
 
-function TableCell({align, children, ...props}) {
-	const Cell = styled(Table.Cell)``;
+function TableCell({ align, children, ...props }) {
+	const Cell = styled(Table.Cell)``
 	return (
 		<Cell {...props}>
 			{row => (
-				<Flex
-					style={{width: '100%'}}
-					justifyContent={align || 'flex-start'}
-				>
+				<Flex style={{ width: '100%' }} justifyContent={align || 'flex-start'}>
 					<Box>{children(row)}</Box>
 				</Flex>
 			)}
 		</Cell>
-	);
+	)
 }
 
-const AttributesTable = ({onChange, value}) => {
-	const [currentAttribute, setCurrentAttribute] = React.useState(null);
-	const [attrFormModalVisible, setModalVisibility] = React.useState(false);
-	const attributes = value;
+const AttributesTable = ({ onChange, value }) => {
+	const [currentAttribute, setCurrentAttribute] = React.useState(null)
+	const [attrFormModalVisible, setModalVisibility] = React.useState(false)
+	const attributes = value
 
 	const handleItemChange = (field, nick) => value => {
-		let attributeIndex = attributes.findIndex(item => item.nick === nick);
-		let updatedAttribute = {...attributes[attributeIndex], [field]: value};
-		let attributesCopy = attributes.slice();
-		attributesCopy[attributeIndex] = updatedAttribute;
+		let attributeIndex = attributes.findIndex(item => item.nick === nick)
+		let updatedAttribute = { ...attributes[attributeIndex], [field]: value }
+		let attributesCopy = attributes.slice()
+		attributesCopy[attributeIndex] = updatedAttribute
 
-		onChange(attributesCopy);
-	};
+		onChange(attributesCopy)
+	}
 
 	const handleAddAttr = attribute => {
-		const attrExists = attributes.find(
-			attr => attr.nick === attribute.nick
-		);
-		let newAttributes = [];
+		const attrExists = attributes.find(attr => attr.nick === attribute.nick)
+		let newAttributes = []
 		if (attrExists) {
 			newAttributes = attributes.map(attr => {
 				if (attr.nick === attribute.nick) {
-					return attribute;
+					return attribute
 				} else {
-					return attr;
+					return attr
 				}
-			});
+			})
 		} else {
-			newAttributes = attributes.concat(attribute);
+			newAttributes = attributes.concat(attribute)
 		}
 
-		onChange(newAttributes);
-		setModalVisibility(false);
-		setCurrentAttribute(null);
-	};
+		onChange(newAttributes)
+		setModalVisibility(false)
+		setCurrentAttribute(null)
+	}
 
 	const handleEdit = attr => {
-		setModalVisibility(true);
-		setCurrentAttribute(attr);
-	};
+		setModalVisibility(true)
+		setCurrentAttribute(attr)
+	}
 
 	const handleCancel = () => {
-		setCurrentAttribute(null);
-		setModalVisibility(false);
-	};
+		setCurrentAttribute(null)
+		setModalVisibility(false)
+	}
 
 	return (
 		<Box>
@@ -103,12 +83,7 @@ const AttributesTable = ({onChange, value}) => {
 					onCancel={handleCancel}
 				/>
 			</Modal>
-			<Button
-				mt={3}
-				mb={2}
-				size="small"
-				onClick={() => setModalVisibility(true)}
-			>
+			<Button mt={3} mb={2} size="small" onClick={() => setModalVisibility(true)}>
 				<Icon name="plus" mr={2} />
 				Добавить атрибут
 			</Button>
@@ -120,20 +95,14 @@ const AttributesTable = ({onChange, value}) => {
 								<Icon
 									color="grey"
 									style={{
-										cursor: 'pointer'
+										cursor: 'pointer',
 									}}
 									name="question"
 								/>
 							</Tooltip>
 						</HeaderCell>
 						<TableCell dataKey="orders" align="center">
-							{row => (
-								<SortAttributeRow
-									row={row}
-									attributes={attributes}
-									onChange={onChange}
-								/>
-							)}
+							{row => <SortAttributeRow row={row} attributes={attributes} onChange={onChange} />}
 						</TableCell>
 					</Table.Column>
 				)}
@@ -148,10 +117,7 @@ const AttributesTable = ({onChange, value}) => {
 						{row => {
 							return (
 								<React.Fragment>
-									<Text
-										onClick={() => handleEdit(row)}
-										style={{cursor: 'pointer'}}
-									>
+									<Text onClick={() => handleEdit(row)} style={{ cursor: 'pointer' }}>
 										<Text inline bold color="primary">
 											{row.nick}
 										</Text>{' '}
@@ -161,7 +127,7 @@ const AttributesTable = ({onChange, value}) => {
 										{row.note}
 									</Text>
 								</React.Fragment>
-							);
+							)
 						}}
 					</TableCell>
 				</Table.Column>
@@ -180,42 +146,24 @@ const AttributesTable = ({onChange, value}) => {
 				<Table.Column width={130}>
 					<HeaderCell align="center">Обязательное</HeaderCell>
 					<TableCell dataKey="required" align="center">
-						{row => (
-							<Toggle
-								checked={Boolean(row.required)}
-								onChange={handleItemChange(
-									'required',
-									row.nick
-								)}
-							/>
-						)}
+						{row => <Toggle checked={Boolean(row.required)} onChange={handleItemChange('required', row.nick)} />}
 					</TableCell>
 				</Table.Column>
 				<Table.Column width={100}>
 					<HeaderCell align="center">Уникальное</HeaderCell>
 					<TableCell dataKey="unique" align="center">
-						{row => (
-							<Toggle
-								checked={Boolean(row.unique)}
-								onChange={handleItemChange('unique', row.nick)}
-							/>
-						)}
+						{row => <Toggle checked={Boolean(row.unique)} onChange={handleItemChange('unique', row.nick)} />}
 					</TableCell>
 				</Table.Column>
 				<Table.Column align="center" width={80}>
 					<HeaderCell>Удалено</HeaderCell>
 					<TableCell dataKey="deleted" align="center">
-						{row => (
-							<Toggle
-								checked={Boolean(row.deleted)}
-								onChange={handleItemChange('deleted', row.nick)}
-							/>
-						)}
+						{row => <Toggle checked={Boolean(row.deleted)} onChange={handleItemChange('deleted', row.nick)} />}
 					</TableCell>
 				</Table.Column>
 			</Table>
 		</Box>
-	);
-};
+	)
+}
 
-export default AttributesTable;
+export default AttributesTable

@@ -1,76 +1,55 @@
-import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {withRouter} from 'react-router-dom';
-import {compose} from 'redux';
-import Scrollbars from 'react-custom-scrollbars';
-import {
-	Card,
-	Flex,
-	Form,
-	Input,
-	Button,
-	Text,
-	Heading,
-	Box,
-	Toggle,
-	Select
-} from '@ursip/design-system';
-import * as nsiService from '../../services/nsi';
-import FormItem from '@project/components/common/';
-import LinkField from './LinkField';
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import { compose } from 'redux'
+import Scrollbars from 'react-custom-scrollbars'
+import { Card, Flex, Form, Input, Button, Heading, Box, Toggle, Select } from '@ursip/design-system'
+import * as nsiService from '@project//services/nsi/'
+import FormItem from '@project/components/common/'
+import LinkField from './LinkField'
 
-import * as selectors from './module/selectors';
-import * as actions from './module/actions';
+import * as selectors from './module/selectors'
+import * as actions from './module/actions'
 
-function CatalogItemForm({
-	form,
-	width,
-	elements,
-	attributes,
-	catalog,
-	contentHeight
-}) {
-	const dispatch = useDispatch();
-	const row = useSelector(selectors.currentElement);
+function CatalogItemForm({ form, width, elements, attributes, catalog, contentHeight }) {
+	const dispatch = useDispatch()
+	const row = useSelector(selectors.currentElement)
 
-	const closeModal = () => dispatch(actions.hideElementsForm());
-	const saveDictRow = (data, nick) =>
-		dispatch(nsiService.actions.saveDictRow(data, nick));
+	const closeModal = () => dispatch(actions.hideElementsForm())
+	const saveDictRow = (data, nick) => dispatch(nsiService.actions.saveDictRow(data, nick))
 
 	const selectElements = Object.values(elements || {})
 		.filter(el => !el.deleted && row && row.elementId !== el.elementId)
-		.reduce((acc, {elementId, values}) => {
-			const val = values[Object.keys(attributes)[0]];
+		.reduce((acc, { elementId, values }) => {
+			const val = values[Object.keys(attributes)[0]]
 
 			acc[elementId] = {
 				label: val && val.value,
-				value: elementId
-			};
-			return acc;
-		}, {});
+				value: elementId,
+			}
+			return acc
+		}, {})
 
-	function prepare({parentId, ...values}) {
+	function prepare({ parentId, ...values }) {
 		return {
 			elementId: (row && row.elementId) || null,
-			elementParent:
-				(parentId && parentId.value && {parentId: parentId.value}) ||
-				null,
+			elementParent: (parentId && parentId.value && { parentId: parentId.value }) || null,
 			deleted: false,
 			values: Object.keys(values).map(nick => {
 				const output = {
 					...(row && row.values && row.values[nick]),
 					nick,
-					deleted: false
-				};
-
-				if (attributes[nick].link) {
-					output.linkValue = {id: values[nick] || null};
-				} else {
-					output.value = values[nick];
+					deleted: false,
 				}
 
-				return output;
-			})
+				if (attributes[nick].link) {
+					output.linkValue = { id: values[nick] || null }
+				} else {
+					output.value = values[nick]
+				}
+
+				return output
+			}),
 
 			// values: Object.keys(values).map(nick => {
 			//   console.log(row)
@@ -86,7 +65,7 @@ function CatalogItemForm({
 
 			//   return output
 			// }),
-		};
+		}
 
 		// return {
 		//   elementId: (row && row.elementId) || null,
@@ -119,23 +98,17 @@ function CatalogItemForm({
 		form.validateFieldsAndScroll((errors, values) => {
 			if (!errors) {
 				// console.log(prepare(values))
-				saveDictRow(prepare(values), catalog.nick).finally(closeModal);
+				saveDictRow(prepare(values), catalog.nick).finally(closeModal)
 			}
-		});
+		})
 
 	return (
 		<Card id="catalogItemForm" bg="white" p={2} width={width}>
 			<Heading>&laquo;{catalog.name}&raquo;</Heading>
-			<Scrollbars style={{height: contentHeight}} autoHide>
+			<Scrollbars style={{ height: contentHeight }} autoHide>
 				<Box py={2} px={3}>
 					{catalog.hierarchy && (
-						<FormItem
-							key="parentId"
-							mb={2}
-							name="parentId"
-							label="Родительский элемент"
-							form={form}
-						>
+						<FormItem key="parentId" mb={2} name="parentId" label="Родительский элемент" form={form}>
 							<Select options={Object.values(selectElements)} />
 						</FormItem>
 					)}
@@ -156,7 +129,7 @@ function CatalogItemForm({
 										>
 											<Toggle />
 										</FormItem>
-									);
+									)
 
 								case attr.type === 'integer':
 									return (
@@ -171,20 +144,14 @@ function CatalogItemForm({
 										>
 											<Input type="number" />
 										</FormItem>
-									);
+									)
 
 								case attr.type === 'link':
 									return (
-										<FormItem
-											key={attr.nick}
-											mb={2}
-											name={attr.nick}
-											label={attr.name}
-											form={form}
-										>
+										<FormItem key={attr.nick} mb={2} name={attr.nick} label={attr.name} form={form}>
 											<LinkField nick={attr.link} />
 										</FormItem>
-									);
+									)
 
 								default:
 									return (
@@ -198,80 +165,68 @@ function CatalogItemForm({
 										>
 											<Input placeholder={attr.name} />
 										</FormItem>
-									);
+									)
 							}
 						})}
 				</Box>
 			</Scrollbars>
 			<Flex justifyContent="space-between" alignItems="center" mt={2}>
 				<Box ml="auto">
-					<Button
-						style={{width: 100}}
-						size="small"
-						onClick={handleSave}
-					>
+					<Button style={{ width: 100 }} size="small" onClick={handleSave}>
 						{row ? 'Сохранить' : 'Создать'}
 					</Button>
-					<Button
-						style={{width: 100}}
-						size="small"
-						ml={2}
-						type="bordered"
-						onClick={closeModal}
-					>
+					<Button style={{ width: 100 }} size="small" ml={2} type="bordered" onClick={closeModal}>
 						Отмена
 					</Button>
 				</Box>
 			</Flex>
 		</Card>
-	);
+	)
 }
 
 CatalogItemForm.defaultProps = {
 	closeModal: () => false,
 	dict: {},
 	width: '40vw',
-	contentHeight: '50vh'
-};
+	contentHeight: '50vh',
+}
 
 const withForm = Form.create({
-	mapPropsToFields({row, catalog, elements, attributes}) {
-		const fields = Object.values(attributes || {}).filter(
-			attr => !Boolean(attr.deleted)
-		);
+	mapPropsToFields({ row, catalog, elements, attributes }) {
+		const fields = Object.values(attributes || {}).filter(attr => !Boolean(attr.deleted))
 
 		const selectElements = Object.values(elements || {})
 			.filter(el => !el.deleted)
-			.reduce((acc, {elementId, values}) => {
-				const val = values[Object.keys(attributes)[0]];
+			.reduce((acc, { elementId, values }) => {
+				const val = values[Object.keys(attributes)[0]]
 
 				acc[elementId] = {
 					label: val && val.value,
-					value: elementId
-				};
-				return acc;
-			}, {});
+					value: elementId,
+				}
+				return acc
+			}, {})
 
-		let out = {};
+		let out = {}
 		if (row) {
 			out = fields.reduce((acc, field) => {
-				const value = (row.values && row.values[field.nick]) || {};
-				acc[field.nick] = Form.createFormField({value: value.value});
-				return acc;
-			}, {});
+				const value = (row.values && row.values[field.nick]) || {}
+				acc[field.nick] = Form.createFormField({ value: value.value })
+				return acc
+			}, {})
 		}
 
 		if (row && row.parentId) {
 			out['parentId'] = Form.createFormField({
-				value: selectElements[row.parentId]
-			});
+				value: selectElements[row.parentId],
+			})
 		}
 
-		return out;
-	}
-});
+		return out
+	},
+})
 
 export default compose(
 	withRouter,
-	withForm
-)(CatalogItemForm);
+	withForm,
+)(CatalogItemForm)
