@@ -8,23 +8,27 @@
     }
   },
   "dependencies": {
-    "@project/components": "1.0.0",
-    "@project/services": "1.0.0",
+    "@project/components": "^1.0.0",
+    "@project/services": "^1.0.0",
+    "@project/modules": "^1.0.0",
     "@react-workspaces/react-scripts": "3.0.0-alpha-04",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1",
     "@ursip/design-system": "^1.1.0",
     "connected-react-router": "^6.4.0",
+    "cross-env": "5.0.5",
+    "gh-pages": "^2.0.1",
+    "history": "^4.9.0",
     "prop-types": "^15.7.2",
     "ramda": "^0.26.1",
     "re-resizable": "^5.0.1",
+    "react": "^16.8.6",
     "react-custom-scrollbars": "^4.2.1",
+    "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1",
     "react-modal": "^3.8.1",
     "react-normalize": "^0.4.2",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
+    "react-scripts": "3.0.1",
     "redux": "^4.0.1",
     "redux-dynamic-modules": "^4.0.1",
     "redux-dynamic-modules-saga": "^4.0.0",
@@ -34,9 +38,7 @@
     "redux-saga-requests-mock": "^0.1.6",
     "reselect": "^4.0.0",
     "styled-components": "^4.3.1",
-    "throttle-debounce": "^2.1.0",
-    "gh-pages": "^2.0.1",
-    "cross-env": "5.0.5"
+    "throttle-debounce": "^2.1.0"
   },
   "devDependencies": {
     "enzyme": "^3.9.0",
@@ -82,5 +84,4 @@
   "eslintConfig": {
     "extends": "react-app"
   }
-
 }
