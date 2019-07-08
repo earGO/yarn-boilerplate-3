@@ -1,0 +1,11 @@
+{
+  "name": "@project/services",
+  "version": "1.0.0",
+  "description": "Utils for other modules",
+  "main": "src/index.js",
+  "main:src": "src/index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "redux-saga-requests": "^0.25.0"
+  }
+}

@@ -17,7 +17,8 @@
       "packages/storybook",
       "packages/widgets",
       "packages/utils",
-      "packages/styled"
+      "packages/styled",
+      "packages/services"
 
     ],
     "nohoist": [

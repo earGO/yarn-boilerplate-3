@@ -12092,7 +12092,7 @@ redux-mock-store@^1.5.3:
   dependencies:
     lodash.isplainobject "^4.0.6"
 
-redux-saga-requests@0.25.0:
+redux-saga-requests@0.25.0, redux-saga-requests@^0.25.0:
   version "0.25.0"
   resolved "https://gitlab.ursip.ru/nexus/repository/npm/redux-saga-requests/-/redux-saga-requests-0.25.0.tgz#dcee7f99572f5764d2f49c07b238f069d6439a77"
   integrity sha512-w/+T0xH2kJQaJdHzrnnNOBbmV5joniXVJ+atKLShg9TQV4MKk80OiPth3zGqnm9F07R5jrfM+d8tzi1bang5Ng==
