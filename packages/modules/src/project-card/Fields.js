@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FieldsItem from './FieldsItem';
-import {ContentBox} from './imports';
+import {ContentBox} from '../../import';
 
 function Fields({projectFields}) {
 	console.log(projectFields);

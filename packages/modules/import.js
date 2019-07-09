@@ -7,4 +7,4 @@ export {
 	Icon
 } from '@project/components';
 
-export {projectCardService} from '@project/services';
+export {projectCardService, nsi} from '@project/services';

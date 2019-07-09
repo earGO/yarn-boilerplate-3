@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Box, Flex} from '@ursip/design-system';
 import FiedlItemLine from './FiedlItemLine';
 import styled from 'styled-components';
-import {FlexContainerBottomDivider} from './imports';
+import {FlexContainerBottomDivider} from '../../import';
 
 const Bordered = styled(Flex)`
 	padding-bottom: 32px;

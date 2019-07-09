@@ -1,7 +1,7 @@
 import {all, put, takeEvery, takeLatest, select} from 'redux-saga/effects';
 import {success} from 'redux-saga-requests';
 
-import {projectCardService as projectService} from '../imports';
+import {projectCardService as projectService} from '../../../import';
 
 import * as types from './types';
 import * as actions from './actions';

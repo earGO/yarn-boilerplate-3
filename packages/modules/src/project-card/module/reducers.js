@@ -1,6 +1,6 @@
 import {success, error} from 'redux-saga-requests';
 
-import {projectCardService} from '../imports';
+import {projectCardService} from '../../../import';
 import * as types from './types';
 
 const serviceTypes = projectCardService.types;

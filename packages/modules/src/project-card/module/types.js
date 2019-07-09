@@ -1,4 +1,4 @@
-import {projectCardService} from '../imports';
+import {projectCardService} from '../../../import';
 
 export const namespace = '@ursip-' + projectCardService.name;
 

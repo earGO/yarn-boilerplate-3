@@ -7,7 +7,7 @@ import {name as appName} from '../package.json';
 
 // import {baseRoute as nsiModuleRoute} from './components/nsi/module';
 
-import {projectCard, Layout, Loading, NotFound, Main} from './import';
+import {projectCard, Layout, Loading, NotFound, Main, Weather} from './import';
 import './LazyLoad/ProjectCard';
 
 const projectCardRoute = projectCard.baseRoute;
@@ -39,6 +39,7 @@ function Routes({history}) {
 			</Helmet>
 			<ConnectedRouter history={history}>
 				<Layout>
+					<Weather />
 					<React.Suspense fallback={<Loading overlay />}>
 						<Switch>
 							{routes.map(route => (

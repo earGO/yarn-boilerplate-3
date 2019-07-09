@@ -8,6 +8,7 @@ import {
 import {createDriver} from 'redux-saga-requests-fetch';
 import {createDriver as createMockDriver} from 'redux-saga-requests-mock';
 import {getSagaExtension} from 'redux-dynamic-modules-saga';
+import {getThunkExtension} from 'redux-dynamic-modules-thunk';
 import {fork} from 'redux-saga/effects';
 import {createBrowserHistory} from 'history';
 import {mocks} from './import';
@@ -25,8 +26,8 @@ const requestSaga = function*() {
 	yield fork(watchRequests);
 };
 
-const modules = [
-	{
+export const routeModule = () => {
+	return {
 		id: 'initial',
 		reducerMap: {
 			router: connectRouter(history)
@@ -39,10 +40,12 @@ const modules = [
 			})
 		],
 		sagas: [requestSaga]
-	}
-];
+	};
+};
 
-const store = createStore({}, [], [getSagaExtension()], modules);
+const store = createStore({
+	extensions: [getThunkExtension(), getSagaExtension()]
+});
 
 store.history = history;
 

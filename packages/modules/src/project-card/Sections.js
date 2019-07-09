@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import AddSection from './AddSection';
 import {useDispatch} from 'react-redux';
 import * as actions from './module/actions';
-import {ContentBox} from './imports';
+import {ContentBox} from '../../import';
 
 const Bordered = styled(Flex)``;
 

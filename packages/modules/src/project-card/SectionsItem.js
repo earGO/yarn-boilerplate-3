@@ -4,7 +4,7 @@ import {Box, Text} from '@ursip/design-system';
 import styled from 'styled-components';
 import {useSelector} from 'react-redux';
 import * as selectors from './module/selectors';
-import {FlexContainerBottomDivider} from './imports';
+import {FlexContainerBottomDivider} from '../../import';
 
 const SectionItemBox = styled(Box)`
 	width: 352px;

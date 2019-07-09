@@ -1,5 +1,5 @@
 import React from 'react';
-import {Icon} from './imports';
+import {Icon} from '../../import';
 import {Flex, Box, Text} from '@ursip/design-system';
 import styled from 'styled-components';
 

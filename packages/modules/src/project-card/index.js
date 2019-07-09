@@ -8,7 +8,7 @@ import Title from './Title';
 import ModuleNaviTab from './ModuleNaviTab';
 import Sections from './Sections';
 import Fields from './Fields';
-import {ContentBox, Loading} from './imports';
+import {ContentBox, Loading} from '../../import';
 
 function ProjectCard({props}) {
 	const loading = useSelector(selectors.projectLoading);

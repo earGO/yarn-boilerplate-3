@@ -10,12 +10,13 @@ import Normalize from 'react-normalize';
 import store from './store';
 import theme from './theme';
 import Routes from './routes';
+import DynamicRoutes from './DynamicRoutes';
 
 render(
 	<Provider store={store}>
 		<ThemeProvider theme={theme}>
 			<Normalize />
-			<Routes history={store.history} />
+			<DynamicRoutes />
 		</ThemeProvider>
 	</Provider>,
 	document.getElementById('root')

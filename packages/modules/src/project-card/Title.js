@@ -6,7 +6,7 @@ import {
 	ContentBox,
 	OptionWithIcon,
 	FlexContainerBottomDivider
-} from './imports';
+} from '../../import';
 
 const OffsetBox = styled(Box)`
 	padding: 0;

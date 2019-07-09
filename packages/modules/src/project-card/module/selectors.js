@@ -3,7 +3,7 @@ import {createSelector} from 'reselect';
 import {namespace} from './types';
 import {initialState} from './reducers';
 
-import {projectCardService as projectCard} from '../imports';
+import {projectCardService as projectCard} from '../../../import';
 
 const namespaceStateSelector = state => state[namespace] || initialState;
 const serviceDataSelector = state => state[projectCard.name] || initialState;

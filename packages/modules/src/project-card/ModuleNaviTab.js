@@ -6,7 +6,7 @@ import {
 	ContentBox,
 	OptionUnderline,
 	FlexContainerBottomDivider
-} from './imports';
+} from '../../import';
 
 function ModuleNaviTab({projectTabs, tabSelected}) {
 	const dispatch = useDispatch();
