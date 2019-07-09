@@ -1,0 +1,26 @@
+09311a2f7e11756970a72acc61a2edb0
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+require("./CompOne.css");
+
+var CompOne = function CompOne() {
+  return _react["default"].createElement("div", {
+    className: "Comp"
+  }, _react["default"].createElement("h3", null, _react["default"].createElement("span", {
+    role: "img",
+    "aria-label": "React Logo"
+  }, "\u269B\uFE0F"), "\u200A Comp One"));
+};
+
+var _default = CompOne;
+exports["default"] = _default;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkNvbXBPbmUuanMiXSwibmFtZXMiOlsiQ29tcE9uZSJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7O0FBQUE7O0FBQ0E7O0FBRUEsSUFBTUEsT0FBTyxHQUFHLFNBQVZBLE9BQVU7QUFBQSxTQUNmO0FBQUssSUFBQSxTQUFTLEVBQUM7QUFBZixLQUNDLDRDQUNDO0FBQU0sSUFBQSxJQUFJLEVBQUMsS0FBWDtBQUFpQixrQkFBVztBQUE1QixvQkFERCxvQkFERCxDQURlO0FBQUEsQ0FBaEI7O2VBV2VBLE8iLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnO1xyXG5pbXBvcnQgJy4vQ29tcE9uZS5jc3MnO1xyXG5cclxuY29uc3QgQ29tcE9uZSA9ICgpID0+IChcclxuXHQ8ZGl2IGNsYXNzTmFtZT1cIkNvbXBcIj5cclxuXHRcdDxoMz5cclxuXHRcdFx0PHNwYW4gcm9sZT1cImltZ1wiIGFyaWEtbGFiZWw9XCJSZWFjdCBMb2dvXCI+XHJcblx0XHRcdFx04pqb77iPXHJcblx0XHRcdDwvc3Bhbj5cclxuXHRcdFx04oCKIENvbXAgT25lXHJcblx0XHQ8L2gzPlxyXG5cdDwvZGl2PlxyXG4pO1xyXG5cclxuZXhwb3J0IGRlZmF1bHQgQ29tcE9uZTtcclxuIl19

@@ -1,0 +1,39 @@
+92bd4006fc825feaf1173d2d039fbf93
+"use strict";
+
+var _effects = require("redux-saga/effects");
+
+var _reduxSagaTestPlan = require("redux-saga-test-plan");
+
+var _utils = require("@project/utils");
+
+var _weatherDuck = require("../weather-duck");
+
+var _weatherService = require("../weather-service");
+
+var mockData = {
+  simpleMockField: 'simpleMockValue'
+};
+describe('Test weather-duck with redux-saga-test-plan', function () {
+  it('provides a value for the API call', function () {
+    return (0, _reduxSagaTestPlan.expectSaga)(_weatherDuck.sagas.loadWeatherData).provide({
+      call: function call(effect, next) {
+        // Check for the API call to return fake value
+        if (effect.fn === _utils.serverRequests.simpleGetRequest) {
+          return {
+            mockData: mockData
+          };
+        } // Allow Redux Saga to handle other `call` effects
+
+
+        return next();
+      }
+    }).put({
+      type: _weatherService.types.LOAD_WEATHER,
+      payload: {
+        mockData: mockData
+      }
+    }).silentRun();
+  });
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImludGVncmF0aW9uLnRlc3QuanMiXSwibmFtZXMiOlsibW9ja0RhdGEiLCJzaW1wbGVNb2NrRmllbGQiLCJkZXNjcmliZSIsIml0Iiwic2FnYXMiLCJsb2FkV2VhdGhlckRhdGEiLCJwcm92aWRlIiwiY2FsbCIsImVmZmVjdCIsIm5leHQiLCJmbiIsInNlcnZlclJlcXVlc3RzIiwic2ltcGxlR2V0UmVxdWVzdCIsInB1dCIsInR5cGUiLCJ0eXBlcyIsIkxPQURfV0VBVEhFUiIsInBheWxvYWQiLCJzaWxlbnRSdW4iXSwibWFwcGluZ3MiOiI7O0FBQUE7O0FBQ0E7O0FBQ0E7O0FBQ0E7O0FBQ0E7O0FBUUEsSUFBTUEsUUFBUSxHQUFHO0FBQ2hCQyxFQUFBQSxlQUFlLEVBQUU7QUFERCxDQUFqQjtBQUlBQyxRQUFRLENBQUMsNkNBQUQsRUFBZ0QsWUFBTTtBQUM3REMsRUFBQUEsRUFBRSxDQUFDLG1DQUFELEVBQXNDLFlBQU07QUFDN0MsV0FBTyxtQ0FBV0MsbUJBQU1DLGVBQWpCLEVBQ0xDLE9BREssQ0FDRztBQUNSQyxNQUFBQSxJQURRLGdCQUNIQyxNQURHLEVBQ0tDLElBREwsRUFDVztBQUNsQjtBQUNBLFlBQUlELE1BQU0sQ0FBQ0UsRUFBUCxLQUFjQyxzQkFBZUMsZ0JBQWpDLEVBQW1EO0FBQ2xELGlCQUFPO0FBQUNaLFlBQUFBLFFBQVEsRUFBUkE7QUFBRCxXQUFQO0FBQ0EsU0FKaUIsQ0FNbEI7OztBQUNBLGVBQU9TLElBQUksRUFBWDtBQUNBO0FBVE8sS0FESCxFQVlMSSxHQVpLLENBWUQ7QUFDSkMsTUFBQUEsSUFBSSxFQUFFQyxzQkFBTUMsWUFEUjtBQUVKQyxNQUFBQSxPQUFPLEVBQUU7QUFBQ2pCLFFBQUFBLFFBQVEsRUFBUkE7QUFBRDtBQUZMLEtBWkMsRUFnQkxrQixTQWhCSyxFQUFQO0FBaUJBLEdBbEJDLENBQUY7QUFtQkEsQ0FwQk8sQ0FBUiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7Y2FsbCwgcHV0LCB0YWtlfSBmcm9tICdyZWR1eC1zYWdhL2VmZmVjdHMnO1xyXG5pbXBvcnQge2V4cGVjdFNhZ2F9IGZyb20gJ3JlZHV4LXNhZ2EtdGVzdC1wbGFuJztcclxuaW1wb3J0IHtzZXJ2ZXJSZXF1ZXN0c30gZnJvbSAnQHByb2plY3QvdXRpbHMnO1xyXG5pbXBvcnQge3NhZ2FzfSBmcm9tICcuLi93ZWF0aGVyLWR1Y2snO1xyXG5pbXBvcnQge1xyXG5cdHR5cGVzLFxyXG5cdGFjdGlvbnMsXHJcblx0bmFtZSxcclxuXHRhcGksXHJcblx0YWN0aW9ucyBhcyBzZXJ2aWNlQWN0aW9uc1xyXG59IGZyb20gJy4uL3dlYXRoZXItc2VydmljZSc7XHJcblxyXG5jb25zdCBtb2NrRGF0YSA9IHtcclxuXHRzaW1wbGVNb2NrRmllbGQ6ICdzaW1wbGVNb2NrVmFsdWUnXHJcbn07XHJcblxyXG5kZXNjcmliZSgnVGVzdCB3ZWF0aGVyLWR1Y2sgd2l0aCByZWR1eC1zYWdhLXRlc3QtcGxhbicsICgpID0+IHtcclxuXHRpdCgncHJvdmlkZXMgYSB2YWx1ZSBmb3IgdGhlIEFQSSBjYWxsJywgKCkgPT4ge1xyXG5cdFx0cmV0dXJuIGV4cGVjdFNhZ2Eoc2FnYXMubG9hZFdlYXRoZXJEYXRhKVxyXG5cdFx0XHQucHJvdmlkZSh7XHJcblx0XHRcdFx0Y2FsbChlZmZlY3QsIG5leHQpIHtcclxuXHRcdFx0XHRcdC8vIENoZWNrIGZvciB0aGUgQVBJIGNhbGwgdG8gcmV0dXJuIGZha2UgdmFsdWVcclxuXHRcdFx0XHRcdGlmIChlZmZlY3QuZm4gPT09IHNlcnZlclJlcXVlc3RzLnNpbXBsZUdldFJlcXVlc3QpIHtcclxuXHRcdFx0XHRcdFx0cmV0dXJuIHttb2NrRGF0YX07XHJcblx0XHRcdFx0XHR9XHJcblxyXG5cdFx0XHRcdFx0Ly8gQWxsb3cgUmVkdXggU2FnYSB0byBoYW5kbGUgb3RoZXIgYGNhbGxgIGVmZmVjdHNcclxuXHRcdFx0XHRcdHJldHVybiBuZXh0KCk7XHJcblx0XHRcdFx0fVxyXG5cdFx0XHR9KVxyXG5cdFx0XHQucHV0KHtcclxuXHRcdFx0XHR0eXBlOiB0eXBlcy5MT0FEX1dFQVRIRVIsXHJcblx0XHRcdFx0cGF5bG9hZDoge21vY2tEYXRhfVxyXG5cdFx0XHR9KVxyXG5cdFx0XHQuc2lsZW50UnVuKCk7XHJcblx0fSk7XHJcbn0pO1xyXG4iXX0=

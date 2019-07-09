@@ -1,0 +1,76 @@
+050892e67219f32ebb722e5f5016f7d4
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactCustomScrollbars = require("react-custom-scrollbars");
+
+var _designSystem = require("@ursip/design-system");
+
+var _reactRouterDom = require("react-router-dom");
+
+var _Logo = _interopRequireDefault(require("./Logo"));
+
+var _package = _interopRequireDefault(require("../../package.json"));
+
+/**
+ * Main application layout
+ */
+function Layout(_ref) {
+  var children = _ref.children,
+      width = _ref.width,
+      maxWidth = _ref.maxWidth,
+      history = _ref.history,
+      props = (0, _objectWithoutProperties2["default"])(_ref, ["children", "width", "maxWidth", "history"]);
+
+  var handleLogoClick = function handleLogoClick() {
+    return history.push('/');
+  };
+
+  var year = new Date().getFullYear();
+  return _react["default"].createElement(_designSystem.Flex, (0, _extends2["default"])({
+    height: "100vh",
+    flexDirection: "column",
+    alignItems: "stretch"
+  }, props), _react["default"].createElement(_designSystem.Box, {
+    flex: 1,
+    style: {
+      overflow: 'hidden'
+    }
+  }, children), _react["default"].createElement(_designSystem.Box, {
+    bg: "lightGrey"
+  }, _react["default"].createElement(_designSystem.Box, {
+    p: 2,
+    mx: "auto",
+    style: {
+      maxWidth: maxWidth
+    },
+    justifyContent: "space-between"
+  }, _react["default"].createElement(_designSystem.Text, {
+    color: "darkGrey",
+    fontSize: 0,
+    align: "right"
+  }, "URSiP \xA9 ", year))));
+}
+
+Layout.defaultProps = {
+  maxWidth: 1600,
+  // Responsive breackpoints
+  width: ['99%', '99%', '99%', '99%']
+};
+
+var _default = (0, _reactRouterDom.withRouter)(Layout);
+
+exports["default"] = _default;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkxheW91dC5qcyJdLCJuYW1lcyI6WyJMYXlvdXQiLCJjaGlsZHJlbiIsIndpZHRoIiwibWF4V2lkdGgiLCJoaXN0b3J5IiwicHJvcHMiLCJoYW5kbGVMb2dvQ2xpY2siLCJwdXNoIiwieWVhciIsIkRhdGUiLCJnZXRGdWxsWWVhciIsIm92ZXJmbG93IiwiZGVmYXVsdFByb3BzIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7O0FBQUE7O0FBQ0E7O0FBQ0E7O0FBQ0E7O0FBRUE7O0FBQ0E7O0FBRUE7OztBQUdBLFNBQVNBLE1BQVQsT0FBZ0U7QUFBQSxNQUEvQ0MsUUFBK0MsUUFBL0NBLFFBQStDO0FBQUEsTUFBckNDLEtBQXFDLFFBQXJDQSxLQUFxQztBQUFBLE1BQTlCQyxRQUE4QixRQUE5QkEsUUFBOEI7QUFBQSxNQUFwQkMsT0FBb0IsUUFBcEJBLE9BQW9CO0FBQUEsTUFBUkMsS0FBUTs7QUFDL0QsTUFBTUMsZUFBZSxHQUFHLFNBQWxCQSxlQUFrQjtBQUFBLFdBQU1GLE9BQU8sQ0FBQ0csSUFBUixDQUFhLEdBQWIsQ0FBTjtBQUFBLEdBQXhCOztBQUNBLE1BQU1DLElBQUksR0FBRyxJQUFJQyxJQUFKLEdBQVdDLFdBQVgsRUFBYjtBQUVBLFNBQ0MsZ0NBQUMsa0JBQUQ7QUFDQyxJQUFBLE1BQU0sRUFBQyxPQURSO0FBRUMsSUFBQSxhQUFhLEVBQUMsUUFGZjtBQUdDLElBQUEsVUFBVSxFQUFDO0FBSFosS0FJS0wsS0FKTCxHQW9CQyxnQ0FBQyxpQkFBRDtBQUFLLElBQUEsSUFBSSxFQUFFLENBQVg7QUFBYyxJQUFBLEtBQUssRUFBRTtBQUFDTSxNQUFBQSxRQUFRLEVBQUU7QUFBWDtBQUFyQixLQUNFVixRQURGLENBcEJELEVBdUJDLGdDQUFDLGlCQUFEO0FBQUssSUFBQSxFQUFFLEVBQUM7QUFBUixLQUNDLGdDQUFDLGlCQUFEO0FBQ0MsSUFBQSxDQUFDLEVBQUUsQ0FESjtBQUVDLElBQUEsRUFBRSxFQUFDLE1BRko7QUFHQyxJQUFBLEtBQUssRUFBRTtBQUFDRSxNQUFBQSxRQUFRLEVBQVJBO0FBQUQsS0FIUjtBQUlDLElBQUEsY0FBYyxFQUFDO0FBSmhCLEtBTUMsZ0NBQUMsa0JBQUQ7QUFBTSxJQUFBLEtBQUssRUFBQyxVQUFaO0FBQXVCLElBQUEsUUFBUSxFQUFFLENBQWpDO0FBQW9DLElBQUEsS0FBSyxFQUFDO0FBQTFDLG9CQUNlSyxJQURmLENBTkQsQ0FERCxDQXZCRCxDQUREO0FBc0NBOztBQUVEUixNQUFNLENBQUNZLFlBQVAsR0FBc0I7QUFDckJULEVBQUFBLFFBQVEsRUFBRSxJQURXO0FBRXJCO0FBQ0FELEVBQUFBLEtBQUssRUFBRSxDQUFDLEtBQUQsRUFBUSxLQUFSLEVBQWUsS0FBZixFQUFzQixLQUF0QjtBQUhjLENBQXRCOztlQU1lLGdDQUFXRixNQUFYLEMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnO1xuaW1wb3J0IHtTY3JvbGxiYXJzfSBmcm9tICdyZWFjdC1jdXN0b20tc2Nyb2xsYmFycyc7XG5pbXBvcnQge0ZsZXgsIEJveCwgVGV4dH0gZnJvbSAnQHVyc2lwL2Rlc2lnbi1zeXN0ZW0nO1xuaW1wb3J0IHt3aXRoUm91dGVyfSBmcm9tICdyZWFjdC1yb3V0ZXItZG9tJztcblxuaW1wb3J0IExvZ28gZnJvbSAnLi9Mb2dvJztcbmltcG9ydCBwa2cgZnJvbSAnLi4vLi4vcGFja2FnZS5qc29uJztcblxuLyoqXG4gKiBNYWluIGFwcGxpY2F0aW9uIGxheW91dFxuICovXG5mdW5jdGlvbiBMYXlvdXQoe2NoaWxkcmVuLCB3aWR0aCwgbWF4V2lkdGgsIGhpc3RvcnksIC4uLnByb3BzfSkge1xuXHRjb25zdCBoYW5kbGVMb2dvQ2xpY2sgPSAoKSA9PiBoaXN0b3J5LnB1c2goJy8nKTtcblx0Y29uc3QgeWVhciA9IG5ldyBEYXRlKCkuZ2V0RnVsbFllYXIoKTtcblxuXHRyZXR1cm4gKFxuXHRcdDxGbGV4XG5cdFx0XHRoZWlnaHQ9XCIxMDB2aFwiXG5cdFx0XHRmbGV4RGlyZWN0aW9uPVwiY29sdW1uXCJcblx0XHRcdGFsaWduSXRlbXM9XCJzdHJldGNoXCJcblx0XHRcdHsuLi5wcm9wc31cblx0XHQ+XG5cdFx0XHR7LyogICAgICA8Qm94IGJnPVwicHJpbWFyeVwiPlxuICAgICAgICA8RmxleCBweD17Mn0gbXg9XCJhdXRvXCIgYWxpZ25JdGVtcz1cImNlbnRlclwiIGhlaWdodD17NTN9IHN0eWxlPXt7IG1heFdpZHRoIH19PlxuICAgICAgICAgIDxCb3g+XG4gICAgICAgICAgICA8TG9nbyBzdHlsZT17eyBjdXJzb3I6ICdwb2ludGVyJyB9fSBvbkNsaWNrPXtoYW5kbGVMb2dvQ2xpY2t9IC8+XG4gICAgICAgICAgPC9Cb3g+XG4gICAgICAgICAgPEJveCBtbD17M30+XG4gICAgICAgICAgICA8VGV4dCBib2xkIGZvbnRTaXplPXsyfT5cbiAgICAgICAgICAgICAge3BrZy5uYW1lfVxuICAgICAgICAgICAgPC9UZXh0PlxuICAgICAgICAgICAgPFRleHQgZm9udFNpemU9ezB9Pntwa2cuZGVzY3JpcHRpb259PC9UZXh0PlxuICAgICAgICAgIDwvQm94PlxuICAgICAgICAgIDxCb3ggbWw9ezN9IC8+XG4gICAgICAgIDwvRmxleD5cbiAgICAgIDwvQm94PiAqL31cblx0XHRcdDxCb3ggZmxleD17MX0gc3R5bGU9e3tvdmVyZmxvdzogJ2hpZGRlbid9fT5cblx0XHRcdFx0e2NoaWxkcmVufVxuXHRcdFx0PC9Cb3g+XG5cdFx0XHQ8Qm94IGJnPVwibGlnaHRHcmV5XCI+XG5cdFx0XHRcdDxCb3hcblx0XHRcdFx0XHRwPXsyfVxuXHRcdFx0XHRcdG14PVwiYXV0b1wiXG5cdFx0XHRcdFx0c3R5bGU9e3ttYXhXaWR0aH19XG5cdFx0XHRcdFx0anVzdGlmeUNvbnRlbnQ9XCJzcGFjZS1iZXR3ZWVuXCJcblx0XHRcdFx0PlxuXHRcdFx0XHRcdDxUZXh0IGNvbG9yPVwiZGFya0dyZXlcIiBmb250U2l6ZT17MH0gYWxpZ249XCJyaWdodFwiPlxuXHRcdFx0XHRcdFx0VVJTaVAgJmNvcHk7IHt5ZWFyfVxuXHRcdFx0XHRcdDwvVGV4dD5cblx0XHRcdFx0PC9Cb3g+XG5cdFx0XHQ8L0JveD5cblx0XHQ8L0ZsZXg+XG5cdCk7XG59XG5cbkxheW91dC5kZWZhdWx0UHJvcHMgPSB7XG5cdG1heFdpZHRoOiAxNjAwLFxuXHQvLyBSZXNwb25zaXZlIGJyZWFja3BvaW50c1xuXHR3aWR0aDogWyc5OSUnLCAnOTklJywgJzk5JScsICc5OSUnXVxufTtcblxuZXhwb3J0IGRlZmF1bHQgd2l0aFJvdXRlcihMYXlvdXQpO1xuIl19

@@ -1,0 +1,58 @@
+06cee7c4c64f465577e2ee503df95523
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _designSystem = require("@ursip/design-system");
+
+function Spinner(props) {
+  return _react["default"].createElement(_designSystem.Icon, (0, _extends2["default"])({
+    spin: true,
+    fontSize: 4,
+    color: "primary",
+    name: "spinner"
+  }, props));
+}
+
+function Loading(_ref) {
+  var overlay = _ref.overlay,
+      children = _ref.children;
+
+  if (overlay) {
+    return _react["default"].createElement(_designSystem.Overlay, {
+      bg: "white",
+      style: {
+        zIndex: 2
+      }
+    }, _react["default"].createElement(_designSystem.Flex, null, _react["default"].createElement(Spinner, null), children && _react["default"].createElement(_designSystem.Text, {
+      color: "primary",
+      bold: true,
+      ml: 2,
+      fomtSize: 0
+    }, children)));
+  }
+
+  return _react["default"].createElement(Spinner, null);
+}
+
+Loading.propTypes = {
+  overlay: _propTypes["default"].bool,
+  icon: _propTypes["default"].any
+};
+Loading.defaultProps = {
+  overlay: false
+};
+var _default = Loading;
+exports["default"] = _default;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkxvYWRpbmcuanMiXSwibmFtZXMiOlsiU3Bpbm5lciIsInByb3BzIiwiTG9hZGluZyIsIm92ZXJsYXkiLCJjaGlsZHJlbiIsInpJbmRleCIsInByb3BUeXBlcyIsIlByb3BUeXBlcyIsImJvb2wiLCJpY29uIiwiYW55IiwiZGVmYXVsdFByb3BzIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7OztBQUFBOztBQUNBOztBQUNBOztBQUVBLFNBQVNBLE9BQVQsQ0FBaUJDLEtBQWpCLEVBQXdCO0FBQ3RCLFNBQU8sZ0NBQUMsa0JBQUQ7QUFBTSxJQUFBLElBQUksTUFBVjtBQUFXLElBQUEsUUFBUSxFQUFFLENBQXJCO0FBQXdCLElBQUEsS0FBSyxFQUFDLFNBQTlCO0FBQXdDLElBQUEsSUFBSSxFQUFDO0FBQTdDLEtBQTJEQSxLQUEzRCxFQUFQO0FBQ0Q7O0FBRUQsU0FBU0MsT0FBVCxPQUF3QztBQUFBLE1BQXJCQyxPQUFxQixRQUFyQkEsT0FBcUI7QUFBQSxNQUFaQyxRQUFZLFFBQVpBLFFBQVk7O0FBQ3RDLE1BQUlELE9BQUosRUFBYTtBQUNYLFdBQ0UsZ0NBQUMscUJBQUQ7QUFBUyxNQUFBLEVBQUUsRUFBQyxPQUFaO0FBQW9CLE1BQUEsS0FBSyxFQUFFO0FBQUVFLFFBQUFBLE1BQU0sRUFBRTtBQUFWO0FBQTNCLE9BQ0UsZ0NBQUMsa0JBQUQsUUFDRSxnQ0FBQyxPQUFELE9BREYsRUFFR0QsUUFBUSxJQUNQLGdDQUFDLGtCQUFEO0FBQU0sTUFBQSxLQUFLLEVBQUMsU0FBWjtBQUFzQixNQUFBLElBQUksTUFBMUI7QUFBMkIsTUFBQSxFQUFFLEVBQUUsQ0FBL0I7QUFBa0MsTUFBQSxRQUFRLEVBQUU7QUFBNUMsT0FDR0EsUUFESCxDQUhKLENBREYsQ0FERjtBQVlEOztBQUVELFNBQU8sZ0NBQUMsT0FBRCxPQUFQO0FBQ0Q7O0FBRURGLE9BQU8sQ0FBQ0ksU0FBUixHQUFvQjtBQUNsQkgsRUFBQUEsT0FBTyxFQUFFSSxzQkFBVUMsSUFERDtBQUVsQkMsRUFBQUEsSUFBSSxFQUFFRixzQkFBVUc7QUFGRSxDQUFwQjtBQUtBUixPQUFPLENBQUNTLFlBQVIsR0FBdUI7QUFDckJSLEVBQUFBLE9BQU8sRUFBRTtBQURZLENBQXZCO2VBSWVELE8iLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXHJcbmltcG9ydCBQcm9wVHlwZXMgZnJvbSAncHJvcC10eXBlcydcclxuaW1wb3J0IHsgSWNvbiwgT3ZlcmxheSwgRmxleCwgVGV4dCB9IGZyb20gJ0B1cnNpcC9kZXNpZ24tc3lzdGVtJ1xyXG5cclxuZnVuY3Rpb24gU3Bpbm5lcihwcm9wcykge1xyXG4gIHJldHVybiA8SWNvbiBzcGluIGZvbnRTaXplPXs0fSBjb2xvcj1cInByaW1hcnlcIiBuYW1lPVwic3Bpbm5lclwiIHsuLi5wcm9wc30gLz5cclxufVxyXG5cclxuZnVuY3Rpb24gTG9hZGluZyh7IG92ZXJsYXksIGNoaWxkcmVuIH0pIHtcclxuICBpZiAob3ZlcmxheSkge1xyXG4gICAgcmV0dXJuIChcclxuICAgICAgPE92ZXJsYXkgYmc9XCJ3aGl0ZVwiIHN0eWxlPXt7IHpJbmRleDogMiB9fT5cclxuICAgICAgICA8RmxleD5cclxuICAgICAgICAgIDxTcGlubmVyIC8+XHJcbiAgICAgICAgICB7Y2hpbGRyZW4gJiYgKFxyXG4gICAgICAgICAgICA8VGV4dCBjb2xvcj1cInByaW1hcnlcIiBib2xkIG1sPXsyfSBmb210U2l6ZT17MH0+XHJcbiAgICAgICAgICAgICAge2NoaWxkcmVufVxyXG4gICAgICAgICAgICA8L1RleHQ+XHJcbiAgICAgICAgICApfVxyXG4gICAgICAgIDwvRmxleD5cclxuICAgICAgPC9PdmVybGF5PlxyXG4gICAgKVxyXG4gIH1cclxuXHJcbiAgcmV0dXJuIDxTcGlubmVyIC8+XHJcbn1cclxuXHJcbkxvYWRpbmcucHJvcFR5cGVzID0ge1xyXG4gIG92ZXJsYXk6IFByb3BUeXBlcy5ib29sLFxyXG4gIGljb246IFByb3BUeXBlcy5hbnksXHJcbn1cclxuXHJcbkxvYWRpbmcuZGVmYXVsdFByb3BzID0ge1xyXG4gIG92ZXJsYXk6IGZhbHNlLFxyXG59XHJcblxyXG5leHBvcnQgZGVmYXVsdCBMb2FkaW5nXHJcbiJdfQ==

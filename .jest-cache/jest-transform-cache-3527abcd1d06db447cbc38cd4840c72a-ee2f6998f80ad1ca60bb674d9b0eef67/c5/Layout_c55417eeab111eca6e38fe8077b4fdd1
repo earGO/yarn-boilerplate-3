@@ -1,0 +1,72 @@
+52be7d68d070f2c24fd718f879ea253d
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactCustomScrollbars = require("react-custom-scrollbars");
+
+var _designSystem = require("@ursip/design-system");
+
+var _reactRouterDom = require("react-router-dom");
+
+/**
+ * Main application layout
+ */
+function Layout(_ref) {
+  var children = _ref.children,
+      width = _ref.width,
+      maxWidth = _ref.maxWidth,
+      history = _ref.history,
+      props = (0, _objectWithoutProperties2["default"])(_ref, ["children", "width", "maxWidth", "history"]);
+
+  var handleLogoClick = function handleLogoClick() {
+    return history.push('/');
+  };
+
+  var year = new Date().getFullYear();
+  return _react["default"].createElement(_designSystem.Flex, (0, _extends2["default"])({
+    height: "100vh",
+    flexDirection: "column",
+    alignItems: "stretch"
+  }, props), _react["default"].createElement(_designSystem.Box, {
+    flex: 1,
+    style: {
+      overflow: 'hidden'
+    }
+  }, children), _react["default"].createElement(_designSystem.Box, {
+    bg: "lightGrey"
+  }, _react["default"].createElement(_designSystem.Box, {
+    p: 2,
+    mx: "auto",
+    style: {
+      maxWidth: maxWidth
+    },
+    justifyContent: "space-between"
+  }, _react["default"].createElement(_designSystem.Text, {
+    color: "darkGrey",
+    fontSize: 0,
+    align: "right"
+  }, "URSiP \xA9 ", year))));
+}
+
+Layout.defaultProps = {
+  maxWidth: 1600,
+  // Responsive breackpoints
+  width: ['99%', '99%', '99%', '99%']
+};
+
+var _default = (0, _reactRouterDom.withRouter)(Layout);
+
+exports["default"] = _default;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkxheW91dC5qcyJdLCJuYW1lcyI6WyJMYXlvdXQiLCJjaGlsZHJlbiIsIndpZHRoIiwibWF4V2lkdGgiLCJoaXN0b3J5IiwicHJvcHMiLCJoYW5kbGVMb2dvQ2xpY2siLCJwdXNoIiwieWVhciIsIkRhdGUiLCJnZXRGdWxsWWVhciIsIm92ZXJmbG93IiwiZGVmYXVsdFByb3BzIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7O0FBQUE7O0FBQ0E7O0FBQ0E7O0FBQ0E7O0FBRUE7OztBQUdBLFNBQVNBLE1BQVQsT0FBZ0U7QUFBQSxNQUEvQ0MsUUFBK0MsUUFBL0NBLFFBQStDO0FBQUEsTUFBckNDLEtBQXFDLFFBQXJDQSxLQUFxQztBQUFBLE1BQTlCQyxRQUE4QixRQUE5QkEsUUFBOEI7QUFBQSxNQUFwQkMsT0FBb0IsUUFBcEJBLE9BQW9CO0FBQUEsTUFBUkMsS0FBUTs7QUFDL0QsTUFBTUMsZUFBZSxHQUFHLFNBQWxCQSxlQUFrQjtBQUFBLFdBQU1GLE9BQU8sQ0FBQ0csSUFBUixDQUFhLEdBQWIsQ0FBTjtBQUFBLEdBQXhCOztBQUNBLE1BQU1DLElBQUksR0FBRyxJQUFJQyxJQUFKLEdBQVdDLFdBQVgsRUFBYjtBQUVBLFNBQ0MsZ0NBQUMsa0JBQUQ7QUFDQyxJQUFBLE1BQU0sRUFBQyxPQURSO0FBRUMsSUFBQSxhQUFhLEVBQUMsUUFGZjtBQUdDLElBQUEsVUFBVSxFQUFDO0FBSFosS0FJS0wsS0FKTCxHQU1DLGdDQUFDLGlCQUFEO0FBQUssSUFBQSxJQUFJLEVBQUUsQ0FBWDtBQUFjLElBQUEsS0FBSyxFQUFFO0FBQUNNLE1BQUFBLFFBQVEsRUFBRTtBQUFYO0FBQXJCLEtBQ0VWLFFBREYsQ0FORCxFQVNDLGdDQUFDLGlCQUFEO0FBQUssSUFBQSxFQUFFLEVBQUM7QUFBUixLQUNDLGdDQUFDLGlCQUFEO0FBQ0MsSUFBQSxDQUFDLEVBQUUsQ0FESjtBQUVDLElBQUEsRUFBRSxFQUFDLE1BRko7QUFHQyxJQUFBLEtBQUssRUFBRTtBQUFDRSxNQUFBQSxRQUFRLEVBQVJBO0FBQUQsS0FIUjtBQUlDLElBQUEsY0FBYyxFQUFDO0FBSmhCLEtBTUMsZ0NBQUMsa0JBQUQ7QUFBTSxJQUFBLEtBQUssRUFBQyxVQUFaO0FBQXVCLElBQUEsUUFBUSxFQUFFLENBQWpDO0FBQW9DLElBQUEsS0FBSyxFQUFDO0FBQTFDLG9CQUNlSyxJQURmLENBTkQsQ0FERCxDQVRELENBREQ7QUF3QkE7O0FBRURSLE1BQU0sQ0FBQ1ksWUFBUCxHQUFzQjtBQUNyQlQsRUFBQUEsUUFBUSxFQUFFLElBRFc7QUFFckI7QUFDQUQsRUFBQUEsS0FBSyxFQUFFLENBQUMsS0FBRCxFQUFRLEtBQVIsRUFBZSxLQUFmLEVBQXNCLEtBQXRCO0FBSGMsQ0FBdEI7O2VBTWUsZ0NBQVdGLE1BQVgsQyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCBmcm9tICdyZWFjdCc7XG5pbXBvcnQge1Njcm9sbGJhcnN9IGZyb20gJ3JlYWN0LWN1c3RvbS1zY3JvbGxiYXJzJztcbmltcG9ydCB7RmxleCwgQm94LCBUZXh0fSBmcm9tICdAdXJzaXAvZGVzaWduLXN5c3RlbSc7XG5pbXBvcnQge3dpdGhSb3V0ZXJ9IGZyb20gJ3JlYWN0LXJvdXRlci1kb20nO1xuXG4vKipcbiAqIE1haW4gYXBwbGljYXRpb24gbGF5b3V0XG4gKi9cbmZ1bmN0aW9uIExheW91dCh7Y2hpbGRyZW4sIHdpZHRoLCBtYXhXaWR0aCwgaGlzdG9yeSwgLi4ucHJvcHN9KSB7XG5cdGNvbnN0IGhhbmRsZUxvZ29DbGljayA9ICgpID0+IGhpc3RvcnkucHVzaCgnLycpO1xuXHRjb25zdCB5ZWFyID0gbmV3IERhdGUoKS5nZXRGdWxsWWVhcigpO1xuXG5cdHJldHVybiAoXG5cdFx0PEZsZXhcblx0XHRcdGhlaWdodD1cIjEwMHZoXCJcblx0XHRcdGZsZXhEaXJlY3Rpb249XCJjb2x1bW5cIlxuXHRcdFx0YWxpZ25JdGVtcz1cInN0cmV0Y2hcIlxuXHRcdFx0ey4uLnByb3BzfVxuXHRcdD5cblx0XHRcdDxCb3ggZmxleD17MX0gc3R5bGU9e3tvdmVyZmxvdzogJ2hpZGRlbid9fT5cblx0XHRcdFx0e2NoaWxkcmVufVxuXHRcdFx0PC9Cb3g+XG5cdFx0XHQ8Qm94IGJnPVwibGlnaHRHcmV5XCI+XG5cdFx0XHRcdDxCb3hcblx0XHRcdFx0XHRwPXsyfVxuXHRcdFx0XHRcdG14PVwiYXV0b1wiXG5cdFx0XHRcdFx0c3R5bGU9e3ttYXhXaWR0aH19XG5cdFx0XHRcdFx0anVzdGlmeUNvbnRlbnQ9XCJzcGFjZS1iZXR3ZWVuXCJcblx0XHRcdFx0PlxuXHRcdFx0XHRcdDxUZXh0IGNvbG9yPVwiZGFya0dyZXlcIiBmb250U2l6ZT17MH0gYWxpZ249XCJyaWdodFwiPlxuXHRcdFx0XHRcdFx0VVJTaVAgJmNvcHk7IHt5ZWFyfVxuXHRcdFx0XHRcdDwvVGV4dD5cblx0XHRcdFx0PC9Cb3g+XG5cdFx0XHQ8L0JveD5cblx0XHQ8L0ZsZXg+XG5cdCk7XG59XG5cbkxheW91dC5kZWZhdWx0UHJvcHMgPSB7XG5cdG1heFdpZHRoOiAxNjAwLFxuXHQvLyBSZXNwb25zaXZlIGJyZWFja3BvaW50c1xuXHR3aWR0aDogWyc5OSUnLCAnOTklJywgJzk5JScsICc5OSUnXVxufTtcblxuZXhwb3J0IGRlZmF1bHQgd2l0aFJvdXRlcihMYXlvdXQpO1xuIl19

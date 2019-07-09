@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
 
-import {CompOne, CompTwo, ContentBox} from '@project/components';
 import {Weather} from '@project/widgets';
 import {StyledButton} from '@project/styled';
 

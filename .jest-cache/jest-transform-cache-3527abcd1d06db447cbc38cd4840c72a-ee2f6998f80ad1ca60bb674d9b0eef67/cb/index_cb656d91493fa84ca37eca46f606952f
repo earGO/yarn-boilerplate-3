@@ -1,0 +1,29 @@
+e7b36243c9c177acbb45b7e842686ee1
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _WeatherComponent = _interopRequireDefault(require("./WeatherComponent"));
+
+var _weatherDuck = require("./weather-duck");
+
+var _reduxDynamicModulesReact = require("redux-dynamic-modules-react");
+
+var React = _interopRequireWildcard(require("react"));
+
+var Weather = function Weather() {
+  return React.createElement(_reduxDynamicModulesReact.DynamicModuleLoader, {
+    modules: [(0, _weatherDuck.getWeatherModule)()]
+  }, React.createElement(_WeatherComponent["default"], null));
+};
+
+var _default = Weather;
+exports["default"] = _default;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImluZGV4LmpzIl0sIm5hbWVzIjpbIldlYXRoZXIiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7O0FBQUE7O0FBQ0E7O0FBQ0E7O0FBQ0E7O0FBRUEsSUFBTUEsT0FBTyxHQUFHLFNBQVZBLE9BQVUsR0FBTTtBQUNyQixTQUNDLG9CQUFDLDZDQUFEO0FBQXFCLElBQUEsT0FBTyxFQUFFLENBQUMsb0NBQUQ7QUFBOUIsS0FDQyxvQkFBQyw0QkFBRCxPQURELENBREQ7QUFLQSxDQU5EOztlQVFlQSxPIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFdlYXRoZXJDb21wb25lbnQgZnJvbSAnLi9XZWF0aGVyQ29tcG9uZW50JztcclxuaW1wb3J0IHtnZXRXZWF0aGVyTW9kdWxlfSBmcm9tICcuL3dlYXRoZXItZHVjayc7XHJcbmltcG9ydCB7RHluYW1pY01vZHVsZUxvYWRlcn0gZnJvbSAncmVkdXgtZHluYW1pYy1tb2R1bGVzLXJlYWN0JztcclxuaW1wb3J0ICogYXMgUmVhY3QgZnJvbSAncmVhY3QnO1xyXG5cclxuY29uc3QgV2VhdGhlciA9ICgpID0+IHtcclxuXHRyZXR1cm4gKFxyXG5cdFx0PER5bmFtaWNNb2R1bGVMb2FkZXIgbW9kdWxlcz17W2dldFdlYXRoZXJNb2R1bGUoKV19PlxyXG5cdFx0XHQ8V2VhdGhlckNvbXBvbmVudCAvPlxyXG5cdFx0PC9EeW5hbWljTW9kdWxlTG9hZGVyPlxyXG5cdCk7XHJcbn07XHJcblxyXG5leHBvcnQgZGVmYXVsdCBXZWF0aGVyO1xyXG4iXX0=

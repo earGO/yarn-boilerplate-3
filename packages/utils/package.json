@@ -4,28 +4,8 @@
   "description": "Utils for other modules",
   "main": "src/index.js",
   "main:src": "src/index.js",
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --watchAll --coverage --silent",
-    "lint": "eslint ./src/**/*.js --max-warnings=0 --format=codeframe"
-  },
   "eslintConfig": {
     "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx}",
-      "!src/setupTests.{js,jsx}",
-      "!src/serviceWorker.{js,jsx}",
-      "!src/**/*.(spec|test|stories).{js,jsx}"
-    ]
   },
   "license": "MIT"
 }

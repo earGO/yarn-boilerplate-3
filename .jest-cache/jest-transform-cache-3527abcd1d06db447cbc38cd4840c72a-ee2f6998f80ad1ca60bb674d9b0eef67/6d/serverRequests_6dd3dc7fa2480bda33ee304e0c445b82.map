@@ -1,0 +1,1 @@
+{"version":3,"sources":["serverRequests.js"],"names":["serverRequests","simpleGetRequest"],"mappings":";;;;;;;AAAA;;AAEA,IAAMA,cAAc,GAAG;AACtBC,EAAAA,gBAAgB,EAAhBA;AADsB,CAAvB;eAIeD,c","sourcesContent":["import {simpleGetRequest} from './getRequests';\r\n\r\nconst serverRequests = {\r\n\tsimpleGetRequest\r\n};\r\n\r\nexport default serverRequests;\r\n"]}

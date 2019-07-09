@@ -1,0 +1,99 @@
+4c447941637497df2d97fb574d827e08
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getWeatherModule = getWeatherModule;
+Object.defineProperty(exports, "name", {
+  enumerable: true,
+  get: function get() {
+    return _weatherService.name;
+  }
+});
+exports.sagas = exports.selectors = void 0;
+
+var _weatherService = _interopRequireWildcard(require("./weather-service"));
+
+var _reselect = require("reselect");
+
+var _effects = require("redux-saga/effects");
+
+var _reduxLogger = require("redux-logger");
+
+var _utils = require("@project/utils");
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var _marked =
+/*#__PURE__*/
+regeneratorRuntime.mark(loadWeatherData);
+
+var initialState = {
+  loading: false
+};
+
+var stateSelector = function stateSelector(state) {
+  return state[_weatherService.name] || initialState;
+};
+
+var weatherServiceSelector = function weatherServiceSelector(state) {
+  return state['weatherReducer'] || {};
+};
+
+var loading = (0, _reselect.createSelector)(stateSelector, function (state) {
+  return state.loading;
+});
+var weatherData = (0, _reselect.createSelector)(weatherServiceSelector, function (state) {
+  return state;
+});
+var selectors = {
+  loading: loading,
+  weatherData: weatherData
+};
+exports.selectors = selectors;
+
+function loadWeatherData() {
+  var url, data;
+  return regeneratorRuntime.wrap(function loadWeatherData$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          url = _weatherService.api;
+          _context.next = 3;
+          return (0, _effects.call)(_utils.serverRequests.simpleGetRequest, url);
+
+        case 3:
+          data = _context.sent;
+          _context.next = 6;
+          return (0, _effects.put)(_weatherService.actions.weatherLoaded(data));
+
+        case 6:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _marked, this);
+}
+
+var sagas = {
+  loadWeatherData: loadWeatherData
+};
+exports.sagas = sagas;
+
+function getWeatherModule() {
+  return {
+    // Unique id of the module
+    id: 'weather',
+    // Maps the Store key to the reducer
+    reducerMap: _defineProperty({}, _weatherService["default"].name, _weatherService["default"]),
+    middlewares: [_reduxLogger.logger],
+    // This module uses redux-saga middleware
+    // This property will be be used by the SagaExtension
+    // to run sagas for the moduleD
+    sagas: [loadWeatherData]
+  };
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYXRoZXItZHVjay5qcyJdLCJuYW1lcyI6WyJsb2FkV2VhdGhlckRhdGEiLCJpbml0aWFsU3RhdGUiLCJsb2FkaW5nIiwic3RhdGVTZWxlY3RvciIsInN0YXRlIiwibmFtZSIsIndlYXRoZXJTZXJ2aWNlU2VsZWN0b3IiLCJ3ZWF0aGVyRGF0YSIsInNlbGVjdG9ycyIsInVybCIsImFwaSIsInNlcnZlclJlcXVlc3RzIiwic2ltcGxlR2V0UmVxdWVzdCIsImRhdGEiLCJzZXJ2aWNlQWN0aW9ucyIsIndlYXRoZXJMb2FkZWQiLCJzYWdhcyIsImdldFdlYXRoZXJNb2R1bGUiLCJpZCIsInJlZHVjZXJNYXAiLCJ3ZWF0aGVyU2VydmljZSIsIm1pZGRsZXdhcmVzIiwibG9nZ2VyIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7OztBQUFBOztBQUtBOztBQUNBOztBQUNBOztBQUNBOzs7Ozs7Ozt3QkF3QlVBLGU7O0FBdEJWLElBQU1DLFlBQVksR0FBRztBQUNwQkMsRUFBQUEsT0FBTyxFQUFFO0FBRFcsQ0FBckI7O0FBSUEsSUFBTUMsYUFBYSxHQUFHLFNBQWhCQSxhQUFnQixDQUFBQyxLQUFLO0FBQUEsU0FBSUEsS0FBSyxDQUFDQyxvQkFBRCxDQUFMLElBQWVKLFlBQW5CO0FBQUEsQ0FBM0I7O0FBQ0EsSUFBTUssc0JBQXNCLEdBQUcsU0FBekJBLHNCQUF5QixDQUFBRixLQUFLO0FBQUEsU0FBSUEsS0FBSyxDQUFDLGdCQUFELENBQUwsSUFBMkIsRUFBL0I7QUFBQSxDQUFwQzs7QUFFQSxJQUFNRixPQUFPLEdBQUcsOEJBQ2ZDLGFBRGUsRUFFZixVQUFBQyxLQUFLO0FBQUEsU0FBSUEsS0FBSyxDQUFDRixPQUFWO0FBQUEsQ0FGVSxDQUFoQjtBQUtBLElBQU1LLFdBQVcsR0FBRyw4QkFDbkJELHNCQURtQixFQUVuQixVQUFBRixLQUFLO0FBQUEsU0FBSUEsS0FBSjtBQUFBLENBRmMsQ0FBcEI7QUFLQSxJQUFNSSxTQUFTLEdBQUc7QUFDakJOLEVBQUFBLE9BQU8sRUFBUEEsT0FEaUI7QUFFakJLLEVBQUFBLFdBQVcsRUFBWEE7QUFGaUIsQ0FBbEI7OztBQUtBLFNBQVVQLGVBQVY7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQ09TLFVBQUFBLEdBRFAsR0FDYUMsbUJBRGI7QUFBQTtBQUFBLGlCQUdvQixtQkFBS0Msc0JBQWVDLGdCQUFwQixFQUFzQ0gsR0FBdEMsQ0FIcEI7O0FBQUE7QUFHT0ksVUFBQUEsSUFIUDtBQUFBO0FBQUEsaUJBSU8sa0JBQUlDLHdCQUFlQyxhQUFmLENBQTZCRixJQUE3QixDQUFKLENBSlA7O0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7O0FBT0EsSUFBTUcsS0FBSyxHQUFHO0FBQ2JoQixFQUFBQSxlQUFlLEVBQWZBO0FBRGEsQ0FBZDs7O0FBTU8sU0FBU2lCLGdCQUFULEdBQTRCO0FBQ2xDLFNBQU87QUFDTjtBQUNBQyxJQUFBQSxFQUFFLEVBQUUsU0FGRTtBQUdOO0FBQ0FDLElBQUFBLFVBQVUsc0JBQ1JDLDJCQUFlZixJQURQLEVBQ2NlLDBCQURkLENBSko7QUFPTkMsSUFBQUEsV0FBVyxFQUFFLENBQUNDLG1CQUFELENBUFA7QUFRTjtBQUNBO0FBQ0E7QUFDQU4sSUFBQUEsS0FBSyxFQUFFLENBQUNoQixlQUFEO0FBWEQsR0FBUDtBQWFBIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHdlYXRoZXJTZXJ2aWNlLCB7XHJcblx0YWN0aW9ucyBhcyBzZXJ2aWNlQWN0aW9ucyxcclxuXHRhcGksXHJcblx0bmFtZVxyXG59IGZyb20gJy4vd2VhdGhlci1zZXJ2aWNlJztcclxuaW1wb3J0IHtjcmVhdGVTZWxlY3Rvcn0gZnJvbSAncmVzZWxlY3QnO1xyXG5pbXBvcnQge2NhbGwsIHB1dH0gZnJvbSAncmVkdXgtc2FnYS9lZmZlY3RzJztcclxuaW1wb3J0IHtsb2dnZXJ9IGZyb20gJ3JlZHV4LWxvZ2dlcic7XHJcbmltcG9ydCB7c2VydmVyUmVxdWVzdHN9IGZyb20gJ0Bwcm9qZWN0L3V0aWxzJztcclxuXHJcbmNvbnN0IGluaXRpYWxTdGF0ZSA9IHtcclxuXHRsb2FkaW5nOiBmYWxzZVxyXG59O1xyXG5cclxuY29uc3Qgc3RhdGVTZWxlY3RvciA9IHN0YXRlID0+IHN0YXRlW25hbWVdIHx8IGluaXRpYWxTdGF0ZTtcclxuY29uc3Qgd2VhdGhlclNlcnZpY2VTZWxlY3RvciA9IHN0YXRlID0+IHN0YXRlWyd3ZWF0aGVyUmVkdWNlciddIHx8IHt9O1xyXG5cclxuY29uc3QgbG9hZGluZyA9IGNyZWF0ZVNlbGVjdG9yKFxyXG5cdHN0YXRlU2VsZWN0b3IsXHJcblx0c3RhdGUgPT4gc3RhdGUubG9hZGluZ1xyXG4pO1xyXG5cclxuY29uc3Qgd2VhdGhlckRhdGEgPSBjcmVhdGVTZWxlY3RvcihcclxuXHR3ZWF0aGVyU2VydmljZVNlbGVjdG9yLFxyXG5cdHN0YXRlID0+IHN0YXRlXHJcbik7XHJcblxyXG5jb25zdCBzZWxlY3RvcnMgPSB7XHJcblx0bG9hZGluZyxcclxuXHR3ZWF0aGVyRGF0YVxyXG59O1xyXG5cclxuZnVuY3Rpb24qIGxvYWRXZWF0aGVyRGF0YSgpIHtcclxuXHRjb25zdCB1cmwgPSBhcGk7XHJcblxyXG5cdGNvbnN0IGRhdGEgPSB5aWVsZCBjYWxsKHNlcnZlclJlcXVlc3RzLnNpbXBsZUdldFJlcXVlc3QsIHVybCk7XHJcblx0eWllbGQgcHV0KHNlcnZpY2VBY3Rpb25zLndlYXRoZXJMb2FkZWQoZGF0YSkpO1xyXG59XHJcblxyXG5jb25zdCBzYWdhcyA9IHtcclxuXHRsb2FkV2VhdGhlckRhdGFcclxufTtcclxuXHJcbmV4cG9ydCB7bmFtZSwgc2VsZWN0b3JzLCBzYWdhc307XHJcblxyXG5leHBvcnQgZnVuY3Rpb24gZ2V0V2VhdGhlck1vZHVsZSgpIHtcclxuXHRyZXR1cm4ge1xyXG5cdFx0Ly8gVW5pcXVlIGlkIG9mIHRoZSBtb2R1bGVcclxuXHRcdGlkOiAnd2VhdGhlcicsXHJcblx0XHQvLyBNYXBzIHRoZSBTdG9yZSBrZXkgdG8gdGhlIHJlZHVjZXJcclxuXHRcdHJlZHVjZXJNYXA6IHtcclxuXHRcdFx0W3dlYXRoZXJTZXJ2aWNlLm5hbWVdOiB3ZWF0aGVyU2VydmljZSxcclxuXHRcdH0sXHJcblx0XHRtaWRkbGV3YXJlczogW2xvZ2dlcl0sXHJcblx0XHQvLyBUaGlzIG1vZHVsZSB1c2VzIHJlZHV4LXNhZ2EgbWlkZGxld2FyZVxyXG5cdFx0Ly8gVGhpcyBwcm9wZXJ0eSB3aWxsIGJlIGJlIHVzZWQgYnkgdGhlIFNhZ2FFeHRlbnNpb25cclxuXHRcdC8vIHRvIHJ1biBzYWdhcyBmb3IgdGhlIG1vZHVsZURcclxuXHRcdHNhZ2FzOiBbbG9hZFdlYXRoZXJEYXRhXVxyXG5cdH07XHJcbn1cclxuIl19

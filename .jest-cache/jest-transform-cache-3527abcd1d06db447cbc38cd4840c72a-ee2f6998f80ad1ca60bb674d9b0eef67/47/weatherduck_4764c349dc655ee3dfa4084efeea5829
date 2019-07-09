@@ -1,0 +1,103 @@
+9e4d38c81957bfc84580531e435b4fa2
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getWeatherModule = getWeatherModule;
+Object.defineProperty(exports, "name", {
+  enumerable: true,
+  get: function get() {
+    return _weatherService.name;
+  }
+});
+exports.sagas = exports.selectors = void 0;
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+
+var _weatherService = _interopRequireWildcard(require("./weather-service"));
+
+var _reselect = require("reselect");
+
+var _effects = require("redux-saga/effects");
+
+var _reduxLogger = require("redux-logger");
+
+var _utils = require("@project/utils");
+
+var _marked =
+/*#__PURE__*/
+_regenerator["default"].mark(loadWeatherData);
+
+var initialState = {
+  loading: false
+};
+
+var stateSelector = function stateSelector(state) {
+  return state[_weatherService.name] || initialState;
+};
+
+var weatherServiceSelector = function weatherServiceSelector(state) {
+  return state['weatherReducer'] || {};
+};
+
+var loading = (0, _reselect.createSelector)(stateSelector, function (state) {
+  return state.loading;
+});
+var weatherData = (0, _reselect.createSelector)(weatherServiceSelector, function (state) {
+  return state;
+});
+var selectors = {
+  loading: loading,
+  weatherData: weatherData
+};
+exports.selectors = selectors;
+
+function loadWeatherData() {
+  var url, data;
+  return _regenerator["default"].wrap(function loadWeatherData$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          url = _weatherService.api;
+          _context.next = 3;
+          return (0, _effects.call)(_utils.serverRequests.simpleGetRequest, url);
+
+        case 3:
+          data = _context.sent;
+          _context.next = 6;
+          return (0, _effects.put)(_weatherService.actions.weatherLoaded(data));
+
+        case 6:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _marked, this);
+}
+
+var sagas = {
+  loadWeatherData: loadWeatherData
+};
+exports.sagas = sagas;
+
+function getWeatherModule() {
+  return {
+    // Unique id of the module
+    id: 'weather',
+    // Maps the Store key to the reducer
+    reducerMap: (0, _defineProperty2["default"])({}, _weatherService["default"].name, _weatherService["default"]),
+    middlewares: [_reduxLogger.logger],
+    // This module uses redux-saga middleware
+    // This property will be be used by the SagaExtension
+    // to run sagas for the moduleD
+    sagas: [loadWeatherData]
+  };
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYXRoZXItZHVjay5qcyJdLCJuYW1lcyI6WyJsb2FkV2VhdGhlckRhdGEiLCJpbml0aWFsU3RhdGUiLCJsb2FkaW5nIiwic3RhdGVTZWxlY3RvciIsInN0YXRlIiwibmFtZSIsIndlYXRoZXJTZXJ2aWNlU2VsZWN0b3IiLCJ3ZWF0aGVyRGF0YSIsInNlbGVjdG9ycyIsInVybCIsImFwaSIsInNlcnZlclJlcXVlc3RzIiwic2ltcGxlR2V0UmVxdWVzdCIsImRhdGEiLCJzZXJ2aWNlQWN0aW9ucyIsIndlYXRoZXJMb2FkZWQiLCJzYWdhcyIsImdldFdlYXRoZXJNb2R1bGUiLCJpZCIsInJlZHVjZXJNYXAiLCJ3ZWF0aGVyU2VydmljZSIsIm1pZGRsZXdhcmVzIiwibG9nZ2VyIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUE7O0FBS0E7O0FBQ0E7O0FBQ0E7O0FBQ0E7Ozs7NkJBd0JVQSxlOztBQXRCVixJQUFNQyxZQUFZLEdBQUc7QUFDcEJDLEVBQUFBLE9BQU8sRUFBRTtBQURXLENBQXJCOztBQUlBLElBQU1DLGFBQWEsR0FBRyxTQUFoQkEsYUFBZ0IsQ0FBQUMsS0FBSztBQUFBLFNBQUlBLEtBQUssQ0FBQ0Msb0JBQUQsQ0FBTCxJQUFlSixZQUFuQjtBQUFBLENBQTNCOztBQUNBLElBQU1LLHNCQUFzQixHQUFHLFNBQXpCQSxzQkFBeUIsQ0FBQUYsS0FBSztBQUFBLFNBQUlBLEtBQUssQ0FBQyxnQkFBRCxDQUFMLElBQTJCLEVBQS9CO0FBQUEsQ0FBcEM7O0FBRUEsSUFBTUYsT0FBTyxHQUFHLDhCQUNmQyxhQURlLEVBRWYsVUFBQUMsS0FBSztBQUFBLFNBQUlBLEtBQUssQ0FBQ0YsT0FBVjtBQUFBLENBRlUsQ0FBaEI7QUFLQSxJQUFNSyxXQUFXLEdBQUcsOEJBQ25CRCxzQkFEbUIsRUFFbkIsVUFBQUYsS0FBSztBQUFBLFNBQUlBLEtBQUo7QUFBQSxDQUZjLENBQXBCO0FBS0EsSUFBTUksU0FBUyxHQUFHO0FBQ2pCTixFQUFBQSxPQUFPLEVBQVBBLE9BRGlCO0FBRWpCSyxFQUFBQSxXQUFXLEVBQVhBO0FBRmlCLENBQWxCOzs7QUFLQSxTQUFVUCxlQUFWO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUNPUyxVQUFBQSxHQURQLEdBQ2FDLG1CQURiO0FBQUE7QUFBQSxpQkFHb0IsbUJBQUtDLHNCQUFlQyxnQkFBcEIsRUFBc0NILEdBQXRDLENBSHBCOztBQUFBO0FBR09JLFVBQUFBLElBSFA7QUFBQTtBQUFBLGlCQUlPLGtCQUFJQyx3QkFBZUMsYUFBZixDQUE2QkYsSUFBN0IsQ0FBSixDQUpQOztBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBOztBQU9BLElBQU1HLEtBQUssR0FBRztBQUNiaEIsRUFBQUEsZUFBZSxFQUFmQTtBQURhLENBQWQ7OztBQU1PLFNBQVNpQixnQkFBVCxHQUE0QjtBQUNsQyxTQUFPO0FBQ047QUFDQUMsSUFBQUEsRUFBRSxFQUFFLFNBRkU7QUFHTjtBQUNBQyxJQUFBQSxVQUFVLHVDQUNSQywyQkFBZWYsSUFEUCxFQUNjZSwwQkFEZCxDQUpKO0FBT05DLElBQUFBLFdBQVcsRUFBRSxDQUFDQyxtQkFBRCxDQVBQO0FBUU47QUFDQTtBQUNBO0FBQ0FOLElBQUFBLEtBQUssRUFBRSxDQUFDaEIsZUFBRDtBQVhELEdBQVA7QUFhQSIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB3ZWF0aGVyU2VydmljZSwge1xyXG5cdGFjdGlvbnMgYXMgc2VydmljZUFjdGlvbnMsXHJcblx0YXBpLFxyXG5cdG5hbWVcclxufSBmcm9tICcuL3dlYXRoZXItc2VydmljZSc7XHJcbmltcG9ydCB7Y3JlYXRlU2VsZWN0b3J9IGZyb20gJ3Jlc2VsZWN0JztcclxuaW1wb3J0IHtjYWxsLCBwdXR9IGZyb20gJ3JlZHV4LXNhZ2EvZWZmZWN0cyc7XHJcbmltcG9ydCB7bG9nZ2VyfSBmcm9tICdyZWR1eC1sb2dnZXInO1xyXG5pbXBvcnQge3NlcnZlclJlcXVlc3RzfSBmcm9tICdAcHJvamVjdC91dGlscyc7XHJcblxyXG5jb25zdCBpbml0aWFsU3RhdGUgPSB7XHJcblx0bG9hZGluZzogZmFsc2VcclxufTtcclxuXHJcbmNvbnN0IHN0YXRlU2VsZWN0b3IgPSBzdGF0ZSA9PiBzdGF0ZVtuYW1lXSB8fCBpbml0aWFsU3RhdGU7XHJcbmNvbnN0IHdlYXRoZXJTZXJ2aWNlU2VsZWN0b3IgPSBzdGF0ZSA9PiBzdGF0ZVsnd2VhdGhlclJlZHVjZXInXSB8fCB7fTtcclxuXHJcbmNvbnN0IGxvYWRpbmcgPSBjcmVhdGVTZWxlY3RvcihcclxuXHRzdGF0ZVNlbGVjdG9yLFxyXG5cdHN0YXRlID0+IHN0YXRlLmxvYWRpbmdcclxuKTtcclxuXHJcbmNvbnN0IHdlYXRoZXJEYXRhID0gY3JlYXRlU2VsZWN0b3IoXHJcblx0d2VhdGhlclNlcnZpY2VTZWxlY3RvcixcclxuXHRzdGF0ZSA9PiBzdGF0ZVxyXG4pO1xyXG5cclxuY29uc3Qgc2VsZWN0b3JzID0ge1xyXG5cdGxvYWRpbmcsXHJcblx0d2VhdGhlckRhdGFcclxufTtcclxuXHJcbmZ1bmN0aW9uKiBsb2FkV2VhdGhlckRhdGEoKSB7XHJcblx0Y29uc3QgdXJsID0gYXBpO1xyXG5cclxuXHRjb25zdCBkYXRhID0geWllbGQgY2FsbChzZXJ2ZXJSZXF1ZXN0cy5zaW1wbGVHZXRSZXF1ZXN0LCB1cmwpO1xyXG5cdHlpZWxkIHB1dChzZXJ2aWNlQWN0aW9ucy53ZWF0aGVyTG9hZGVkKGRhdGEpKTtcclxufVxyXG5cclxuY29uc3Qgc2FnYXMgPSB7XHJcblx0bG9hZFdlYXRoZXJEYXRhXHJcbn07XHJcblxyXG5leHBvcnQge25hbWUsIHNlbGVjdG9ycywgc2FnYXN9O1xyXG5cclxuZXhwb3J0IGZ1bmN0aW9uIGdldFdlYXRoZXJNb2R1bGUoKSB7XHJcblx0cmV0dXJuIHtcclxuXHRcdC8vIFVuaXF1ZSBpZCBvZiB0aGUgbW9kdWxlXHJcblx0XHRpZDogJ3dlYXRoZXInLFxyXG5cdFx0Ly8gTWFwcyB0aGUgU3RvcmUga2V5IHRvIHRoZSByZWR1Y2VyXHJcblx0XHRyZWR1Y2VyTWFwOiB7XHJcblx0XHRcdFt3ZWF0aGVyU2VydmljZS5uYW1lXTogd2VhdGhlclNlcnZpY2UsXHJcblx0XHR9LFxyXG5cdFx0bWlkZGxld2FyZXM6IFtsb2dnZXJdLFxyXG5cdFx0Ly8gVGhpcyBtb2R1bGUgdXNlcyByZWR1eC1zYWdhIG1pZGRsZXdhcmVcclxuXHRcdC8vIFRoaXMgcHJvcGVydHkgd2lsbCBiZSBiZSB1c2VkIGJ5IHRoZSBTYWdhRXh0ZW5zaW9uXHJcblx0XHQvLyB0byBydW4gc2FnYXMgZm9yIHRoZSBtb2R1bGVEXHJcblx0XHRzYWdhczogW2xvYWRXZWF0aGVyRGF0YV1cclxuXHR9O1xyXG59XHJcbiJdfQ==

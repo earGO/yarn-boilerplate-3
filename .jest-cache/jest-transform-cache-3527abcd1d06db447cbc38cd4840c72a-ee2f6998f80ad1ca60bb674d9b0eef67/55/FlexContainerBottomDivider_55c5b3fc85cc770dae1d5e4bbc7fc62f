@@ -1,0 +1,48 @@
+1784444ed4b66fef792cf0bce0b09987
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+var _designSystem = require("@ursip/design-system");
+
+var FlexContainer = (0, _styledComponents["default"])(_designSystem.Flex).withConfig({
+  displayName: "FlexContainerBottomDivider__FlexContainer",
+  componentId: "xtmiad-0"
+})(["margin:0;align-self:center;width:100%;border-bottom-style:solid;border-bottom-width:1px;border-color:", ";"], function (props) {
+  return props.theme.colors[props.dividercolor];
+});
+/*other import goes here*/
+
+function FlexContainerBottomDivider(_ref) {
+  var children = _ref.children,
+      dividercolor = _ref.dividercolor,
+      props = (0, _objectWithoutProperties2["default"])(_ref, ["children", "dividercolor"]);
+
+  /*some private methods*/
+  return _react["default"].createElement(FlexContainer, {
+    dividercolor: dividercolor
+  }, children);
+}
+
+FlexContainerBottomDivider.propTypes = {
+  dividercolor: _propTypes["default"].string
+};
+FlexContainerBottomDivider.defaultProps = {
+  dividercolor: 'border'
+};
+var _default = FlexContainerBottomDivider;
+exports["default"] = _default;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkZsZXhDb250YWluZXJCb3R0b21EaXZpZGVyLmpzIl0sIm5hbWVzIjpbIkZsZXhDb250YWluZXIiLCJGbGV4IiwicHJvcHMiLCJ0aGVtZSIsImNvbG9ycyIsImRpdmlkZXJjb2xvciIsIkZsZXhDb250YWluZXJCb3R0b21EaXZpZGVyIiwiY2hpbGRyZW4iLCJwcm9wVHlwZXMiLCJQcm9wVHlwZXMiLCJzdHJpbmciLCJkZWZhdWx0UHJvcHMiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7O0FBQUE7O0FBQ0E7O0FBQ0E7O0FBQ0E7O0FBRUEsSUFBTUEsYUFBYSxHQUFHLGtDQUFPQyxrQkFBUCxDQUFIO0FBQUE7QUFBQTtBQUFBLG1IQU1ELFVBQUFDLEtBQUs7QUFBQSxTQUFJQSxLQUFLLENBQUNDLEtBQU4sQ0FBWUMsTUFBWixDQUFtQkYsS0FBSyxDQUFDRyxZQUF6QixDQUFKO0FBQUEsQ0FOSixDQUFuQjtBQVNBOztBQUVBLFNBQVNDLDBCQUFULE9BQTBFO0FBQUEsTUFBcENDLFFBQW9DLFFBQXBDQSxRQUFvQztBQUFBLE1BQTFCRixZQUEwQixRQUExQkEsWUFBMEI7QUFBQSxNQUFUSCxLQUFTOztBQUN4RTtBQUNBLFNBQU8sZ0NBQUMsYUFBRDtBQUFlLElBQUEsWUFBWSxFQUFFRztBQUE3QixLQUE0Q0UsUUFBNUMsQ0FBUDtBQUNEOztBQUVERCwwQkFBMEIsQ0FBQ0UsU0FBM0IsR0FBdUM7QUFDckNILEVBQUFBLFlBQVksRUFBRUksc0JBQVVDO0FBRGEsQ0FBdkM7QUFJQUosMEJBQTBCLENBQUNLLFlBQTNCLEdBQTBDO0FBQ3hDTixFQUFBQSxZQUFZLEVBQUU7QUFEMEIsQ0FBMUM7ZUFJZUMsMEIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXHJcbmltcG9ydCBQcm9wVHlwZXMgZnJvbSAncHJvcC10eXBlcydcclxuaW1wb3J0IHN0eWxlZCBmcm9tICdzdHlsZWQtY29tcG9uZW50cydcclxuaW1wb3J0IHsgRmxleCB9IGZyb20gJ0B1cnNpcC9kZXNpZ24tc3lzdGVtJ1xyXG5cclxuY29uc3QgRmxleENvbnRhaW5lciA9IHN0eWxlZChGbGV4KWBcclxuICBtYXJnaW46IDA7XHJcbiAgYWxpZ24tc2VsZjogY2VudGVyO1xyXG4gIHdpZHRoOiAxMDAlO1xyXG4gIGJvcmRlci1ib3R0b20tc3R5bGU6IHNvbGlkO1xyXG4gIGJvcmRlci1ib3R0b20td2lkdGg6IDFweDtcclxuICBib3JkZXItY29sb3I6ICR7cHJvcHMgPT4gcHJvcHMudGhlbWUuY29sb3JzW3Byb3BzLmRpdmlkZXJjb2xvcl19O1xyXG5gXHJcblxyXG4vKm90aGVyIGltcG9ydCBnb2VzIGhlcmUqL1xyXG5cclxuZnVuY3Rpb24gRmxleENvbnRhaW5lckJvdHRvbURpdmlkZXIoeyBjaGlsZHJlbiwgZGl2aWRlcmNvbG9yLCAuLi5wcm9wcyB9KSB7XHJcbiAgLypzb21lIHByaXZhdGUgbWV0aG9kcyovXHJcbiAgcmV0dXJuIDxGbGV4Q29udGFpbmVyIGRpdmlkZXJjb2xvcj17ZGl2aWRlcmNvbG9yfT57Y2hpbGRyZW59PC9GbGV4Q29udGFpbmVyPlxyXG59XHJcblxyXG5GbGV4Q29udGFpbmVyQm90dG9tRGl2aWRlci5wcm9wVHlwZXMgPSB7XHJcbiAgZGl2aWRlcmNvbG9yOiBQcm9wVHlwZXMuc3RyaW5nLFxyXG59XHJcblxyXG5GbGV4Q29udGFpbmVyQm90dG9tRGl2aWRlci5kZWZhdWx0UHJvcHMgPSB7XHJcbiAgZGl2aWRlcmNvbG9yOiAnYm9yZGVyJyxcclxufVxyXG5cclxuZXhwb3J0IGRlZmF1bHQgRmxleENvbnRhaW5lckJvdHRvbURpdmlkZXJcclxuIl19

@@ -1,0 +1,62 @@
+30b9c4e876d36da4feddf3dde52e9766
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.selectSection = exports.preselectSection = exports.selectTab = exports.preselectTab = void 0;
+
+var types = _interopRequireWildcard(require("./types"));
+
+/* It preselects tab on first loading of a project */
+var preselectTab = function preselectTab(tabs, selectedTab) {
+  return {
+    type: types.PRESELECT_TAB,
+    payload: {
+      tabs: tabs,
+      selectedTab: selectedTab
+    }
+  };
+};
+/* It selects tab on click loading of a project */
+
+
+exports.preselectTab = preselectTab;
+
+var selectTab = function selectTab(tabId) {
+  return {
+    type: types.SELECT_TAB,
+    payload: {
+      tabId: tabId
+    }
+  };
+};
+
+exports.selectTab = selectTab;
+
+var preselectSection = function preselectSection(sections) {
+  return {
+    type: types.PRESELECT_SECTION,
+    payload: {
+      sections: sections
+    }
+  };
+};
+/* It selects tab on click loading of a project */
+
+
+exports.preselectSection = preselectSection;
+
+var selectSection = function selectSection(sectionId) {
+  return {
+    type: types.SELECT_SECTION,
+    payload: {
+      sectionId: sectionId
+    }
+  };
+};
+
+exports.selectSection = selectSection;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFjdGlvbnMuanMiXSwibmFtZXMiOlsicHJlc2VsZWN0VGFiIiwidGFicyIsInNlbGVjdGVkVGFiIiwidHlwZSIsInR5cGVzIiwiUFJFU0VMRUNUX1RBQiIsInBheWxvYWQiLCJzZWxlY3RUYWIiLCJ0YWJJZCIsIlNFTEVDVF9UQUIiLCJwcmVzZWxlY3RTZWN0aW9uIiwic2VjdGlvbnMiLCJQUkVTRUxFQ1RfU0VDVElPTiIsInNlbGVjdFNlY3Rpb24iLCJzZWN0aW9uSWQiLCJTRUxFQ1RfU0VDVElPTiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7O0FBQUE7O0FBRUE7QUFDTyxJQUFNQSxZQUFZLEdBQUcsU0FBZkEsWUFBZSxDQUFDQyxJQUFELEVBQU9DLFdBQVAsRUFBdUI7QUFDbEQsU0FBTztBQUNOQyxJQUFBQSxJQUFJLEVBQUVDLEtBQUssQ0FBQ0MsYUFETjtBQUVOQyxJQUFBQSxPQUFPLEVBQUU7QUFBQ0wsTUFBQUEsSUFBSSxFQUFFQSxJQUFQO0FBQWFDLE1BQUFBLFdBQVcsRUFBRUE7QUFBMUI7QUFGSCxHQUFQO0FBSUEsQ0FMTTtBQU9QOzs7OztBQUNPLElBQU1LLFNBQVMsR0FBRyxTQUFaQSxTQUFZLENBQUFDLEtBQUssRUFBSTtBQUNqQyxTQUFPO0FBQ05MLElBQUFBLElBQUksRUFBRUMsS0FBSyxDQUFDSyxVQUROO0FBRU5ILElBQUFBLE9BQU8sRUFBRTtBQUFDRSxNQUFBQSxLQUFLLEVBQUxBO0FBQUQ7QUFGSCxHQUFQO0FBSUEsQ0FMTTs7OztBQU9BLElBQU1FLGdCQUFnQixHQUFHLFNBQW5CQSxnQkFBbUIsQ0FBQUMsUUFBUSxFQUFJO0FBQzNDLFNBQU87QUFDTlIsSUFBQUEsSUFBSSxFQUFFQyxLQUFLLENBQUNRLGlCQUROO0FBRU5OLElBQUFBLE9BQU8sRUFBRTtBQUFDSyxNQUFBQSxRQUFRLEVBQVJBO0FBQUQ7QUFGSCxHQUFQO0FBSUEsQ0FMTTtBQU9QOzs7OztBQUNPLElBQU1FLGFBQWEsR0FBRyxTQUFoQkEsYUFBZ0IsQ0FBQUMsU0FBUyxFQUFJO0FBQ3pDLFNBQU87QUFDTlgsSUFBQUEsSUFBSSxFQUFFQyxLQUFLLENBQUNXLGNBRE47QUFFTlQsSUFBQUEsT0FBTyxFQUFFO0FBQUNRLE1BQUFBLFNBQVMsRUFBVEE7QUFBRDtBQUZILEdBQVA7QUFJQSxDQUxNIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0ICogYXMgdHlwZXMgZnJvbSAnLi90eXBlcyc7XG5cbi8qIEl0IHByZXNlbGVjdHMgdGFiIG9uIGZpcnN0IGxvYWRpbmcgb2YgYSBwcm9qZWN0ICovXG5leHBvcnQgY29uc3QgcHJlc2VsZWN0VGFiID0gKHRhYnMsIHNlbGVjdGVkVGFiKSA9PiB7XG5cdHJldHVybiB7XG5cdFx0dHlwZTogdHlwZXMuUFJFU0VMRUNUX1RBQixcblx0XHRwYXlsb2FkOiB7dGFiczogdGFicywgc2VsZWN0ZWRUYWI6IHNlbGVjdGVkVGFifVxuXHR9O1xufTtcblxuLyogSXQgc2VsZWN0cyB0YWIgb24gY2xpY2sgbG9hZGluZyBvZiBhIHByb2plY3QgKi9cbmV4cG9ydCBjb25zdCBzZWxlY3RUYWIgPSB0YWJJZCA9PiB7XG5cdHJldHVybiB7XG5cdFx0dHlwZTogdHlwZXMuU0VMRUNUX1RBQixcblx0XHRwYXlsb2FkOiB7dGFiSWR9XG5cdH07XG59O1xuXG5leHBvcnQgY29uc3QgcHJlc2VsZWN0U2VjdGlvbiA9IHNlY3Rpb25zID0+IHtcblx0cmV0dXJuIHtcblx0XHR0eXBlOiB0eXBlcy5QUkVTRUxFQ1RfU0VDVElPTixcblx0XHRwYXlsb2FkOiB7c2VjdGlvbnN9XG5cdH07XG59O1xuXG4vKiBJdCBzZWxlY3RzIHRhYiBvbiBjbGljayBsb2FkaW5nIG9mIGEgcHJvamVjdCAqL1xuZXhwb3J0IGNvbnN0IHNlbGVjdFNlY3Rpb24gPSBzZWN0aW9uSWQgPT4ge1xuXHRyZXR1cm4ge1xuXHRcdHR5cGU6IHR5cGVzLlNFTEVDVF9TRUNUSU9OLFxuXHRcdHBheWxvYWQ6IHtzZWN0aW9uSWR9XG5cdH07XG59O1xuIl19

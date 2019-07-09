@@ -3,9 +3,6 @@ import {Scrollbars} from 'react-custom-scrollbars';
 import {Flex, Box, Text} from '@ursip/design-system';
 import {withRouter} from 'react-router-dom';
 
-import Logo from './Logo';
-import pkg from '../../package';
-
 /**
  * Main application layout
  */
@@ -20,20 +17,6 @@ function Layout({children, width, maxWidth, history, ...props}) {
 			alignItems="stretch"
 			{...props}
 		>
-			{/*      <Box bg="primary">
-        <Flex px={2} mx="auto" alignItems="center" height={53} style={{ maxWidth }}>
-          <Box>
-            <Logo style={{ cursor: 'pointer' }} onClick={handleLogoClick} />
-          </Box>
-          <Box ml={3}>
-            <Text bold fontSize={2}>
-              {pkg.name}
-            </Text>
-            <Text fontSize={0}>{pkg.description}</Text>
-          </Box>
-          <Box ml={3} />
-        </Flex>
-      </Box> */}
 			<Box flex={1} style={{overflow: 'hidden'}}>
 				{children}
 			</Box>

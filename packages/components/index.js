@@ -1,5 +1,3 @@
-export {default as CompOne} from './src/CompOne';
-export {default as CompTwo} from './src/CompTwo';
 export {default as ContentBox} from './src/common/ContentBox';
 export {default as Loading} from './src/common/Loading';
 export {default as OptionWithIcon} from './src/common/Loading';

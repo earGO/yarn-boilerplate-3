@@ -1,0 +1,17 @@
+9023188fa1f9ba45530c14b4efff295a
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _CompOne["default"];
+  }
+});
+
+var _CompOne = _interopRequireDefault(require("./CompOne"));
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImluZGV4LmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7O0FBQUEiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQge2RlZmF1bHR9IGZyb20gJy4vQ29tcE9uZSc7XHJcbiJdfQ==
