@@ -19,8 +19,8 @@
       "packages/widgets",
       "packages/utils",
       "packages/styled",
-      "packages/services"
-
+      "packages/services",
+      "packages/modules"
     ],
     "nohoist": [
       "**/webpack-dev-server",

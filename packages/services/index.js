@@ -1,1 +1,1 @@
-export {default as projectCardService} from './src/project-card'
+export {default as projectCardService} from './src/project-card';

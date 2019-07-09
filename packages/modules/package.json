@@ -1,9 +1,12 @@
 {
-  "name": "modules",
+  "name": "@project/modules",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Modules for main app",
+  "main": "src/index.js",
+  "main:src": "src/index.js",
   "license": "MIT",
   "dependencies": {
-    "@project/components": "1.0.0"
+    "@project/components": "1.0.0",
+    "@project/services": "1.0.0"
   }
 }
