@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "unit": "jest --watchAll",
-    "deploy": "FORCE_COLOR=true lerna run deploy",
+    "version": "lerna run version",
     "precommit": "lint-staged",
     "storybook": "cd packages/storybook && start-storybook -p 9009 -s public",
     "build-storybook": "lerna exec --scope library-name -- babel src -d dist --copy-files --ignore \"src/stories/\"",
@@ -75,5 +75,6 @@
       "!src/serviceWorker.{js,jsx}",
       "!src/**/*.(spec|test|stories).{js,jsx}"
     ]
-  }
+  },
+  "version": "0.0.0"
 }
