@@ -8,7 +8,8 @@
     "storybook": "cd packages/storybook && start-storybook -p 9009 -s public",
     "build-storybook": "lerna exec --scope library-name -- babel src -d dist --copy-files --ignore \"src/stories/\"",
     "watch-storybook": "lerna exec --scope library-name -- babel src -d dist --watch --copy-files --ignore \"src/stories/\"",
-    "start-app1": "cd packages/apps/app-one && react-scripts start"
+    "start-app1": "cd packages/apps/app-one && set PORT=3472 && react-scripts start",
+    "start-front": "cd packages/apps/box-frontend && set PORT=1488 && react-scripts start"
   },
   "workspaces": {
     "packages": [

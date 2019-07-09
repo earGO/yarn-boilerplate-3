@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 
-import {CompOne, CompTwo} from '@project/components';
+import {CompOne, CompTwo, ContentBox} from '@project/components';
 import {Weather} from '@project/widgets';
 import {StyledButton} from '@project/styled';
 
@@ -60,6 +60,10 @@ class App extends Component {
 					<h1>Widgets</h1>
 					<div className="widgets">{this.renderContent()}</div>
 					<StyledButton />
+					<ContentBox>
+						<div>Test import from Design System</div>
+						<div>Test import from Design System 2nd item</div>
+					</ContentBox>
 				</header>
 			</div>
 		);
