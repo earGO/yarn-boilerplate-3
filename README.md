@@ -7,40 +7,28 @@ Storybook расположена в packages/storybook
 Приложение находится в папке /packages/apps/app-one. 
 
 #### Скрипты и начало работы
-- `yarn build` - билдит все пакеты, кроме центрального приложения, для того, чтобы их импорты в другие пакеты были возможны
-- `yarn bootstrap` - устанавливает все зависимости всех пакетов в общий node-modules, локальные зависимости пакетов устанавливаются в локальные node-modules. 
-- `yarn gulp` - запускает вотчер gulp на все модули, кроме центрального приложения, чтобы ребилдить их при внесении изменений.
-- `yarn dev` - поднимает storybook на порту 5555.
 - `yarn unit` - Запускает тесты по всем пакетам в режиме --watchAll.
-- `yarn start-app` - запускает центральное приложение на порту 3000 в режиме hot-reload
-- `yarn test-app` - запускает все тесты центрального приложения в режиме --watch
+- `yarn version` - После внесённых изменений lerna проходит по всем измененным пакетам и предлагает повысить их версии, однако не пушит их в гитхаб
+- `yarn publish` - То же, что version, но ещё и  пушит все изменения в гитхаб. Важный момент - lerna предполагает, что репозиторий привязан к проекту под псевдонимом "origin". Она попытается сделать пуш в активную ветку в origin. Если псевдоним репозитория отличается, команду нужно выполнять с флагом --git-remote <remote-name>  
+- `yarn start-front` - запускает центральное приложение на порту 2518 в режиме hot-reload
+- `yarn storybook` - поднимает storybook на порту 9009
+- `yarn build-storybook` - билдит storybook 
 
-    "deploy": "FORCE_COLOR=true lerna run deploy",
-    "precommit": "lint-staged",
-    "storybook": "cd packages/storybook && start-storybook -p 9009 -s public",
-    "build-storybook": "lerna exec --scope library-name -- babel src -d dist --copy-files --ignore \"src/stories/\"",
-    "watch-storybook": "lerna exec --scope library-name -- babel src -d dist --watch --copy-files --ignore \"src/stories/\"",
-    "start-app1": "cd packages/apps/app-one && set PORT=3472 && react-scripts start",
-    "start-front": "cd packages/apps/box-frontend && set PORT=1488 && react-scripts start"
 
-После установки репозитория для начала работы нужно выполнить скрипты именно в такой последовательности
-- `yarn`
-- `yarn bootstrap`
-- `yarn build`
-- `yarn gulp`
-- `yarn start-app`
+После установки репозитория для начала работы нужно выполнить `yarn` из корня для установки всех зависимостей.
 
 #### Mock api
 До наличия бэкенда и endpoints модули используют mock api через json-server. Json-server необходимо установить глобально. После чего перед запуском приложения необходимо зайти в папку .mock и в ней выполнить `json-server <somefile.json>`
 
-Установятся все зависимости (lerna в частности), после этого установятся все локальные зависимости и связи между ними, после этого создадутся локальные сборки, запустится вотчер изменений пакетов, и поднимется центральное приложение на порту 3000 в режиме мониторинга изменений.
-
+Помимо прочего в папке .mock лежат файлы jest для обработки .css при тестах
 
 Все модули собираются в приложении, и указываются в его package.json как зависимости по шаблону
  
-    `"@project/modules-folder-name": modules-version`
     
-Чтобы приложение "видело" папки с модулями, их нужно указать в корневом packaje.json:
+    "@project/module-folder-name": module-version
+    
+    
+Чтобы приложение "видело" папки с модулями, их нужно указать в корневом package.json:
 ```
 "workspaces": {    
     "packages": [
