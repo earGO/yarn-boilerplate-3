@@ -10,7 +10,7 @@ export const baseRoute = '/nsi';
 export default {
 	id: namespace,
 	reducerMap: {
-		[nsiNew.name]: nsiNew.default,
+		[nsiNew.name]: nsiNew.reducer,
 		[namespace]: (state = initialState, action) => ({
 			...state,
 			...(reducers[action.type] && reducers[action.type](state, action))

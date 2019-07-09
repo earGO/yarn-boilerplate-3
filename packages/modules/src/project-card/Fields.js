@@ -4,7 +4,6 @@ import FieldsItem from './FieldsItem';
 import {ContentBox} from '../../import';
 
 function Fields({projectFields}) {
-	console.log(projectFields);
 	if (projectFields !== undefined) {
 		return (
 			<ContentBox

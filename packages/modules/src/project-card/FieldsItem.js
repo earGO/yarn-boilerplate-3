@@ -11,7 +11,6 @@ const Bordered = styled(Flex)`
 
 function FieldsItem({children, field, ...props}) {
 	if (field !== undefined) {
-		console.log(field);
 		return (
 			<Bordered flexDirection={'column'}>
 				{field.map((fieldline, key) => {

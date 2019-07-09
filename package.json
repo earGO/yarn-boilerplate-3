@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "test": "lerna run test",
+    "unit": "jest --watch",
     "deploy": "FORCE_COLOR=true lerna run deploy",
     "precommit": "lint-staged",
     "storybook": "cd packages/storybook && start-storybook -p 9009 -s public",
@@ -28,7 +28,13 @@
     ]
   },
   "devDependencies": {
+    "babel-jest": "^24.8.0",
+    "jest": "^24.8.0",
+    "jest-haste-map": "^24.8.1",
     "jest-prop-type-error": "^1.1.0",
+    "jest-resolve": "^24.8.0",
+    "jest-styled-components": "^6.3.3",
+    "jest-transform-stub": "^2.0.0",
     "lerna": "^3.10.7",
     "prettier": "^1.16.1"
   },

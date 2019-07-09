@@ -40,7 +40,7 @@ const actions = {
 			type: types.LOAD_PROJECT,
 			payload: {
 				request: {
-					url: `${project}`
+					url: `${endpoints.project}`
 				}
 			}
 		};
