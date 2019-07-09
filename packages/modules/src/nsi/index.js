@@ -95,4 +95,6 @@ function Nsi() {
 	);
 }
 
+Nsi.baseRoute = nsi.baseRoute;
+
 export default Nsi;
