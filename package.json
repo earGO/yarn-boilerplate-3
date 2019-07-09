@@ -1,10 +1,9 @@
 {
   "name": "root",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.1.0",
   "scripts": {
     "unit": "jest --watchAll",
-    "publish": "lerna publish",
+    "version": "lerna version --no-push",
     "precommit": "lint-staged",
     "storybook": "cd packages/storybook && start-storybook -p 9009 -s public",
     "build-storybook": "lerna exec --scope library-name -- babel src -d dist --copy-files --ignore \"src/stories/\"",
