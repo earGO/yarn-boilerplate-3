@@ -1,8 +1,8 @@
 import {success} from 'redux-saga-requests';
 
-export const name = 'project-card';
+const name = 'project-card';
 
-export const api = 'http://localhost:3000/';
+const api = 'http://localhost:3000/';
 
 /* Types */
 
@@ -26,7 +26,7 @@ const tabs = api + 'tabs/';
 const sections = api + 'sections/';
 const fields = api + 'fields/';
 
-export const endpoints = {
+const endpoints = {
 	project,
 	tabs,
 	sections,
@@ -34,7 +34,7 @@ export const endpoints = {
 };
 
 /* Action creators */
-export const actions = {
+const actions = {
 	loadProject() {
 		return {
 			type: types.LOAD_PROJECT,
@@ -77,7 +77,7 @@ export const actions = {
 	}
 };
 
-export default function projectCardReducer(state = {}, {type, payload}) {
+function projectCardReducer(state = {}, {type, payload}) {
 	switch (type) {
 		case success(types.LOAD_PROJECT):
 			return {
@@ -103,3 +103,12 @@ export default function projectCardReducer(state = {}, {type, payload}) {
 			return state;
 	}
 }
+
+export default {
+	projectCardReducer,
+	types,
+	actions,
+	name,
+	api,
+	endpoints
+};

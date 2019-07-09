@@ -1,13 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Flex} from '@ursip/design-system';
-import styled from 'styled-components';
 import FieldsItem from './FieldsItem';
 import {ContentBox} from './imports';
-
-const Bordered = styled(Flex)`
-	border: 1px solid red;
-`;
 
 function Fields({projectFields}) {
 	console.log(projectFields);

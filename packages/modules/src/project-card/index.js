@@ -57,4 +57,6 @@ ProjectCard.propTypes = {};
 
 ProjectCard.defaultProps = {};
 
+ProjectCard.baseRoute = projectCard.baseRoute;
+
 export default ProjectCard;

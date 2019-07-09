@@ -9,7 +9,7 @@ export const baseRoute = '/project-card';
 export default {
 	id: namespace,
 	reducerMap: {
-		[projectCard.name]: projectCard.default,
+		[projectCard.name]: projectCard.projectCardReducer,
 		[namespace]: (state = initialState, action) => ({
 			...state,
 			...(reducers[action.type] && reducers[action.type](state, action))

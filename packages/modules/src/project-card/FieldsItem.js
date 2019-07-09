@@ -16,8 +16,8 @@ function FieldsItem({children, field, ...props}) {
 			<Bordered flexDirection={'column'}>
 				{field.map((fieldline, key) => {
 					return (
-						<FlexContainerBottomDivider>
-							<FiedlItemLine key={key} fieldline={fieldline} />
+						<FlexContainerBottomDivider key={key}>
+							<FiedlItemLine fieldline={fieldline} />
 						</FlexContainerBottomDivider>
 					);
 				})}

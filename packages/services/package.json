@@ -2,10 +2,17 @@
   "name": "@project/services",
   "version": "1.0.0",
   "description": "Utils for other modules",
+  "ru_ursip": {
+    "services": {
+      "ursip-nsi-service": "http://develop.ursip.local/api/bim-nsi-new-dev/api/v1"
+    }
+  },
   "main": "src/index.js",
   "main:src": "src/index.js",
-  "license": "MIT",
+
   "devDependencies": {
-    "redux-saga-requests": "^0.25.0"
-  }
+    "redux-saga-requests": "^0.25.0",
+    "@project/utils": ">=1.0.0"
+  },
+  "license": "MIT"
 }
