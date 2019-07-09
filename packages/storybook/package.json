@@ -3,23 +3,25 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@project/components": "1.0.0",
     "@babel/core": "^7.2.2",
+    "@project/components": "1.0.0",
     "@react-workspaces/react-scripts": "3.0.0-alpha-04",
     "babel-loader": "^8.0.5",
+    "cross-env": "5.0.5",
     "react": "^16.7.0",
-    "react-dom": "^16.7.3",
-    "cross-env": "5.0.5"
+    "react-dom": "^16.7.3"
   },
   "scripts": {
     "storybook": "start-storybook -p 9009",
     "build-storybook": "build-storybook"
   },
   "devDependencies": {
-    "@storybook/react": "^5.0.10",
     "@storybook/addon-actions": "^5.0.10",
+    "@storybook/addon-info": "^5.1.9",
     "@storybook/addon-links": "^5.0.10",
+    "@storybook/addon-notes": "^5.1.9",
     "@storybook/addons": "^5.0.10",
+    "@storybook/react": "^5.0.10",
     "@storybook/theming": "^5.0.10"
   }
 }
