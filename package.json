@@ -40,11 +40,13 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "core-js": "3",
+    "fetch-mock": "^7.3.3",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.8.0",
     "jest-prop-type-error": "^1.1.0",
     "lerna": "^3.10.7",
-    "prettier": "^1.16.1"
+    "prettier": "^1.16.1",
+    "whatwg-fetch": "^3.0.0"
   },
   "dependencies": {
     "babel-eslint": "10.0.1",

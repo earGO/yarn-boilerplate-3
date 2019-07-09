@@ -74,21 +74,4 @@ describe('Test projectCard service actions', () => {
 		store.dispatch(actions.loadProject());
 		expect(store.getActions()).toEqual(expectedActions);
 	});
-	test('creates project-card/LOAD_PROJECT_SUCCESS when fetching data has been done', () => {
-		const endpoint = api + endpoints.project;
-		fetchMock.getOnce(endpoint, {
-			body: {project: {someprojectId: 'theId'}},
-			headers: {'content-type': 'application/json'}
-		});
-
-		const expectedActions = [
-			{type: types.LOAD_PROJECT},
-			{
-				type: success(types.LOAD_TABS),
-				body: {project: {someprojectId: 'theId'}}
-			}
-		];
-		store.dispatch(actions.loadProject());
-		expect(store.getActions()).toEqual(expectedActions);
-	});
 });

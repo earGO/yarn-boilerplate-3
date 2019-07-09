@@ -1,0 +1,60 @@
+835bca96823a57d3359e6e3dff331baa
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+
+var _getRequests = require("../getRequests");
+
+var _ = _interopRequireDefault(require("../."));
+
+var _fetchMock = _interopRequireDefault(require("fetch-mock"));
+
+/**
+ * we gonna test if this util returns expected call from mock api,
+ * and if it returns error, when api URL is wrong
+ * */
+var api = 'http://localhost:3000/user';
+var apiWrong = 'http://localhost:3200/wrong';
+var correct = {
+  id: 'mr2w3s0m3',
+  name: 'Barney',
+  lastname: 'Stinson'
+};
+describe('Test serverRequests imports and exports serverRequests utils', function () {
+  it('should call the api',
+  /*#__PURE__*/
+  (0, _asyncToGenerator2["default"])(
+  /*#__PURE__*/
+  _regenerator["default"].mark(function _callee() {
+    var response, result;
+    return _regenerator["default"].wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _fetchMock["default"].get(api, correct);
+
+            _context.next = 3;
+            return _["default"].simpleGetRequest(api);
+
+          case 3:
+            response = _context.sent;
+            _context.next = 6;
+            return response;
+
+          case 6:
+            result = _context.sent;
+            expect(result).toEqual(correct);
+
+          case 8:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, this);
+  })));
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImdldFJlcXVlc3RzLnRlc3QuanMiXSwibmFtZXMiOlsiYXBpIiwiYXBpV3JvbmciLCJjb3JyZWN0IiwiaWQiLCJuYW1lIiwibGFzdG5hbWUiLCJkZXNjcmliZSIsIml0IiwiZmV0Y2hNb2NrIiwiZ2V0Iiwic2VydmVyUmVxdWVzdHMiLCJzaW1wbGVHZXRSZXF1ZXN0IiwicmVzcG9uc2UiLCJyZXN1bHQiLCJleHBlY3QiLCJ0b0VxdWFsIl0sIm1hcHBpbmdzIjoiOzs7Ozs7OztBQUFBOztBQUNBOztBQUNBOztBQUVBOzs7O0FBS0EsSUFBTUEsR0FBRyxHQUFHLDRCQUFaO0FBQ0EsSUFBTUMsUUFBUSxHQUFHLDZCQUFqQjtBQUNBLElBQU1DLE9BQU8sR0FBRztBQUNmQyxFQUFBQSxFQUFFLEVBQUUsV0FEVztBQUVmQyxFQUFBQSxJQUFJLEVBQUUsUUFGUztBQUdmQyxFQUFBQSxRQUFRLEVBQUU7QUFISyxDQUFoQjtBQU1BQyxRQUFRLENBQUMsOERBQUQsRUFBaUUsWUFBTTtBQUM5RUMsRUFBQUEsRUFBRSxDQUFDLHFCQUFEO0FBQUE7QUFBQTtBQUFBO0FBQUEsK0JBQXdCO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUN6QkMsa0NBQVVDLEdBQVYsQ0FBY1QsR0FBZCxFQUFtQkUsT0FBbkI7O0FBRHlCO0FBQUEsbUJBR0ZRLGFBQWVDLGdCQUFmLENBQWdDWCxHQUFoQyxDQUhFOztBQUFBO0FBR25CWSxZQUFBQSxRQUhtQjtBQUFBO0FBQUEsbUJBSUpBLFFBSkk7O0FBQUE7QUFJbkJDLFlBQUFBLE1BSm1CO0FBTXpCQyxZQUFBQSxNQUFNLENBQUNELE1BQUQsQ0FBTixDQUFlRSxPQUFmLENBQXVCYixPQUF2Qjs7QUFOeUI7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEsR0FBeEIsR0FBRjtBQVFBLENBVE8sQ0FBUiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7c2ltcGxlR2V0UmVxdWVzdH0gZnJvbSAnLi4vZ2V0UmVxdWVzdHMnO1xuaW1wb3J0IHNlcnZlclJlcXVlc3RzIGZyb20gJy4uLy4nO1xuaW1wb3J0IGZldGNoTW9jayBmcm9tICdmZXRjaC1tb2NrJztcblxuLyoqXG4gKiB3ZSBnb25uYSB0ZXN0IGlmIHRoaXMgdXRpbCByZXR1cm5zIGV4cGVjdGVkIGNhbGwgZnJvbSBtb2NrIGFwaSxcbiAqIGFuZCBpZiBpdCByZXR1cm5zIGVycm9yLCB3aGVuIGFwaSBVUkwgaXMgd3JvbmdcbiAqICovXG5cbmNvbnN0IGFwaSA9ICdodHRwOi8vbG9jYWxob3N0OjMwMDAvdXNlcic7XG5jb25zdCBhcGlXcm9uZyA9ICdodHRwOi8vbG9jYWxob3N0OjMyMDAvd3JvbmcnO1xuY29uc3QgY29ycmVjdCA9IHtcblx0aWQ6ICdtcjJ3M3MwbTMnLFxuXHRuYW1lOiAnQmFybmV5Jyxcblx0bGFzdG5hbWU6ICdTdGluc29uJ1xufTtcblxuZGVzY3JpYmUoJ1Rlc3Qgc2VydmVyUmVxdWVzdHMgaW1wb3J0cyBhbmQgZXhwb3J0cyBzZXJ2ZXJSZXF1ZXN0cyB1dGlscycsICgpID0+IHtcblx0aXQoJ3Nob3VsZCBjYWxsIHRoZSBhcGknLCBhc3luYyAoKSA9PiB7XG5cdFx0ZmV0Y2hNb2NrLmdldChhcGksIGNvcnJlY3QpO1xuXG5cdFx0Y29uc3QgcmVzcG9uc2UgPSBhd2FpdCBzZXJ2ZXJSZXF1ZXN0cy5zaW1wbGVHZXRSZXF1ZXN0KGFwaSk7XG5cdFx0Y29uc3QgcmVzdWx0ID0gYXdhaXQgcmVzcG9uc2U7XG5cblx0XHRleHBlY3QocmVzdWx0KS50b0VxdWFsKGNvcnJlY3QpO1xuXHR9KTtcbn0pO1xuIl19

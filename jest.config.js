@@ -17,7 +17,6 @@ module.exports = {
 	],
 	transformIgnorePatterns: ['<rootDir>/node_modules/', '/node_modules/'],
 	moduleFileExtensions: ['js', 'jsx', 'json'],
-	testEnvironment: 'jsdom',
 	transform: {
 		'^.+\\.js$': '<rootDir>/jest.transform.js'
 	},
