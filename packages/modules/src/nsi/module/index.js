@@ -3,8 +3,7 @@ import reducers, {initialState} from './reducers';
 import sagas from './sagas';
 
 import * as actions from './actions';
-
-import * as nsiNew from '../../../services/nsi-new';
+import {nsi as nsiNew} from '../../../import';
 
 export const baseRoute = '/nsi';
 

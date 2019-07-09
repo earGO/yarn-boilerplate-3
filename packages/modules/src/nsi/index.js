@@ -4,8 +4,7 @@ import {Switch, Route} from 'react-router-dom';
 import {DynamicModuleLoader} from 'redux-dynamic-modules';
 import {Flex, Text} from '@ursip/design-system';
 
-import Loading from '../common/Loading';
-import ResizableSide from '../common/ResizableSide';
+import {Loading, ResizableSide} from '../../import';
 import CatalogList from './CatalogList';
 import Catalog from './Catalog';
 import CatalogForm from './CatalogForm';

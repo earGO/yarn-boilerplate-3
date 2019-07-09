@@ -2,7 +2,7 @@ import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Select} from '@ursip/design-system';
 
-import * as nsiService from '../../services/nsi-new';
+import {nsi as nsiService} from '../../import';
 
 import * as actions from './module/actions';
 import * as selectors from './module/selectors';

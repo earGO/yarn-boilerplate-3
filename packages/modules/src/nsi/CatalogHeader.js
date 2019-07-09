@@ -2,10 +2,9 @@ import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {Text, Heading, Box, Flex} from '@ursip/design-system';
-import DropdownMenuButton from '../common/DropdownMenuButton';
 
-import * as nsiService from '../../services/nsi-new';
-import Modal from '../common/Modal';
+import {nsi as nsiService, Modal, DropdownMenuButton} from '../../import';
+
 import CatalogItemForm from './CatalogItemForm';
 
 import * as selectors from './module/selectors';

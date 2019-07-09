@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect, useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {compose} from 'redux';
 import Scrollbars from 'react-custom-scrollbars';
@@ -9,14 +9,12 @@ import {
 	Form,
 	Input,
 	Button,
-	Text,
 	Heading,
 	Box,
 	Toggle,
 	Select
 } from '@ursip/design-system';
-import * as nsiService from '../../services/nsi';
-import FormItem from '../common/FormItem';
+import {nsi as nsiService, FormItem} from '../../import';
 import LinkField from './LinkField';
 
 import * as selectors from './module/selectors';

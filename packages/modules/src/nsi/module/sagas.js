@@ -5,7 +5,7 @@ import * as types from './types';
 import * as actions from './actions';
 import * as selectors from './selectors';
 
-import * as nsiNew from '../../../services/nsi-new';
+import {nsi as nsiNew} from '../../../import';
 
 const report = function*({payload}) {
 	global.location = `${nsiNew.api}/reports/excel/nickDict/${payload.nick}`;

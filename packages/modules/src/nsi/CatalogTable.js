@@ -4,9 +4,8 @@ import styled from 'styled-components';
 import {Table, Flex, Box, Text, Card, Icon, Button} from '@ursip/design-system';
 
 import SortableColumn from './SortableColumn';
-import Loading from '../common/Loading';
-import * as nsiService from '../../services/nsi-new';
-import arrayToTree from '../../utils/arrayToTree';
+import {Loading, nsi as nsiService, arrayToTree} from '../../import';
+
 import * as selectors from './module/selectors';
 import * as actions from './module/actions';
 

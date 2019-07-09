@@ -7,8 +7,8 @@ import catalogJson from './catalog.json';
 import elements from './elements.json';
 import dict from './dict.json';
 
-export const name = 'ursip-nsi-service';
-export const api = pkg.ru_ursip.services[name];
+const name = 'ursip-nsi-service';
+const api = pkg.ru_ursip.services[name];
 
 /* Types */
 const LOAD_DICTS = `${name}/LOAD_DICTS`;
@@ -17,7 +17,7 @@ const SAVE_DICT = `${name}/SAVE_DICT`;
 const SAVE_DICT_ROW = `${name}/SAVE_DICT_ROW`;
 const MAKE_REPORT = `${name}/MAKE_REPORT`;
 
-export const types = {
+const types = {
 	LOAD_DICTS,
 	LOAD_DICT_ELEMENTS,
 	SAVE_DICT_ROW,
@@ -211,14 +211,14 @@ function normalizeAttributes(attributes) {
 	);
 }
 
-/* reducer */
-export const initialState = {
+/* Reducer */
+const initialState = {
 	catalogs: {},
 	attributes: {},
 	elements: {}
 };
 
-export default function reducer(state = initialState, {type, payload}) {
+function reducer(state = initialState, {type, payload}) {
 	switch (type) {
 		case success(LOAD_DICTS): {
 			return {
@@ -282,3 +282,12 @@ export default function reducer(state = initialState, {type, payload}) {
 			return state;
 	}
 }
+
+export default {
+	reducer,
+	initialState,
+	actions,
+	types,
+	name,
+	pkg
+};

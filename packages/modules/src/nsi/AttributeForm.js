@@ -17,7 +17,7 @@ import {
 	Flex
 } from '@ursip/design-system';
 
-import FormItem from '../common/FormItem';
+import {FormItem} from '../../import';
 
 import * as selectors from './module/selectors';
 

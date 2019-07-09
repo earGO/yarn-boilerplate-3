@@ -8,7 +8,7 @@ import * as actions from './module/actions';
 
 import CatalogHeader from './CatalogHeader';
 import CatalogTable from './CatalogTable';
-import SearchInput from '../common/SearchInput';
+import {SearchInput} from '../../import';
 
 function Catalog({match}) {
 	const dispatch = useDispatch();

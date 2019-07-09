@@ -1,7 +1,9 @@
 import {success, error} from 'redux-saga-requests';
 
-import {types as nsiService} from '../../../services/nsi-new';
+import {nsi} from '../../../import';
 import * as types from './types';
+
+const nsiService = nsi.types;
 
 const DEFAULT_SORT = {
 	column: null,

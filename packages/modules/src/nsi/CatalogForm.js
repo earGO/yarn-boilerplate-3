@@ -13,9 +13,8 @@ import {
 	Text,
 	Textarea
 } from '@ursip/design-system';
-import * as nsiService from '../../services/nsi-new';
+import {nsi as nsiService, FormItem} from '../../import';
 
-import FormItem from '../common/FormItem';
 import AttributesTable from './AttributesTable';
 
 import * as selectors from './module/selectors';

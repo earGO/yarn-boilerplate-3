@@ -8,7 +8,7 @@ import {Flex, Box, Text, Collapse} from '@ursip/design-system';
 import CatalogListItem from './CatalogListItem';
 import CollapseItem from './CollapseItem';
 
-import SearchInput from '../common/SearchInput';
+import {SearchInput} from '../../import';
 
 import * as actions from './module/actions';
 import * as selectors from './module/selectors';

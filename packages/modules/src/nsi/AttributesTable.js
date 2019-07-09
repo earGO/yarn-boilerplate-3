@@ -12,7 +12,7 @@ import {
 } from '@ursip/design-system';
 import SortAttributeRow from './SortAttributeRow';
 import AttributeForm from './AttributeForm';
-import Modal from '../common/Modal';
+import {Modal} from '../../import';
 
 function HeaderCell(props) {
 	const {children, align, ...rest} = props;
