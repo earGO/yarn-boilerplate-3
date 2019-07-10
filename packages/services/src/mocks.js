@@ -1,1 +1,1 @@
-export { default } from './nsi-new/mock'
+export {default} from './nsi-new/mock';
