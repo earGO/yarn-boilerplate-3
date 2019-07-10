@@ -9,7 +9,6 @@
     "storybook": "cd packages/storybook && start-storybook -p 9009 -s public",
     "build-storybook": "lerna exec --scope library-name -- babel src -d dist --copy-files --ignore \"src/stories/\"",
     "watch-storybook": "lerna exec --scope library-name -- babel src -d dist --watch --copy-files --ignore \"src/stories/\"",
-    "start-app1": "cd packages/apps/app-one && set PORT=3472 && react-scripts start",
     "start-front": "cd packages/apps/box-frontend && set PORT=2518 && react-scripts start",
     "clean": "oao clean",
     "status": "oao status",
@@ -20,9 +19,7 @@
       "packages/apps/*",
       "packages/components",
       "packages/storybook",
-      "packages/widgets",
       "packages/utils",
-      "packages/styled",
       "packages/services",
       "packages/modules"
     ],

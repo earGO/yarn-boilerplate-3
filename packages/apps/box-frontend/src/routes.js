@@ -7,15 +7,7 @@ import {name as appName} from '../package.json';
 
 // import {baseRoute as nsiModuleRoute} from './components/nsi/module';
 
-import {
-	projectCard,
-	Layout,
-	Loading,
-	NotFound,
-	Main,
-	Weather,
-	nsi
-} from './import';
+import {projectCard, Layout, Loading, NotFound, Main, nsi} from './import';
 import './LazyLoad/ProjectCard';
 
 const projectCardRoute = projectCard.baseRoute;
