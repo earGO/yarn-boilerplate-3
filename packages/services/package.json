@@ -1,6 +1,6 @@
 {
   "name": "@project/services",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Utils for other modules",
   "ru_ursip": {
     "services": {

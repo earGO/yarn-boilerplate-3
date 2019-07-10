@@ -1,10 +1,10 @@
 {
   "name": "@project/box-frontend",
-  "version": "1.0.5",
+  "version": "1.0.6-alpha.0",
   "private": true,
   "dependencies": {
     "@project/components": "^1.0.6-alpha.0",
-    "@project/modules": "^1.0.6",
+    "@project/modules": "^1.0.7",
     "@project/utils": "1.0.0",
     "@project/widgets": "1.0.0",
     "@react-workspaces/react-scripts": "3.0.0-alpha-04",
