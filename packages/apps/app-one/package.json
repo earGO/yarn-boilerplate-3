@@ -1,9 +1,9 @@
 {
   "name": "@project/app-one",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
   "dependencies": {
-    "@project/components": "^1.0.2",
+    "@project/components": "^1.0.3",
     "@project/styled": "1.0.0",
     "@project/utils": "1.0.0",
     "@project/widgets": "1.0.0",
