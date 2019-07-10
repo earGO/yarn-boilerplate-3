@@ -7,11 +7,12 @@ import {name as appName} from '../package.json';
 
 // import {baseRoute as nsiModuleRoute} from './components/nsi/module';
 
-import {projectCard, Layout, Loading, NotFound, Main, nsi} from './import';
+import {projectCard, Layout, Loading, NotFound, Main, nsi, lk} from './import';
 import './LazyLoad/ProjectCard';
 
 const projectCardRoute = projectCard.baseRoute;
 const nsiModuleRoute = nsi.baseRoute;
+const lkModuleRoute = lk.baseRoute;
 
 const routes = [
 	{
@@ -29,6 +30,11 @@ const routes = [
 		key: 'project-card',
 		path: projectCardRoute,
 		component: React.lazy(() => import('./LazyLoad/ProjectCard'))
+	},
+	{
+		key: 'lk',
+		path: lkModuleRoute,
+		component: React.lazy(() => import('./LazyLoad/LK'))
 	}
 ];
 

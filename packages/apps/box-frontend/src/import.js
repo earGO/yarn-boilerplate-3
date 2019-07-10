@@ -1,3 +1,3 @@
-export {projectCard, nsi} from '@project/modules';
+export {projectCard, nsi, lk} from '@project/modules';
 export {Layout, Loading, NotFound, Main} from '@project/components';
 export {mocks} from '@project/services';

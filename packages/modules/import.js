@@ -12,5 +12,5 @@ export {
 	DropdownMenuButton
 } from '@project/components';
 
-export {projectCardService, nsi} from '@project/services';
+export {projectCardService, nsi, lk} from '@project/services';
 export {arrayToTree} from '@project/utils';

@@ -4,6 +4,18 @@
     "name": "Barney",
     "lastname": "Stinson"
   },
+  "users": [
+    {
+      "id": "mr2w3s0m3",
+    "name": "Barney",
+    "lastname": "Stinson"
+    },
+    {
+      "id": "sch001b0y",
+      "name": "Bart",
+      "lastname": "Simpson"
+    }
+  ],
   "project": {
     "idProject": "t3stpr0j3ct",
     "author": "Barney Stinson",
@@ -1387,5 +1399,297 @@
         ]
       ]
     }
+  ],
+  "projects": [
+    {
+      "stage": "OBIN",
+      "projects": [
+        {
+          "idProject": "projectid01",
+          "author": "Barney Stinson",
+          "dateCreated": "2018-04-05",
+          "dateChange": "2018-05-05",
+          "objectName": "ДОУ на 225 мест",
+          "addressGenerated": "г. Москва, Ярцевская улица, д. 34, корп. 2 (ЗАО, Кунцево)",
+          "field": [
+            {
+              "nick": "type",
+              "value": "BIM-проект"
+            },
+            {
+              "nick": "number",
+              "value": "127/18"
+            },
+            {
+              "nick": "progress",
+              "value": "0/5"
+            }
+          ]
+        },
+        {
+              "idProject": "projectid02",
+              "author": "Bart Simpson",
+              "dateCreated": "2016-05-05",
+          "dateChange": "2018-05-05",
+              "objectName": "Школа на 120 мест",
+              "addressGenerated": "г. Москва, Нижний Сусальный пер, Тестовый объект №987",
+          "field": [
+            {
+              "nick": "type",
+              "value": "не BIM-проект"
+            },
+            {
+              "nick": "number",
+              "value": "987/18"
+            },
+            {
+              "nick": "progress",
+              "value": "1/5"
+            }
+          ]
+        },
+        {
+          "idProject": "projectid03",
+          "author": "Bart Simpson",
+          "dateCreated": "2017-06-07",
+          "dateChange": "2018-02-15",
+          "objectName": "Магазин детского питания",
+          "addressGenerated": "г. Москва, 3-й Силикатный, Тестовый объект №587",
+          "field": [
+            {
+              "nick": "type",
+              "value": "почти BIM-проект"
+            },
+            {
+              "nick": "number",
+              "value": "587/18"
+            },
+            {
+              "nick": "progress",
+              "value": "4/5"
+            }
+          ]
+
+        }
+          ]
+    },
+    {
+      "stage": "PROJECTING",
+      "projects": [
+        {
+          "idProject": "projectId11",
+          "author": "Barney Stinson",
+          "dateCreated": "2018-05-05",
+          "dateChange": "2019-02-05",
+          "objectName": "г. Москва, ААБ. Тестовый объект №107",
+          "addressGenerated": "г. Москва, ААБ. Тестовый объект №107",
+          "field": [
+            {
+              "nick": "type",
+              "value": "BIM-проект"
+            },
+            {
+              "nick": "number",
+              "value": "107/18"
+            },
+            {
+              "nick": "progress",
+              "value": "0/5"
+            }
+          ]
+        },
+        {
+          "idProject": "projectId12",
+          "author": "Bart Simpson",
+          "dateCreated": "2012-03-15",
+          "dateChange": "2019-03-05",
+          "objectName": "ВЫР абфрвалг. Тестовый объект №187",
+          "addressGenerated": "г. Люберцы МО, ААБ. Тестовый объект №187",
+          "field": [
+            {
+              "nick": "type",
+              "value": "nonBIM-проект"
+            },
+            {
+              "nick": "number",
+              "value": "187/18"
+            },
+            {
+              "nick": "progress",
+              "value": "3/5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "SMR",
+      "projects": [
+        {
+          "idProject": "projectId31",
+          "author": "Barney Stinson",
+          "dateCreated": "2016-05-05",
+          "dateChange": "2019-02-27",
+          "objectName": "г. Москва, ААБ. Тестовый объект №108",
+          "addressGenerated": "г. Москва, ААБ. Тестовый объект №108",
+          "field": [
+            {
+              "nick": "type",
+              "value": "BIM-проект"
+            },
+            {
+              "nick": "number",
+              "value": "108/19"
+            },
+            {
+              "nick": "progress",
+              "value": "1/5"
+            }
+          ]
+        },
+        {
+          "idProject": "projectId32",
+          "author": "Bart Simpson",
+          "dateCreated": "2014-03-15",
+          "dateChange": "2019-01-25",
+          "objectName": "Замороженный долгострой",
+          "addressGenerated": "г. Реутов МО, ААБ. Носовихинское шоссе 35",
+          "field": [
+            {
+              "nick": "type",
+              "value": "part-BIM-проект"
+            },
+            {
+              "nick": "number",
+              "value": "487/18"
+            },
+            {
+              "nick": "progress",
+              "value": "4/7"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "OPER",
+      "projects": [
+        {
+          "idProject": "projectId41",
+          "author": "Barney Stinson",
+          "dateCreated": "2011-08-21",
+          "dateChange": "2019-05-05",
+          "objectName": "Тестовый объект в эксплуатации №808",
+          "addressGenerated": "г. Москва, Нижний Сусальный пер., д.10",
+          "field": [
+            {
+              "nick": "type",
+              "value": "BIM-проект"
+            },
+            {
+              "nick": "number",
+              "value": "808/11"
+            },
+            {
+              "nick": "progress",
+              "value": "5/5"
+            }
+          ]
+        },
+        {
+          "idProject": "projectId42",
+          "author": "Bart Simpson",
+          "dateCreated": "2012-03-15",
+          "dateChange": "2019-04-25",
+          "objectName": "Тестовый БЦ в эксплуатации",
+          "addressGenerated": "г. Реутов МО, Носовихинское шоссе 15",
+          "field": [
+            {
+              "nick": "type",
+              "value": "part-BIM-проект"
+            },
+            {
+              "nick": "number",
+              "value": "987/12"
+            },
+            {
+              "nick": "progress",
+              "value": "6/7"
+            }
+          ]
+        },
+        {
+          "idProject": "projectId43",
+          "author": "Bart Simpson",
+          "dateCreated": "2014-03-15",
+          "dateChange": "2019-01-25",
+          "objectName": "Тестовая ТЭЦ",
+          "addressGenerated": "г. Москва, Котельники, Тэц 14",
+          "field": [
+            {
+              "nick": "type",
+              "value": "part-BIM-проект"
+            },
+            {
+              "nick": "number",
+              "value": "687/14"
+            },
+            {
+              "nick": "progress",
+              "value": "5/8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "SNOS",
+      "projects": [
+        {
+          "idProject": "projectId51",
+          "author": "Barney Stinson",
+          "dateCreated": "2018-08-21",
+          "dateChange": "2019-02-05",
+          "objectName": "Тестовый объект под снос №1028",
+          "addressGenerated": "г. Москва, Нижний Сусальный пер., д.10",
+          "field": [
+            {
+              "nick": "type",
+              "value": "BIM-проект"
+            },
+            {
+              "nick": "number",
+              "value": "1028/18"
+            },
+            {
+              "nick": "progress",
+              "value": "2/5"
+            }
+          ]
+        },
+        {
+          "idProject": "projectId52",
+          "author": "Barney Stinson",
+          "dateCreated": "2017-08-21",
+          "dateChange": "2018-12-25",
+          "objectName": "Тестовый объект под снос №928",
+          "addressGenerated": "г. Москва, Нижний Сусальный пер., д.15",
+          "field": [
+            {
+              "nick": "type",
+              "value": "BIM-проект"
+            },
+            {
+              "nick": "number",
+              "value": "928/17"
+            },
+            {
+              "nick": "progress",
+              "value": "4/5"
+            }
+          ]
+        }
+      ]
+    }
   ]
-  }
+}

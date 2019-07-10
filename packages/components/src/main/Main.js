@@ -13,7 +13,12 @@ function Main() {
 			</Box>
 			<Box m={2}>
 				<Link bordered to="/project-card">
-					project-page
+					project-card
+				</Link>
+			</Box>
+			<Box m={2}>
+				<Link bordered to="/lk">
+					lk
 				</Link>
 			</Box>
 		</Box>
