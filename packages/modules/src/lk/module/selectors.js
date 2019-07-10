@@ -6,7 +6,7 @@ import {initialState} from './reducers';
 import {lk as service} from '../../../import';
 
 const namespaceStateSelector = state => state[namespace] || initialState;
-const serviceDataSelector = state => state[service.name] || initialState;
+const serviceStateSelector = state => state[service.name] || initialState;
 
 function getProjectTitle(projectObject) {
 	if (
@@ -33,47 +33,12 @@ function getProjectId(projectObject) {
 	}
 }
 
-export const projectLoading = createSelector(
+export const projectsLoading = createSelector(
 	namespaceStateSelector,
-	state => state.projectLoading
+	state => state.projectsLoading
 );
 
-export const projectSelector = createSelector(
-	serviceDataSelector,
-	state => state.project
-);
-
-export const projectTitleSelector = createSelector(
-	projectSelector,
-	state => getProjectTitle(state)
-);
-
-export const projectIdSelector = createSelector(
-	projectSelector,
-	state => getProjectId(state)
-);
-
-export const tabsSelector = createSelector(
-	serviceDataSelector,
-	state => state.tabs
-);
-
-export const sectionsSelector = createSelector(
-	serviceDataSelector,
-	state => state.sections
-);
-
-export const selectedTabsSelector = createSelector(
-	namespaceStateSelector,
-	state => state.selectedTab
-);
-
-export const selectedSectionSelector = createSelector(
-	namespaceStateSelector,
-	state => state.selectedSection
-);
-
-export const fieldsSelector = createSelector(
-	serviceDataSelector,
-	state => state.fields
+export const projectsDataSelector = createSelector(
+	serviceStateSelector,
+	state => state.data
 );

@@ -1,6 +1,6 @@
 import {requestsReducer} from 'redux-saga-requests';
 
-const name = 'lk';
+const name = '@ursip-bim-service-lk';
 
 const api = 'http://localhost:3000/projects';
 
