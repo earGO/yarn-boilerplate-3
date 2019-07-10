@@ -1,15 +1,23 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
 import * as module from './module';
-import {Flex} from '@ursip/design-system';
+import {Flex, Table, Box} from '@ursip/design-system';
 import * as selectors from './module/selectors';
 import {DynamicModuleLoader} from 'redux-dynamic-modules';
 import {ContentBox, Loading} from '../../import';
+import ProjectsTable from './ProjectsTable';
+import TableContentBox from '@project/components/src/common/TableContentBox';
 
 function LK({props}) {
-	const loading = useSelector(selectors.projectLoading);
+	const loading = useSelector(selectors.projectsLoading);
+	const data = useSelector(selectors.projectsDataSelector);
+	const arrayOfProjects = useSelector(selectors.projectsArraySelector);
+	const flattenArrayOfProjects = useSelector(
+		selectors.projectsFlattenArraySelector
+	);
 
-	const notReady = loading;
+	const notReady = loading && !data;
+	data ? console.log(flattenArrayOfProjects) : console.log('nope');
 	return (
 		<DynamicModuleLoader modules={[module.default]}>
 			{notReady ? (
@@ -20,13 +28,13 @@ function LK({props}) {
 					flexDirection={'column'}
 					justifyContent={'flex-start'}
 				>
-					<ContentBox
+					<TableContentBox
 						flexDirection={'row'}
 						alignItems={'flex-start'}
 						padding={16}
 					>
-						Module working
-					</ContentBox>
+						<ProjectsTable projects={flattenArrayOfProjects} />
+					</TableContentBox>
 				</Flex>
 			)}
 		</DynamicModuleLoader>

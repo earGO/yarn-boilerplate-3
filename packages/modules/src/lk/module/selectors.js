@@ -8,29 +8,34 @@ import {lk as service} from '../../../import';
 const namespaceStateSelector = state => state[namespace] || initialState;
 const serviceStateSelector = state => state[service.name] || initialState;
 
-function getProjectTitle(projectObject) {
-	if (
-		projectObject !== undefined &&
-		projectObject.hasOwnProperty('objectName')
-	) {
-		const projectName = projectObject.objectName;
-		const projectAdress = projectObject.addressGenerated;
-		return {
-			projectName: projectName,
-			projectAdress: projectAdress
-		};
+function makeArrayOfProjects(arrayOfStages) {
+	let arrayOfProjects = [];
+	if (arrayOfStages) {
+		arrayOfStages.forEach(stage => {
+			stage['projects'].forEach(project => {
+				arrayOfProjects.push(project);
+			});
+		});
 	}
+	return arrayOfProjects;
 }
 
-function getProjectId(projectObject) {
-	if (
-		projectObject !== undefined &&
-		projectObject.hasOwnProperty('idProject')
-	) {
-		return {
-			projectId: projectObject.idProject
-		};
+function makearrayFlat(arrayOfProjects) {
+	let flatArrayOfProjects = [];
+	if (arrayOfProjects) {
+		arrayOfProjects.forEach(project => {
+			let flattenProject = {...project};
+			let flattenFields = project.field;
+			let newFields = {};
+			flattenFields.forEach(field => {
+				newFields[field.nick] = field.value;
+			});
+			delete flattenProject.field;
+			let pushedProject = {...flattenProject, ...newFields};
+			flatArrayOfProjects.push(pushedProject);
+		});
 	}
+	return flatArrayOfProjects;
 }
 
 export const projectsLoading = createSelector(
@@ -41,4 +46,14 @@ export const projectsLoading = createSelector(
 export const projectsDataSelector = createSelector(
 	serviceStateSelector,
 	state => state.data
+);
+
+export const projectsArraySelector = createSelector(
+	projectsDataSelector,
+	state => makeArrayOfProjects(state)
+);
+
+export const projectsFlattenArraySelector = createSelector(
+	projectsArraySelector,
+	state => makearrayFlat(state)
 );

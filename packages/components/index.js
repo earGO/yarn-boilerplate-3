@@ -1,4 +1,5 @@
 export {default as ContentBox} from './src/common/ContentBox';
+export {default as TableContentBox} from './src/common/TableContentBox';
 export {default as Loading} from './src/common/Loading';
 export {default as OptionWithIcon} from './src/common/Loading';
 export {

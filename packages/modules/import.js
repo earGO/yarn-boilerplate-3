@@ -1,3 +1,5 @@
+import TableContentBox from '@project/components/src/common/TableContentBox';
+
 export {
 	ContentBox,
 	Loading,
@@ -9,7 +11,8 @@ export {
 	FormItem,
 	Modal,
 	SearchInput,
-	DropdownMenuButton
+	DropdownMenuButton,
+	TableContentBox
 } from '@project/components';
 
 export {projectCardService, nsi, lk} from '@project/services';
