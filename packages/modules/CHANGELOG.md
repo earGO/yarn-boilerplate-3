@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>1.0.8 (2019-07-10)</small>
+
+* Oao (#2) 60078af, closes #2
+* Scripts (#1) de34f8b, closes #1
+
+
+
+
+
+
 ## <small>1.0.5 (2019-07-10)</small>
 
 * activated nsi route, solving errors 2ed63e9

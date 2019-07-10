@@ -1,13 +1,13 @@
 {
   "name": "@project/modules",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Modules for main app",
   "main": "src/index.js",
   "main:src": "src/index.js",
   "license": "MIT",
   "dependencies": {
-    "@project/components": "^1.0.6-alpha.0",
-    "@project/services": "^1.0.2",
+    "@project/components": "^1.0.6-alpha.1",
+    "@project/services": "^1.0.3",
     "ramda": "^0.26.1",
     "throttle-debounce": "^2.1.0"
   },

@@ -1,6 +1,6 @@
 {
   "name": "@project/styled",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "package with redux connected components",
   "main": "src/index.js",
   "main:src": "src/index.js",

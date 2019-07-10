@@ -1,6 +1,6 @@
 {
   "name": "@project/services",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Utils for other modules",
   "ru_ursip": {
     "services": {
@@ -10,7 +10,7 @@
   "main": "src/index.js",
   "main:src": "src/index.js",
   "devDependencies": {
-    "@project/utils": ">=1.0.0",
+    "@project/utils": "^1.0.1",
     "redux-saga-requests": "^0.25.0"
   },
   "license": "MIT"
