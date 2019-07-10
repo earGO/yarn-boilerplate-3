@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Flex} from '@ursip/design-system';
-import FlexContainerBottomDivider from '@project/components/common/';
+import {Box, Flex} from '@ursip/design-system';
 import FiedlItemLine from './FiedlItemLine';
 import styled from 'styled-components';
+import {FlexContainerBottomDivider} from '../../import';
 
 const Bordered = styled(Flex)`
 	padding-bottom: 32px;
@@ -11,13 +11,12 @@ const Bordered = styled(Flex)`
 
 function FieldsItem({children, field, ...props}) {
 	if (field !== undefined) {
-		console.log(field);
 		return (
 			<Bordered flexDirection={'column'}>
 				{field.map((fieldline, key) => {
 					return (
-						<FlexContainerBottomDivider>
-							<FiedlItemLine key={key} fieldline={fieldline} />
+						<FlexContainerBottomDivider key={key}>
+							<FiedlItemLine fieldline={fieldline} />
 						</FlexContainerBottomDivider>
 					);
 				})}

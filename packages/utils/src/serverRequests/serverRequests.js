@@ -1,7 +1,7 @@
-import { simpleGetRequest } from './getRequests'
+import {simpleGetRequest} from './getRequests';
 
 const serverRequests = {
-  simpleGetRequest,
-}
+	simpleGetRequest
+};
 
-export default serverRequests
+export default serverRequests;

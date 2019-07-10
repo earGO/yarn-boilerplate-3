@@ -1,56 +1,59 @@
-import { success, error } from 'redux-saga-requests'
-import { types as serviceTypes } from '@project/services/projectCard/'
-import * as types from './types'
+import {success, error} from 'redux-saga-requests';
+
+import {projectCardService} from '../../../import';
+import * as types from './types';
+
+const serviceTypes = projectCardService.types;
 
 export const initialState = {
 	projectLoading: false,
 	tabsLoading: false,
 	selectedTab: '',
-	selectedSection: '',
-}
+	selectedSection: ''
+};
 
 export default {
 	[serviceTypes.LOAD_PROJECT]: () => ({
-		projectLoading: true,
+		projectLoading: true
 	}),
 	[success(serviceTypes.LOAD_PROJECT)]: () => ({
-		projectLoading: false,
+		projectLoading: false
 	}),
 	[error(serviceTypes.LOAD_PROJECT)]: () => ({
-		projectLoading: false,
+		projectLoading: false
 	}),
 	[serviceTypes.LOAD_TABS]: () => ({
-		tabsLoading: true,
+		tabsLoading: true
 	}),
 	[success(serviceTypes.LOAD_TABS)]: () => ({
-		tabsLoading: false,
+		tabsLoading: false
 	}),
 	[error(serviceTypes.LOAD_TABS)]: () => ({
-		tabsLoading: false,
+		tabsLoading: false
 	}),
-	[types.PRESELECT_TAB]: (_, { payload }) => {
-		const tabs = payload.tabs
-		const selectedTab = payload.selectedTab
+	[types.PRESELECT_TAB]: (_, {payload}) => {
+		const tabs = payload.tabs;
+		const selectedTab = payload.selectedTab;
 		if (selectedTab === '') {
 			return {
-				selectedTab: tabs[0].id,
-			}
+				selectedTab: tabs[0].id
+			};
 		} else {
 			return {
-				selectedTab: selectedTab,
-			}
+				selectedTab: selectedTab
+			};
 		}
 	},
-	[types.SELECT_TAB]: (_, { payload }) => ({
-		selectedTab: payload.tabId,
+	[types.SELECT_TAB]: (_, {payload}) => ({
+		selectedTab: payload.tabId
 	}),
-	[types.PRESELECT_SECTION]: (_, { payload }) => {
-		const sections = payload.sections
+	[types.PRESELECT_SECTION]: (_, {payload}) => {
+		const sections = payload.sections;
 		return {
-			selectedSection: sections[0].id,
-		}
+			selectedSection: sections[0].id
+		};
 	},
-	[types.SELECT_SECTION]: (_, { payload }) => ({
-		selectedSection: payload.sectionId,
-	}),
-}
+	[types.SELECT_SECTION]: (_, {payload}) => ({
+		selectedSection: payload.sectionId
+	})
+};

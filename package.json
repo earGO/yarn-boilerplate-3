@@ -1,22 +1,29 @@
 {
   "name": "root",
+  "version": "1.1.5",
   "private": true,
   "scripts": {
-    "test": "FORCE_COLOR=true lerna run lint && CI=true FORCE_COLOR=true lerna run test -- --coverage",
-    "deploy": "FORCE_COLOR=true lerna run deploy",
-    "precommit": "lint-staged",
+    "unit": "jest --watchAll",
+    "make-version": "lerna version && yarn",
+    "make-release": "lerna version --conventional-commits --create-release github --changelog-preset react && yarn",
     "storybook": "cd packages/storybook && start-storybook -p 9009 -s public",
     "build-storybook": "lerna exec --scope library-name -- babel src -d dist --copy-files --ignore \"src/stories/\"",
     "watch-storybook": "lerna exec --scope library-name -- babel src -d dist --watch --copy-files --ignore \"src/stories/\"",
-    "start-app1": "cd packages/appps/app-one && react-scripts start"
+    "start-app1": "cd packages/apps/app-one && set PORT=3472 && react-scripts start",
+    "start-front": "cd packages/apps/box-frontend && set PORT=2518 && react-scripts start",
+    "clean": "oao clean",
+    "status": "oao status",
+    "remove-all": "oao remove-all"
   },
   "workspaces": {
     "packages": [
       "packages/apps/*",
       "packages/components",
-      "packages/services",
-      "packages/utils",
       "packages/storybook",
+      "packages/widgets",
+      "packages/utils",
+      "packages/styled",
+      "packages/services",
       "packages/modules"
     ],
     "nohoist": [
@@ -25,8 +32,24 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-export-default-from": "^7.5.2",
+    "@babel/plugin-transform-async-to-generator": "^7.5.0",
+    "@babel/plugin-transform-runtime": "^7.5.0",
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^24.8.0",
+    "babel-plugin-inline-react-svg": "^1.1.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "core-js": "3",
+    "fetch-mock": "^7.3.3",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.8.0",
     "jest-prop-type-error": "^1.1.0",
     "lerna": "^3.10.7",
+    "oao": "^1.6.0",
     "prettier": "^1.16.1"
   },
   "dependencies": {
@@ -44,10 +67,15 @@
     "eslint-plugin-react-hooks": "^1.6.0"
   },
   "jest": {
+    "coverageThreshold": {
+      "global": {
+        "statements": 98,
+        "lines": 98
+      }
+    },
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
       "!src/setupTests.{js,jsx}",
-      "!src/index.{js,jsx}",
       "!src/serviceWorker.{js,jsx}",
       "!src/**/*.(spec|test|stories).{js,jsx}"
     ]

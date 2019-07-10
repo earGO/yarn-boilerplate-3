@@ -1,33 +1,27 @@
-import { simpleGetRequest } from '../getRequests'
-import serverRequests from '../.'
+import {simpleGetRequest} from '../getRequests';
+import serverRequests from '../.';
+import fetchMock from 'fetch-mock';
 
 /**
  * we gonna test if this util returns expected call from mock api,
  * and if it returns error, when api URL is wrong
  * */
 
-const api = 'http://localhost:3000/user'
-const apiWrong = 'http://localhost:3200/wrong'
+const api = 'http://localhost:3000/user';
+const apiWrong = 'http://localhost:3200/wrong';
 const correct = {
-  id: 'mr2w3s0m3',
-  name: 'Barney',
-  lastname: 'Stinson',
-}
-
-describe('Test simpleGetRequest from server requests in utils', () => {
-  test('returns correct value from correct api', async () => {
-    const result = await simpleGetRequest(api)
-    expect(result).toStrictEqual(correct)
-  })
-  test('the fetch fails with an error if empty', async () => {
-    const result = await simpleGetRequest(apiWrong)
-    expect(Object.keys(result)).toStrictEqual(['error', 'body'])
-  })
-})
+	id: 'mr2w3s0m3',
+	name: 'Barney',
+	lastname: 'Stinson'
+};
 
 describe('Test serverRequests imports and exports serverRequests utils', () => {
-  test('imports simpleRequestApi', async () => {
-    const result = await serverRequests.simpleGetRequest(api)
-    expect(result).toStrictEqual(correct)
-  })
-})
+	it('should call the api', async () => {
+		fetchMock.get(api, correct);
+
+		const response = await serverRequests.simpleGetRequest(api);
+		const result = await response;
+
+		expect(result).toEqual(correct);
+	});
+});

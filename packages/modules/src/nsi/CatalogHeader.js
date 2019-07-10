@@ -1,59 +1,62 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import { Text, Heading, Box, Flex } from '@ursip/design-system'
-import DropdownMenuButton from '@project/components/common/'
+import React from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {withRouter} from 'react-router-dom';
+import {Text, Heading, Box, Flex} from '@ursip/design-system';
 
-import * as nsiService from '@project//services/nsi/'
-import Modal from '@project/components/common/'
-import CatalogItemForm from './CatalogItemForm'
+import {nsi as nsiService, Modal, DropdownMenuButton} from '../../import';
 
-import * as selectors from './module/selectors'
-import * as actions from './module/actions'
-import { baseRoute } from './module'
+import CatalogItemForm from './CatalogItemForm';
 
-function CatalogHeader({ match, location, history, ...props }) {
-	const dispatch = useDispatch()
-	const catalog = useSelector(selectors.currentCatalog)
-	const attributes = useSelector(selectors.currentCatalogAttributes)
-	const elements = useSelector(selectors.currentCatalogElements)
-	const modalVisible = useSelector(selectors.elementsModalVisible)
-	const currentElement = useSelector(selectors.currentElement)
+import * as selectors from './module/selectors';
+import * as actions from './module/actions';
+import {baseRoute} from './module';
+
+function CatalogHeader({match, location, history, ...props}) {
+	const dispatch = useDispatch();
+	const catalog = useSelector(selectors.currentCatalog);
+	const attributes = useSelector(selectors.currentCatalogAttributes);
+	const elements = useSelector(selectors.currentCatalogElements);
+	const modalVisible = useSelector(selectors.elementsModalVisible);
+	const currentElement = useSelector(selectors.currentElement);
 
 	const dropdownItems = [
 		{
 			name: ' Добавить элемент',
-			onClick: () => dispatch(actions.showElementsForm()),
+			onClick: () => dispatch(actions.showElementsForm())
 		},
 		{
 			name: 'Редактировать',
-			onClick: () => history.push(`${location.pathname}/edit`),
+			onClick: () => history.push(`${location.pathname}/edit`)
 		},
 		{
 			name: 'Удалить справочник',
 			onClick: () => {
-				if (global.confirm('Вы действительно хотите удалить справочник?')) {
+				if (
+					global.confirm(
+						'Вы действительно хотите удалить справочник?'
+					)
+				) {
 					dispatch(
 						nsiService.actions.metaDictSave({
 							...catalog,
 							deleted: true,
-							attributes: Object.values(attributes),
-						}),
+							attributes: Object.values(attributes)
+						})
 					).finally(() => {
-						history.push('/nsi')
-					})
+						history.push('/nsi');
+					});
 				}
-			},
+			}
 		},
 		{
 			name: 'Создать новый справочник',
-			onClick: () => history.push(`${baseRoute}/create`),
+			onClick: () => history.push(`${baseRoute}/create`)
 		},
 		{
 			name: 'Скачать справочник',
-			onClick: () => dispatch(nsiService.actions.makeReport(catalog.nick)),
-		},
-	]
+			onClick: () => dispatch(nsiService.actions.makeReport(catalog.nick))
+		}
+	];
 
 	return (
 		<Box {...props}>
@@ -69,10 +72,15 @@ function CatalogHeader({ match, location, history, ...props }) {
 			</Flex>
 			{catalog.note && <Text color="grey">{catalog.note}</Text>}
 			<Modal visible={modalVisible}>
-				<CatalogItemForm catalog={catalog} elements={elements} attributes={attributes} row={currentElement} />
+				<CatalogItemForm
+					catalog={catalog}
+					elements={elements}
+					attributes={attributes}
+					row={currentElement}
+				/>
 			</Modal>
 		</Box>
-	)
+	);
 }
 
-export default withRouter(CatalogHeader)
+export default withRouter(CatalogHeader);

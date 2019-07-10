@@ -1,5 +1,5 @@
 import React from 'react';
-import materialIcons from 'material-design-icons/iconfont/material-icons.css';
+import {Icon} from '../../import';
 import {Flex, Box, Text} from '@ursip/design-system';
 import styled from 'styled-components';
 
@@ -29,14 +29,16 @@ function AddSection({props}) {
 			justifyContent={'flex-start'}
 			alignItems={'baseline'}
 		>
-			<IconSized color={'primary'}>
-				<i className={'material-icons'}>add_circle_outline</i>
-			</IconSized>
+			<Icon color={'primary'} name={'add_circle_outline'} size={0} />
 			<Labelizer>
 				<Text color={'primary'}>Добавить подраздел</Text>
 			</Labelizer>
 		</Flex>
 	);
 }
+
+AddSection.propTypes = {};
+
+AddSection.defaultProps = {};
 
 export default AddSection;

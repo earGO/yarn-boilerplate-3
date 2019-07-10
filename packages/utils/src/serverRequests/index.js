@@ -1,1 +1,1 @@
-export { default } from './serverRequests'
+export {default} from './serverRequests';
