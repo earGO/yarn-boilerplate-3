@@ -7,7 +7,13 @@ function ProjectsTable({projects, ...props}) {
 	if (projects !== undefined) {
 		return (
 			<TableContentBox>
-				<Table data={projects} height={400}>
+				<Table
+					data={projects}
+					height={216}
+					hover={true}
+					headerHeight={48}
+					disabledScroll={true}
+				>
 					<Table.Column width={160} sort fixed>
 						<Table.HeaderCell style={{paddingLeft: '16px'}}>
 							Тип
@@ -25,7 +31,7 @@ function ProjectsTable({projects, ...props}) {
 						<Table.Cell dataKey="objectName" />
 					</Table.Column>
 					<Table.Column width={192}>
-						<Table.HeaderCell>Сдатия</Table.HeaderCell>
+						<Table.HeaderCell>Стадия</Table.HeaderCell>
 						<Table.Cell dataKey="progress" />
 					</Table.Column>
 
