@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "unit": "jest --watchAll",
-    "version": "lerna version",
+    "version": "lerna version --git-remote boilerplate-3",
     "release": "lerna version --conventional-commits --create-release github --git-remote boilerplate-3",
     "storybook": "cd packages/storybook && start-storybook -p 9009 -s public",
     "build-storybook": "lerna exec --scope library-name -- babel src -d dist --copy-files --ignore \"src/stories/\"",
