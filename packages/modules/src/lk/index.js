@@ -28,13 +28,7 @@ function LK({props}) {
 					flexDirection={'column'}
 					justifyContent={'flex-start'}
 				>
-					<TableContentBox
-						flexDirection={'row'}
-						alignItems={'flex-start'}
-						padding={16}
-					>
-						<ProjectsTable projects={flattenArrayOfProjects} />
-					</TableContentBox>
+					<ProjectsTable projects={flattenArrayOfProjects} />
 				</Flex>
 			)}
 		</DynamicModuleLoader>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Table, Flex, Box, Button} from '@ursip/design-system';
+import {Table, Flex, Box, Button, theme} from '@ursip/design-system';
 import {Icon} from '../../import';
 import {TableContentBox} from '../../import';
 import styled from 'styled-components';
@@ -13,14 +13,31 @@ const ActionButtom = styled(Button)`
 	}
 `;
 
-const CenteredHeadee = ({width, ...props}) => (
-	<Table.HeaderCell>
-		<Flex width={width} justifyContent={'center'}>
-			{props.children}
-		</Flex>
-	</Table.HeaderCell>
-);
+const ProjectButtom = styled(Button)`
+	transition: all 0.25s ease-in-out;
+	&:hover {
+		transform: scale(1.05);
+	}
+`;
 
+/* Since I cann't alter <Icon> color from parent, I've made some wrappers, and hide one while showing another
+that has Icon styled as needed. It's a crutch, but it's working one
+ */
+const UnActionIcon = styled(Box)`
+	display: block;
+	${ActionButtom}:hover & {
+		display: none;
+	}
+`;
+
+const ActionIcon = styled(Box)`
+	display: none;
+	${ActionButtom}:hover & {
+		display: block;
+	}
+`;
+
+/* Here's where I'll render the progress svg based on passed progress data */
 const ProgressCell = ({rowData, dataKey, ...props}) => (
 	<Table.Cell {...props} style={{padding: 0}}>
 		<Flex justifyContent={'center'} width={140}>
@@ -29,37 +46,50 @@ const ProgressCell = ({rowData, dataKey, ...props}) => (
 	</Table.Cell>
 );
 
+/* Here's where action to open project module will be at */
 const ActionCell = ({rowData, dataKey, ...props}) => {
 	function handleAction() {
 		console.log(rowData[dataKey]);
+		console.log(theme.colors.blue);
 	}
 	return (
 		<Table.Cell {...props} style={{padding: 0}}>
 			<Flex justifyContent={'center'} width={96}>
-				<ActionButtom type={`flat`} onClick={handleAction}>
-					<Icon name={'more_horiz'} />
+				<ActionButtom type={`flat`}>
+					<UnActionIcon>
+						<Icon name={'more_horiz'} onClick={handleAction} />
+					</UnActionIcon>
+					<ActionIcon>
+						<Icon
+							name={'more_horiz'}
+							onClick={handleAction}
+							color={'primary'}
+						/>
+					</ActionIcon>
 				</ActionButtom>
 			</Flex>
 		</Table.Cell>
 	);
 };
 
-const handleOnEditClick = rowData => {
-	console.log('click', rowData);
+const ProjectClick = ({rowData, dataKey, ...props}) => {
+	function handleAction() {
+		console.log(rowData[dataKey]);
+	}
+	return (
+		<Table.Cell {...props} style={{padding: 0}}>
+			<ProjectButtom type={'flat'} onClick={handleAction}>
+				{rowData[dataKey]}
+			</ProjectButtom>
+		</Table.Cell>
+	);
 };
 
-class ProjectsTable extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			editRowId: null
-		};
-	}
-
-	render() {
+function ProjectsTable({projects, ...props}) {
+	if (projects) {
 		return (
 			<TableContentBox>
-				<Table disabledScroll data={this.props.projects} height={144}>
+				<Table disabledScroll data={projects} height={144}>
 					<Table.Column width={160}>
 						<Table.HeaderCell style={{paddingLeft: '16px'}}>
 							Тип
@@ -73,7 +103,7 @@ class ProjectsTable extends React.Component {
 
 					<Table.Column width={272}>
 						<Table.HeaderCell>Объект</Table.HeaderCell>
-						<Table.Cell dataKey="objectName" />
+						<ProjectClick dataKey="objectName" />
 					</Table.Column>
 					<Table.Column width={192}>
 						<Table.HeaderCell>Стадии</Table.HeaderCell>
@@ -97,6 +127,8 @@ class ProjectsTable extends React.Component {
 				</Table>
 			</TableContentBox>
 		);
+	} else {
+		return <Box>Loading data...</Box>;
 	}
 }
 
