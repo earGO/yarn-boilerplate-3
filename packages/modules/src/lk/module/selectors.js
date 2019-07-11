@@ -12,8 +12,9 @@ function makeArrayOfProjects(arrayOfStages) {
 	let arrayOfProjects = [];
 	if (arrayOfStages) {
 		arrayOfStages.forEach(stage => {
+			const stageName = stage['stage'];
 			stage['projects'].forEach(project => {
-				arrayOfProjects.push(project);
+				arrayOfProjects.push({...project, stageName});
 			});
 		});
 	}

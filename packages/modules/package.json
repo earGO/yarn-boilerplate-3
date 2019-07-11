@@ -9,6 +9,7 @@
     "@project/components": "^1.0.6-alpha.1",
     "@project/services": "^1.0.3",
     "ramda": "^0.26.1",
+    "styled-components": "^4.3.2",
     "throttle-debounce": "^2.1.0"
   },
   "devDependencies": {
