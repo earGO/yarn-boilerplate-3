@@ -7,6 +7,7 @@ import {DynamicModuleLoader} from 'redux-dynamic-modules';
 import {ContentBox, Loading} from '../../import';
 import ProjectsTable from './ProjectsTable';
 import TableContentBox from '@project/components/src/common/TableContentBox';
+import SearchAndFilter from './SearchAndFilter';
 
 function LK({props}) {
 	const loading = useSelector(selectors.projectsLoading);
@@ -28,6 +29,7 @@ function LK({props}) {
 					flexDirection={'column'}
 					justifyContent={'flex-start'}
 				>
+					<SearchAndFilter something={'something'} />
 					<ProjectsTable projects={flattenArrayOfProjects} />
 				</Flex>
 			)}

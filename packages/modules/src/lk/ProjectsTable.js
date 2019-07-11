@@ -1,10 +1,10 @@
 import React from 'react';
-import {Table, Flex, Box, Button, theme} from '@ursip/design-system';
+import {Table, Flex, Box, Button, theme, Select} from '@ursip/design-system';
 import {Icon} from '../../import';
 import {TableContentBox} from '../../import';
 import styled from 'styled-components';
 
-const ActionButtom = styled(Button)`
+const ActionButton = styled(Button)`
 	position: relative;
 	top: 3px;
 	transition: all 0.15s ease-in-out;
@@ -13,7 +13,7 @@ const ActionButtom = styled(Button)`
 	}
 `;
 
-const ProjectButtom = styled(Button)`
+const ProjectButton = styled(Button)`
 	transition: all 0.25s ease-in-out;
 	&:hover {
 		transform: scale(1.05);
@@ -25,14 +25,14 @@ that has Icon styled as needed. It's a crutch, but it's working one
  */
 const UnActionIcon = styled(Box)`
 	display: block;
-	${ActionButtom}:hover & {
+	${ActionButton}:hover & {
 		display: none;
 	}
 `;
 
 const ActionIcon = styled(Box)`
 	display: none;
-	${ActionButtom}:hover & {
+	${ActionButton}:hover & {
 		display: block;
 	}
 `;
@@ -55,7 +55,7 @@ const ActionCell = ({rowData, dataKey, ...props}) => {
 	return (
 		<Table.Cell {...props} style={{padding: 0}}>
 			<Flex justifyContent={'center'} width={96}>
-				<ActionButtom type={`flat`}>
+				<ActionButton type={`flat`}>
 					<UnActionIcon>
 						<Icon name={'more_horiz'} onClick={handleAction} />
 					</UnActionIcon>
@@ -66,7 +66,7 @@ const ActionCell = ({rowData, dataKey, ...props}) => {
 							color={'primary'}
 						/>
 					</ActionIcon>
-				</ActionButtom>
+				</ActionButton>
 			</Flex>
 		</Table.Cell>
 	);
@@ -78,9 +78,9 @@ const ProjectClick = ({rowData, dataKey, ...props}) => {
 	}
 	return (
 		<Table.Cell {...props} style={{padding: 0}}>
-			<ProjectButtom type={'flat'} onClick={handleAction}>
+			<ProjectButton type={'flat'} onClick={handleAction}>
 				{rowData[dataKey]}
-			</ProjectButtom>
+			</ProjectButton>
 		</Table.Cell>
 	);
 };
@@ -89,9 +89,11 @@ function ProjectsTable({projects, ...props}) {
 	if (projects) {
 		return (
 			<TableContentBox>
-				<Table disabledScroll data={projects} height={144}>
+				<Table disabledScroll data={projects} height={144} virtualized>
 					<Table.Column width={160}>
-						<Table.HeaderCell style={{paddingLeft: '16px'}}>
+						<Table.HeaderCell
+							style={{paddingLeft: '16px', zIndex: 1}}
+						>
 							Тип
 						</Table.HeaderCell>
 						<Table.Cell dataKey="type" />

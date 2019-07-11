@@ -21,7 +21,7 @@ function makeArrayOfProjects(arrayOfStages) {
 	return arrayOfProjects;
 }
 
-function makearrayFlat(arrayOfProjects) {
+function makeArrayFlat(arrayOfProjects) {
 	let flatArrayOfProjects = [];
 	if (arrayOfProjects) {
 		arrayOfProjects.forEach(project => {
@@ -56,5 +56,5 @@ export const projectsArraySelector = createSelector(
 
 export const projectsFlattenArraySelector = createSelector(
 	projectsArraySelector,
-	state => makearrayFlat(state)
+	state => makeArrayFlat(state)
 );
