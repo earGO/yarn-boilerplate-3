@@ -9,6 +9,7 @@ import {
 	Button,
 	Text
 } from '@ursip/design-system';
+import DatePicker from './DatePickerRange';
 
 import styled from 'styled-components';
 
@@ -54,28 +55,22 @@ function SearchAndFilterForm(props) {
 	if (props !== undefined) {
 		return (
 			<Corrector>
-				<Form>
+				<Box>
 					<Heading>Проекты</Heading>
-					<FormItem inline label="Name">
-						<Box width={160}>
-							<Select
-								styles={{
-									menuPortal: base => ({
-										...base,
-										zIndex: 9999
-									})
-								}}
-								value={value}
-								onChange={onChange}
-								options={options}
-								size="small"
-							/>
-						</Box>
-					</FormItem>
-
-					<Button onClick={handleSubmit}>Submit</Button>
-				</Form>
-				{data && <Text>Данные из сабмита: {data}</Text>}
+				</Box>
+				<Box>
+					<Box width={160}>
+						<Select
+							value={value}
+							onChange={onChange}
+							options={options}
+							size="small"
+						/>
+					</Box>
+				</Box>
+				<Box width={292}>
+					<DatePicker id="hello" placeholder="Выберите дату" />
+				</Box>
 			</Corrector>
 		);
 	} else {

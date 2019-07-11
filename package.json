@@ -50,6 +50,7 @@
     "prettier": "^1.16.1"
   },
   "dependencies": {
+    "aphrodite": "^2.3.1",
     "babel-eslint": "10.0.1",
     "eslint": "5.16.0",
     "eslint-config-prettier": "^4.2.0",
