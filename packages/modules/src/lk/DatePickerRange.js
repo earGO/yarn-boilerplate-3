@@ -8,16 +8,17 @@ import DefaultTheme from 'react-dates/lib/theme/DefaultTheme';
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import {DateRangePicker} from 'react-dates';
-import {Box} from '@ursip/design-system';
+import {Box, Flex, Text} from '@ursip/design-system';
 import 'moment/locale/ru';
 import TestCustomArrowIcon from './TestCustomArrowIcon';
 import Icon from '@project/components/src/Icon/Icon';
 // https://github.com/airbnb/react-dates/blob/master/src/theme/DefaultTheme.js
 
-// Хз как сюда динамически запихнуть переменные из темы.
-// Наверное, стоит убрать этот react-with-styles и старым добрым оверрайдом ксс застайлить.
-// Допустим, добавить размер large - без цирковых представлений не обойдется.
-// #TODO.
+/* Since air-bnb datepicker is awesome as hell, but won't give you much control
+ * on it's styles on a dates widget itself, I'll use overlaying component
+ * to hide original styles and to have full control over a widget display
+ * in user interface */
+
 ThemedStyleSheet.registerInterface(aphroditeInterface);
 const DesignSystemTheme = produce(DefaultTheme, draft => {
 	const {input, pickerInput} = draft.reactDates.border;
@@ -52,15 +53,13 @@ const DesignSystemTheme = produce(DefaultTheme, draft => {
 });
 ThemedStyleSheet.registerTheme(DesignSystemTheme);
 
-// Проставим локаль.
+// Проставим локаль чтобы календарь был на руском.
 
 moment.locale('ru');
-// Ta-da!
 
-// Теперь у нас отст<s>тойный</s>айленный датапикер.
-
-// TBD - подумать.
+// Here's a wrapper to control styles of a widget
 const Wrapper = styled(Box)`
+	margin: 15px;
 	input:hover:not(:focus) {
 		border: 1px solid #3a3a3a !important;
 		background: #ffffff !important;
@@ -68,35 +67,90 @@ const Wrapper = styled(Box)`
 	input:not(:focus) {
 		background: #f5f5f5 !important;
 	}
-	& > .[class*='_arrow'] {
-		display: none;!important;
-	}
 `;
+
+// And here-s the overlaying component styles
+const Overlay = styled(Flex)`
+	width: 200px;
+	height: 40px;
+	border-radius: 4px;
+	background-color: #f5f5f5;
+	z-index: 2;
+	position: absolute;
+	top: -1px;
+`;
+
+/* The Icon component imported with some STRANGE bounding box
+ * And it was unchangeable (this doesn't happens
+ * in DesighSystem docs and in storybook btw - so here goes positioner box */
+const OverlayIconBox = styled(Flex)`
+	width: 28px;
+	position: absolute;
+	left: -52px;
+	top: 7px;
+`;
+const OverlayMeasure = styled(Box)`
+	border: 1px solid green;
+	width: 14px;
+	height: 12px;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+`;
+/* A wrapper for presise date message positioning */
+const OverlayDates = styled(Box)`
+	position: absolute;
+	top: 12px;
+	left: 16px;
+`;
+
+/* A function to format moment() object to needed string format */
+const formatDate = momentDate => {
+	let d = momentDate.toDate();
+	return [d.getDate(), d.getMonth() + 1, d.getFullYear()]
+		.map(n => (n < 10 ? `0${n}` : `${n}`))
+		.join('/');
+};
 
 /** Используется для получение данных типа "Дата" от пользователя.*/
 
 function Datepicker(props) {
-	const [startDate, setStartDate] = useState(null);
-	const [endDate, setEndDate] = useState(null);
-	const [focusedInput, setFocusedInput] = useState(false);
+	/* Three variables to get data from calendar and to capture click/focus events on
+	 * overlaying compinent and send them to datePicker component. */
+	const [stateStartDate, setStartDate] = useState(null);
+	const [stateEndDate, setEndDate] = useState(null);
+	const [focusedInput, setFocusedInput] = useState(null);
 	const {value, onChange, ...rest} = props;
 	return (
-		<Wrapper id={'daypickerWrapper'}>
-			<div onClick={() => setFocusedInput('startDate')}>PropClicker</div>
-
+		<Wrapper>
+			<Overlay onClick={() => setFocusedInput('startDate')}>
+				<OverlayDates>
+					{stateStartDate && stateEndDate ? (
+						<Text fontSize={'12px'}>
+							{formatDate(stateStartDate)} -{' '}
+							{formatDate(stateEndDate)}
+						</Text>
+					) : (
+						<Text fontSize={`12px`}>дд/мм/гггг</Text>
+					)}
+				</OverlayDates>
+				<OverlayIconBox>
+					<Icon name={'calendar_today'} />
+				</OverlayIconBox>
+			</Overlay>
 			<DateRangePicker
 				block // 100% ширины
 				{...rest}
 				// Required props
 				startDateId="startDate"
 				endDateId="endDate"
-				startDate={startDate}
-				endDate={endDate}
+				startDate={stateStartDate}
+				endDate={stateEndDate}
 				onDatesChange={({startDate, endDate}) => {
 					setStartDate(startDate);
 					setEndDate(endDate);
-					if (startDate && endDate) {
-						console.log(startDate._d, endDate._d);
+					if (stateStartDate && stateEndDate) {
+						console.log(stateStartDate, typeof stateEndDate);
 					}
 				}}
 				focusedInput={focusedInput}
@@ -107,8 +161,6 @@ function Datepicker(props) {
 				hideKeyboardShortcutsPanel
 				small
 				customArrowIcon={<TestCustomArrowIcon />}
-				customInputIcon={<Icon name={'calendar_today'} />}
-				inputIconPosition="after"
 			/>
 		</Wrapper>
 	);

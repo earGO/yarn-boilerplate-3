@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {TableContentBox} from '../../import';
+import {TableContentBox, SearchInput, AnimatedSearchInput} from '../../import';
 import {
 	Box,
 	Select,
@@ -12,15 +12,19 @@ import {
 import DatePicker from './DatePickerRange';
 
 import styled from 'styled-components';
+import {debounce} from 'throttle-debounce';
+import * as actions from '../nsi/module/actions';
+import {useDispatch} from 'react-redux';
 
 const Corrector = styled(TableContentBox)`
-	z-index: 3;
+	z-index: 12;
 `;
 
 const createForm = Form.create;
 const FormItem = Form.Item;
 
 function SearchAndFilterForm(props) {
+	const dispatch = useDispatch();
 	/* A group of variables for the filtering input */
 	const options = [
 		{value: 'type', label: `По типу`},
@@ -29,10 +33,11 @@ function SearchAndFilterForm(props) {
 		{value: 'stageName', label: `По стадии`},
 		{value: 'dateChange', label: `По дате изменения`}
 	];
-	const initialState = options[4];
 
-	const [value, setOption] = useState(initialState);
-	const [data, setData] = useState('');
+	/*  */
+	const [value, setOption] = useState(options[4]);
+
+	const searchQuery = '';
 
 	const onChange = newOption => {
 		setOption(newOption);
@@ -40,22 +45,21 @@ function SearchAndFilterForm(props) {
 
 	const {getFieldDecorator, getFieldValue} = props.form;
 
-	const handleSubmit = event => {
-		event.preventDefault();
-		const {validateFields} = props.form;
-		validateFields((err, values) => {
-			if (!err) {
-				setData(JSON.stringify(values));
-			} else {
-				setData(JSON.stringify(err));
-			}
-		});
-	};
+	const handleSearch = debounce(200, query =>
+		dispatch(actions.searchCatalogs(query))
+	);
 
 	if (props !== undefined) {
 		return (
 			<Corrector>
 				<Box>
+					<AnimatedSearchInput
+						value={searchQuery}
+						onSearch={handleSearch}
+						placeholder="Поиск"
+						shrinkWidth={80}
+						growWidth={160}
+					/>
 					<Heading>Проекты</Heading>
 				</Box>
 				<Box>
@@ -69,7 +73,7 @@ function SearchAndFilterForm(props) {
 					</Box>
 				</Box>
 				<Box width={292}>
-					<DatePicker id="hello" placeholder="Выберите дату" />
+					<DatePicker />
 				</Box>
 			</Corrector>
 		);

@@ -4,7 +4,7 @@ import * as module from './module';
 import {Flex, Table, Box} from '@ursip/design-system';
 import * as selectors from './module/selectors';
 import {DynamicModuleLoader} from 'redux-dynamic-modules';
-import {ContentBox, Loading} from '../../import';
+import {ContentBox, Loading, SearchInput} from '../../import';
 import ProjectsTable from './ProjectsTable';
 import TableContentBox from '@project/components/src/common/TableContentBox';
 import SearchAndFilter from './SearchAndFilter';
@@ -18,7 +18,6 @@ function LK({props}) {
 	);
 
 	const notReady = loading && !data;
-	data ? console.log(flattenArrayOfProjects) : console.log('nope');
 	return (
 		<DynamicModuleLoader modules={[module.default]}>
 			{notReady ? (

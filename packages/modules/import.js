@@ -12,7 +12,8 @@ export {
 	Modal,
 	SearchInput,
 	DropdownMenuButton,
-	TableContentBox
+	TableContentBox,
+	AnimatedSearchInput
 } from '@project/components';
 
 export {projectCardService, nsi, lk} from '@project/services';

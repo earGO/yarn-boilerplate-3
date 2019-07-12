@@ -28,5 +28,11 @@
     "redux-saga-requests": "0.25.0",
     "redux-thunk": "2.3.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@styled-system/theme-get": "^5.0.12",
+    "lodash": "^4.17.14",
+    "react": "^16.8.6",
+    "styled-system": "^5.0.12"
+  }
 }
