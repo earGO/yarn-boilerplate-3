@@ -1,13 +1,21 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
 import * as module from './module';
-import {Flex, Table, Box} from '@ursip/design-system';
+import {Flex, Box} from '@ursip/design-system';
 import * as selectors from './module/selectors';
 import {DynamicModuleLoader} from 'redux-dynamic-modules';
-import {ContentBox, Loading, SearchInput} from '../../import';
+import {Loading} from '../../import';
 import ProjectsTable from './ProjectsTable';
-import TableContentBox from '@project/components/src/common/TableContentBox';
 import SearchAndFilter from './SearchAndFilter';
+import styled from 'styled-components';
+
+const BottomPart = styled(Box)`
+	border-width: 1px;
+	border-style: solid;
+	border-color: ${props => props.theme.colors.semiLightGrey};
+	margin: 0 auto;
+	width: 1120px;
+`;
 
 function LK({props}) {
 	const loading = useSelector(selectors.projectsLoading);
@@ -21,15 +29,20 @@ function LK({props}) {
 	return (
 		<DynamicModuleLoader modules={[module.default]}>
 			{notReady ? (
-				<Loading overlay>Загрузка карточки проекта</Loading>
+				<Loading overlay>Загрузка личного кабинета</Loading>
 			) : (
 				<Flex
 					style={{height: '100%'}}
 					flexDirection={'column'}
 					justifyContent={'flex-start'}
 				>
-					<SearchAndFilter something={'something'} />
-					<ProjectsTable projects={flattenArrayOfProjects} />
+					<BottomPart>
+						<SearchAndFilter
+							something={'something'}
+							amnt={flattenArrayOfProjects.length}
+						/>
+						<ProjectsTable projects={flattenArrayOfProjects} />
+					</BottomPart>
 				</Flex>
 			)}
 		</DynamicModuleLoader>

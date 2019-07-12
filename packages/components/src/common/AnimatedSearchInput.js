@@ -53,7 +53,6 @@ function AnimatedSearchInput({
 				shrinkWidth={shrinkWidth}
 				growWidth={growWidth}
 			/>
-			/>
 		</Box>
 	);
 }

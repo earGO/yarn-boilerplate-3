@@ -12,10 +12,7 @@ const FlexContainer = styled(Flex)`
 	border-color: ${props => props.theme.colors[props.dividercolor]};
 `;
 
-/*other import goes here*/
-
 function FlexContainerBottomDivider({children, dividercolor, ...props}) {
-	/*some private methods*/
 	return (
 		<FlexContainer dividercolor={dividercolor}>{children}</FlexContainer>
 	);

@@ -59,7 +59,6 @@ moment.locale('ru');
 
 // Here's a wrapper to control styles of a widget
 const Wrapper = styled(Box)`
-	margin: 15px;
 	input:hover:not(:focus) {
 		border: 1px solid #3a3a3a !important;
 		background: #ffffff !important;
@@ -71,13 +70,20 @@ const Wrapper = styled(Box)`
 
 // And here-s the overlaying component styles
 const Overlay = styled(Flex)`
+	cursor: pointer;
 	width: 200px;
-	height: 40px;
+	height: 42px;
 	border-radius: 4px;
 	background-color: #f5f5f5;
 	z-index: 2;
 	position: absolute;
 	top: -1px;
+	&:hover:not(:focus) {
+		border: 1px solid #3a3a3a !important;
+	}
+	&:not(:focus) {
+		background: #f5f5f5 !important;
+	}
 `;
 
 /* The Icon component imported with some STRANGE bounding box

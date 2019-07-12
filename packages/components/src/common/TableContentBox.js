@@ -6,6 +6,7 @@ import styled from 'styled-components';
 const ContentBoxStyle = styled(Box)`
 	margin: 0 auto;
 	width: ${props => props.contentwidth + 'px'};
+	z-index: -1;
 `;
 
 function TableContentBox({
