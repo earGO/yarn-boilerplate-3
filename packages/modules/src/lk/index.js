@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
 import * as module from './module';
-import {Flex, Box} from '@ursip/design-system';
+import {Flex, Box, Button, Text} from '@ursip/design-system';
 import * as selectors from './module/selectors';
 import {DynamicModuleLoader} from 'redux-dynamic-modules';
-import {Loading} from '../../import';
+import {Loading, ContentBox} from '../../import';
 import ProjectsTable from './ProjectsTable';
 import SearchAndFilter from './SearchAndFilter';
 import styled from 'styled-components';
@@ -14,7 +14,7 @@ const BottomPart = styled(Box)`
 	border-style: solid;
 	border-color: ${props => props.theme.colors.semiLightGrey};
 	margin: 0 auto;
-	width: 1120px;
+	width: 1121px;
 `;
 
 function LK({props}) {
@@ -24,6 +24,8 @@ function LK({props}) {
 	const flattenArrayOfProjects = useSelector(
 		selectors.projectsFlattenArraySelector
 	);
+
+	const [openTable, setTableOpen] = useState(false);
 
 	const notReady = loading && !data;
 	return (
@@ -41,7 +43,26 @@ function LK({props}) {
 							something={'something'}
 							amnt={flattenArrayOfProjects.length}
 						/>
-						<ProjectsTable projects={flattenArrayOfProjects} />
+						<ProjectsTable
+							projects={flattenArrayOfProjects}
+							openTable={openTable}
+						/>
+						<ContentBox justifyContent={'flex-end'}>
+							<Button
+								m={3}
+								onClick={() => {
+									setTableOpen(!openTable);
+									console.log(openTable);
+								}}
+								type="primary"
+							>
+								{openTable ? (
+									<Text color={'white'}>Показать меньше</Text>
+								) : (
+									<Text color={'white'}>Показать ещё</Text>
+								)}
+							</Button>
+						</ContentBox>
 					</BottomPart>
 				</Flex>
 			)}

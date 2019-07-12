@@ -1,5 +1,5 @@
 import React from 'react';
-import {Table, Flex, Box, Button, theme, Select} from '@ursip/design-system';
+import {Table, Flex, Box, Button, theme} from '@ursip/design-system';
 import {Icon} from '../../import';
 import {TableContentBox} from '../../import';
 import styled from 'styled-components';
@@ -85,11 +85,21 @@ const ProjectClick = ({rowData, dataKey, ...props}) => {
 	);
 };
 
-function ProjectsTable({projects, ...props}) {
+function ProjectsTable({projects, openTable, ...props}) {
+	let tableHeight = 144;
+	{
+		openTable ? (tableHeight = 288) : (tableHeight = 144);
+	}
 	if (projects) {
 		return (
 			<TableContentBox>
-				<Table disabledScroll data={projects} height={144} virtualized>
+				<Table
+					disabledScroll
+					data={projects}
+					height={tableHeight}
+					virtualized
+					bordered
+				>
 					<Table.Column width={160}>
 						<Table.HeaderCell
 							style={{paddingLeft: '16px', zIndex: 1}}
