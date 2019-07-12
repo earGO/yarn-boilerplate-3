@@ -11,7 +11,7 @@ const theme = create({
 });
 addParameters({options: {theme}});
 
-const comps = require.context('@project/components/src', true, /.stories.js$/);
+const comps = require.context('../..', true, /.stories.js$/);
 
 configure(() => {
 	comps.keys().forEach(filename => comps(filename));

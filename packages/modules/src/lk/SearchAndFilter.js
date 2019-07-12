@@ -117,7 +117,7 @@ function SearchAndFilter({amnt, ...props}) {
 						</Relative>
 					</Flex>
 					<ContentBox
-						flexDirection={'r0w'}
+						flexDirection={'row'}
 						justifyContent={'flex-end'}
 						alignItems={'flex-end'}
 						flexWrap={'nowrap'}
