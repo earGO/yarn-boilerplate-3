@@ -71,7 +71,7 @@ const Wrapper = styled(Box)`
 // And here-s the overlaying component styles
 const Overlay = styled(Flex)`
 	cursor: pointer;
-	width: 200px;
+	width: 216px;
 	height: 42px;
 	border-radius: 4px;
 	background-color: #f5f5f5;
@@ -92,8 +92,8 @@ const Overlay = styled(Flex)`
 const OverlayIconBox = styled(Flex)`
 	width: 28px;
 	position: absolute;
-	left: -52px;
-	top: 7px;
+	left: -36px;
+	top: 8px;
 `;
 const OverlayMeasure = styled(Box)`
 	border: 1px solid green;

@@ -99,7 +99,7 @@ function SearchAndFilter({amnt, ...props}) {
 							p={2}
 							pl={0}
 							id={'functionPickerGroup'}
-							left={-80}
+							left={-70}
 						>
 							<Box pl={1}>
 								<Text fontSize={'12px'} color="grey">

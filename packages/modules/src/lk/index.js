@@ -25,6 +25,7 @@ const InfoGraphics = styled(Relative)`
 	border-color: ${props => props.theme.colors.semiLightGrey};
 	margin: 32px auto;
 	width: 1120px;
+	height:256px;!important;
 `;
 
 const Scaler = styled(Relative)`
@@ -45,7 +46,6 @@ const IconPosition = styled(Flex)`
 function LK({props}) {
 	const loading = useSelector(selectors.projectsLoading);
 	const data = useSelector(selectors.projectsDataSelector);
-	const arrayOfProjects = useSelector(selectors.projectsArraySelector);
 	const flattenArrayOfProjects = useSelector(
 		selectors.projectsFlattenArraySelector
 	);
@@ -63,7 +63,7 @@ function LK({props}) {
 					flexDirection={'column'}
 					justifyContent={'flex-start'}
 				>
-					<InfoGraphics height={256} mt={4}>
+					<InfoGraphics mt={4}>
 						<Flex
 							flexFlow={'row nowrap'}
 							justifyContent={'center'}
@@ -91,10 +91,7 @@ function LK({props}) {
 						</Flex>
 					</InfoGraphics>
 					<BottomPart mb={4}>
-						<SearchAndFilter
-							something={'something'}
-							amnt={flattenArrayOfProjects.length}
-						/>
+						<SearchAndFilter amnt={flattenArrayOfProjects.length} />
 						<ProjectsTable
 							projects={flattenArrayOfProjects}
 							openTable={openTable}
