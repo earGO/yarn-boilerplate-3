@@ -4,7 +4,7 @@ import * as module from './module'
 import {Flex, Box, Button, Text, Relative} from '../../import'
 import * as selectors from './module/selectors'
 import {DynamicModuleLoader} from 'redux-dynamic-modules'
-import {Loading, ContentBox, Icon} from '../../import'
+import {Loading, ContentBox, Icon, formatDate} from '../../import'
 import ProjectsTable from './ProjectsTable'
 import SearchAndFilter from './SearchAndFilter'
 import styled from 'styled-components'
@@ -46,6 +46,8 @@ const IconPosition = styled(Flex)`
 function LK(props) {
 	/* State variables */
 	const [openTable, setTableOpen] = useState(false)
+	const [filterStartDate, setFilterStartDate] = useState(null)
+	const [filterEndDate, setFilterEndDate] = useState(null)
 	const [projectsSortCriteria, setProjectsSort] = useState('dateChange')
 
 	/* Use selector variables */
@@ -59,6 +61,10 @@ function LK(props) {
 		selectors.sortedOnCriteria(projectsSortCriteria)
 	)
 
+	const filteredOnDates = useSelector(
+		selectors.filteredOnDates(filterStartDate, filterEndDate, 'dateCreated')
+	)
+
 	const notReady = loading && !data && !sortedOnCriteria
 
 	/* Function is passed to SearchAndFilter component, where it's criteria is changed with dropdown */
@@ -66,6 +72,16 @@ function LK(props) {
 		setProjectsSort(criteria)
 		console.log(criteria)
 	}
+
+	const handleDateFilterChange = (startDate, endDate) => {
+		if (startDate && endDate) {
+			console.log(startDate.toDate(), endDate.toDate().getTime())
+
+			setFilterStartDate(startDate.toDate().getTime())
+			setFilterEndDate(endDate.toDate().getTime())
+		}
+	}
+	notReady ? console.log('not ready') : console.log(filteredOnDates)
 	return (
 		<DynamicModuleLoader modules={[module.default]}>
 			{notReady ? (
@@ -105,11 +121,12 @@ function LK(props) {
 					</InfoGraphics>
 					<BottomPart mb={4}>
 						<SearchAndFilter
-							amnt={sortedOnCriteria.length}
+							amnt={filteredOnDates.length}
 							handleProjectsSort={handleProjectsSort}
+							handleDateFilterChange={handleDateFilterChange}
 						/>
 						<ProjectsTable
-							projects={sortedOnCriteria}
+							projects={filteredOnDates}
 							openTable={openTable}
 						/>
 						<ContentBox justifyContent={'flex-end'}>

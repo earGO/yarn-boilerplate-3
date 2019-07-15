@@ -17,7 +17,12 @@ const Corrector = styled(TableContentBox)`
 	z-index: 12;
 `
 
-function SearchAndFilter({amnt, handleProjectsSort, ...props}) {
+function SearchAndFilter({
+	amnt,
+	handleProjectsSort,
+	handleDateFilterChange,
+	...props
+}) {
 	const dispatch = useDispatch()
 	/* A group of variables for the filtering input */
 	const options = [
@@ -93,7 +98,11 @@ function SearchAndFilter({amnt, handleProjectsSort, ...props}) {
 								</Text>
 							</Box>
 							<Box width={292} p={1}>
-								<DatePicker />
+								<DatePicker
+									handleDateFilterChange={
+										handleDateFilterChange
+									}
+								/>
 							</Box>
 						</Box>
 						<Relative

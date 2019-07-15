@@ -1,9 +1,10 @@
 import {createSelector} from 'reselect'
+import moment from 'moment'
 
 import {namespace} from './types'
 import {initialState} from './reducers'
 
-import {lk as service} from '../../../import'
+import {lk as service, formatDate} from '../../../import'
 
 const namespaceStateSelector = state => state[namespace] || initialState
 const serviceStateSelector = state => state[service.name] || initialState
@@ -53,6 +54,29 @@ function sortArrayOnDate(flatArrayOfProjects, criteria) {
 	})
 }
 
+function filterOnChangeDates(
+	flatArrayOfProjects,
+	startDate,
+	endDate,
+	criteria
+) {
+	//dateCreated format "2012-03-15"
+	if (startDate !== null && endDate !== null) {
+		let result = []
+		result = flatArrayOfProjects.filter(item => {
+			const itemDate = new Date(item[criteria]).getTime()
+			if (itemDate >= startDate && itemDate <= endDate) {
+				return 1
+			} else {
+				return 0
+			}
+		})
+		return result
+	} else {
+		return flatArrayOfProjects
+	}
+}
+
 export const projectsLoading = createSelector(
 	namespaceStateSelector,
 	state => state.projectsLoading
@@ -77,4 +101,10 @@ export const sortedOnCriteria = criteria =>
 	createSelector(
 		projectsFlattenArraySelector,
 		state => sortArrayOnDate(state, criteria)
+	)
+
+export const filteredOnDates = (startDate, endDate, criteria) =>
+	createSelector(
+		projectsFlattenArraySelector,
+		state => filterOnChangeDates(state, startDate, endDate, criteria)
 	)

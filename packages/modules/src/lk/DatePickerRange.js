@@ -7,7 +7,7 @@ import aphroditeInterface from 'react-with-styles-interface-aphrodite'
 import DefaultTheme from 'react-dates/lib/theme/DefaultTheme'
 import React, {useState} from 'react'
 import styled from 'styled-components'
-import {DateRangePicker} from 'react-dates'
+import {DateRangePicker, DateRangePickerInputController} from 'react-dates'
 import {Box, Flex, Text} from '../../import'
 import 'moment/locale/ru'
 import TestCustomArrowIcon from './TestCustomArrowIcon'
@@ -120,13 +120,19 @@ const formatDate = momentDate => {
 
 /** Используется для получение данных типа "Дата" от пользователя.*/
 
-function Datepicker(props) {
+function Datepicker({handleDateFilterChange, ...props}) {
 	/* Three variables to get data from calendar and to capture click/focus events on
 	 * overlaying compinent and send them to datePicker component. */
 	const [stateStartDate, setStartDate] = useState(null)
 	const [stateEndDate, setEndDate] = useState(null)
 	const [focusedInput, setFocusedInput] = useState(null)
 	const {value, onChange, ...rest} = props
+
+	const handleLocalDateChange = (startDate, endDate) => {
+		setStartDate(startDate)
+		setEndDate(endDate)
+		handleDateFilterChange(startDate, endDate)
+	}
 	return (
 		<Wrapper>
 			<Overlay
@@ -150,8 +156,7 @@ function Datepicker(props) {
 					) : (
 						<OverlayIconCloseBox
 							onClick={() => {
-								setStartDate(null)
-								setEndDate(null)
+								handleLocalDateChange(null, null)
 							}}
 						>
 							<Icon name={'close'} />
@@ -168,11 +173,7 @@ function Datepicker(props) {
 				startDate={stateStartDate}
 				endDate={stateEndDate}
 				onDatesChange={({startDate, endDate}) => {
-					setStartDate(startDate)
-					setEndDate(endDate)
-					if (stateStartDate && stateEndDate) {
-						console.log(stateStartDate, typeof stateEndDate)
-					}
+					handleLocalDateChange(startDate, endDate)
 				}}
 				focusedInput={focusedInput}
 				onFocusChange={focusedInput => {
@@ -181,6 +182,7 @@ function Datepicker(props) {
 				// Other props
 				hideKeyboardShortcutsPanel
 				small
+				enableOutsideDays
 				customArrowIcon={<TestCustomArrowIcon />}
 			/>
 		</Wrapper>

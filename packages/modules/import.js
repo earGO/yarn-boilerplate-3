@@ -34,4 +34,4 @@ export {
 } from '@project/design-system-local'
 
 export {projectCardService, nsi, lk} from '@project/services'
-export {arrayToTree} from '@project/utils'
+export {arrayToTree, formatDate} from '@project/utils'
