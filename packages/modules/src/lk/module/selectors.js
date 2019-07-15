@@ -39,6 +39,20 @@ function makeArrayFlat(arrayOfProjects) {
 	return flatArrayOfProjects
 }
 
+function sortArrayOnDate(flatArrayOfProjects, criteria) {
+	return flatArrayOfProjects.sort(function(a, b) {
+		let x = a[criteria]
+		let y = b[criteria]
+		if (x > y) {
+			return -1
+		}
+		if (x < y) {
+			return 1
+		}
+		return 0
+	})
+}
+
 export const projectsLoading = createSelector(
 	namespaceStateSelector,
 	state => state.projectsLoading
@@ -58,3 +72,9 @@ export const projectsFlattenArraySelector = createSelector(
 	projectsArraySelector,
 	state => makeArrayFlat(state)
 )
+
+export const sortedOnCriteria = criteria =>
+	createSelector(
+		projectsFlattenArraySelector,
+		state => sortArrayOnDate(state, criteria)
+	)

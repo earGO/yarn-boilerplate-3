@@ -95,14 +95,14 @@ const OverlayIconBox = styled(Flex)`
 	left: -36px;
 	top: 8px;
 `
-const OverlayMeasure = styled(Box)`
-	border: 1px solid green;
-	width: 14px;
-	height: 12px;
+
+const OverlayIconCloseBox = styled(Flex)`
+	width: 28px;
 	position: absolute;
-	bottom: 0;
-	right: 0;
+	right: -218px;
+	top: 0px;
 `
+
 /* A wrapper for presise date message positioning */
 const OverlayDates = styled(Box)`
 	position: absolute;
@@ -129,7 +129,10 @@ function Datepicker(props) {
 	const {value, onChange, ...rest} = props
 	return (
 		<Wrapper>
-			<Overlay onClick={() => setFocusedInput('startDate')}>
+			<Overlay
+				onClick={() => setFocusedInput('startDate')}
+				justifyContent={'flex-end'}
+			>
 				<OverlayDates>
 					{stateStartDate && stateEndDate ? (
 						<Text fontSize={'12px'}>
@@ -140,8 +143,20 @@ function Datepicker(props) {
 						<Text fontSize={`12px`}>дд/мм/гггг</Text>
 					)}
 				</OverlayDates>
+
 				<OverlayIconBox>
-					<Icon name={'calendar_today'} />
+					{stateStartDate == null || stateEndDate == null ? (
+						<Icon name={'calendar_today'} />
+					) : (
+						<OverlayIconCloseBox
+							onClick={() => {
+								setStartDate(null)
+								setEndDate(null)
+							}}
+						>
+							<Icon name={'close'} />
+						</OverlayIconCloseBox>
+					)}
 				</OverlayIconBox>
 			</Overlay>
 			<DateRangePicker

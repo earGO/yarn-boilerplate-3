@@ -43,16 +43,29 @@ const IconPosition = styled(Flex)`
 	right: 6px;
 `
 
-function LK({props}) {
-	const loading = useSelector(selectors.projectsLoading)
-	const data = useSelector(selectors.projectsDataSelector)
-	const flattenArrayOfProjects = useSelector(
-		selectors.projectsFlattenArraySelector
+function LK(props) {
+	/* State variables */
+	const [openTable, setTableOpen] = useState(false)
+	const [projectsSortCriteria, setProjectsSort] = useState('dateChange')
+
+	/* Use selector variables */
+	const loading = useSelector(selectors.projectsLoading) // Selector for projects-loading-status
+	const data = useSelector(selectors.projectsDataSelector) // Selector for bulk unmodified data
+
+	/* Sorted flatten array of projects - since we have default sort value
+	 * when page loads - we always will recieve some criteria
+	 * for filtering incoming projects */
+	const sortedOnCriteria = useSelector(
+		selectors.sortedOnCriteria(projectsSortCriteria)
 	)
 
-	const [openTable, setTableOpen] = useState(false)
+	const notReady = loading && !data && !sortedOnCriteria
 
-	const notReady = loading && !data
+	/* Function is passed to SearchAndFilter component, where it's criteria is changed with dropdown */
+	const handleProjectsSort = criteria => {
+		setProjectsSort(criteria)
+		console.log(criteria)
+	}
 	return (
 		<DynamicModuleLoader modules={[module.default]}>
 			{notReady ? (
@@ -91,9 +104,12 @@ function LK({props}) {
 						</Flex>
 					</InfoGraphics>
 					<BottomPart mb={4}>
-						<SearchAndFilter amnt={flattenArrayOfProjects.length} />
+						<SearchAndFilter
+							amnt={sortedOnCriteria.length}
+							handleProjectsSort={handleProjectsSort}
+						/>
 						<ProjectsTable
-							projects={flattenArrayOfProjects}
+							projects={sortedOnCriteria}
 							openTable={openTable}
 						/>
 						<ContentBox justifyContent={'flex-end'}>

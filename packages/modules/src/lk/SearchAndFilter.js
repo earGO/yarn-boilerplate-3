@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {
 	TableContentBox,
 	ContentBox,
@@ -17,7 +17,7 @@ const Corrector = styled(TableContentBox)`
 	z-index: 12;
 `
 
-function SearchAndFilter({amnt, ...props}) {
+function SearchAndFilter({amnt, handleProjectsSort, ...props}) {
 	const dispatch = useDispatch()
 	/* A group of variables for the filtering input */
 	const options = [
@@ -34,7 +34,7 @@ function SearchAndFilter({amnt, ...props}) {
 		{value: 'stageName', label: `Нашим мудрецам`}
 	]
 
-	/*  */
+	/* A atate to handle filter selector */
 	const [value, setOption] = useState(options[4])
 	const [functionValue, setFunctionOption] = useState({})
 
@@ -42,6 +42,7 @@ function SearchAndFilter({amnt, ...props}) {
 
 	const onChange = newOption => {
 		setOption(newOption)
+		handleProjectsSort(newOption.value)
 	}
 	const onFunctionalChange = newOption => {
 		setFunctionOption(newOption)
