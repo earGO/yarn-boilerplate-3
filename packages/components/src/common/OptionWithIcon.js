@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import materialIcons from 'material-design-icons/iconfont/material-icons.css';
-import {Flex, Box, Text} from '@ursip/design-system';
-import styled from 'styled-components';
+import React from 'react'
+import PropTypes from 'prop-types'
+import materialIcons from 'material-design-icons/iconfont/material-icons.css'
+import {Flex, Box, Text} from '../../import'
+import styled from 'styled-components'
 
 const IconSized = styled(Box)`
 	transform: scale(0.68);
@@ -11,7 +11,7 @@ const IconSized = styled(Box)`
 	margin: 0;
 	position: relative;
 	top: 20%;
-`;
+`
 const FlexedItem = styled(Flex)`
 	transition: all 0.4s ease-in-out;
 	padding: 0;
@@ -20,11 +20,11 @@ const FlexedItem = styled(Flex)`
 		transform: scale(1.01);
 		cursor: pointer;
 	}
-`;
+`
 const IconedItemText = styled(Text)`
 	padding-left: 4px;
 	padding-right: 24px;
-`;
+`
 
 function OptionWithIcon({icon, option}) {
 	/*some private methods*/
@@ -39,17 +39,17 @@ function OptionWithIcon({icon, option}) {
 			</IconSized>
 			<IconedItemText fontSize={1}>{option}</IconedItemText>
 		</FlexedItem>
-	);
+	)
 }
 
 OptionWithIcon.propTypes = {
 	icon: PropTypes.string,
 	option: PropTypes.string
-};
+}
 
 OptionWithIcon.defaultProps = {
 	icon: 'question',
 	option: 'somethingWrong'
-};
+}
 
-export default OptionWithIcon;
+export default OptionWithIcon

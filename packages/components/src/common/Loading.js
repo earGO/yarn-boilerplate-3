@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {Icon, Overlay, Flex, Text} from '@ursip/design-system';
+import React from 'react'
+import PropTypes from 'prop-types'
+import {Icon, Overlay, Flex, Text} from '../../import'
 
 function Spinner(props) {
-	return <Icon spin fontSize={4} color="primary" name="spinner" {...props} />;
+	return <Icon spin fontSize={4} color="primary" name="spinner" {...props} />
 }
 
 function Loading({overlay, children}) {
@@ -19,19 +19,19 @@ function Loading({overlay, children}) {
 					)}
 				</Flex>
 			</Overlay>
-		);
+		)
 	}
 
-	return <Spinner />;
+	return <Spinner />
 }
 
 Loading.propTypes = {
 	overlay: PropTypes.bool,
 	icon: PropTypes.any
-};
+}
 
 Loading.defaultProps = {
 	overlay: false
-};
+}
 
-export default Loading;
+export default Loading

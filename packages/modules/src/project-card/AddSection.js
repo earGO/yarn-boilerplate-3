@@ -1,7 +1,7 @@
-import React from 'react';
-import {Icon} from '../../import';
-import {Flex, Box, Text} from '@ursip/design-system';
-import styled from 'styled-components';
+import React from 'react'
+import {Icon} from '../../import'
+import {Flex, Box, Text} from '../../import'
+import styled from 'styled-components'
 
 const IconSized = styled(Box)`
 	transform: scale(0.68);
@@ -13,14 +13,14 @@ const IconSized = styled(Box)`
 	top: 40%;
 	cursor: pointer;
 	color: ${props => props.theme.colors[props.color]};
-`;
+`
 const Labelizer = styled(Box)`
 	padding: 0;
 	padding-bottom: 8px;
 	position: relative;
 	top: -5px;
 	cursor: pointer;
-`;
+`
 
 function AddSection({props}) {
 	return (
@@ -34,11 +34,11 @@ function AddSection({props}) {
 				<Text color={'primary'}>Добавить подраздел</Text>
 			</Labelizer>
 		</Flex>
-	);
+	)
 }
 
-AddSection.propTypes = {};
+AddSection.propTypes = {}
 
-AddSection.defaultProps = {};
+AddSection.defaultProps = {}
 
-export default AddSection;
+export default AddSection

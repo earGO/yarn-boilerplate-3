@@ -1,25 +1,25 @@
-import React, {useState} from 'react';
-import PropTypes from 'prop-types';
-import {Flex, Box, Button, Icon} from '@ursip/design-system';
+import React, {useState} from 'react'
+import PropTypes from 'prop-types'
+import {Flex, Box, Button, Icon} from '../../import'
 
 function ExampleForm(props) {
-	const {group, form} = props;
-	const [keys, setKeys] = useState([0]);
-	const [id, setId] = useState(0);
+	const {group, form} = props
+	const [keys, setKeys] = useState([0])
+	const [id, setId] = useState(0)
 
 	const add = () => {
-		setKeys([...keys, id + 1]);
-		setId(id + 1);
-	};
+		setKeys([...keys, id + 1])
+		setId(id + 1)
+	}
 
 	const remove = keyForRemove => {
-		setKeys(keys.filter(key => key !== keyForRemove));
-	};
+		setKeys(keys.filter(key => key !== keyForRemove))
+	}
 
-	const getFieldName = (name, group, index) => `${group}[${index}].${name}`;
+	const getFieldName = (name, group, index) => `${group}[${index}].${name}`
 
 	const getFieldGenerator = (group, index) => (name, ...args) =>
-		form.getFieldDecorator(getFieldName(name, group, index), ...args);
+		form.getFieldDecorator(getFieldName(name, group, index), ...args)
 
 	return (
 		<Box>
@@ -38,9 +38,9 @@ function ExampleForm(props) {
 								type="dashed"
 								size="small"
 								onClick={e => {
-									e.preventDefault();
+									e.preventDefault()
 									global.confirm('Удалить значение?') &&
-										remove(key);
+										remove(key)
 								}}
 							>
 								<Icon name="times" top={1} />
@@ -52,8 +52,8 @@ function ExampleForm(props) {
 								type="dashed"
 								size="small"
 								onClick={e => {
-									e.preventDefault();
-									add();
+									e.preventDefault()
+									add()
 								}}
 							>
 								<Icon name="plus" top={1} />
@@ -63,13 +63,13 @@ function ExampleForm(props) {
 				</Flex>
 			))}
 		</Box>
-	);
+	)
 }
 
 ExampleForm.propTypes = {
 	form: PropTypes.object,
 	renderTemplate: PropTypes.func,
 	group: PropTypes.string
-};
+}
 
-export default ExampleForm;
+export default ExampleForm

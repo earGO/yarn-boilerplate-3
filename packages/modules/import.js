@@ -1,5 +1,3 @@
-import TableContentBox from '@project/components/src/common/TableContentBox';
-
 export {
 	ContentBox,
 	Loading,
@@ -14,7 +12,26 @@ export {
 	DropdownMenuButton,
 	TableContentBox,
 	AnimatedSearchInput
-} from '@project/components';
+} from '@project/components'
 
-export {projectCardService, nsi, lk} from '@project/services';
-export {arrayToTree} from '@project/utils';
+export {
+	Card,
+	Form,
+	Input,
+	Flex,
+	Box,
+	Text,
+	Toggle,
+	Heading,
+	Relative,
+	Button,
+	theme,
+	Textarea,
+	Table,
+	Select,
+	Tooltip,
+	Collapse
+} from '@ursip/design-system'
+
+export {projectCardService, nsi, lk} from '@project/services'
+export {arrayToTree} from '@project/utils'

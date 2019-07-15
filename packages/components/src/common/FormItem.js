@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {Form, Flex, Box, Text} from '@ursip/design-system';
-import DynamicForm from './DynamicForm';
-const multiplePrefix = '$';
+import React from 'react'
+import PropTypes from 'prop-types'
+import {Form, Flex, Box, Text} from '../../import'
+import DynamicForm from './DynamicForm'
+const multiplePrefix = '$'
 
 function FormItem({
 	name,
@@ -17,21 +17,21 @@ function FormItem({
 	multiple,
 	...props
 }) {
-	const requiredRule = {required: true, message: 'Заполните поле ' + label};
-	const rules = options.rules ? options.rules : [];
-	const field = React.cloneElement(React.Children.only(children));
+	const requiredRule = {required: true, message: 'Заполните поле ' + label}
+	const rules = options.rules ? options.rules : []
+	const field = React.cloneElement(React.Children.only(children))
 	const decoratorOptions = {
 		initialValue,
 		...options,
 		rules: required ? rules.concat(requiredRule) : []
-	};
+	}
 	const renderTemplate = decorator => {
 		return (
 			<Form.Item required={required}>
 				{decorator(name, decoratorOptions)(field)}
 			</Form.Item>
-		);
-	};
+		)
+	}
 
 	return (
 		<Flex flexDirection="column" mb={2}>
@@ -59,7 +59,7 @@ function FormItem({
 				)}
 			</Box>
 		</Flex>
-	);
+	)
 
 	// if (multiple) {
 	//   return <DynamicForm form={form} group={multiplePrefix + name} renderTemplate={renderTemplate} />
@@ -75,10 +75,10 @@ function FormItem({
 
 FormItem.propTypes = {
 	required: PropTypes.bool
-};
+}
 
 FormItem.defaultProps = {
 	required: false
-};
+}
 
-export default FormItem;
+export default FormItem

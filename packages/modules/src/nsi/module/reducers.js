@@ -1,14 +1,14 @@
-import {success, error} from 'redux-saga-requests';
+import {success, error} from 'redux-saga-requests'
 
-import {nsi} from '../../../import';
-import * as types from './types';
+import {nsi} from '../../../import'
+import * as types from './types'
 
-const nsiService = nsi.types;
+const nsiService = nsi.types
 
 const DEFAULT_SORT = {
 	column: null,
 	order: 'desc'
-};
+}
 
 export const initialState = {
 	loading: false,
@@ -22,7 +22,7 @@ export const initialState = {
 	elementsModalVisible: false,
 	expandedRowKeys: [],
 	userSettings: JSON.parse(global.localStorage.getItem(types.namespace)) || {}
-};
+}
 
 export default {
 	[nsiService.LOAD_DICTS]: () => ({
@@ -88,4 +88,4 @@ export default {
 	[types.SET_USER_SETTINGS_FROM_LOCAL_STORAGE]: (_, {payload}) => ({
 		userSettings: payload.userSettings
 	})
-};
+}

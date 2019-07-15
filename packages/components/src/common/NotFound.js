@@ -1,5 +1,5 @@
-import React from 'react';
-import {Heading, Text, Divider} from '@ursip/design-system';
+import React from 'react'
+import {Heading, Text, Divider} from '../../import'
 
 function NotFound() {
 	return (
@@ -10,7 +10,7 @@ function NotFound() {
 			<Divider />
 			<Heading>Страница не найдена</Heading>
 		</Text>
-	);
+	)
 }
 
-export default NotFound;
+export default NotFound

@@ -1,10 +1,10 @@
-import {namespace} from './types';
-import {projectCardService as projectCard} from '../../../import';
-import reducers, {initialState} from './reducers';
+import {namespace} from './types'
+import {projectCardService as projectCard} from '../../../import'
+import reducers, {initialState} from './reducers'
 
-import sagas from './sagas';
+import sagas from './sagas'
 
-export const baseRoute = '/project-card';
+export const baseRoute = '/project-card'
 
 export default {
 	id: namespace,
@@ -17,4 +17,4 @@ export default {
 	},
 	sagas: [sagas],
 	initialActions: [projectCard.actions.loadProject()]
-};
+}

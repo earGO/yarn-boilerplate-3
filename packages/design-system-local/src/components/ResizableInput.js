@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import styled, {css} from 'styled-components';
 import propTypes from 'prop-types';
-import Relative from './Relative';
+import {space} from 'styled-system';
+import themeGet from '@styled-system/theme-get'
 import Absolute from './Absolute';
-import {space, width, themeGet} from 'styled-system';
+import  Relative from './Relative'
 import omit from 'lodash/omit';
 
 // #TBD: Input.TextArea + allowClear prop. Как будет работать c suffix?
@@ -52,6 +53,7 @@ const HTMLInput = styled.input`
   border-color: transparent;
   border-radius: ${props => props.theme.radii[1] + 'px'};
   transition: all ${props => props.theme.duration.fast};
+  width:${props => props.shrinkWidth + 'px'};
   :hover {
     border-color: ${themeGet('colors.black', '#3a3a3a')}
   } 
@@ -59,10 +61,10 @@ const HTMLInput = styled.input`
     outline: none;
     background: ${themeGet('colors.white', '#ffffff')};
     border-color: ${themeGet('colors.lightBlue', '#0091ea')};
+    width:${props => props.growWidth + 'px'};
   }
   background: ${props => props.theme.colors.lightGrey};
 
-  ${width}
   ${space}
   ${size}
   ${disabled}
@@ -80,7 +82,7 @@ const Adornment = styled(Absolute)({
 });
 
 /** Получение данных от пользователя.*/
-class Input extends Component {
+class ResizableInput extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -121,7 +123,14 @@ class Input extends Component {
 	};
 
 	render() {
-		const {prefix, suffix, width, wrapperStyle} = this.props;
+		const {
+			prefix,
+			suffix,
+			width,
+			wrapperStyle,
+			shrinkWidth,
+			growWidth
+		} = this.props;
 		return (
 			<InputWrapper width={width} style={wrapperStyle}>
 				{prefix && (
@@ -137,6 +146,8 @@ class Input extends Component {
 					ref={this.saveRef}
 					value={this.state.value}
 					onChange={this.handleChange}
+					shrinkWidth={shrinkWidth}
+					growWidth={growWidth}
 				/>
 				{suffix && (
 					<Adornment right={0} pr={2}>
@@ -148,7 +159,7 @@ class Input extends Component {
 	}
 }
 
-Input.propTypes = {
+ResizableInput.propTypes = {
 	/** Ширина враппера для инпута.*/
 	width: propTypes.oneOfType([
 		propTypes.number,
@@ -165,11 +176,11 @@ Input.propTypes = {
 	wrapperStyle: propTypes.object
 };
 
-Input.defaultProps = {
+ResizableInput.defaultProps = {
 	size: 'medium'
 };
 
-Input.displayName = 'Input';
+ResizableInput.displayName = 'ResizableInput';
 
 /** @component */
-export default Input;
+export default ResizableInput;

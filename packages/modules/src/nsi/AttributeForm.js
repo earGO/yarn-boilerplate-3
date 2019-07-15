@@ -1,8 +1,8 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
-import {compose} from 'redux';
-import Scrollbars from 'react-custom-scrollbars';
+import React from 'react'
+import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
+import {compose} from 'redux'
+import Scrollbars from 'react-custom-scrollbars'
 import {
 	Card,
 	Form,
@@ -15,18 +15,18 @@ import {
 	Select,
 	Textarea,
 	Flex
-} from '@ursip/design-system';
+} from '../../import'
 
-import {FormItem} from '../../import';
+import {FormItem} from '../../import'
 
-import * as selectors from './module/selectors';
+import * as selectors from './module/selectors'
 
 const typeOptions = [
 	{label: 'Строка', value: 'string'},
 	{label: 'Целое число', value: 'integer'},
 	{label: 'Логическое', value: 'boolean'},
 	{label: 'Другой справочник', value: 'link'}
-];
+]
 
 function AttributeForm({
 	form,
@@ -41,28 +41,28 @@ function AttributeForm({
 
 	catalogs
 }) {
-	const type = (form.getFieldValue('type') || []).value;
+	const type = (form.getFieldValue('type') || []).value
 
 	const handleSave = () =>
 		form.validateFieldsAndScroll((errors, values) => {
 			if (!errors) {
-				const {type, link, ...data} = values;
+				const {type, link, ...data} = values
 
 				onSubmit({
 					...data,
 					link: link ? link.value : null,
 					type: type ? type.value : null
-				});
+				})
 			}
-		});
+		})
 
 	const selectDicts = catalogs.reduce((acc, dict) => {
 		acc[dict.nick] = {
 			label: dict.name,
 			value: dict.nick
-		};
-		return acc;
-	}, {});
+		}
+		return acc
+	}, {})
 
 	return (
 		<Card bg="white" p={2} width={width}>
@@ -107,9 +107,9 @@ function AttributeForm({
 										) {
 											callback(
 												'Такой ник уже используется в этом справочнике'
-											);
+											)
 										}
-										callback();
+										callback()
 									}
 								}
 							]
@@ -199,10 +199,10 @@ function AttributeForm({
 				</Button>
 			</Text>
 		</Card>
-	);
+	)
 
 	function newFunction(values) {
-		console.log(values);
+		console.log(values)
 	}
 }
 
@@ -210,7 +210,7 @@ AttributeForm.defaultProps = {
 	closeModal: () => {},
 	width: '50vw',
 	contentHeight: '50vh'
-};
+}
 
 export default compose(
 	withRouter,
@@ -223,15 +223,15 @@ export default compose(
 	})),
 	Form.create({
 		mapPropsToFields(props) {
-			const data = props.attribute || {};
+			const data = props.attribute || {}
 
 			const selectDicts = props.catalogs.reduce((acc, dict) => {
 				acc[dict.nick] = {
 					label: dict.name,
 					value: dict.nick
-				};
-				return acc;
-			}, {});
+				}
+				return acc
+			}, {})
 
 			return Object.keys(data).reduce((acc, key) => {
 				switch (key) {
@@ -240,19 +240,19 @@ export default compose(
 							value: typeOptions.find(
 								type => type.value === data[key]
 							)
-						});
-						break;
+						})
+						break
 					case 'link':
 						acc[key] = Form.createFormField({
 							value: selectDicts[data[key]]
-						});
-						break;
+						})
+						break
 					default:
-						acc[key] = Form.createFormField({value: data[key]});
+						acc[key] = Form.createFormField({value: data[key]})
 				}
 
-				return acc;
-			}, {});
+				return acc
+			}, {})
 		}
 	})
-)(AttributeForm);
+)(AttributeForm)

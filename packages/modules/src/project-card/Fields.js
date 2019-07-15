@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import FieldsItem from './FieldsItem';
-import {ContentBox} from '../../import';
+import React from 'react'
+import PropTypes from 'prop-types'
+import FieldsItem from './FieldsItem'
+import {ContentBox} from '../../import'
 
 function Fields({projectFields}) {
 	if (projectFields !== undefined) {
@@ -14,18 +14,18 @@ function Fields({projectFields}) {
 				flexDirection={'column'}
 			>
 				{projectFields.map((field, key) => {
-					return <FieldsItem key={key} field={field} />;
+					return <FieldsItem key={key} field={field} />
 				})}
 			</ContentBox>
-		);
+		)
 	} else {
-		return null;
+		return null
 	}
 }
 
 Fields.propTypes = {
 	projectFields: PropTypes.array
-};
+}
 
 Fields.defaultProps = {
 	projectFields: [
@@ -46,6 +46,6 @@ Fields.defaultProps = {
 			}
 		]
 	]
-};
+}
 
-export default Fields;
+export default Fields

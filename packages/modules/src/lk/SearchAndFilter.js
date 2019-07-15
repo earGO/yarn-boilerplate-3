@@ -1,24 +1,24 @@
-import React, {useState} from 'react';
+import React, {useState} from 'react'
 import {
 	TableContentBox,
 	ContentBox,
 	AnimatedSearchInput,
 	FlexContainerBottomDivider
-} from '../../import';
-import {Box, Select, Heading, Text, Flex, Relative} from '@ursip/design-system';
-import DatePicker from './DatePickerRange';
+} from '../../import'
+import {Box, Select, Heading, Text, Flex, Relative} from '../../import'
+import DatePicker from './DatePickerRange'
 
-import styled from 'styled-components';
-import {debounce} from 'throttle-debounce';
-import * as actions from '../nsi/module/actions';
-import {useDispatch} from 'react-redux';
+import styled from 'styled-components'
+import {debounce} from 'throttle-debounce'
+import * as actions from '../nsi/module/actions'
+import {useDispatch} from 'react-redux'
 
 const Corrector = styled(TableContentBox)`
 	z-index: 12;
-`;
+`
 
 function SearchAndFilter({amnt, ...props}) {
-	const dispatch = useDispatch();
+	const dispatch = useDispatch()
 	/* A group of variables for the filtering input */
 	const options = [
 		{value: 'type', label: `По типу`},
@@ -26,30 +26,30 @@ function SearchAndFilter({amnt, ...props}) {
 		{value: 'objectName', label: `По объекту`},
 		{value: 'stageName', label: `По стадии`},
 		{value: 'dateChange', label: `По дате изменения`}
-	];
+	]
 	const functionOptions = [
 		{value: 'type', label: `Есть многое такое `},
 		{value: 'number', label: `Друг Горацио`},
 		{value: 'objectName', label: `Что и не снилось`},
 		{value: 'stageName', label: `Нашим мудрецам`}
-	];
+	]
 
 	/*  */
-	const [value, setOption] = useState(options[4]);
-	const [functionValue, setFunctionOption] = useState({});
+	const [value, setOption] = useState(options[4])
+	const [functionValue, setFunctionOption] = useState({})
 
-	const searchQuery = '';
+	const searchQuery = ''
 
 	const onChange = newOption => {
-		setOption(newOption);
-	};
+		setOption(newOption)
+	}
 	const onFunctionalChange = newOption => {
-		setFunctionOption(newOption);
-	};
+		setFunctionOption(newOption)
+	}
 
 	const handleSearch = debounce(200, query =>
 		dispatch(actions.searchCatalogs(query))
-	);
+	)
 
 	if (props !== undefined) {
 		return (
@@ -130,10 +130,10 @@ function SearchAndFilter({amnt, ...props}) {
 					</ContentBox>
 				</ContentBox>
 			</Corrector>
-		);
+		)
 	} else {
-		return null;
+		return null
 	}
 }
 
-export default SearchAndFilter;
+export default SearchAndFilter

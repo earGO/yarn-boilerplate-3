@@ -12,7 +12,8 @@
     "start-front": "cd packages/apps/box-frontend && set PORT=2518 && react-scripts start",
     "clean": "oao clean",
     "status": "oao status",
-    "remove-all": "oao remove-all"
+    "remove-all": "oao remove-all",
+    "mock-api": "cd .mock && json-server dbSeparateEndpointsV2.json --watch --port 3421"
   },
   "workspaces": {
     "packages": [
@@ -21,7 +22,8 @@
       "packages/storybook",
       "packages/utils",
       "packages/services",
-      "packages/modules"
+      "packages/modules",
+      "packages/design-system-local"
     ],
     "nohoist": [
       "**/webpack-dev-server",

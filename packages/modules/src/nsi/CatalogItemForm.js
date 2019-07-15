@@ -1,8 +1,8 @@
-import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {withRouter} from 'react-router-dom';
-import {compose} from 'redux';
-import Scrollbars from 'react-custom-scrollbars';
+import React from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {withRouter} from 'react-router-dom'
+import {compose} from 'redux'
+import Scrollbars from 'react-custom-scrollbars'
 import {
 	Card,
 	Flex,
@@ -13,12 +13,12 @@ import {
 	Box,
 	Toggle,
 	Select
-} from '@ursip/design-system';
-import {nsi as nsiService, FormItem} from '../../import';
-import LinkField from './LinkField';
+} from '../../import'
+import {nsi as nsiService, FormItem} from '../../import'
+import LinkField from './LinkField'
 
-import * as selectors from './module/selectors';
-import * as actions from './module/actions';
+import * as selectors from './module/selectors'
+import * as actions from './module/actions'
 
 function CatalogItemForm({
 	form,
@@ -28,24 +28,24 @@ function CatalogItemForm({
 	catalog,
 	contentHeight
 }) {
-	const dispatch = useDispatch();
-	const row = useSelector(selectors.currentElement);
+	const dispatch = useDispatch()
+	const row = useSelector(selectors.currentElement)
 
-	const closeModal = () => dispatch(actions.hideElementsForm());
+	const closeModal = () => dispatch(actions.hideElementsForm())
 	const saveDictRow = (data, nick) =>
-		dispatch(nsiService.actions.saveDictRow(data, nick));
+		dispatch(nsiService.actions.saveDictRow(data, nick))
 
 	const selectElements = Object.values(elements || {})
 		.filter(el => !el.deleted && row && row.elementId !== el.elementId)
 		.reduce((acc, {elementId, values}) => {
-			const val = values[Object.keys(attributes)[0]];
+			const val = values[Object.keys(attributes)[0]]
 
 			acc[elementId] = {
 				label: val && val.value,
 				value: elementId
-			};
-			return acc;
-		}, {});
+			}
+			return acc
+		}, {})
 
 	function prepare({parentId, ...values}) {
 		return {
@@ -59,15 +59,15 @@ function CatalogItemForm({
 					...(row && row.values && row.values[nick]),
 					nick,
 					deleted: false
-				};
-
-				if (attributes[nick].link) {
-					output.linkValue = {id: values[nick] || null};
-				} else {
-					output.value = values[nick];
 				}
 
-				return output;
+				if (attributes[nick].link) {
+					output.linkValue = {id: values[nick] || null}
+				} else {
+					output.value = values[nick]
+				}
+
+				return output
 			})
 
 			// values: Object.keys(values).map(nick => {
@@ -84,7 +84,7 @@ function CatalogItemForm({
 
 			//   return output
 			// }),
-		};
+		}
 
 		// return {
 		//   elementId: (row && row.elementId) || null,
@@ -117,9 +117,9 @@ function CatalogItemForm({
 		form.validateFieldsAndScroll((errors, values) => {
 			if (!errors) {
 				// console.log(prepare(values))
-				saveDictRow(prepare(values), catalog.nick).finally(closeModal);
+				saveDictRow(prepare(values), catalog.nick).finally(closeModal)
 			}
-		});
+		})
 
 	return (
 		<Card id="catalogItemForm" bg="white" p={2} width={width}>
@@ -154,7 +154,7 @@ function CatalogItemForm({
 										>
 											<Toggle />
 										</FormItem>
-									);
+									)
 
 								case attr.type === 'integer':
 									return (
@@ -169,7 +169,7 @@ function CatalogItemForm({
 										>
 											<Input type="number" />
 										</FormItem>
-									);
+									)
 
 								case attr.type === 'link':
 									return (
@@ -182,7 +182,7 @@ function CatalogItemForm({
 										>
 											<LinkField nick={attr.link} />
 										</FormItem>
-									);
+									)
 
 								default:
 									return (
@@ -196,7 +196,7 @@ function CatalogItemForm({
 										>
 											<Input placeholder={attr.name} />
 										</FormItem>
-									);
+									)
 							}
 						})}
 				</Box>
@@ -222,7 +222,7 @@ function CatalogItemForm({
 				</Box>
 			</Flex>
 		</Card>
-	);
+	)
 }
 
 CatalogItemForm.defaultProps = {
@@ -230,46 +230,46 @@ CatalogItemForm.defaultProps = {
 	dict: {},
 	width: '40vw',
 	contentHeight: '50vh'
-};
+}
 
 const withForm = Form.create({
 	mapPropsToFields({row, catalog, elements, attributes}) {
 		const fields = Object.values(attributes || {}).filter(
 			attr => !Boolean(attr.deleted)
-		);
+		)
 
 		const selectElements = Object.values(elements || {})
 			.filter(el => !el.deleted)
 			.reduce((acc, {elementId, values}) => {
-				const val = values[Object.keys(attributes)[0]];
+				const val = values[Object.keys(attributes)[0]]
 
 				acc[elementId] = {
 					label: val && val.value,
 					value: elementId
-				};
-				return acc;
-			}, {});
+				}
+				return acc
+			}, {})
 
-		let out = {};
+		let out = {}
 		if (row) {
 			out = fields.reduce((acc, field) => {
-				const value = (row.values && row.values[field.nick]) || {};
-				acc[field.nick] = Form.createFormField({value: value.value});
-				return acc;
-			}, {});
+				const value = (row.values && row.values[field.nick]) || {}
+				acc[field.nick] = Form.createFormField({value: value.value})
+				return acc
+			}, {})
 		}
 
 		if (row && row.parentId) {
 			out['parentId'] = Form.createFormField({
 				value: selectElements[row.parentId]
-			});
+			})
 		}
 
-		return out;
+		return out
 	}
-});
+})
 
 export default compose(
 	withRouter,
 	withForm
-)(CatalogItemForm);
+)(CatalogItemForm)

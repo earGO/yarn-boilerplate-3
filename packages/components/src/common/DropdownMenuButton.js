@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import {Card, Text, Button, Icon, Popover} from '@ursip/design-system';
+import React from 'react'
+import styled from 'styled-components'
+import {Card, Text, Button, Icon, Popover} from '../../import'
 
 const Item = styled(Text)`
 	border-bottom: 1px solid ${props => props.theme.colors.border};
@@ -14,12 +14,12 @@ const Item = styled(Text)`
 	&:last-child {
 		border: 0;
 	}
-`;
+`
 
 function DropdownMenuButton({children, items, ...props}) {
-	const [visible, setDropdownVisibility] = React.useState(false);
-	const handleButtonClick = () => setDropdownVisibility(!visible);
-	const closeDropdown = () => setDropdownVisibility(false);
+	const [visible, setDropdownVisibility] = React.useState(false)
+	const handleButtonClick = () => setDropdownVisibility(!visible)
+	const closeDropdown = () => setDropdownVisibility(false)
 	const popoverContent = () => (
 		<Card
 			bg="white"
@@ -31,17 +31,17 @@ function DropdownMenuButton({children, items, ...props}) {
 				<Item
 					key={index}
 					onClick={() => {
-						closeDropdown();
+						closeDropdown()
 						item.onClick &&
 							typeof item.onClick === 'function' &&
-							item.onClick();
+							item.onClick()
 					}}
 				>
 					{item.name}
 				</Item>
 			))}
 		</Card>
-	);
+	)
 
 	return (
 		<Popover
@@ -61,11 +61,11 @@ function DropdownMenuButton({children, items, ...props}) {
 				{<Icon mx={1} name={visible ? 'chevron-up' : 'chevron-down'} />}
 			</Button>
 		</Popover>
-	);
+	)
 }
 
 DropdownMenuButton.defaultProps = {
 	items: []
-};
+}
 
-export default DropdownMenuButton;
+export default DropdownMenuButton

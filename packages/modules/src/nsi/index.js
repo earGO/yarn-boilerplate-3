@@ -1,17 +1,17 @@
-import React from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {Switch, Route} from 'react-router-dom';
-import {DynamicModuleLoader} from 'redux-dynamic-modules';
-import {Flex, Text} from '@ursip/design-system';
+import React from 'react'
+import {useSelector, useDispatch} from 'react-redux'
+import {Switch, Route} from 'react-router-dom'
+import {DynamicModuleLoader} from 'redux-dynamic-modules'
+import {Flex, Text} from '../../import'
 
-import {Loading, ResizableSide} from '../../import';
-import CatalogList from './CatalogList';
-import Catalog from './Catalog';
-import CatalogForm from './CatalogForm';
+import {Loading, ResizableSide} from '../../import'
+import CatalogList from './CatalogList'
+import Catalog from './Catalog'
+import CatalogForm from './CatalogForm'
 
-import * as nsi from './module';
-import * as selectors from './module/selectors';
-import * as actions from './module/actions';
+import * as nsi from './module'
+import * as selectors from './module/selectors'
+import * as actions from './module/actions'
 
 function SelectDictonary() {
 	return (
@@ -25,15 +25,15 @@ function SelectDictonary() {
 				выберите справочник <br /> из дерева слева
 			</Text>
 		</Flex>
-	);
+	)
 }
 
 function Nsi() {
-	const dispatch = useDispatch();
-	const loading = useSelector(selectors.loading);
-	const catalogsSideWidth = useSelector(selectors.catalogsSideWidth);
+	const dispatch = useDispatch()
+	const loading = useSelector(selectors.loading)
+	const catalogsSideWidth = useSelector(selectors.catalogsSideWidth)
 	const handleResize = (e, direction, ref, {width}) =>
-		dispatch(actions.setSideWidth(catalogsSideWidth + width));
+		dispatch(actions.setSideWidth(catalogsSideWidth + width))
 
 	return (
 		<DynamicModuleLoader modules={[nsi.default]}>
@@ -92,9 +92,9 @@ function Nsi() {
 				</Flex>
 			)}
 		</DynamicModuleLoader>
-	);
+	)
 }
 
-Nsi.baseRoute = nsi.baseRoute;
+Nsi.baseRoute = nsi.baseRoute
 
-export default Nsi;
+export default Nsi

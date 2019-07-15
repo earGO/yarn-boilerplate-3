@@ -1,14 +1,14 @@
-import React from 'react';
-import {Scrollbars} from 'react-custom-scrollbars';
-import {Flex, Box, Text} from '@ursip/design-system';
-import {withRouter} from 'react-router-dom';
+import React from 'react'
+import {Scrollbars} from 'react-custom-scrollbars'
+import {Flex, Box, Text} from '../../import'
+import {withRouter} from 'react-router-dom'
 
 /**
  * Main application layout
  */
 function Layout({children, width, maxWidth, history, ...props}) {
-	const handleLogoClick = () => history.push('/');
-	const year = new Date().getFullYear();
+	const handleLogoClick = () => history.push('/')
+	const year = new Date().getFullYear()
 
 	return (
 		<Flex
@@ -33,13 +33,13 @@ function Layout({children, width, maxWidth, history, ...props}) {
 				</Box>
 			</Box>
 		</Flex>
-	);
+	)
 }
 
 Layout.defaultProps = {
 	maxWidth: 1600,
 	// Responsive breackpoints
 	width: ['99%', '99%', '99%', '99%']
-};
+}
 
-export default withRouter(Layout);
+export default withRouter(Layout)

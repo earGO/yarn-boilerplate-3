@@ -1,7 +1,7 @@
-import React from 'react';
-import {storiesOf} from '@storybook/react';
-import {Box, Text, Flex} from '@ursip/design-system';
-import DatePicker from '../DatePickerRange';
+import React from 'react'
+import {storiesOf} from '@storybook/react'
+import {Box, Text, Flex} from '@ursip/design-system'
+import DatePicker from '../DatePickerRange'
 
 storiesOf(`SearchAndFilter`, module)
 	.addParameters({
@@ -31,4 +31,4 @@ storiesOf(`SearchAndFilter`, module)
         `
 			}
 		}
-	);
+	)

@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {Flex} from '@ursip/design-system';
-import styled from 'styled-components';
+import React from 'react'
+import PropTypes from 'prop-types'
+import {Flex} from '../../import'
+import styled from 'styled-components'
 
 const ContentBoxStyle = styled(Flex)`
 	padding-top: ${props => props.padding + 'px'};
@@ -11,7 +11,7 @@ const ContentBoxStyle = styled(Flex)`
 	align-items: ${props => props.alignItems};
 	margin: 0 auto;
 	width: ${props => props.contentwidth + 'px'};
-`;
+`
 
 function ContentBox({
 	children,
@@ -33,7 +33,7 @@ function ContentBox({
 		>
 			{children}
 		</ContentBoxStyle>
-	);
+	)
 }
 
 ContentBox.propTypes = {
@@ -42,7 +42,7 @@ ContentBox.propTypes = {
 	contentwidth: PropTypes.number,
 	alignSelf: PropTypes.string,
 	alignItems: PropTypes.string
-};
+}
 
 ContentBox.defaultProps = {
 	padding: 0,
@@ -50,6 +50,6 @@ ContentBox.defaultProps = {
 	contentwidth: 1120,
 	alignSelf: 'center',
 	alignItems: 'flex-start'
-};
+}
 
-export default ContentBox;
+export default ContentBox

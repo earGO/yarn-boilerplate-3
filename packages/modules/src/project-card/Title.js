@@ -1,21 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {Flex, Box, Text} from '@ursip/design-system';
-import styled from 'styled-components';
+import React from 'react'
+import PropTypes from 'prop-types'
+import {Flex, Box, Text} from '../../import'
+import styled from 'styled-components'
 import {
 	ContentBox,
 	OptionWithIcon,
 	FlexContainerBottomDivider
-} from '../../import';
+} from '../../import'
 
 const OffsetBox = styled(Box)`
 	padding: 0;
 	margin: 0;
 	position: relative;
 	top: -12%;
-`;
+`
 
-const AdressText = styled(Text)``;
+const AdressText = styled(Text)``
 
 function Title({projectTitle}) {
 	if (projectTitle !== undefined) {
@@ -29,7 +29,9 @@ function Title({projectTitle}) {
 							width={'8px'}
 							height={'40px'}
 							mr={16}
-						></Box>
+						>
+							{''}
+						</Box>
 						<Flex
 							id={'projectNameAndAdress'}
 							flexDirection="column"
@@ -79,9 +81,9 @@ function Title({projectTitle}) {
 					</Box>
 				</ContentBox>
 			</FlexContainerBottomDivider>
-		);
+		)
 	} else {
-		return null;
+		return null
 	}
 }
 
@@ -89,12 +91,12 @@ Title.propTypes = {
 	jokes: PropTypes.array,
 	seen: PropTypes.array,
 	opened: PropTypes.array
-};
+}
 
 Title.defaultProps = {
 	jokes: [],
 	seen: [],
 	opened: []
-};
+}
 
-export default Title;
+export default Title

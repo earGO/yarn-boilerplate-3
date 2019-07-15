@@ -1,8 +1,8 @@
-import React from 'react';
-import {withRouter} from 'react-router-dom';
-import {connect} from 'react-redux';
-import {compose} from 'redux';
-import {Scrollbars} from 'react-custom-scrollbars';
+import React from 'react'
+import {withRouter} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {compose} from 'redux'
+import {Scrollbars} from 'react-custom-scrollbars'
 import {
 	Flex,
 	Box,
@@ -12,42 +12,42 @@ import {
 	Toggle,
 	Text,
 	Textarea
-} from '@ursip/design-system';
-import {nsi as nsiService, FormItem} from '../../import';
+} from '../../import'
+import {nsi as nsiService, FormItem} from '../../import'
 
-import AttributesTable from './AttributesTable';
+import AttributesTable from './AttributesTable'
 
-import * as selectors from './module/selectors';
-import * as actions from './module/actions';
+import * as selectors from './module/selectors'
+import * as actions from './module/actions'
 
-import {baseRoute} from './module';
+import {baseRoute} from './module'
 
 class CatalogForm extends React.Component {
 	componentDidMount() {
-		const {setCurrentCatalog, match, currentCatalogName} = this.props;
-		console.log(setCurrentCatalog, match, currentCatalogName);
+		const {setCurrentCatalog, match, currentCatalogName} = this.props
+		console.log(setCurrentCatalog, match, currentCatalogName)
 
 		if (currentCatalogName !== match.params.nick) {
-			setCurrentCatalog(match.params.nick);
+			setCurrentCatalog(match.params.nick)
 		}
 
-		this.forceUpdate();
+		this.forceUpdate()
 	}
 
 	handleSubmit = () => {
-		const {metaDictSave, history, form} = this.props;
+		const {metaDictSave, history, form} = this.props
 
 		form.validateFieldsAndScroll((errors, values) => {
 			if (!errors) {
 				metaDictSave(values).finally(() => {
-					history.push(baseRoute + '/' + values.nick);
-				});
+					history.push(baseRoute + '/' + values.nick)
+				})
 			}
-		});
-	};
+		})
+	}
 
 	render() {
-		const {form, history, catalog} = this.props;
+		const {form, history, catalog} = this.props
 
 		return (
 			<React.Fragment>
@@ -140,7 +140,7 @@ class CatalogForm extends React.Component {
 					)}
 				</Scrollbars>
 			</React.Fragment>
-		);
+		)
 	}
 }
 
@@ -158,25 +158,25 @@ const withConnect = connect(
 		loadElements: nsiService.actions.loadElements,
 		setCurrentCatalog: actions.setCurrentCatalog
 	}
-);
+)
 
 const withForm = Form.create({
 	mapPropsToFields({catalog, attributes}) {
-		const createField = value => Form.createFormField({value});
+		const createField = value => Form.createFormField({value})
 
 		const out = Object.keys(catalog).reduce((acc, key) => {
-			acc[key] = createField(catalog[key]);
-			return acc;
-		}, {});
+			acc[key] = createField(catalog[key])
+			return acc
+		}, {})
 
-		out['attributes'] = createField(Object.values(attributes));
+		out['attributes'] = createField(Object.values(attributes))
 
-		return out;
+		return out
 	}
-});
+})
 
 export default compose(
 	withRouter,
 	withConnect,
 	withForm
-)(CatalogForm);
+)(CatalogForm)

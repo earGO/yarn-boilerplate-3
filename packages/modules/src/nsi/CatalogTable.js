@@ -1,13 +1,13 @@
-import React from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import styled from 'styled-components';
-import {Table, Flex, Box, Text, Card, Icon, Button} from '@ursip/design-system';
+import React from 'react'
+import {useSelector, useDispatch} from 'react-redux'
+import styled from 'styled-components'
+import {Table, Flex, Box, Text, Card, Icon, Button} from '../../import'
 
-import SortableColumn from './SortableColumn';
-import {Loading, nsi as nsiService, arrayToTree} from '../../import';
+import SortableColumn from './SortableColumn'
+import {Loading, nsi as nsiService, arrayToTree} from '../../import'
 
-import * as selectors from './module/selectors';
-import * as actions from './module/actions';
+import * as selectors from './module/selectors'
+import * as actions from './module/actions'
 
 const StyledTable = styled(Table)`
 	.rs-table-header-row-wrapper {
@@ -27,7 +27,7 @@ const StyledTable = styled(Table)`
 		outline: none;
 		margin-right: 0;
 	}
-`;
+`
 
 const StyledCard = styled(Card)`
 	height: 100%;
@@ -35,41 +35,41 @@ const StyledCard = styled(Card)`
 	border-bottom-right-radius: 0;
 	border-bottom: 0;
 	overflow: hidden;
-`;
+`
 
 const StyledIcon = styled(Icon)`
 	opacity: 0.5;
-`;
+`
 
 function CatalogTable() {
-	const wrapperRef = React.useRef(null);
+	const wrapperRef = React.useRef(null)
 
-	const dispatch = useDispatch();
-	const catalogName = useSelector(selectors.currentCatalogName);
-	const catalog = useSelector(selectors.currentCatalog);
-	const data = useSelector(selectors.filteredElements);
-	const columns = useSelector(selectors.filteredAttributes);
-	const loadingElements = useSelector(selectors.loadingElements);
-	const columnsWidths = useSelector(selectors.getColumnWidths);
+	const dispatch = useDispatch()
+	const catalogName = useSelector(selectors.currentCatalogName)
+	const catalog = useSelector(selectors.currentCatalog)
+	const data = useSelector(selectors.filteredElements)
+	const columns = useSelector(selectors.filteredAttributes)
+	const loadingElements = useSelector(selectors.loadingElements)
+	const columnsWidths = useSelector(selectors.getColumnWidths)
 	// const expandedRowKeys = useSelector(selectors.expandedRowKeys)
-	const [expandedRowKeys, setExpandedRowKeys] = React.useState([]);
-	const [bounds, setBounds] = React.useState({});
+	const [expandedRowKeys, setExpandedRowKeys] = React.useState([])
+	const [bounds, setBounds] = React.useState({})
 
 	React.useEffect(() => {
-		let resize;
-		setBounds(wrapperRef.current.getBoundingClientRect());
+		let resize
+		setBounds(wrapperRef.current.getBoundingClientRect())
 
 		function onResize() {
-			clearTimeout(resize);
+			clearTimeout(resize)
 			resize = setTimeout(() => {
-				setBounds(wrapperRef.current.getBoundingClientRect());
-			}, 250);
+				setBounds(wrapperRef.current.getBoundingClientRect())
+			}, 250)
 		}
 
-		window.addEventListener('resize', onResize);
+		window.addEventListener('resize', onResize)
 
-		return () => window.removeEventListener('resize', onResize);
-	}, [wrapperRef]);
+		return () => window.removeEventListener('resize', onResize)
+	}, [wrapperRef])
 
 	const extractLinkValue = value => {
 		if (value && value.dict) {
@@ -78,11 +78,11 @@ function CatalogTable() {
 					<Text bold>{value.dict.name}</Text>
 					<Text fontSize={0} />
 				</Box>
-			);
+			)
 		}
 
-		return null;
-	};
+		return null
+	}
 
 	const renderValue = (value, type) => {
 		switch (true) {
@@ -91,20 +91,20 @@ function CatalogTable() {
 					<Text bold color={value ? 'success' : 'error'}>
 						{value ? 'Да' : 'Нет'}
 					</Text>
-				);
+				)
 			case typeof value === 'object':
-				return <Text truncated>{extractLinkValue(value)}</Text>;
+				return <Text truncated>{extractLinkValue(value)}</Text>
 			case !value:
-				return <Text color="grey">&mdash;</Text>;
+				return <Text color="grey">&mdash;</Text>
 			default:
-				return <Text truncated>{value}</Text>;
+				return <Text truncated>{value}</Text>
 		}
-	};
+	}
 
-	const handleEdit = row => dispatch(actions.showElementsForm(row));
+	const handleEdit = row => dispatch(actions.showElementsForm(row))
 
 	const handleDelete = row => e => {
-		e.stopPropagation();
+		e.stopPropagation()
 		if (global.confirm(`Удалить строку?`)) {
 			dispatch(
 				nsiService.actions.saveDictRow(
@@ -114,14 +114,14 @@ function CatalogTable() {
 					},
 					catalogName
 				)
-			);
+			)
 		}
-	};
+	}
 	const handleAddChild = row => e => {
-		e.stopPropagation();
+		e.stopPropagation()
 
-		dispatch(actions.showElementsForm({parentId: row.elementId}));
-	};
+		dispatch(actions.showElementsForm({parentId: row.elementId}))
+	}
 
 	const storeSize = (columnWidth, dataKey) => {
 		dispatch(
@@ -130,16 +130,16 @@ function CatalogTable() {
 				attributeName: dataKey,
 				width: columnWidth
 			})
-		);
+		)
 
-		dispatch(actions.presistUserSettings());
-	};
+		dispatch(actions.presistUserSettings())
+	}
 
 	const renderLoading = () => (
 		<Loading overlay>
 			Загрузка справочника <span>&laquo;{catalogName}&raquo;</span>
 		</Loading>
-	);
+	)
 
 	const renderColumns = ({name, nick, type}) => {
 		return (
@@ -168,30 +168,30 @@ function CatalogTable() {
 				</Table.HeaderCell>
 				<Table.Cell dataKey={nick}>
 					{row => {
-						const {value} = row.values[nick] || {};
+						const {value} = row.values[nick] || {}
 						return (
 							<Box mx={2} style={{overflow: 'hidden'}}>
 								{renderValue(value, type)}
 							</Box>
-						);
+						)
 					}}
 				</Table.Cell>
 			</Table.Column>
-		);
-	};
+		)
+	}
 
 	const handleExpand = row => e => {
-		e.stopPropagation();
-		const isExpanded = expandedRowKeys.includes(row.elementId);
+		e.stopPropagation()
+		const isExpanded = expandedRowKeys.includes(row.elementId)
 
 		if (isExpanded) {
 			setExpandedRowKeys(
 				expandedRowKeys.filter(key => key !== row.elementId)
-			);
+			)
 		} else {
-			setExpandedRowKeys(expandedRowKeys.concat(row.elementId));
+			setExpandedRowKeys(expandedRowKeys.concat(row.elementId))
 		}
-	};
+	}
 
 	return (
 		<StyledCard ref={wrapperRef}>
@@ -212,8 +212,8 @@ function CatalogTable() {
 				renderTreeToggle={(_, row) => {
 					const iconName = expandedRowKeys.includes(row.elementId)
 						? 'chevron-up'
-						: 'chevron-down';
-					return <Icon name={iconName} onClick={handleExpand(row)} />;
+						: 'chevron-down'
+					return <Icon name={iconName} onClick={handleExpand(row)} />
 				}}
 			>
 				{columns.sort((a, b) => a.orders - b.orders).map(renderColumns)}
@@ -253,17 +253,17 @@ function CatalogTable() {
 										</Button>
 									)}
 								</Flex>
-							);
+							)
 						}}
 					</Table.Cell>
 				</Table.Column>
 			</StyledTable>
 		</StyledCard>
-	);
+	)
 }
 
 CatalogTable.defaultProps = {
 	hierarchy: false
-};
+}
 
-export default CatalogTable;
+export default CatalogTable

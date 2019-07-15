@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 import {
 	Table,
 	Toggle,
@@ -9,14 +9,14 @@ import {
 	Icon,
 	Tooltip,
 	Button
-} from '@ursip/design-system';
-import SortAttributeRow from './SortAttributeRow';
-import AttributeForm from './AttributeForm';
-import {Modal} from '../../import';
+} from '../../import'
+import SortAttributeRow from './SortAttributeRow'
+import AttributeForm from './AttributeForm'
+import {Modal} from '../../import'
 
 function HeaderCell(props) {
-	const {children, align, ...rest} = props;
-	const Cell = styled(Table.HeaderCell)``;
+	const {children, align, ...rest} = props
+	const Cell = styled(Table.HeaderCell)``
 
 	return (
 		<Cell {...rest}>
@@ -28,11 +28,11 @@ function HeaderCell(props) {
 				style={{width: '100%'}}
 			/>
 		</Cell>
-	);
+	)
 }
 
 function TableCell({align, children, ...props}) {
-	const Cell = styled(Table.Cell)``;
+	const Cell = styled(Table.Cell)``
 	return (
 		<Cell {...props}>
 			{row => (
@@ -44,54 +44,52 @@ function TableCell({align, children, ...props}) {
 				</Flex>
 			)}
 		</Cell>
-	);
+	)
 }
 
 const AttributesTable = ({onChange, value}) => {
-	const [currentAttribute, setCurrentAttribute] = React.useState(null);
-	const [attrFormModalVisible, setModalVisibility] = React.useState(false);
-	const attributes = value;
+	const [currentAttribute, setCurrentAttribute] = React.useState(null)
+	const [attrFormModalVisible, setModalVisibility] = React.useState(false)
+	const attributes = value
 
 	const handleItemChange = (field, nick) => value => {
-		let attributeIndex = attributes.findIndex(item => item.nick === nick);
-		let updatedAttribute = {...attributes[attributeIndex], [field]: value};
-		let attributesCopy = attributes.slice();
-		attributesCopy[attributeIndex] = updatedAttribute;
+		let attributeIndex = attributes.findIndex(item => item.nick === nick)
+		let updatedAttribute = {...attributes[attributeIndex], [field]: value}
+		let attributesCopy = attributes.slice()
+		attributesCopy[attributeIndex] = updatedAttribute
 
-		onChange(attributesCopy);
-	};
+		onChange(attributesCopy)
+	}
 
 	const handleAddAttr = attribute => {
-		const attrExists = attributes.find(
-			attr => attr.nick === attribute.nick
-		);
-		let newAttributes = [];
+		const attrExists = attributes.find(attr => attr.nick === attribute.nick)
+		let newAttributes = []
 		if (attrExists) {
 			newAttributes = attributes.map(attr => {
 				if (attr.nick === attribute.nick) {
-					return attribute;
+					return attribute
 				} else {
-					return attr;
+					return attr
 				}
-			});
+			})
 		} else {
-			newAttributes = attributes.concat(attribute);
+			newAttributes = attributes.concat(attribute)
 		}
 
-		onChange(newAttributes);
-		setModalVisibility(false);
-		setCurrentAttribute(null);
-	};
+		onChange(newAttributes)
+		setModalVisibility(false)
+		setCurrentAttribute(null)
+	}
 
 	const handleEdit = attr => {
-		setModalVisibility(true);
-		setCurrentAttribute(attr);
-	};
+		setModalVisibility(true)
+		setCurrentAttribute(attr)
+	}
 
 	const handleCancel = () => {
-		setCurrentAttribute(null);
-		setModalVisibility(false);
-	};
+		setCurrentAttribute(null)
+		setModalVisibility(false)
+	}
 
 	return (
 		<Box>
@@ -161,7 +159,7 @@ const AttributesTable = ({onChange, value}) => {
 										{row.note}
 									</Text>
 								</React.Fragment>
-							);
+							)
 						}}
 					</TableCell>
 				</Table.Column>
@@ -215,7 +213,7 @@ const AttributesTable = ({onChange, value}) => {
 				</Table.Column>
 			</Table>
 		</Box>
-	);
-};
+	)
+}
 
-export default AttributesTable;
+export default AttributesTable

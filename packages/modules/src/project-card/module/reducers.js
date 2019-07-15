@@ -1,16 +1,16 @@
-import {success, error} from 'redux-saga-requests';
+import {success, error} from 'redux-saga-requests'
 
-import {projectCardService} from '../../../import';
-import * as types from './types';
+import {projectCardService} from '../../../import'
+import * as types from './types'
 
-const serviceTypes = projectCardService.types;
+const serviceTypes = projectCardService.types
 
 export const initialState = {
 	projectLoading: false,
 	tabsLoading: false,
 	selectedTab: '',
 	selectedSection: ''
-};
+}
 
 export default {
 	[serviceTypes.LOAD_PROJECT]: () => ({
@@ -32,28 +32,28 @@ export default {
 		tabsLoading: false
 	}),
 	[types.PRESELECT_TAB]: (_, {payload}) => {
-		const tabs = payload.tabs;
-		const selectedTab = payload.selectedTab;
+		const tabs = payload.tabs
+		const selectedTab = payload.selectedTab
 		if (selectedTab === '') {
 			return {
 				selectedTab: tabs[0].id
-			};
+			}
 		} else {
 			return {
 				selectedTab: selectedTab
-			};
+			}
 		}
 	},
 	[types.SELECT_TAB]: (_, {payload}) => ({
 		selectedTab: payload.tabId
 	}),
 	[types.PRESELECT_SECTION]: (_, {payload}) => {
-		const sections = payload.sections;
+		const sections = payload.sections
 		return {
 			selectedSection: sections[0].id
-		};
+		}
 	},
 	[types.SELECT_SECTION]: (_, {payload}) => ({
 		selectedSection: payload.sectionId
 	})
-};
+}

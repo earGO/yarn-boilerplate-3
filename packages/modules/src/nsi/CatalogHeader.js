@@ -1,23 +1,23 @@
-import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {withRouter} from 'react-router-dom';
-import {Text, Heading, Box, Flex} from '@ursip/design-system';
+import React from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {withRouter} from 'react-router-dom'
+import {Text, Heading, Box, Flex} from '../../import'
 
-import {nsi as nsiService, Modal, DropdownMenuButton} from '../../import';
+import {nsi as nsiService, Modal, DropdownMenuButton} from '../../import'
 
-import CatalogItemForm from './CatalogItemForm';
+import CatalogItemForm from './CatalogItemForm'
 
-import * as selectors from './module/selectors';
-import * as actions from './module/actions';
-import {baseRoute} from './module';
+import * as selectors from './module/selectors'
+import * as actions from './module/actions'
+import {baseRoute} from './module'
 
 function CatalogHeader({match, location, history, ...props}) {
-	const dispatch = useDispatch();
-	const catalog = useSelector(selectors.currentCatalog);
-	const attributes = useSelector(selectors.currentCatalogAttributes);
-	const elements = useSelector(selectors.currentCatalogElements);
-	const modalVisible = useSelector(selectors.elementsModalVisible);
-	const currentElement = useSelector(selectors.currentElement);
+	const dispatch = useDispatch()
+	const catalog = useSelector(selectors.currentCatalog)
+	const attributes = useSelector(selectors.currentCatalogAttributes)
+	const elements = useSelector(selectors.currentCatalogElements)
+	const modalVisible = useSelector(selectors.elementsModalVisible)
+	const currentElement = useSelector(selectors.currentElement)
 
 	const dropdownItems = [
 		{
@@ -43,8 +43,8 @@ function CatalogHeader({match, location, history, ...props}) {
 							attributes: Object.values(attributes)
 						})
 					).finally(() => {
-						history.push('/nsi');
-					});
+						history.push('/nsi')
+					})
 				}
 			}
 		},
@@ -56,7 +56,7 @@ function CatalogHeader({match, location, history, ...props}) {
 			name: 'Скачать справочник',
 			onClick: () => dispatch(nsiService.actions.makeReport(catalog.nick))
 		}
-	];
+	]
 
 	return (
 		<Box {...props}>
@@ -80,7 +80,7 @@ function CatalogHeader({match, location, history, ...props}) {
 				/>
 			</Modal>
 		</Box>
-	);
+	)
 }
 
-export default withRouter(CatalogHeader);
+export default withRouter(CatalogHeader)

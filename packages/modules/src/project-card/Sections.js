@@ -1,18 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import SectionsItem from './SectionsItem';
-import {Flex, Box} from '@ursip/design-system';
-import styled from 'styled-components';
-import AddSection from './AddSection';
-import {useDispatch} from 'react-redux';
-import * as actions from './module/actions';
-import {ContentBox} from '../../import';
+import React from 'react'
+import PropTypes from 'prop-types'
+import SectionsItem from './SectionsItem'
+import {Flex, Box} from '../../import'
+import styled from 'styled-components'
+import AddSection from './AddSection'
+import {useDispatch} from 'react-redux'
+import * as actions from './module/actions'
+import {ContentBox} from '../../import'
 
-const Bordered = styled(Flex)``;
+const Bordered = styled(Flex)``
 
 function Sections({projectSections}) {
-	const dispatch = useDispatch();
-	const selectSection = id => dispatch(actions.selectSection(id));
+	const dispatch = useDispatch()
+	const selectSection = id => dispatch(actions.selectSection(id))
 	if (projectSections !== undefined) {
 		return (
 			<ContentBox contentwidth={352} style={{alignSelf: 'flex-start'}}>
@@ -31,20 +31,20 @@ function Sections({projectSections}) {
 								>
 									{section.name}
 								</SectionsItem>
-							);
+							)
 						})}
 					</Flex>
 				</Bordered>
 			</ContentBox>
-		);
+		)
 	} else {
-		return null;
+		return null
 	}
 }
 
 Sections.propTypes = {
 	projectSections: PropTypes.array
-};
+}
 
 Sections.defaultProps = {
 	projectSections: [
@@ -59,14 +59,14 @@ Sections.defaultProps = {
 			version: '1.0.0'
 		}
 	]
-};
+}
 
 SectionsItem.propTypes = {
 	projectSections: PropTypes.array
-};
+}
 
 SectionsItem.defaultProps = {
 	projectSections: []
-};
+}
 
-export default Sections;
+export default Sections

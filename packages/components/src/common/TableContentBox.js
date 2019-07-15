@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {Box} from '@ursip/design-system';
-import styled from 'styled-components';
+import React from 'react'
+import PropTypes from 'prop-types'
+import {Box} from '../../import'
+import styled from 'styled-components'
 
 const ContentBoxStyle = styled(Box)`
 	margin: 0 auto;
 	width: ${props => props.contentwidth + 'px'};
 	z-index: 0;
-`;
+`
 
 function TableContentBox({
 	children,
@@ -29,7 +29,7 @@ function TableContentBox({
 		>
 			{children}
 		</ContentBoxStyle>
-	);
+	)
 }
 
 TableContentBox.propTypes = {
@@ -38,7 +38,7 @@ TableContentBox.propTypes = {
 	contentwidth: PropTypes.number,
 	alignSelf: PropTypes.string,
 	alignItems: PropTypes.string
-};
+}
 
 TableContentBox.defaultProps = {
 	padding: 0,
@@ -46,6 +46,6 @@ TableContentBox.defaultProps = {
 	contentwidth: 1120,
 	alignSelf: 'center',
 	alignItems: 'flex-start'
-};
+}
 
-export default TableContentBox;
+export default TableContentBox

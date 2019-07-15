@@ -1,10 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
-import {Link} from 'react-router-dom';
-import {Text} from '@ursip/design-system';
-import CollapseItem from './CollapseItem';
+import React from 'react'
+import styled from 'styled-components'
+import {Link} from 'react-router-dom'
+import {Text} from '../../import'
+import CollapseItem from './CollapseItem'
 
-import {baseRoute} from './module';
+import {baseRoute} from './module'
 
 const StyledLink = styled(Link)`
 	text-decoration: none;
@@ -12,7 +12,7 @@ const StyledLink = styled(Link)`
 	:visited {
 		color: inherit;
 	}
-`;
+`
 
 function CatalogListItem({nick, name}) {
 	return (
@@ -23,7 +23,7 @@ function CatalogListItem({nick, name}) {
 				</Text>
 			</CollapseItem>
 		</StyledLink>
-	);
+	)
 }
 
-export default CatalogListItem;
+export default CatalogListItem

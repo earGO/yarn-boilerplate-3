@@ -1,11 +1,11 @@
-import {namespace} from './types';
-import reducers, {initialState} from './reducers';
-import sagas from './sagas';
+import {namespace} from './types'
+import reducers, {initialState} from './reducers'
+import sagas from './sagas'
 
-import * as actions from './actions';
-import {nsi as nsiNew} from '../../../import';
+import * as actions from './actions'
+import {nsi as nsiNew} from '../../../import'
 
-export const baseRoute = '/nsi';
+export const baseRoute = '/nsi'
 
 export default {
 	id: namespace,
@@ -21,4 +21,4 @@ export default {
 		nsiNew.actions.loadAllCatalogs(),
 		actions.getUserSettingsFromLocalStorage()
 	]
-};
+}

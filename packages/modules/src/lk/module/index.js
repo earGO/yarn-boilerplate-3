@@ -1,10 +1,10 @@
-import {namespace} from './types';
-import {lk as service} from '../../../import';
-import reducers, {initialState} from './reducers';
+import {namespace} from './types'
+import {lk as service} from '../../../import'
+import reducers, {initialState} from './reducers'
 
-import sagas from './sagas';
+import sagas from './sagas'
 
-export const baseRoute = '/lk';
+export const baseRoute = '/lk'
 
 export default {
 	id: namespace,
@@ -17,4 +17,4 @@ export default {
 	},
 	sagas: [sagas],
 	initialActions: [service.actions.loadProjects()]
-};
+}

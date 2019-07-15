@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import {Input, Icon, Box} from '@ursip/design-system';
-import ResizableInput from './ResizableInput';
+import React from 'react'
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
+import {Input, Icon, Box} from '../../import'
+import ResizableInput from './ResizableInput'
 
 const ClearButton = styled(Icon)`
 	cursor: pointer;
@@ -10,10 +10,10 @@ const ClearButton = styled(Icon)`
 	&:hover {
 		opacity: 1;
 	}
-`;
+`
 const SearchIcon = styled(Icon)`
 	opacity: 0.7;
-`;
+`
 
 function AnimatedSearchInput({
 	onChange,
@@ -23,23 +23,23 @@ function AnimatedSearchInput({
 	growWidth,
 	...props
 }) {
-	const [value, setValue] = React.useState('');
+	const [value, setValue] = React.useState('')
 	const handleChange = value => {
-		setValue(value);
-		onChange && typeof onChange === 'function' && onChange(value);
-		onSearch && typeof onSearch === 'function' && onSearch(value);
-	};
+		setValue(value)
+		onChange && typeof onChange === 'function' && onChange(value)
+		onSearch && typeof onSearch === 'function' && onSearch(value)
+	}
 
 	const handleClear = () => {
-		setValue('');
-		onChange && typeof onChange === 'function' && onChange('');
-		onSearch && typeof onSearch === 'function' && onSearch('');
-	};
+		setValue('')
+		onChange && typeof onChange === 'function' && onChange('')
+		onSearch && typeof onSearch === 'function' && onSearch('')
+	}
 
-	const prefix = <SearchIcon name="search" />;
+	const prefix = <SearchIcon name="search" />
 	const suffix = (
 		<ClearButton name="times" fontSize={0} onClick={handleClear} />
-	);
+	)
 
 	return (
 		<Box {...props}>
@@ -54,7 +54,7 @@ function AnimatedSearchInput({
 				growWidth={growWidth}
 			/>
 		</Box>
-	);
+	)
 }
 
 AnimatedSearchInput.propTypes = {
@@ -63,7 +63,7 @@ AnimatedSearchInput.propTypes = {
 	value: PropTypes.string,
 	shrinkWidth: PropTypes.number,
 	growWidth: PropTypes.number
-};
+}
 
 AnimatedSearchInput.defaultProps = {
 	placeholder: 'Поиск',
@@ -71,6 +71,6 @@ AnimatedSearchInput.defaultProps = {
 	onChange: () => {},
 	shrinkWidth: 40,
 	growWidth: 120
-};
+}
 
-export default AnimatedSearchInput;
+export default AnimatedSearchInput

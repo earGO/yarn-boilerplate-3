@@ -1,6 +1,6 @@
-import styled, {css} from 'styled-components';
-import {withRouter} from 'react-router-dom';
-import {Flex} from '@ursip/design-system';
+import styled, {css} from 'styled-components'
+import {withRouter} from 'react-router-dom'
+import {Flex} from '../../import'
 
 const isActive = ({nick, match, theme}) =>
 	nick &&
@@ -8,7 +8,7 @@ const isActive = ({nick, match, theme}) =>
 	nick === match.params.nick &&
 	css`
 		background: ${theme.colors.lightGrey};
-	`;
+	`
 
 const CollapseItem = styled(Flex)`
 	min-height: 32px;
@@ -18,6 +18,6 @@ const CollapseItem = styled(Flex)`
 	&:hover {
 		opacity: 0.7;
 	}
-`;
+`
 
-export default withRouter(CollapseItem);
+export default withRouter(CollapseItem)

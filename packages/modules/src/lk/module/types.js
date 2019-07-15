@@ -1,5 +1,5 @@
-import {lk as service} from '../../../import';
+import {lk as service} from '../../../import'
 
-export const namespace = '@ursip-' + service.name;
+export const namespace = '@ursip-' + service.name
 
-export const PRESELECT_TAB = `${namespace}/PRESELECT_TAB`;
+export const PRESELECT_TAB = `${namespace}/PRESELECT_TAB`

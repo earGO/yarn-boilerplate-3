@@ -4,7 +4,8 @@
   "main": "src/index.js",
   "main:src": "src/index.js",
   "dependencies": {
-    "@ursip/design-system": "^1.1.0",
+    "@ursip/design-system": "^1.2.0",
+    "@project/design-system-local": "1.2.0",
     "re-resizable": "^5.0.1",
     "react-custom-scrollbars": "^4.2.1",
     "react-router-dom": "^5.0.1",
