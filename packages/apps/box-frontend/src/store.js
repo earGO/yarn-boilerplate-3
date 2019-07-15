@@ -1,30 +1,30 @@
-import {createStore} from 'redux-dynamic-modules';
-import {routerMiddleware, connectRouter} from 'connected-react-router';
+import {createStore} from 'redux-dynamic-modules'
+import {routerMiddleware, connectRouter} from 'connected-react-router'
 import {
 	requestsPromiseMiddleware,
 	createRequestInstance,
 	watchRequests
-} from 'redux-saga-requests';
-import {createDriver} from 'redux-saga-requests-fetch';
-import {createDriver as createMockDriver} from 'redux-saga-requests-mock';
-import {getSagaExtension} from 'redux-dynamic-modules-saga';
-import {getThunkExtension} from 'redux-dynamic-modules-thunk';
-import {fork} from 'redux-saga/effects';
-import {createBrowserHistory} from 'history';
-import {mocks} from './import';
-import {logger} from 'redux-logger/src';
+} from 'redux-saga-requests'
+import {createDriver} from 'redux-saga-requests-fetch'
+import {createDriver as createMockDriver} from 'redux-saga-requests-mock'
+import {getSagaExtension} from 'redux-dynamic-modules-saga'
+import {getThunkExtension} from 'redux-dynamic-modules-thunk'
+import {fork} from 'redux-saga/effects'
+import {createBrowserHistory} from 'history'
+import {mocks} from './import'
+import {logger} from 'redux-logger/src'
 
-const history = createBrowserHistory();
+const history = createBrowserHistory()
 
-const useMocks = false;
+const useMocks = false
 
 const requestSaga = function*() {
 	yield createRequestInstance({
 		driver: useMocks ? createMockDriver(mocks) : createDriver(window.fetch)
-	});
+	})
 
-	yield fork(watchRequests);
-};
+	yield fork(watchRequests)
+}
 
 export const routeModule = () => {
 	return {
@@ -40,13 +40,13 @@ export const routeModule = () => {
 			})
 		],
 		sagas: [requestSaga]
-	};
-};
+	}
+}
 
 const store = createStore({
 	extensions: [getThunkExtension(), getSagaExtension()]
-});
+})
 
-store.history = history;
+store.history = history
 
-export default store;
+export default store

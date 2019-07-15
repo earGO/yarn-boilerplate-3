@@ -1288,40 +1288,6 @@
     unique-filename "^1.1.1"
     which "^1.3.1"
 
-"@fortawesome/fontawesome-common-types@^0.2.19":
-  version "0.2.19"
-  resolved "https://gitlab.ursip.ru/nexus/repository/npm/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.19.tgz#754a0f85e1290858152e1c05700ab502b11197f1"
-  integrity sha512-nd2Ul/CUs8U9sjofQYAALzOGpgkVJQgEhIJnOHaoyVR/LeC3x2mVg4eB910a4kS6WgLPebAY0M2fApEI497raQ==
-
-"@fortawesome/fontawesome-svg-core@^1.2.12":
-  version "1.2.19"
-  resolved "https://gitlab.ursip.ru/nexus/repository/npm/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.19.tgz#0eca1ce9285c3d99e6e340633ee8f615f9d1a2e0"
-  integrity sha512-D4ICXg9oU08eF9o7Or392gPpjmwwgJu8ecCFusthbID95CLVXOgIyd4mOKD9Nud5Ckz+Ty59pqkNtThDKR0erA==
-  dependencies:
-    "@fortawesome/fontawesome-common-types" "^0.2.19"
-
-"@fortawesome/free-regular-svg-icons@^5.7.1":
-  version "5.9.0"
-  resolved "https://gitlab.ursip.ru/nexus/repository/npm/@fortawesome/free-regular-svg-icons/-/free-regular-svg-icons-5.9.0.tgz#b16b325bdcdf51abebc547313cb75c3ef722ca04"
-  integrity sha512-6ZO0jLhk/Yrso0u5pXeYYSfZiHCNoCF7SgtqStdlEX8WtWD4IOfAB1N+MlSnMo12P5KR4cmucX/K0NCOPrhJwg==
-  dependencies:
-    "@fortawesome/fontawesome-common-types" "^0.2.19"
-
-"@fortawesome/free-solid-svg-icons@^5.6.3":
-  version "5.9.0"
-  resolved "https://gitlab.ursip.ru/nexus/repository/npm/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-5.9.0.tgz#1c73e7bac17417d23f934d83f7fff5b100a7fda9"
-  integrity sha512-U8YXPfWcSozsCW0psCtlRGKjjRs5+Am5JJwLOUmVHFZbIEWzaz4YbP84EoPwUsVmSAKrisu3QeNcVOtmGml0Xw==
-  dependencies:
-    "@fortawesome/fontawesome-common-types" "^0.2.19"
-
-"@fortawesome/react-fontawesome@^0.1.4":
-  version "0.1.4"
-  resolved "https://gitlab.ursip.ru/nexus/repository/npm/@fortawesome/react-fontawesome/-/react-fontawesome-0.1.4.tgz#18d61d9b583ca289a61aa7dccc05bd164d6bc9ad"
-  integrity sha512-GwmxQ+TK7PEdfSwvxtGnMCqrfEm0/HbRHArbUudsYiy9KzVCwndxa2KMcfyTQ8El0vROrq8gOOff09RF1oQe8g==
-  dependencies:
-    humps "^2.0.1"
-    prop-types "^15.5.10"
-
 "@hapi/address@2.x.x":
   version "2.0.0"
   resolved "https://gitlab.ursip.ru/nexus/repository/npm/@hapi/address/-/address-2.0.0.tgz#9f05469c88cb2fd3dcd624776b54ee95c312126a"
@@ -2180,16 +2146,6 @@
   dependencies:
     npmlog "^4.1.2"
     write-file-atomic "^2.3.0"
-
-"@mdi/js@^3.7.95":
-  version "3.8.95"
-  resolved "https://gitlab.ursip.ru/nexus/repository/npm/@mdi/js/-/js-3.8.95.tgz#bc25ef11c475fdc6368dab1588e1ee93f724f286"
-  integrity sha512-oiJlKx33YNJrTiKG70oJq0uEKHr9lGNvWHXIglXOzq57rJ80qr/xst5j7ERPmEBe84ZfPiB6ZxwjpMjkQoifDA==
-
-"@mdi/react@^1.1.1":
-  version "1.2.1"
-  resolved "https://gitlab.ursip.ru/nexus/repository/npm/@mdi/react/-/react-1.2.1.tgz#24279784e080728e953f3c1a71f49c64031dee47"
-  integrity sha512-1IRIVCT07vlLmaZjVtGfyfwCMivg/tCtPj0+r1BKrkoh9z4xLf+M1TD0LhjJPO+4+O0ibW+xrNRvf+boRRtX9A==
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -3122,37 +3078,6 @@
   dependencies:
     lodash.unescape "4.0.1"
     semver "5.5.0"
-
-"@ursip/design-system@^1.2.0":
-  version "1.2.0"
-  resolved "https://gitlab.ursip.ru/nexus/repository/npm/@ursip/design-system/-/design-system-1.2.0.tgz#31bfc6e63439a1b814cfad7f8b63aa97e0b1d766"
-  integrity sha512-eQ/ETAt9VHDPAD/mKOtmWsfnzyL3+TidM4APvtjUyCHBffZc5OadlO6LH6k1T/l13Jeazlaxlw2/Z7rJARYSOg==
-  dependencies:
-    "@fortawesome/fontawesome-svg-core" "^1.2.12"
-    "@fortawesome/free-regular-svg-icons" "^5.7.1"
-    "@fortawesome/free-solid-svg-icons" "^5.6.3"
-    "@fortawesome/react-fontawesome" "^0.1.4"
-    "@mdi/js" "^3.7.95"
-    "@mdi/react" "^1.1.1"
-    color "^3.1.0"
-    css-color-names "^1.0.1"
-    file-loader "^4.0.0"
-    hex-rgb "^4.1.0"
-    lodash "^4.17.11"
-    moment "^2.24.0"
-    prop-types "^15.7.2"
-    rc-form "^2.4.1"
-    rc-trigger "^2.6.2"
-    react-custom-scrollbars "^4.2.1"
-    react-modal "^3.8.1"
-    react-select "^2.3.0"
-    react-tiny-popover "^3.4.2"
-    react-window "^1.5.1"
-    rsuite-table "^3.5.4"
-    styled-components "^4.1.3"
-    styled-normalize "^8.0.6"
-    styled-system "^3.2.0"
-    ttf-loader "^1.0.2"
 
 "@vxna/mini-html-webpack-template@^0.1.7":
   version "0.1.7"
@@ -9336,11 +9261,6 @@ humanize-url@^1.0.0:
     normalize-url "^1.0.0"
     strip-url-auth "^1.0.0"
 
-humps@^2.0.1:
-  version "2.0.1"
-  resolved "https://gitlab.ursip.ru/nexus/repository/npm/humps/-/humps-2.0.1.tgz#dd02ea6081bd0568dc5d073184463957ba9ef9aa"
-  integrity sha1-3QLqYIG9BWjcXQcxhEY5V7qe+ao=
-
 hyphenate-style-name@^1.0.2:
   version "1.0.3"
   resolved "https://gitlab.ursip.ru/nexus/repository/npm/hyphenate-style-name/-/hyphenate-style-name-1.0.3.tgz#097bb7fa0b8f1a9cf0bd5c734cf95899981a9b48"
@@ -10583,7 +10503,7 @@ jest-watcher@^24.3.0, jest-watcher@^24.8.0:
     jest-util "^24.8.0"
     string-length "^2.0.0"
 
-jest-worker@^24.0.0, jest-worker@^24.6.0:
+jest-worker@^24.6.0:
   version "24.6.0"
   resolved "https://gitlab.ursip.ru/nexus/repository/npm/jest-worker/-/jest-worker-24.6.0.tgz#7f81ceae34b7cde0c9827a6980c35b7cdc0161b3"
   integrity sha512-jDwgW5W9qGNvpI1tNnvajh0a5IE/PuGLFmHk6aR/BZFz8tSgGw17GsDPXAJ6p91IvYDjOw8GpFbvvZGAK+DPQQ==
@@ -15686,15 +15606,16 @@ rollup-plugin-postcss@^2.0.3:
     rollup-pluginutils "^2.0.1"
     style-inject "^0.3.0"
 
-rollup-plugin-terser@^4.0.4:
-  version "4.0.4"
-  resolved "https://gitlab.ursip.ru/nexus/repository/npm/rollup-plugin-terser/-/rollup-plugin-terser-4.0.4.tgz#6f661ef284fa7c27963d242601691dc3d23f994e"
-  integrity sha512-wPANT5XKVJJ8RDUN0+wIr7UPd0lIXBo4UdJ59VmlPCtlFsE20AM+14pe+tk7YunCsWEiuzkDBY3QIkSCjtrPXg==
+rollup-plugin-terser@^5.1.1:
+  version "5.1.1"
+  resolved "https://gitlab.ursip.ru/nexus/repository/npm/rollup-plugin-terser/-/rollup-plugin-terser-5.1.1.tgz#e9d2545ec8d467f96ba99b9216d2285aad8d5b66"
+  integrity sha512-McIMCDEY8EU6Y839C09UopeRR56wXHGdvKKjlfiZG/GrP6wvZQ62u2ko/Xh1MNH2M9WDL+obAAHySljIZYCuPQ==
   dependencies:
     "@babel/code-frame" "^7.0.0"
-    jest-worker "^24.0.0"
-    serialize-javascript "^1.6.1"
-    terser "^3.14.1"
+    jest-worker "^24.6.0"
+    rollup-pluginutils "^2.8.1"
+    serialize-javascript "^1.7.0"
+    terser "^4.1.0"
 
 rollup-plugin-url@^2.1.0:
   version "2.2.2"
@@ -15927,7 +15848,7 @@ send@0.17.1:
     range-parser "~1.2.1"
     statuses "~1.5.0"
 
-serialize-javascript@^1.4.0, serialize-javascript@^1.6.1, serialize-javascript@^1.7.0:
+serialize-javascript@^1.4.0, serialize-javascript@^1.7.0:
   version "1.7.0"
   resolved "https://gitlab.ursip.ru/nexus/repository/npm/serialize-javascript/-/serialize-javascript-1.7.0.tgz#d6e0dfb2a3832a8c94468e6eb1db97e55a192a65"
   integrity sha512-ke8UG8ulpFOxO8f8gRYabHQe/ZntKlcig2Mp+8+URDP1D8vJZ0KUt7LYo07q25Z/+JVSgpr/cui9PIp5H6/+nA==
@@ -16997,7 +16918,7 @@ terser-webpack-plugin@^1.1.0, terser-webpack-plugin@^1.2.4:
     webpack-sources "^1.3.0"
     worker-farm "^1.7.0"
 
-terser@^3.14.1, terser@^3.16.1:
+terser@^3.16.1:
   version "3.17.0"
   resolved "https://gitlab.ursip.ru/nexus/repository/npm/terser/-/terser-3.17.0.tgz#f88ffbeda0deb5637f9d24b0da66f4e15ab10cb2"
   integrity sha512-/FQzzPJmCpjAH9Xvk2paiWrFq+5M6aVOf+2KRbwhByISDX/EujxsK+BAvrhb6H+2rtrLCHK9N01wO014vrIwVQ==
@@ -17006,7 +16927,7 @@ terser@^3.14.1, terser@^3.16.1:
     source-map "~0.6.1"
     source-map-support "~0.5.10"
 
-terser@^4.0.0:
+terser@^4.0.0, terser@^4.1.0:
   version "4.1.2"
   resolved "https://gitlab.ursip.ru/nexus/repository/npm/terser/-/terser-4.1.2.tgz#b2656c8a506f7ce805a3f300a2ff48db022fa391"
   integrity sha512-jvNoEQSPXJdssFwqPSgWjsOrb+ELoE+ILpHPKXC83tIxOlh2U75F1KuB2luLD/3a6/7K3Vw5pDn+hvu0C4AzSw==

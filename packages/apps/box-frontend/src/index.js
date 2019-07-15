@@ -1,15 +1,15 @@
-import './assets/fonts/PTSans/font.css';
-import '@ursip/design-system/build/index.css';
+import './assets/fonts/PTSans/font.css'
+import './design-system-crouch/index.css'
 
-import React from 'react';
-import {render} from 'react-dom';
-import {Provider} from 'react-redux';
-import {ThemeProvider} from '@ursip/design-system';
-import Normalize from 'react-normalize';
+import React from 'react'
+import {render} from 'react-dom'
+import {Provider} from 'react-redux'
+import {ThemeProvider} from './import'
+import Normalize from 'react-normalize'
 
-import store from './store';
-import theme from './theme';
-import DynamicRoutes from './DynamicRoutes';
+import store from './store'
+import theme from './theme'
+import DynamicRoutes from './DynamicRoutes'
 
 render(
 	<Provider store={store}>
@@ -19,4 +19,4 @@ render(
 		</ThemeProvider>
 	</Provider>,
 	document.getElementById('root')
-);
+)

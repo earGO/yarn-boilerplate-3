@@ -13,7 +13,8 @@
     "clean": "oao clean",
     "status": "oao status",
     "remove-all": "oao remove-all",
-    "mock-api": "cd .mock && json-server dbSeparateEndpointsV2.json --watch --port 3421"
+    "mock-api": "cd .mock && json-server dbSeparateEndpointsV2.json --watch --port 3421",
+    "build-local-styles": "cd packages/design-system-local && rollup -c"
   },
   "workspaces": {
     "packages": [

@@ -1,3 +1,3 @@
-import {lk} from '../import';
+import {lk} from '../import'
 
-export default lk;
+export default lk

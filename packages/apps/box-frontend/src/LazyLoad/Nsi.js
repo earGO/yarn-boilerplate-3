@@ -1,3 +1,3 @@
-import {nsi} from '../import';
+import {nsi} from '../import'
 
-export default nsi;
+export default nsi

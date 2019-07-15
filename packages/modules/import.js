@@ -31,7 +31,7 @@ export {
 	Select,
 	Tooltip,
 	Collapse
-} from '@ursip/design-system'
+} from '@project/design-system-local'
 
 export {projectCardService, nsi, lk} from '@project/services'
 export {arrayToTree} from '@project/utils'

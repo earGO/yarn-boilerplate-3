@@ -1,6 +1,6 @@
-import React from 'react';
-import Link from '../common/Link';
-import {Box, Heading} from '@ursip/design-system';
+import React from 'react'
+import Link from '../common/Link'
+import {Box, Heading} from '../../import'
 
 function Main() {
 	return (
@@ -22,7 +22,7 @@ function Main() {
 				</Link>
 			</Box>
 		</Box>
-	);
+	)
 }
 
-export default Main;
+export default Main

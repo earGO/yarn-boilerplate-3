@@ -1,4 +1,4 @@
-import {theme} from '@ursip/design-system';
+import {theme} from './import'
 
 export default {
 	...theme
@@ -6,4 +6,4 @@ export default {
 	//   ...theme.colors,
 	//   primary: 'green',
 	// },
-};
+}
