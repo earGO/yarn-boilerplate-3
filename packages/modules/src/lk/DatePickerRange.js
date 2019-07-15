@@ -128,10 +128,10 @@ function Datepicker({handleDateFilterChange, ...props}) {
 	const [focusedInput, setFocusedInput] = useState(null)
 	const {value, onChange, ...rest} = props
 
-	const handleLocalDateChange = (startDate, endDate) => {
+	const handleLocalDateChange = (startDate, endDate, criteria) => {
 		setStartDate(startDate)
 		setEndDate(endDate)
-		handleDateFilterChange(startDate, endDate)
+		handleDateFilterChange(startDate, endDate, criteria)
 	}
 	return (
 		<Wrapper>
@@ -156,7 +156,7 @@ function Datepicker({handleDateFilterChange, ...props}) {
 					) : (
 						<OverlayIconCloseBox
 							onClick={() => {
-								handleLocalDateChange(null, null)
+								handleLocalDateChange(null, null, null)
 							}}
 						>
 							<Icon name={'close'} />
@@ -173,7 +173,7 @@ function Datepicker({handleDateFilterChange, ...props}) {
 				startDate={stateStartDate}
 				endDate={stateEndDate}
 				onDatesChange={({startDate, endDate}) => {
-					handleLocalDateChange(startDate, endDate)
+					handleLocalDateChange(startDate, endDate, 'dateCreated')
 				}}
 				focusedInput={focusedInput}
 				onFocusChange={focusedInput => {
@@ -183,6 +183,7 @@ function Datepicker({handleDateFilterChange, ...props}) {
 				hideKeyboardShortcutsPanel
 				small
 				enableOutsideDays
+				reopenPickerOnClearDates={false}
 				customArrowIcon={<TestCustomArrowIcon />}
 			/>
 		</Wrapper>

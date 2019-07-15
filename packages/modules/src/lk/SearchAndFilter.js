@@ -5,7 +5,7 @@ import {
 	AnimatedSearchInput,
 	FlexContainerBottomDivider
 } from '../../import'
-import {Box, Select, Heading, Text, Flex, Relative} from '../../import'
+import {Box, Select, Heading, Text, Flex, Relative, Button} from '../../import'
 import DatePicker from './DatePickerRange'
 
 import styled from 'styled-components'
@@ -133,9 +133,15 @@ function SearchAndFilter({
 						flexWrap={'nowrap'}
 					>
 						<Box p={2}>
-							<Text fontSize={1} color={'primary'}>
+							<Button
+								type={'flat'}
+								color={'primary'}
+								onClick={() => {
+									handleDateFilterChange(null, null, null)
+								}}
+							>
 								Сбросить фильтры
-							</Text>
+							</Button>
 						</Box>
 					</ContentBox>
 				</ContentBox>

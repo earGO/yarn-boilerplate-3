@@ -48,6 +48,7 @@ function LK(props) {
 	const [openTable, setTableOpen] = useState(false)
 	const [filterStartDate, setFilterStartDate] = useState(null)
 	const [filterEndDate, setFilterEndDate] = useState(null)
+	const [filterCriteria, setFilterCriteria] = useState(null)
 	const [projectsSortCriteria, setProjectsSort] = useState('dateChange')
 
 	/* Use selector variables */
@@ -62,7 +63,11 @@ function LK(props) {
 	)
 
 	const filteredOnDates = useSelector(
-		selectors.filteredOnDates(filterStartDate, filterEndDate, 'dateCreated')
+		selectors.filteredOnDates(
+			filterStartDate,
+			filterEndDate,
+			filterCriteria
+		)
 	)
 
 	const notReady = loading && !data && !sortedOnCriteria
@@ -73,12 +78,16 @@ function LK(props) {
 		console.log(criteria)
 	}
 
-	const handleDateFilterChange = (startDate, endDate) => {
+	const handleDateFilterChange = (startDate, endDate, criteria) => {
 		if (startDate && endDate) {
 			console.log(startDate.toDate(), endDate.toDate().getTime())
 
 			setFilterStartDate(startDate.toDate().getTime())
 			setFilterEndDate(endDate.toDate().getTime())
+		} else {
+			setFilterCriteria(criteria)
+			setFilterEndDate(endDate)
+			setFilterStartDate(startDate)
 		}
 	}
 	notReady ? console.log('not ready') : console.log(filteredOnDates)

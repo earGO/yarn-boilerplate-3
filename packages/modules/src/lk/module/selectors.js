@@ -61,17 +61,21 @@ function filterOnChangeDates(
 	criteria
 ) {
 	//dateCreated format "2012-03-15"
-	if (startDate !== null && endDate !== null) {
-		let result = []
-		result = flatArrayOfProjects.filter(item => {
-			const itemDate = new Date(item[criteria]).getTime()
-			if (itemDate >= startDate && itemDate <= endDate) {
-				return 1
-			} else {
-				return 0
-			}
-		})
-		return result
+	if (criteria) {
+		if (startDate !== null && endDate !== null) {
+			let result = []
+			result = flatArrayOfProjects.filter(item => {
+				const itemDate = new Date(item[criteria]).getTime()
+				if (itemDate >= startDate && itemDate <= endDate) {
+					return 1
+				} else {
+					return 0
+				}
+			})
+			return result
+		} else {
+			return flatArrayOfProjects
+		}
 	} else {
 		return flatArrayOfProjects
 	}
