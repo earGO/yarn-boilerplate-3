@@ -7,7 +7,7 @@ import aphroditeInterface from 'react-with-styles-interface-aphrodite'
 import DefaultTheme from 'react-dates/lib/theme/DefaultTheme'
 import React, {useState} from 'react'
 import styled from 'styled-components'
-import {DateRangePicker, DateRangePickerInputController} from 'react-dates'
+import {DateRangePicker} from 'react-dates'
 import {Box, Flex, Text} from '../../import'
 import 'moment/locale/ru'
 import TestCustomArrowIcon from './TestCustomArrowIcon'
@@ -157,6 +157,7 @@ function Datepicker({handleDateFilterChange, ...props}) {
 						<OverlayIconCloseBox
 							onClick={() => {
 								handleLocalDateChange(null, null, null)
+								setFocusedInput(null)
 							}}
 						>
 							<Icon name={'close'} />

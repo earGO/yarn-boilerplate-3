@@ -1,12 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
-function TestCustomArrowIcon({props}) {
-	return null;
+function TestCustomArrowIcon() {
+	return null
 }
 
-TestCustomArrowIcon.propTypes = {};
-
-TestCustomArrowIcon.defaultProps = {};
-
-export default TestCustomArrowIcon;
+export default TestCustomArrowIcon

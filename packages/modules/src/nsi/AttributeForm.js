@@ -200,10 +200,6 @@ function AttributeForm({
 			</Text>
 		</Card>
 	)
-
-	function newFunction(values) {
-		console.log(values)
-	}
 }
 
 AttributeForm.defaultProps = {

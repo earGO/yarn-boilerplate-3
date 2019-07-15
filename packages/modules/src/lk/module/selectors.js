@@ -1,10 +1,9 @@
 import {createSelector} from 'reselect'
-import moment from 'moment'
 
 import {namespace} from './types'
 import {initialState} from './reducers'
 
-import {lk as service, formatDate} from '../../../import'
+import {lk as service} from '../../../import'
 
 const namespaceStateSelector = state => state[namespace] || initialState
 const serviceStateSelector = state => state[service.name] || initialState

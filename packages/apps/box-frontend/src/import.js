@@ -1,4 +1,11 @@
-export {projectCard, nsi, lk} from '@project/modules'
-export {Layout, Loading, NotFound, Main} from '@project/components'
+export {projectCard, nsi, lk, TopNav} from '@project/modules'
+export {Loading, NotFound, Main, Link} from '@project/components'
 export {mocks} from '@project/services'
-export {theme, ThemeProvider} from '@project/design-system-local'
+export {
+	theme,
+	ThemeProvider,
+	Heading,
+	Box,
+	Flex,
+	Text
+} from '@project/design-system-local'

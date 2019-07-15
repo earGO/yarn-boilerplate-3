@@ -1,7 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
 
-function Infograph01({props}) {
+function Infograph01() {
 	return (
 		<svg width="1191" height="100%" viewBox="0 0 1191 181">
 			<path
@@ -21,11 +20,7 @@ function Infograph01({props}) {
 				stroke="#0DA309"
 			/>
 		</svg>
-	);
+	)
 }
 
-Infograph01.propTypes = {};
-
-Infograph01.defaultProps = {};
-
-export default Infograph01;
+export default Infograph01

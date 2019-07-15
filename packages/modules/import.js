@@ -11,7 +11,9 @@ export {
 	SearchInput,
 	DropdownMenuButton,
 	TableContentBox,
-	AnimatedSearchInput
+	AnimatedSearchInput,
+	Logo,
+	NotificationsCounter
 } from '@project/components'
 
 export {

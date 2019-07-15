@@ -1,5 +1,6 @@
-import styled from 'styled-components';
-import logo from './assets/ursip-logo.svg';
+import React from 'react'
+import styled from 'styled-components'
+import logo from './assets/ursip-logo.svg'
 
 const Logo = styled.img`
 	display: inline-block;
@@ -9,13 +10,13 @@ const Logo = styled.img`
 	:hover {
 		opacity: 0.6;
 	}
-`;
+`
 
 Logo.defaultProps = {
 	width: '60px',
 	height: '60px',
 	alt: 'logo',
 	src: logo
-};
+}
 
-export default Logo;
+export default Logo

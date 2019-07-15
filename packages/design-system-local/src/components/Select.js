@@ -123,8 +123,7 @@ const customStyles = {
 }
 
 const DropdownIndicator = props => {
-	const {systemTheme, size} = props.selectProps
-	const sizeIndex = getSize(size)
+	const {systemTheme} = props.selectProps
 
 	// VERY FUCKING HACKY WAY TO DO THAT
 	const {innerProps, ...rest} = props

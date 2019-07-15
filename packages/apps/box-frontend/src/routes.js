@@ -5,9 +5,8 @@ import {Route, Switch} from 'react-router-dom'
 
 import {name as appName} from '../package.json'
 
-// import {baseRoute as nsiModuleRoute} from './components/nsi/module';
-
-import {projectCard, Layout, Loading, NotFound, Main, nsi, lk} from './import'
+import {projectCard, Loading, NotFound, nsi, lk} from './import'
+import {Layout} from './Layout'
 import './LazyLoad/ProjectCard'
 
 const projectCardRoute = projectCard.baseRoute

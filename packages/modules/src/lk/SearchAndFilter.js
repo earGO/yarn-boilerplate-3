@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import {
 	TableContentBox,
 	ContentBox,
@@ -41,7 +41,6 @@ function SearchAndFilter({
 
 	/* A atate to handle filter selector */
 	const [value, setOption] = useState(options[4])
-	const [functionValue, setFunctionOption] = useState({})
 
 	const searchQuery = ''
 
@@ -49,9 +48,7 @@ function SearchAndFilter({
 		setOption(newOption)
 		handleProjectsSort(newOption.value)
 	}
-	const onFunctionalChange = newOption => {
-		setFunctionOption(newOption)
-	}
+	const onFunctionalChange = newOption => {}
 
 	const handleSearch = debounce(200, query =>
 		dispatch(actions.searchCatalogs(query))
