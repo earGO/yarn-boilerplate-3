@@ -1,4 +1,4 @@
-export {projectCard, nsi, lk, TopNav} from '@project/modules'
+export {projectCard, nsi, lk, TopNav, LkNav} from '@project/modules'
 export {Loading, NotFound, Main, Link} from '@project/components'
 export {mocks} from '@project/services'
 export {

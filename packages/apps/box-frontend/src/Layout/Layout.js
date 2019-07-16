@@ -1,6 +1,6 @@
 import React from 'react'
 import {Scrollbars} from 'react-custom-scrollbars'
-import {Flex, Box, Text, TopNav} from '../import'
+import {Flex, Box, Text, TopNav, LkNav} from '../import'
 import {withRouter} from 'react-router-dom'
 
 /**
@@ -18,6 +18,7 @@ function Layout({children, width, maxWidth, history, ...props}) {
 			{...props}
 		>
 			<TopNav />
+			<LkNav />
 			<Box flex={1} style={{overflow: 'auto'}}>
 				{children}
 			</Box>
