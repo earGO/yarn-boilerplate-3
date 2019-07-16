@@ -1,4 +1,6 @@
-export const namespace = '@ursip-lk-navigation'
+import {topNavigation} from '../../../import'
+
+export const namespace = '@ursip-' + topNavigation.name
 
 export const PRESELECT_OPTION = `${namespace}/PRESELECT_OPTION`
 
