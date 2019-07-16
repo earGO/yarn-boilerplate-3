@@ -1691,5 +1691,49 @@
         }
       ]
     }
+  ],
+  "main_nav": [
+    {
+      "id": "main",
+      "value": "Главная"
+    },
+    {
+      "id": "tools",
+      "value": "Инструменты"
+    },
+    {
+      "id": "services",
+      "value": "Услуги"
+    },
+    {
+      "id": "help",
+      "value": "Помощь"
+    }
+  ],
+  "personal_nav": [
+    {
+      "id": "All",
+      "value": "Все стадии"
+    },
+    {
+      "id": "OBIN",
+      "value": "ОБИН"
+    },
+    {
+      "id": "PROJECTING",
+      "value": "Проектирование"
+    },
+    {
+      "id": "SMR",
+      "value": "Строительство"
+    },
+    {
+      "id": "OPER",
+      "value": "Эксплуатация"
+    },
+    {
+      "id": "SNOS",
+      "value": "Снос"
+    }
   ]
 }

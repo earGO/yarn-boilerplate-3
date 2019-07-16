@@ -2,7 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {useSelector, useDispatch} from 'react-redux'
 import {Box, Flex, ContentBox, OptionUnderline} from '../../import'
-import Profile from '../TopNav/Profile'
+import styled from 'styled-components'
+
+const ZIndexed = styled(Box)`
+	z-index: 3;
+`
 
 function LkNav({...props}) {
 	// const someVariable = useSelector(selectors.someSelector)
@@ -12,15 +16,16 @@ function LkNav({...props}) {
 	// const someAction = () => dispatch(actions.someAction)
 
 	return (
-		<Box bg={'#f5f5f5'}>
+		<ZIndexed bg={'#f5f5f5'}>
 			<ContentBox justifyContent={'flex-start'} alignItems={'center'}>
-				<OptionUnderline>Главная</OptionUnderline>
-				<OptionUnderline>Инструменты</OptionUnderline>
-				<OptionUnderline>Услуги</OptionUnderline>
-				<OptionUnderline>Помощь</OptionUnderline>
-				<Profile />
+				<OptionUnderline>Все стадии</OptionUnderline>
+				<OptionUnderline>ОБИН</OptionUnderline>
+				<OptionUnderline>Проектирование</OptionUnderline>
+				<OptionUnderline>Строительство</OptionUnderline>
+				<OptionUnderline>Эксплуатация</OptionUnderline>
+				<OptionUnderline>Снос</OptionUnderline>
 			</ContentBox>
-		</Box>
+		</ZIndexed>
 	)
 }
 

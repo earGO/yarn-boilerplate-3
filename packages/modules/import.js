@@ -35,5 +35,11 @@ export {
 	Collapse
 } from '@project/design-system-local'
 
-export {projectCardService, nsi, lk} from '@project/services'
+export {
+	projectCardService,
+	nsi,
+	lk,
+	topNavigation,
+	personalNavigation
+} from '@project/services'
 export {arrayToTree, formatDate} from '@project/utils'

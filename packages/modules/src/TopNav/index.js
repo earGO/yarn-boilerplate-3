@@ -7,13 +7,18 @@ import GlobalSearch from './GlobalSearch'
 import Actions from './Actions'
 import Notifications from './Notifications'
 import Profile from './Profile'
+import styled from 'styled-components'
+
+const ZIndexed = styled(Box)`
+	z-index: 4;
+`
 
 function TopNav({...props}) {
 	const dispatch = useDispatch()
 
 	return (
 		<Flex flexDirection={'column'}>
-			<Box bg="primary" height={'56px'}>
+			<ZIndexed bg="primary" height={'56px'}>
 				<ContentBox
 					justifyContent={'space-between'}
 					alignItems={'center'}
@@ -24,8 +29,8 @@ function TopNav({...props}) {
 					<Actions />
 					<Profile />
 				</ContentBox>
-			</Box>
-			<Box>
+			</ZIndexed>
+			<ZIndexed>
 				<ContentBox justifyContent={'flex-start'} alignItems={'center'}>
 					<OptionUnderline>Главная</OptionUnderline>
 					<OptionUnderline>Инструменты</OptionUnderline>
@@ -33,7 +38,7 @@ function TopNav({...props}) {
 					<OptionUnderline>Помощь</OptionUnderline>
 					<Profile />
 				</ContentBox>
-			</Box>
+			</ZIndexed>
 		</Flex>
 	)
 }
