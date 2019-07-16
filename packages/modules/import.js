@@ -32,7 +32,8 @@ export {
 	Table,
 	Select,
 	Tooltip,
-	Collapse
+	Collapse,
+	Absolute
 } from '@project/design-system-local'
 
 export {
@@ -41,7 +42,9 @@ export {
 	lk,
 	topNavigation,
 	personalNavigation,
-	mocks
+	mocks,
+	oshs,
+	auth
 } from '@project/services'
 
 export {arrayToTree, formatDate, storageUtils} from '@project/utils'
