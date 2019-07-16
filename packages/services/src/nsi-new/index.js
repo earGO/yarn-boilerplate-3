@@ -1,21 +1,21 @@
-import {success} from 'redux-saga-requests';
-import pkg from '../../package.json';
-import {capitlizeObjectKeys, dataToEntities} from '../../import';
+import {success} from 'redux-saga-requests'
+import pkg from '../../package.json'
+import {capitlizeObjectKeys, dataToEntities} from '../../import'
 
-import catalogJson from './catalog.json';
+import catalogJson from './catalog.json'
 
-import elements from './elements.json';
-import dict from './dict.json';
+import elements from './elements.json'
+import dict from './dict.json'
 
-const name = 'ursip-nsi-service';
-const api = pkg.ru_ursip.services[name];
+const name = 'ursip-nsi-service'
+const api = pkg.ru_ursip.services[name]
 
 /* Types */
-const LOAD_DICTS = `${name}/LOAD_DICTS`;
-const LOAD_DICT_ELEMENTS = `${name}/LOAD_DICT_ELEMENTS`;
-const SAVE_DICT = `${name}/SAVE_DICT`;
-const SAVE_DICT_ROW = `${name}/SAVE_DICT_ROW`;
-const MAKE_REPORT = `${name}/MAKE_REPORT`;
+const LOAD_DICTS = `${name}/LOAD_DICTS`
+const LOAD_DICT_ELEMENTS = `${name}/LOAD_DICT_ELEMENTS`
+const SAVE_DICT = `${name}/SAVE_DICT`
+const SAVE_DICT_ROW = `${name}/SAVE_DICT_ROW`
+const MAKE_REPORT = `${name}/MAKE_REPORT`
 
 const types = {
 	LOAD_DICTS,
@@ -23,10 +23,10 @@ const types = {
 	SAVE_DICT_ROW,
 	SAVE_DICT,
 	MAKE_REPORT
-};
+}
 
 function shittylize(data) {
-	const {attributes, hierarchy, deleted, transfer, ...rest} = data || {};
+	const {attributes, hierarchy, deleted, transfer, ...rest} = data || {}
 
 	return {
 		...rest,
@@ -48,11 +48,11 @@ function shittylize(data) {
 				unique: Number(unique) || 0
 			})
 		)
-	};
+	}
 }
 
 function shittylizeElement(data) {
-	const {deleted, values, ...rest} = data || {};
+	const {deleted, values, ...rest} = data || {}
 
 	return {
 		...rest,
@@ -65,7 +65,7 @@ function shittylizeElement(data) {
 				value: value || null
 			})
 		)
-	};
+	}
 }
 
 /* Action creators */
@@ -80,10 +80,10 @@ export const actions = {
 			},
 			meta: {
 				mock: requestConfig => {
-					return dict;
+					return dict
 				}
 			}
-		};
+		}
 	},
 	loadElements(nick) {
 		return {
@@ -95,10 +95,10 @@ export const actions = {
 			},
 			meta: {
 				mock: requestConfig => {
-					return elements;
+					return elements
 				}
 			}
-		};
+		}
 	},
 	metaDictSave(dict) {
 		return {
@@ -120,7 +120,7 @@ export const actions = {
 					)
 				}
 			}
-		};
+		}
 	},
 	saveDictRow(data, nickDict) {
 		return {
@@ -142,15 +142,15 @@ export const actions = {
 					)
 				}
 			}
-		};
+		}
 	},
 	makeReport(nick) {
 		return {
 			type: MAKE_REPORT,
 			payload: {nick}
-		};
+		}
 	}
-};
+}
 
 function normalize(response) {
 	return (Array.isArray(response) ? response : [response]).map(
@@ -168,7 +168,7 @@ function normalize(response) {
 			hierarchy: Boolean(hierarchyDict),
 			transfer: Boolean(transfer)
 		})
-	);
+	)
 }
 
 function normalizeElements(elements) {
@@ -184,7 +184,7 @@ function normalizeElements(elements) {
 				value: value || valueAttr
 			}))
 		)
-	}));
+	}))
 }
 
 function normalizeAttributes(attributes) {
@@ -208,7 +208,7 @@ function normalizeAttributes(attributes) {
 			deleted: Boolean(deleted),
 			unique: Boolean(unique)
 		})
-	);
+	)
 }
 
 /* Reducer */
@@ -216,7 +216,7 @@ const initialState = {
 	catalogs: {},
 	attributes: {},
 	elements: {}
-};
+}
 
 function reducer(state = initialState, {type, payload}) {
 	switch (type) {
@@ -230,11 +230,11 @@ function reducer(state = initialState, {type, payload}) {
 						normalizeAttributes(nsiMetaAttrs).sort(
 							(a, b) => a.orders - b.orders
 						)
-					);
+					)
 
-					return acc;
+					return acc
 				}, {})
-			};
+			}
 		}
 
 		case success(SAVE_DICT):
@@ -251,7 +251,7 @@ function reducer(state = initialState, {type, payload}) {
 						normalizeAttributes(payload.data.nsiMetaAttrs)
 					)
 				}
-			};
+			}
 
 		case success(LOAD_DICT_ELEMENTS):
 			return {
@@ -263,7 +263,7 @@ function reducer(state = initialState, {type, payload}) {
 						normalizeElements(payload.data.dict.elements)
 					)
 				}
-			};
+			}
 
 		case success(SAVE_DICT_ROW):
 			// console.log(payload.data)
@@ -276,10 +276,10 @@ function reducer(state = initialState, {type, payload}) {
 						normalizeElements(payload.data.dict.elements)
 					)
 				}
-			};
+			}
 
 		default:
-			return state;
+			return state
 	}
 }
 
@@ -290,4 +290,4 @@ export default {
 	types,
 	name,
 	pkg
-};
+}

@@ -4,7 +4,9 @@
   "description": "Utils for other modules",
   "ru_ursip": {
     "services": {
-      "ursip-nsi-service": "http://develop.ursip.local/api/bim-nsi-new-dev/api/v1"
+      "ursip-nsi-service": "http://develop.ursip.local/api/bim-nsi-new-dev/api/v1",
+      "ursip-oshs-service": "http://develop.ursip.local/ws-oshs/v1",
+      "ursip-auth-service": "http://develop.ursip.local/api/access-control/v1/login"
     }
   },
   "main": "src/index.js",

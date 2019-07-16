@@ -40,7 +40,8 @@ export {
 	nsi,
 	lk,
 	topNavigation,
-	personalNavigation
+	personalNavigation,
+	mocks
 } from '@project/services'
 
-export {arrayToTree, formatDate} from '@project/utils'
+export {arrayToTree, formatDate, storageUtils} from '@project/utils'
