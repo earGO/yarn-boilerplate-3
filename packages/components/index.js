@@ -20,5 +20,4 @@ export {default as SearchInput} from './src/common/SearchInput'
 export {default as DropdownMenuButton} from './src/common/DropdownMenuButton'
 export {default as ResizableInput} from './src/common/ResizableInput'
 export {default as AnimatedSearchInput} from './src/common/AnimatedSearchInput'
-
 export {default as Main} from './src/main'

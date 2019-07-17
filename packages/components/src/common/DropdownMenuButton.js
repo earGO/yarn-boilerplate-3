@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import {Card, Text, Button, Icon, Popover} from '../../import'
+import {Card, Text, Button, Icon, Popover, Flex, Box} from '../../import'
 
 const Item = styled(Text)`
 	border-bottom: 1px solid ${props => props.theme.colors.border};
@@ -16,7 +16,7 @@ const Item = styled(Text)`
 	}
 `
 
-function DropdownMenuButton({children, items, ...props}) {
+function DropdownMenuButton({children, items, iconName, tableIcon, ...props}) {
 	const [visible, setDropdownVisibility] = React.useState(false)
 	const handleButtonClick = () => setDropdownVisibility(!visible)
 	const closeDropdown = () => setDropdownVisibility(false)
@@ -50,15 +50,34 @@ function DropdownMenuButton({children, items, ...props}) {
 			position="bottom"
 			content={popoverContent}
 			onClickOutside={closeDropdown}
+			contentLocation={({nudgedLeft, nudgedTop}) => ({
+				top: nudgedTop - 10,
+				left: nudgedLeft - 90
+			})}
 		>
 			<Button
-				type="primary"
+				type={
+					iconName === 'ellipsis-v' || iconName === 'ellipsis-h'
+						? 'flat'
+						: 'primary'
+				}
 				size="small"
 				onClick={handleButtonClick}
 				{...props}
+				tableIcon={tableIcon}
 			>
-				{children}{' '}
-				{<Icon mx={1} name={visible ? 'chevron-up' : 'chevron-down'} />}
+				{children}
+				<Icon
+					mr={tableIcon ? 5 : 1}
+					ml={1}
+					name={
+						iconName
+							? iconName
+							: visible
+							? 'chevron-up'
+							: 'chevron-down'
+					}
+				/>
 			</Button>
 		</Popover>
 	)

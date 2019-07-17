@@ -1,7 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {Icon, Flex, Relative} from '../../import'
+import {useDispatch} from 'react-redux'
+import * as loginActions from '../login/module/actions'
 
 const Hoverer = styled(Flex)`
 	transition: all 0.15s ease-in;
@@ -11,9 +12,13 @@ const Hoverer = styled(Flex)`
 	}
 `
 
-function Profile({props}) {
+function Profile({...props}) {
+	const dispatch = useDispatch()
+	const handleLogout = () => {
+		dispatch(loginActions.logout())
+	}
 	return (
-		<Hoverer mt={2}>
+		<Hoverer mt={2} onClick={handleLogout}>
 			<Icon name={'account_circle'} color={'white'} size={3} />
 			<Relative top={'6px'}>
 				<Icon name={'arrow_drop_down'} color={'white'} size={2} />
