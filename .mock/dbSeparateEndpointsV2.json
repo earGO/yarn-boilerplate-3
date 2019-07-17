@@ -1708,6 +1708,15 @@
     {
       "id": "help",
       "value": "Помощь"
+    },
+    {
+      "id": "oshs",
+      "value": "ОШС"
+    }
+  ,
+    {
+      "id": "nsi",
+      "value": "НСИ"
     }
   ],
   "personal_nav": [

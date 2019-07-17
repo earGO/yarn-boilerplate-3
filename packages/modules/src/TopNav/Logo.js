@@ -1,5 +1,5 @@
 import React from 'react'
-import {Heading, Logo, Flex} from '../../import'
+import {Heading, Flex} from '../../import'
 import styled from 'styled-components'
 
 const Hoverer = styled(Flex)`
@@ -25,9 +25,5 @@ function FullLogo({history, ...props}) {
 		</Hoverer>
 	)
 }
-
-Logo.propTypes = {}
-
-Logo.defaultProps = {}
 
 export default FullLogo

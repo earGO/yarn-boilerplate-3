@@ -29,7 +29,7 @@ function TopNav({history, ...props}) {
 	return (
 		<DynamicModuleLoader modules={[mainNavigation.default]}>
 			{notReady ? (
-				<Loading overlay>Загрузка карточки проекта</Loading>
+				<Loading overlay>Загрузка шапки</Loading>
 			) : (
 				<Flex flexDirection={'column'}>
 					<ZIndexed bg="primary" height={'56px'}>
@@ -48,6 +48,7 @@ function TopNav({history, ...props}) {
 						<NavigationPanel
 							mainNavTabs={mainNavTabs}
 							tabSelected={tabSelected}
+							history={history}
 						/>
 					</ZIndexed>
 				</Flex>

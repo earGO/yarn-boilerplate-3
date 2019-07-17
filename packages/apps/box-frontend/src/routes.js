@@ -29,6 +29,12 @@ const routes = [
 		component: React.lazy(() => import('./LazyLoad/Main'))
 	},
 	{
+		key: 'backendMain',
+		path: '/main',
+		private: true,
+		component: React.lazy(() => import('./LazyLoad/Main'))
+	},
+	{
 		key: 'Nsi',
 		path: nsiModuleRoute,
 		private: true,
