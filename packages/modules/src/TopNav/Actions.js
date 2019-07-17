@@ -6,7 +6,7 @@ import {Flex, Text, Icon, Box} from '../../import'
 const CustomButton = styled(Flex)`
 	border: 1px solid white;
 	border-radius: 4px;
-	width: 136px;
+	width: 88px;
 	height: 32px;
 	cursor: pointer;
 	transition: all 0.15s ease-in-out;
