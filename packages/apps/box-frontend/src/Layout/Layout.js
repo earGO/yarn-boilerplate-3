@@ -18,7 +18,7 @@ function Layout({children, width, maxWidth, history, ...props}) {
 			{...props}
 		>
 			<TopNav history={history} />
-			<Box flex={1} style={{overflow: 'auto'}}>
+			<Box flex={1} mx="auto" width="100%" style={{overflow: 'hidden'}}>
 				{children}
 			</Box>
 			<Box bg="lightGrey">

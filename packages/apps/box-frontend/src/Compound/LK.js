@@ -11,7 +11,7 @@ function LK({...props}) {
 			{...props}
 		>
 			<LkNav />
-			<Box flex={1} style={{overflow: 'auto'}}>
+			<Box flex={1} mx="auto" width="100%" style={{overflow: 'hidden'}}>
 				<Lk />
 			</Box>
 		</Flex>
