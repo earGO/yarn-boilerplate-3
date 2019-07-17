@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, Flex, LkNav} from '../import'
+import {Box, Flex, LkNav, Scrollbars} from '../import'
 import Lk from '../LazyLoad/LK'
 
 function LK({...props}) {
@@ -12,7 +12,9 @@ function LK({...props}) {
 		>
 			<LkNav />
 			<Box flex={1} mx="auto" width="100%" style={{overflow: 'hidden'}}>
-				<Lk />
+				<Scrollbars universal style={{height: 760}}>
+					<Lk />
+				</Scrollbars>
 			</Box>
 		</Flex>
 	)

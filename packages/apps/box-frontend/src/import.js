@@ -16,5 +16,6 @@ export {
 	Heading,
 	Box,
 	Flex,
-	Text
+	Text,
+	Scrollbars
 } from '@project/design-system-local'
