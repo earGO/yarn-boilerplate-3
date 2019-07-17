@@ -3,7 +3,13 @@ import PropTypes from 'prop-types'
 import {DynamicModuleLoader} from 'redux-dynamic-modules'
 import {useSelector, useDispatch} from 'react-redux'
 import * as mainNavigation from './module'
-import {Flex, Box, ContentBox, OptionUnderline, Loading} from '../../import'
+import {
+	Flex,
+	Box,
+	ContentBox,
+	FlexContainerBottomDivider,
+	Loading
+} from '../../import'
 import Logo from './Logo'
 import GlobalSearch from './GlobalSearch'
 import Actions from './Actions'
@@ -45,11 +51,13 @@ function TopNav({history, ...props}) {
 						</ContentBox>
 					</ZIndexed>
 					<ZIndexed>
-						<NavigationPanel
-							mainNavTabs={mainNavTabs}
-							tabSelected={tabSelected}
-							history={history}
-						/>
+						<FlexContainerBottomDivider>
+							<NavigationPanel
+								mainNavTabs={mainNavTabs}
+								tabSelected={tabSelected}
+								history={history}
+							/>
+						</FlexContainerBottomDivider>
 					</ZIndexed>
 				</Flex>
 			)}
