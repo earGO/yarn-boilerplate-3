@@ -5,34 +5,44 @@ import {Route, Switch} from 'react-router-dom'
 
 import {name as appName} from '../package.json'
 
-import {projectCard, Loading, NotFound, nsi, lk} from './import'
+import {projectCard, Loading, NotFound, nsi, lk, Login} from './import'
 import {Layout} from './Layout'
-import './LazyLoad/ProjectCard'
+import PrivateRoute from './PrivateRoute'
 
 const projectCardRoute = projectCard.baseRoute
 const nsiModuleRoute = nsi.baseRoute
 const lkModuleRoute = lk.baseRoute
+const loginModuleRoute = Login.baseRoute
 
 const routes = [
+	{
+		key: 'Login',
+		path: loginModuleRoute,
+		component: React.lazy(() => import('./LazyLoad/Login'))
+	},
 	{
 		key: 'Main',
 		path: '/',
 		exact: true,
+		private: true,
 		component: React.lazy(() => import('./LazyLoad/Main'))
 	},
 	{
 		key: 'Nsi',
 		path: nsiModuleRoute,
+		private: true,
 		component: React.lazy(() => import('./LazyLoad/Nsi'))
 	},
 	{
 		key: 'project-card',
 		path: projectCardRoute,
+		private: true,
 		component: React.lazy(() => import('./LazyLoad/ProjectCard'))
 	},
 	{
 		key: 'lk',
 		path: lkModuleRoute,
+		private: true,
 		component: React.lazy(() => import('./LazyLoad/LK'))
 	}
 ]
@@ -47,9 +57,16 @@ function Routes({history}) {
 				<Layout>
 					<React.Suspense fallback={<Loading overlay />}>
 						<Switch>
-							{routes.map(route => (
+							{routes.map(route =>
+								route.private ? (
+									<PrivateRoute {...route} />
+								) : (
+									<Route {...route} />
+								)
+							)}
+							{/*							{routes.map(route => (
 								<Route {...route} />
-							))}
+							))}*/}
 							<Route component={NotFound} />
 						</Switch>
 					</React.Suspense>

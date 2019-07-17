@@ -10,7 +10,7 @@ import Sections from './Sections'
 import Fields from './Fields'
 import {ContentBox, Loading} from '../../import'
 
-function ProjectCard({props}) {
+function ProjectCard({...props}) {
 	const loading = useSelector(selectors.projectLoading)
 	const projectData = useSelector(selectors.projectSelector)
 	const projectTitle = useSelector(selectors.projectTitleSelector)

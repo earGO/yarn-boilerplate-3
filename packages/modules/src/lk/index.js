@@ -4,7 +4,7 @@ import * as module from './module'
 import {Flex, Box, Button, Text, Relative} from '../../import'
 import * as selectors from './module/selectors'
 import {DynamicModuleLoader} from 'redux-dynamic-modules'
-import {Loading, ContentBox, Icon, formatDate} from '../../import'
+import {Loading, ContentBox, Icon} from '../../import'
 import ProjectsTable from './ProjectsTable'
 import SearchAndFilter from './SearchAndFilter'
 import styled from 'styled-components'
@@ -75,13 +75,10 @@ function LK(props) {
 	/* Function is passed to SearchAndFilter component, where it's criteria is changed with dropdown */
 	const handleProjectsSort = criteria => {
 		setProjectsSort(criteria)
-		console.log(criteria)
 	}
 
 	const handleDateFilterChange = (startDate, endDate, criteria) => {
 		if (startDate && endDate) {
-			console.log(startDate.toDate(), endDate.toDate().getTime())
-
 			setFilterStartDate(startDate.toDate().getTime())
 			setFilterEndDate(endDate.toDate().getTime())
 		} else {
@@ -90,7 +87,7 @@ function LK(props) {
 			setFilterStartDate(startDate)
 		}
 	}
-	notReady ? console.log('not ready') : console.log(filteredOnDates)
+
 	return (
 		<DynamicModuleLoader modules={[module.default]}>
 			{notReady ? (

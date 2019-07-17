@@ -43,6 +43,23 @@ export const routeModule = () => {
 	}
 }
 
+const modules = [
+	{
+		id: 'initial',
+		reducerMap: {
+			router: connectRouter(history)
+		},
+		middlewares: [
+			logger,
+			routerMiddleware(history),
+			requestsPromiseMiddleware({
+				auto: true
+			})
+		],
+		sagas: [requestSaga]
+	}
+]
+
 const store = createStore({
 	extensions: [getThunkExtension(), getSagaExtension()]
 })

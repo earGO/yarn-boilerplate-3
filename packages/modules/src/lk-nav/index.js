@@ -1,13 +1,11 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import * as personalNavigation from './module'
 import {useSelector, useDispatch} from 'react-redux'
-import {Box, Flex, ContentBox, OptionUnderline, Loading} from '../../import'
+import {Box, ContentBox, Loading} from '../../import'
 import styled from 'styled-components'
 import * as selectors from './module/selectors'
 import {DynamicModuleLoader} from 'redux-dynamic-modules'
 import ModuleNavigationTabs from './ModuleNavigationTabs'
-import * as mainNavigation from '../TopNav/module'
 
 const ZIndexed = styled(Box)`
 	z-index: 3;
@@ -25,7 +23,7 @@ function LkNav({...props}) {
 	return (
 		<DynamicModuleLoader modules={[personalNavigation.default]}>
 			{notReady ? (
-				<Loading overlay>Загрузка карточки проекта</Loading>
+				<Loading overlay>Загрузка навигации</Loading>
 			) : (
 				<ZIndexed bg={'#f5f5f5'}>
 					<ContentBox

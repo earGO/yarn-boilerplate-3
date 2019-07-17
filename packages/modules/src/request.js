@@ -8,15 +8,11 @@ import {createDriver} from 'redux-saga-requests-fetch'
 import {createDriver as createMockDriver} from 'redux-saga-requests-mock'
 
 import {call, put} from 'redux-saga/effects'
-import {mocks, storageUtils} from '../../import'
-import {actions as authActions} from '../services/auth'
-import {actions as loginActions} from '../components/login/login-duck'
-import {
-	types as oshsDepartmentsSeviceTypes,
-	actions as oshsDepartmentsServiceActions
-} from '../services/oshs/departments'
+import {mocks, storageUtils, auth} from '../import'
+import * as loginActions from './login/module/actions'
 
 const {getTokens, checkToken, checkIfUnauthorized, putTokens} = storageUtils
+const authActions = auth.actions
 
 const useMocks = false
 export function* onRequestSaga(request) {
@@ -84,6 +80,5 @@ export function* requestSaga() {
 
 export default {
 	id: 'request',
-	sagas: [requestSaga],
-	middlewares: [requestsPromiseMiddleware()]
+	sagas: [requestSaga]
 }

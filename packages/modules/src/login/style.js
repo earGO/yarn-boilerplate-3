@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import {Card, Input, Flex} from '@ursip/design-system'
-import background from '../../assets/background.png'
+import {Card, Input, Flex} from '../../import'
+import background from '../assets/background.png'
 
 export const InputLogin = styled(Input)`
 	background-color: ${({theme}) => theme.colors.semiLightGrey};

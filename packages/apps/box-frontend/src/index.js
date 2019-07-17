@@ -10,6 +10,7 @@ import Normalize from 'react-normalize'
 import store from './store'
 import theme from './theme'
 import DynamicRoutes from './DynamicRoutes'
+import Routes from './routes'
 
 render(
 	<Provider store={store}>
