@@ -5,7 +5,8 @@ export {
 	TopNav,
 	LkNav,
 	Login,
-	request
+	request,
+	oshs
 } from '@project/modules'
 export {Loading, NotFound, Main, Link} from '@project/components'
 export {mocks} from '@project/services'

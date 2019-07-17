@@ -5,7 +5,7 @@ import {Route, Switch} from 'react-router-dom'
 
 import {name as appName} from '../package.json'
 
-import {projectCard, Loading, NotFound, nsi, lk, Login} from './import'
+import {projectCard, Loading, NotFound, nsi, lk, Login, oshs} from './import'
 import {Layout} from './Layout'
 import PrivateRoute from './PrivateRoute'
 
@@ -13,6 +13,7 @@ const projectCardRoute = projectCard.baseRoute
 const nsiModuleRoute = nsi.baseRoute
 const lkModuleRoute = lk.baseRoute
 const loginModuleRoute = Login.baseRoute
+const oshsModuleRoute = oshs.baseRoute
 
 const routes = [
 	{
@@ -44,6 +45,12 @@ const routes = [
 		path: lkModuleRoute,
 		private: true,
 		component: React.lazy(() => import('./LazyLoad/LK'))
+	},
+	{
+		key: 'Oshs',
+		private: true,
+		path: oshsModuleRoute,
+		component: React.lazy(() => import('./LazyLoad/Oshs'))
 	}
 ]
 
@@ -64,9 +71,6 @@ function Routes({history}) {
 									<Route {...route} />
 								)
 							)}
-							{/*							{routes.map(route => (
-								<Route {...route} />
-							))}*/}
 							<Route component={NotFound} />
 						</Switch>
 					</React.Suspense>

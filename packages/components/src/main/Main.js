@@ -21,6 +21,11 @@ function Main() {
 					lk
 				</Link>
 			</Box>
+			<Box m={2}>
+				<Link bordered to="/oshs">
+					ОШС
+				</Link>
+			</Box>
 		</Box>
 	)
 }
