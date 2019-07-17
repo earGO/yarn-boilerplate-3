@@ -3,8 +3,7 @@ import {useDispatch} from 'react-redux'
 
 import {actions as oshsDelegationActions} from './module/delegation'
 
-import ButtonsOSHS from '../common/formItems/buttonOSHS'
-import FormModal from '../common/FormModal'
+import {FormModal, ButtonsOSHS} from '../../import'
 
 export default function DeleteDelegationForm({close, isOpen, delegation}) {
 	const dispatch = useDispatch()

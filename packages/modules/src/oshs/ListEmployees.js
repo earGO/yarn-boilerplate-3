@@ -1,24 +1,27 @@
 import React, {useState, useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import {Card, Flex, Text, Box, Scrollbars} from '@ursip/design-system'
+import {
+	Card,
+	Flex,
+	Text,
+	Box,
+	Scrollbars,
+	Loading,
+	DropdownMenuButton,
+	FormModal,
+	ButtonsOSHS
+} from '../../import'
 import {push} from 'connected-react-router'
 
-import AccountLogo from '../../assets/icons/baseline-account_circle-24px.svg'
+import AccountLogo from '../assets/icons/baseline-account_circle-24px.svg'
 import styled from 'styled-components'
 import {
 	selectors as oshsEmployeesSelectors,
 	actions as oshsEmployeesActions
 } from './module/employees'
-import {
-	selectors as oshsDepartmentSelectors,
-	actions as oshsDepartmentsActions
-} from './module/departments'
-import Loading from '../common/Loading'
-import DropdownMenuButton from '../common/DropdownMenuButton'
-import FormModal from '../common/FormModal'
+import {actions as oshsDepartmentsActions} from './module/departments'
 import CreateDelegationForm from './CreateDelegationForm'
 import UpdateEmployeeForm from './UpdateEmployeeForm'
-import ButtonsOSHS from '../common/formItems/buttonOSHS'
 
 const AccountIcon = styled.img`
 	user-select: none;

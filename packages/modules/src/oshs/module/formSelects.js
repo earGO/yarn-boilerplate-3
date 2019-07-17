@@ -1,5 +1,7 @@
 import {createSelector} from 'reselect'
-import oshsEmployeesServices from '../../../services/oshs/employees'
+import {oshs} from '../../../import'
+
+const oshsEmployeesServices = oshs.employees
 
 const name = 'oshs-module-form-selects'
 export const baseRoute = '/oshs'

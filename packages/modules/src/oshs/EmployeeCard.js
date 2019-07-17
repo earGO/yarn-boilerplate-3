@@ -1,13 +1,5 @@
 import React, {useEffect} from 'react'
-import {
-	Text,
-	Flex,
-	Box,
-	Card,
-	Heading,
-	Divider,
-	Scrollbars
-} from '@ursip/design-system'
+import {Text, Flex, Box, Card, Heading, Divider, Scrollbars} from '../../import'
 import {useSelector, useDispatch} from 'react-redux'
 import {
 	selectors as oshsEmployeesSelectors,
@@ -15,10 +7,10 @@ import {
 } from './module/employees'
 import DelegationCard from './DelegationCard'
 
-import AccountLogo from '../../assets/icons/baseline-account_circle-24px.svg'
-import CommentIcon from '../../assets/icons/baseline-comment-24px.svg'
-import EmailIcon from '../../assets/icons/outline-email-24px.svg'
-import PhoneIcon from '../../assets/icons/baseline-call-24px.svg'
+import AccountLogo from '../assets/icons/baseline-account_circle-24px.svg'
+import CommentIcon from '../assets/icons/baseline-comment-24px.svg'
+import EmailIcon from '../assets/icons/outline-email-24px.svg'
+import PhoneIcon from '../assets/icons/baseline-call-24px.svg'
 
 function isEmpty(obj) {
 	for (var key in obj) {

@@ -1,8 +1,10 @@
 import {createSelector} from 'reselect'
 import {put, takeEvery, select, call} from 'redux-saga/effects'
-import * as oshsDepartmentsServices from '../../../services/oshs/departments'
+import {oshs} from '../../../import'
 import {success} from 'redux-saga-requests'
 import {push} from 'connected-react-router'
+
+const oshsDepartmentsServices = oshs.departments
 
 const name = 'oshs-module-departments'
 export const baseRoute = '/oshs'
@@ -177,7 +179,7 @@ export {name, types, selectors, actions}
 export default {
 	id: name,
 	reducerMap: {
-		['load-all-departments']: oshsDepartmentsServices.default,
+		['load-all-departments']: oshsDepartmentsServices.mainReducer,
 		['create-sub-department']:
 			oshsDepartmentsServices.createSubDepartmentReducer,
 		['search-department']: oshsDepartmentsServices.searchDepartmentReducer,

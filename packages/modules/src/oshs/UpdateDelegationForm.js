@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useMemo} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import {Form} from '@ursip/design-system'
 
 import {actions as oshsDelegationActions} from './module/delegation'
 import {
@@ -10,17 +9,19 @@ import {
 
 import {selectors as oshsDepartmentsSelectors} from './module/departments'
 
-import FormModal from '../common/FormModal'
-import InputOSHS from '../common/formItems/InputOSHS'
-import ButtonsOSHS from '../common/formItems/buttonOSHS'
-import TreeSelectOSHS from '../common/formItems/TreeSelectOSHS'
-import SelectOSHS from '../common/formItems/selectOSHS'
-import DataPickerOSHS from '../common/formItems/DataPickerOSHS'
-import FixedField from '../common/formItems/FixedField'
-import UploadFileOSHS from '../common/formItems/UploadFileOSHS'
-import FormSector from '../common/formItems/FormSector'
-
-import arrayToTree from '../../utils/arrayToTree'
+import {
+	Form,
+	arrayToTree,
+	FormModal,
+	InputOSHS,
+	FixedField,
+	FormSector,
+	UploadFileOSHS,
+	ButtonsOSHS,
+	TreeSelectOSHS,
+	SelectOSHS,
+	DataPickerOSHS
+} from '../../import'
 import moment from 'moment'
 
 const createForm = Form.create

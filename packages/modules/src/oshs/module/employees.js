@@ -1,5 +1,5 @@
 import {createSelector} from 'reselect'
-import oshsEmployeesServices from '../../../services/oshs/employees'
+import {oshs} from '../../../import'
 import {
 	actions as departmentsActions,
 	selectors as departmentsSelectors
@@ -7,6 +7,8 @@ import {
 import {success} from 'redux-saga-requests'
 import {takeEvery, put, select, call} from 'redux-saga/effects'
 import {push} from 'connected-react-router'
+
+const oshsEmployeesServices = oshs.employees
 
 const name = 'oshs-module-employees'
 export const baseRoute = '/oshs'

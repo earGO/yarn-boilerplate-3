@@ -12,5 +12,14 @@ export {
 	Relative,
 	Overlay,
 	Heading,
-	Divider
+	Divider,
+	Modal,
+	Select
 } from '@project/design-system-local'
+
+export {
+	arrayToTree,
+	formatDate,
+	storageUtils,
+	useDefaultInForm
+} from '@project/utils'

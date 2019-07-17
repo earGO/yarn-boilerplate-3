@@ -3,13 +3,14 @@ import {useSelector, useDispatch} from 'react-redux'
 import {actions as oshsEmployeesActions} from './module/employees'
 import {selectors as oshsDepartmentsSelectors} from './module/departments'
 
-import {Form} from '@ursip/design-system'
-import InputOSHS from '../common/formItems/InputOSHS'
-import ButtonsOSHS from '../common/formItems/buttonOSHS'
-import TreeSelectOSHS from '../common/formItems/TreeSelectOSHS'
-import FormModal from '../common/FormModal'
-
-import arrayToTree from '../../utils/arrayToTree'
+import {
+	Form,
+	arrayToTree,
+	FormModal,
+	TreeSelectOSHS,
+	InputOSHS,
+	ButtonsOSHS
+} from '../../import'
 
 const createForm = Form.create
 

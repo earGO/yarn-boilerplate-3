@@ -1,16 +1,17 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {
 	actions as oshsDepartmentsActions,
 	selectors as oshsDepartmentsSelectors
 } from './module/departments'
-import {Form} from '@ursip/design-system'
-import InputOSHS from '../common/formItems/InputOSHS'
-import ButtonsOSHS from '../common/formItems/buttonOSHS'
-import TreeSelectOSHS from '../common/formItems/TreeSelectOSHS'
-import FormModal from '../common/FormModal'
-
-import arrayToTree from '../../utils/arrayToTree'
+import {
+	Form,
+	InputOSHS,
+	ButtonsOSHS,
+	TreeSelectOSHS,
+	FormModal,
+	arrayToTree
+} from '../../import'
 
 const createForm = Form.create
 

@@ -13,7 +13,17 @@ export {
 	TableContentBox,
 	AnimatedSearchInput,
 	Logo,
-	NotificationsCounter
+	NotificationsCounter,
+	FormModal,
+	ButtonsOSHS,
+	InputOSHS,
+	SelectOSHS,
+	TreeSelectOSHS,
+	DataPickerOSHS,
+	FixedField,
+	UploadFileOSHS,
+	FormSector,
+	OSHSSearchInput
 } from '@project/components'
 
 export {
@@ -33,7 +43,9 @@ export {
 	Select,
 	Tooltip,
 	Collapse,
-	Absolute
+	Absolute,
+	Scrollbars,
+	Divider
 } from '@project/design-system-local'
 
 export {

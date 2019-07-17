@@ -1,5 +1,4 @@
 import React, {useState, useEffect, useMemo} from 'react'
-import {Flex, Box, Button, Icon, Text} from '@ursip/design-system'
 import {useSelector, useDispatch} from 'react-redux'
 import {push} from 'connected-react-router'
 import {DynamicModuleLoader} from 'redux-dynamic-modules'
@@ -14,37 +13,50 @@ import {
 	actions as oshsEmployeesActions,
 	selectors as oshsEmployeesSelectors
 } from './module/employees'
-import Loading from '../common/Loading'
-import FormModal from '../common/FormModal'
+import {
+	Flex,
+	Box,
+	Button,
+	Icon,
+	Text,
+	Loading,
+	FormModal,
+	arrayToTree,
+	Table,
+	DropdownMenuButton,
+	ButtonsOSHS,
+	SearchInput
+} from '../../import'
 import CreateDepartmentForm from './CreateDepartmentForm'
 import CreateEmployeeForm from './CreateEmployeeForm'
 import UpdateDepartmentForm from './UpdateDepartmentForm'
-import arrayToTree from '../../utils/arrayToTree'
-import Table from '../common/Table'
-import DropdownMenuButton from '../common/DropdownMenuButton'
-import ButtonsOSHS from '../common/formItems/buttonOSHS'
-import SearchInput from '../common/SearchInput'
 
 function Departments() {
 	const [
 		CreateDepartmentFormIsOpen,
 		setCreateDepartmentFormIsOpen
 	] = useState(false)
+
 	const [createEmployeeFormIsOpen, setCreateEmployeeFormIsOpen] = useState(
 		false
 	)
+
 	const [
 		UpdateDepartmentFormIsOpen,
 		setUpdateDepartmentFormIsOpen
 	] = useState(false)
+
 	const [deleteDepartmentModal, setDeleteDepartmentModal] = useState(false)
+
 	const [
 		abortDeleteDepartmentModal,
 		setAbortDeleteDepartmentModal
 	] = useState(false)
+
 	const dispatch = useDispatch()
 
 	const allDepartments = useSelector(oshsDepartmentsSelectors.allDepartments)
+
 	const selectedDepartment = useSelector(
 		oshsDepartmentsSelectors.selectedDepartment
 	)

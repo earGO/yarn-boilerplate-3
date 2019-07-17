@@ -1,14 +1,12 @@
 import React from 'react'
 import {Helmet} from 'react-helmet'
-import {Flex, Box} from '@ursip/design-system'
+import {Flex, ResizableSide, OSHSSearchInput as SearchInput} from '../../import'
 import {useSelector, useDispatch} from 'react-redux'
-import Departments from './Departments'
+import Departments from './departments'
 import ListEmployees from './ListEmployees'
 import {debounce} from 'throttle-debounce'
-import ResizableSide from '../common/ResizableSide'
 import {Route} from 'react-router-dom'
 import EmployeeCard from './EmployeeCard'
-import SearchInput from '../common/SearchInput'
 import {
 	selectors as oshsEmployeesSelectors,
 	actions as oshsEmployeesActions

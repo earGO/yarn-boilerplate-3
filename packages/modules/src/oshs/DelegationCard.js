@@ -1,12 +1,9 @@
 import React, {useState} from 'react'
-import PropTypes from 'prop-types'
 import moment from 'moment'
-import {Text, Flex, Card} from '@ursip/design-system'
+import {Text, Flex, Card, DropdownMenuButton} from '../../import'
 
 import DeleteDelegationForm from './DeleteDelegationForm'
 import UpdateDelegationForm from './UpdateDelegationForm'
-
-import DropdownMenuButton from '../common/DropdownMenuButton'
 
 function DelegationCard({delegation = {}, delegationTo}) {
 	const dropdownItems = [

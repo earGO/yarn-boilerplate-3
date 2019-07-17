@@ -1,9 +1,10 @@
 import {createSelector} from 'reselect'
 import {success} from 'redux-saga-requests'
-
-import * as oshsDelegationServices from '../../../services/oshs/delegation'
+import {oshs} from '../../../import'
 import {sagas as employeesSagas} from './employees'
 import {takeEvery, call} from 'redux-saga/effects'
+
+const oshsDelegationServices = oshs.delegation
 
 const name = 'oshs-module-delegation'
 export const baseRoute = '/oshs'

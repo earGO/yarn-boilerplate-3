@@ -4,15 +4,14 @@ import {
 	actions as oshsDepartmentsActions,
 	selectors as oshsDepartmentsSelectors
 } from './module/departments'
-import {Form} from '@ursip/design-system'
-
-import FormModal from '../common/FormModal'
-
-import InputOSHS from '../common/formItems/InputOSHS'
-import ButtonsOSHS from '../common/formItems/buttonOSHS'
-import TreeSelectOSHS from '../common/formItems/TreeSelectOSHS'
-
-import arrayToTree from '../../utils/arrayToTree'
+import {
+	Form,
+	FormModal,
+	InputOSHS,
+	ButtonsOSHS,
+	TreeSelectOSHS,
+	arrayToTree
+} from '../../import'
 
 const createForm = Form.create
 
