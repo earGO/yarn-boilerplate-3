@@ -17,7 +17,7 @@ const ZIndexed = styled(Box)`
 	z-index: 4;
 `
 
-function TopNav({...props}) {
+function TopNav({history, ...props}) {
 	const loading = useSelector(selectors.tabsLoading)
 	const mainNavTabs = useSelector(selectors.tabsSelector)
 	const tabSelected = useSelector(selectors.selectedTabsSelector)
@@ -37,7 +37,7 @@ function TopNav({...props}) {
 							justifyContent={'space-between'}
 							alignItems={'center'}
 						>
-							<Logo />
+							<Logo history={history} />
 							<GlobalSearch />
 							<Notifications />
 							<Actions />

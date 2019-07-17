@@ -17,7 +17,7 @@ function Layout({children, width, maxWidth, history, ...props}) {
 			alignItems="stretch"
 			{...props}
 		>
-			<TopNav />
+			<TopNav history={history} />
 			<LkNav />
 			<Box flex={1} style={{overflow: 'auto'}}>
 				{children}

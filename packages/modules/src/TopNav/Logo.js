@@ -10,9 +10,10 @@ const Hoverer = styled(Flex)`
 	}
 `
 
-function FullLogo({...props}) {
+function FullLogo({history, ...props}) {
+	const handleLogoClick = () => history.push('/')
 	return (
-		<Hoverer alignItems={'center'} pt={2}>
+		<Hoverer alignItems={'center'} pt={2} onClick={handleLogoClick}>
 			<img
 				width={'24px'}
 				height={'24px'}

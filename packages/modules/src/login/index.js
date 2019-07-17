@@ -31,7 +31,7 @@ function Login({...props}) {
 	const error = useSelector(selectors.authError)
 	const loading = useSelector(selectors.authLoading)
 	const loginStatus = useSelector(selectors.loginStatus)
-	const authAction = () => (login, pwd) => dispatch(actions.auth(login, pwd))
+	const authAction = (login, pwd) => dispatch(actions.auth(login, pwd))
 
 	const loginHandler = e => {
 		setLogin(e)
@@ -131,7 +131,7 @@ function Login({...props}) {
 										) : (
 											<Button
 												mt={4}
-												onClick={() => submitAuth}
+												onClick={submitAuth}
 												block
 											>
 												Войти
