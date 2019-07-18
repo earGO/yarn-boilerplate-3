@@ -14,7 +14,8 @@ export {
 	Heading,
 	Divider,
 	Modal,
-	Select
+	Select,
+	Scrollbars
 } from '@project/design-system-local'
 
 export {

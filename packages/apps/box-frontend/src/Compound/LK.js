@@ -1,12 +1,15 @@
-import React, {useRef} from 'react'
+import React, {useRef, useState} from 'react'
 import {Box, Flex, LkNav, Scrollbars} from '../import'
 import Lk from '../LazyLoad/LK'
 
 function LK({...props}) {
+	/* Create reference to scrollbars to invoke local methods */
 	const scrollBarsRef = useRef(null)
 	const onUpButtonClick = () => {
-		console.log(scrollBarsRef.current)
+		/* Invoke local method of scrollbars to scroll to top */
+		scrollBarsRef.current.scrollToTop()
 	}
+
 	return (
 		<Flex
 			height="100vh"

@@ -34,6 +34,7 @@
     "@styled-system/theme-get": "^5.0.12",
     "lodash": "^4.17.14",
     "react": "^16.8.6",
+    "react-custom-scrollbars": "^4.2.1",
     "styled-system": "^5.0.12"
   }
 }

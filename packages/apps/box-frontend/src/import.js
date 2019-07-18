@@ -8,7 +8,13 @@ export {
 	request,
 	oshs
 } from '@project/modules'
-export {Loading, NotFound, Main, Link} from '@project/components'
+export {
+	Loading,
+	NotFound,
+	Main,
+	Link,
+	ScrollbarsExtractor
+} from '@project/components'
 export {mocks} from '@project/services'
 export {
 	theme,

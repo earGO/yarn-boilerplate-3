@@ -7168,7 +7168,7 @@ dom-converter@^0.2:
   dependencies:
     utila "~0.4"
 
-dom-css@^2.0.0:
+dom-css@^2.0.0, dom-css@^2.1.0:
   version "2.1.0"
   resolved "https://gitlab.ursip.ru/nexus/repository/npm/dom-css/-/dom-css-2.1.0.tgz#fdbc2d5a015d0a3e1872e11472bbd0e7b9e6a202"
   integrity sha1-/bwtWgFdCj4YcuEUcrvQ57nmogI=

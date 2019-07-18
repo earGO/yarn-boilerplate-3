@@ -1,23 +1,21 @@
 import React from 'react'
-import Scrollbars from '../../import'
+import Scrollbars from 'react-custom-scrollbars'
 
-class Parent extends React.Class {
+class ScrollbarsExtractor extends React.Component {
 	constructor(props) {
 		super(props)
-		this._child = React.createRef()
+		this.getScrollTop = this.getScrollTop.bind(this)
 	}
 
-	componentDidMount() {
-		console.log(this._child.current.someMethod()) // Prints 'bar'
+	getScrollTop() {
+		if (!this.view) return 0
+		this.props.valueExtraction(this.view.scrollTop)
+		return this.view.scrollTop
 	}
 
 	render() {
-		return (
-			<div>
-				<Scrollbars ref={this._child}>
-					<div height=""></div>
-				</Scrollbars>
-			</div>
-		)
+		return <Scrollbars getScrollTop={this.getScrollTop} />
 	}
 }
+
+export default ScrollbarsExtractor

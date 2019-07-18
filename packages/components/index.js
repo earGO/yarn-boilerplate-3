@@ -32,3 +32,7 @@ export {default as FixedField} from './src/OSHS/formItems/DataPickerOSHS'
 export {default as UploadFileOSHS} from './src/OSHS/formItems/UploadFileOSHS'
 export {default as FormSector} from './src/OSHS/formItems/FormSector'
 export {default as OSHSSearchInput} from './src/OSHS/SearchInput'
+
+export {
+	default as ScrollbarsExtractor
+} from './src/MethodExtractionWrappers/ScrollbarsExtractor'

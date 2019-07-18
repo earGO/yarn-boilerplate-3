@@ -28,6 +28,7 @@ export {default as Radio} from './components/Radio'
 export {default as Table} from './components/Table'
 export {default as Popover} from './components/Popover'
 export {default as Select} from './components/Select'
-export {default as Scrollbars} from './components/Scrollbars'
 export {default as Modal} from './components/Modal'
 export {default as ResizableInput} from './components/ResizableInput'
+
+export {default as Scrollbars} from './components/ControllableScrollbars/index'
