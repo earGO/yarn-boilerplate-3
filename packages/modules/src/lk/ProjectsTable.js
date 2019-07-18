@@ -91,6 +91,7 @@ function ProjectsTable({projects, openTable, ...props}) {
 		openTable ? (tableHeight = 288) : (tableHeight = 144)
 	}
 	if (projects) {
+		console.log(projects)
 		return (
 			<TableContentBox>
 				<Table
