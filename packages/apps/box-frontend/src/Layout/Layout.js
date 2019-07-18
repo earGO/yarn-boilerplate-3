@@ -1,7 +1,8 @@
 import React from 'react'
 import {Scrollbars} from 'react-custom-scrollbars'
-import {Flex, Box, Text, TopNav, LkNav} from '../import'
+import {Flex, Box, Text, TopNav, LkNav, Login} from '../import'
 import {withRouter} from 'react-router-dom'
+import {useSelector} from 'react-redux'
 
 /**
  * Main application layout
@@ -9,6 +10,36 @@ import {withRouter} from 'react-router-dom'
 function Layout({children, width, maxWidth, history, ...props}) {
 	const handleLogoClick = () => history.push('/')
 	const year = new Date().getFullYear()
+	const isAuth = useSelector(Login.selectors.loginStatus)
+
+	const NavigationComponent = () => {
+		if (isAuth) {
+			return <TopNav history={history} />
+		} else {
+			return null
+		}
+	}
+
+	const FooterComponent = () => {
+		if (isAuth) {
+			return (
+				<Box bg="lightGrey">
+					<Box
+						p={2}
+						mx="auto"
+						style={{maxWidth}}
+						justifyContent="space-between"
+					>
+						<Text color="darkGrey" fontSize={0} align="right">
+							URSiP &copy; {year}
+						</Text>
+					</Box>
+				</Box>
+			)
+		} else {
+			return null
+		}
+	}
 
 	return (
 		<Flex
@@ -17,22 +48,11 @@ function Layout({children, width, maxWidth, history, ...props}) {
 			alignItems="stretch"
 			{...props}
 		>
-			<TopNav history={history} />
+			<NavigationComponent />
 			<Box flex={1} mx="auto" width="100%" style={{overflow: 'hidden'}}>
 				{children}
 			</Box>
-			<Box bg="lightGrey">
-				<Box
-					p={2}
-					mx="auto"
-					style={{maxWidth}}
-					justifyContent="space-between"
-				>
-					<Text color="darkGrey" fontSize={0} align="right">
-						URSiP &copy; {year}
-					</Text>
-				</Box>
-			</Box>
+			<FooterComponent />
 		</Flex>
 	)
 }
