@@ -5,3 +5,5 @@ export const LocalNavigation = {
 	LkNavModule,
 	LocalNavigationTypes
 }
+
+export {default as projectCardModule} from './src/project-card'

@@ -35,11 +35,12 @@ const routes = [
 		component: React.lazy(() => import('./Compound/LK'))
 	},
 	{
-		key: 'Nsi',
-		path: nsiModuleRoute,
+		key: 'lk',
+		path: lkModuleRoute,
 		private: true,
-		component: React.lazy(() => import('./LazyLoad/Nsi'))
+		component: React.lazy(() => import('./LazyLoad/LK'))
 	},
+
 	{
 		key: 'project-card',
 		path: projectCardRoute,
@@ -47,11 +48,12 @@ const routes = [
 		component: React.lazy(() => import('./LazyLoad/ProjectCard'))
 	},
 	{
-		key: 'lk',
-		path: lkModuleRoute,
+		key: 'Nsi',
+		path: nsiModuleRoute,
 		private: true,
-		component: React.lazy(() => import('./LazyLoad/LK'))
+		component: React.lazy(() => import('./LazyLoad/Nsi'))
 	},
+
 	{
 		key: 'Oshs',
 		private: true,

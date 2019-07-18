@@ -72,9 +72,10 @@ const ActionCell = ({rowData, dataKey, ...props}) => {
 	)
 }
 
-const ProjectClick = ({rowData, dataKey, ...props}) => {
+const ProjectClick = ({rowData, dataKey, history, projectClick, ...props}) => {
 	function handleAction() {
-		console.log(rowData[dataKey])
+		console.log(rowData.idProject)
+		projectClick(rowData.idProject, history)
 	}
 	return (
 		<Table.Cell {...props} style={{padding: 0}}>
@@ -85,7 +86,7 @@ const ProjectClick = ({rowData, dataKey, ...props}) => {
 	)
 }
 
-function ProjectsTable({projects, openTable, ...props}) {
+function ProjectsTable({projects, openTable, projectClick, history, ...props}) {
 	let tableHeight = 144
 	{
 		openTable ? (tableHeight = 288) : (tableHeight = 144)
@@ -117,7 +118,11 @@ function ProjectsTable({projects, openTable, ...props}) {
 
 					<Table.Column width={272}>
 						<Table.HeaderCell>Объект</Table.HeaderCell>
-						<ProjectClick dataKey="objectName" />
+						<ProjectClick
+							dataKey="objectName"
+							projectClick={projectClick}
+							history={history}
+						/>
 					</Table.Column>
 					<Table.Column width={192}>
 						<Table.HeaderCell>Стадии</Table.HeaderCell>

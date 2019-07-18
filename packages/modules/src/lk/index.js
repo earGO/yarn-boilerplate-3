@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import * as module from './module'
 import {Flex, Box, Button, Text, Relative} from '../../import'
 import * as selectors from './module/selectors'
+import * as actions from './module/actions'
 import {DynamicModuleLoader} from 'redux-dynamic-modules'
 import {Loading, ContentBox, Icon} from '../../import'
 import ProjectsTable from './ProjectsTable'
@@ -10,6 +11,7 @@ import SearchAndFilter from './SearchAndFilter'
 import styled from 'styled-components'
 import Infograph01 from './Infograph01'
 import Infograph02 from './Infograph02'
+import {projectCardModule} from '../../localIntegration'
 
 const BottomPart = styled(Box)`
 	border-width: 1px;
@@ -43,7 +45,7 @@ const IconPosition = styled(Flex)`
 	right: 6px;
 `
 
-function LK(props) {
+function LK({history, ...props}) {
 	/* State variables */
 	const [openTable, setTableOpen] = useState(false)
 	const [filterStartDate, setFilterStartDate] = useState(null)
@@ -55,6 +57,10 @@ function LK(props) {
 	const loading = useSelector(selectors.projectsLoading) // Selector for projects-loading-status
 	const data = useSelector(selectors.projectsDataSelector) // Selector for bulk unmodified data
 	const localOption = useSelector(selectors.localNavigationStage) // Select chosen project type from local navigation
+
+	/* Action dispatchers */
+	const dispatch = useDispatch()
+	const projectClick = projectId => dispatch(actions.selectProject(projectId))
 
 	/* Sorted flatten array of projects - since we have default sort value
 	 * when page loads - we always will recieve some criteria
@@ -95,6 +101,14 @@ function LK(props) {
 	/* Function is passed to SearchAndFilter component, where it's criteria is changed with dropdown */
 	const handleProjectsSort = criteria => {
 		setProjectsSort(criteria)
+	}
+
+	/** Here's where project is opened while clicking on it's name in table of projects
+	 * It pushes to router history project-card baseRoute plus the projectId in route
+	 * It takes projectId from tableData from ProjectTable component from ProjectClick cell*/
+	const handleProjectsClick = (projectId, history) => {
+		history.push(projectCardModule.baseRoute + '/' + projectId)
+		projectClick(projectId)
 	}
 
 	/* When dates removed from datepicker - remove filtering from table data */
@@ -167,6 +181,8 @@ function LK(props) {
 						<ProjectsTable
 							projects={allFilteredData}
 							openTable={openTable}
+							projectClick={handleProjectsClick}
+							history={history}
 						/>
 						{/* Button, that expands and contracts table when clicked
 						 */}
@@ -198,5 +214,6 @@ LK.propTypes = {}
 LK.defaultProps = {}
 
 LK.baseRoute = module.baseRoute
+LK.selectors = selectors
 
 export default LK

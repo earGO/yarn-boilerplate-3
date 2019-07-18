@@ -7,3 +7,11 @@ export const preselectTab = (tabs, selectedTab) => {
 		payload: {tabs: tabs, selectedTab: selectedTab}
 	}
 }
+
+/* It puts in state indicator, that one of projects was clicked */
+export const selectProject = projectId => {
+	return {
+		type: types.SELECT_PROJECT,
+		payload: {projectSelected: true, selectedProject: projectId}
+	}
+}

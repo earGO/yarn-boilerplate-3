@@ -101,6 +101,16 @@ export const projectsDataSelector = createSelector(
 	state => state.data
 )
 
+export const projectSelected = createSelector(
+	namespaceStateSelector,
+	state => state.projectSelected
+)
+
+export const selectedProjectId = createSelector(
+	namespaceStateSelector,
+	state => state.selectedProject
+)
+
 export const projectsArraySelector = createSelector(
 	projectsDataSelector,
 	state => makeArrayOfProjects(state)

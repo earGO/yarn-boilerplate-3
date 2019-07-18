@@ -1,6 +1,6 @@
 import React from 'react'
 import {Scrollbars} from 'react-custom-scrollbars'
-import {Flex, Box, Text, TopNav, LkNav, Login} from '../import'
+import {Flex, Box, Text, TopNav, Login} from '../import'
 import {withRouter} from 'react-router-dom'
 import {useSelector} from 'react-redux'
 
