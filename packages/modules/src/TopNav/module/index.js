@@ -1,4 +1,6 @@
 import {namespace} from './types'
+import * as types from './types'
+import * as actions from './actions'
 import {topNavigation} from '../../../import'
 import reducers, {initialState} from './reducers'
 
@@ -14,5 +16,7 @@ export default {
 		})
 	},
 	sagas: [sagas],
-	initialActions: [topNavigation.actions.loadTabs()]
+	initialActions: [topNavigation.actions.loadTabs()],
+	actions,
+	types
 }

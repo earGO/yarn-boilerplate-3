@@ -17,6 +17,8 @@ import Notifications from './Notifications'
 import Profile from './Profile'
 import styled from 'styled-components'
 import * as selectors from './module/selectors'
+import * as actions from './module/actions'
+import * as types from './module/types'
 import NavigationPanel from './NavigationPanel'
 
 const ZIndexed = styled(Box)`
@@ -29,6 +31,7 @@ function TopNav({history, ...props}) {
 	const tabSelected = useSelector(selectors.selectedTabsSelector)
 
 	const dispatch = useDispatch()
+	const openCreateModal = () => dispatch(actions.openCreateModal())
 
 	const notReady = loading && !(mainNavTabs !== undefined)
 
@@ -46,7 +49,7 @@ function TopNav({history, ...props}) {
 							<Logo history={history} />
 							<GlobalSearch />
 							<Notifications />
-							<Actions />
+							<Actions openCreateModal={openCreateModal} />
 							<Profile />
 						</ContentBox>
 					</ZIndexed>

@@ -15,14 +15,14 @@ const CustomButton = styled(Flex)`
 	}
 `
 
-function Actions({props}) {
-	/*some private methods*/
+function Actions({openCreateModal, ...props}) {
 	return (
 		<CustomButton
 			flexDirection={'row'}
 			alignItems={'center'}
 			justifyContent={'space-evenly'}
 			mt={2}
+			onClick={openCreateModal}
 		>
 			<Icon name={'add'} color={'white'} />
 			<Text color={'white'} fontSize={'12px'}>

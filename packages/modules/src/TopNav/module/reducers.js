@@ -5,7 +5,8 @@ import * as types from './types'
 
 export const initialState = {
 	navigationLoading: false,
-	selectedOption: ''
+	selectedOption: '',
+	openCreateModal: false
 }
 
 const serviceTypes = service.types
@@ -35,5 +36,11 @@ export default {
 	},
 	[types.SELECT_OPTION]: (_, {payload}) => ({
 		selectedOption: payload.selectedOption
+	}),
+	[types.CREATE_OPEN]: (_, {payload}) => ({
+		openCreateModal: payload.openCreateModal
+	}),
+	[types.CREATE_CLOSE]: (_, {payload}) => ({
+		openCreateModal: payload.openCreateModal
 	})
 }

@@ -4,15 +4,15 @@ import {namespace} from './types'
 import {initialState} from './reducers'
 
 import {lk as service, personalNavigation} from '../../../import'
-import {LocalNavigation} from '../../../localIntegration'
+import {LocalNavigation, globalNavigation} from '../../../localIntegration'
 
 const namespaceStateSelector = state => state[namespace] || initialState
 const serviceStateSelector = state => state[service.name] || initialState
 const localNavigationSelector = state =>
 	state[LocalNavigation.LocalNavigationTypes.namespace] || initialState
 
-/* Selectors on state of local navigation to use for filtering data in
- * projects-table */
+const globalNavigationSelector = state =>
+	state[globalNavigation.types.namespace] || initialState
 
 function makeArrayOfProjects(arrayOfStages) {
 	let arrayOfProjects = []
@@ -65,7 +65,6 @@ function filterOnChangeDates(
 	endDate,
 	criteria
 ) {
-	// dateCreated format "2012-03-15"
 	if (criteria) {
 		if (startDate !== null && endDate !== null) {
 			let result = []
@@ -85,11 +84,23 @@ function filterOnChangeDates(
 		return flatArrayOfProjects
 	}
 }
+/* Selectors on state of local navigation to use for filtering data in
+ * projects-table */
 
 export const localNavigationStage = createSelector(
 	localNavigationSelector,
 	state => state.selectedOption
 )
+
+/* Selectors on state of global navigation to use for filtering data in
+ * projects-table */
+
+export const openCreateProjectFormModalSelector = createSelector(
+	globalNavigationSelector,
+	state => state.openCreateModal
+)
+
+/* Module local selectors */
 
 export const projectsLoading = createSelector(
 	namespaceStateSelector,

@@ -12,6 +12,7 @@ import styled from 'styled-components'
 import Infograph01 from './Infograph01'
 import Infograph02 from './Infograph02'
 import {projectCardModule} from '../../localIntegration'
+import CreateProjectModal from './CreateProjectModal'
 
 const BottomPart = styled(Box)`
 	border-width: 1px;
@@ -203,6 +204,7 @@ function LK({history, ...props}) {
 							</Button>
 						</ContentBox>
 					</BottomPart>
+					<CreateProjectModal />
 				</Flex>
 			)}
 		</DynamicModuleLoader>

@@ -7,3 +7,4 @@ export const LocalNavigation = {
 }
 
 export {default as projectCardModule} from './src/project-card'
+export {default as globalNavigation} from './src/TopNav/module'

@@ -14,3 +14,17 @@ export const selectOption = selectedOption => {
 		payload: {selectedOption}
 	}
 }
+
+export const openCreateModal = () => {
+	return {
+		type: types.CREATE_OPEN,
+		payload: {openCreateModal: true}
+	}
+}
+
+export const closeCreateModal = () => {
+	return {
+		type: types.CREATE_CLOSE,
+		payload: {openCreateModal: false}
+	}
+}
