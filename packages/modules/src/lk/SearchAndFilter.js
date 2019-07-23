@@ -39,7 +39,7 @@ function SearchAndFilter({
 		{value: 'stageName', label: `Нашим мудрецам`}
 	]
 
-	/* A atate to handle filter selector */
+	/* A state to handle filter selector */
 	const [value, setOption] = useState(options[4])
 
 	const searchQuery = ''
