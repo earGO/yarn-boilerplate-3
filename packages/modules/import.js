@@ -45,7 +45,8 @@ export {
 	Collapse,
 	Absolute,
 	Scrollbars,
-	Divider
+	Divider,
+	Checkbox
 } from '@project/design-system-local'
 
 export {
