@@ -26,7 +26,7 @@ function Modal({visible, nodeId, ...props}) {
 			marginRight: '-50%',
 			transform: 'translate(-50%, -50%)',
 			background: 'transparent',
-			overflow: 'auto',
+			overflow: 'clip ',
 			WebkitOverflowScrolling: 'touch',
 			borderRadius: '0px',
 			outline: 'none',

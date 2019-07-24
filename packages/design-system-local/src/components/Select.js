@@ -211,43 +211,6 @@ const MenuList = optionHeight =>
 		}
 	}
 
-/** тестовый вариант на хуках :) // need react ^16.7.0-alpha1 */
-/*const Hooks_MenuList = optionHeight => ({ options, children, maxHeight, getValue }) => {
-  const listRef = React.useRef(null)
-
-  const [value] = getValue()
-  const initialIndex = options.indexOf(value)
-  const initialOffset = options.indexOf(value) * optionHeight
-
-  let [currentIndex, setCurrentIndex] = React.useState(initialIndex)
-
-  React.useEffect(() => {
-    const _children = Array.isArray(children) ? children : [children]
-    const newIndex = Math.max(_children.findIndex(({ props: { isFocused } }) => isFocused), 0)
-    if (currentIndex !== newIndex) {
-      setCurrentIndex(newIndex)
-      listRef.current.scrollToItem(newIndex)
-    }
-  }, children)
-
-  if (!children.length) {
-    /!* No option message *!/
-    return <Box>{children}</Box>
-  }
-
-  return (
-    <StyledList
-      ref={listRef}
-      height={maxHeight}
-      itemCount={children.length}
-      itemSize={optionHeight}
-      initialScrollOffset={initialOffset}
-    >
-      {({ index, style }) => <div style={style}>{children[index]}</div>}
-    </StyledList>
-  )
-}*/
-
 /**
  * Используется для выбора значения из списка.
  */

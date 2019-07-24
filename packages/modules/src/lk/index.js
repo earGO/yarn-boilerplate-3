@@ -178,7 +178,7 @@ function LK({history, ...props}) {
 							handleDateFilterChange={handleDateFilterChange}
 						/>
 						{/* A table with all fetched projects data , filtered
-						with selectors and functions above*/}
+						with selectors and functions above */}
 						<ProjectsTable
 							projects={allFilteredData}
 							openTable={openTable}
