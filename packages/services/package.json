@@ -1,7 +1,7 @@
 {
   "name": "@project/services",
   "version": "1.0.3",
-  "description": "Utils for other modules",
+  "description": "Services for backend and api",
   "ru_ursip": {
     "services": {
       "ursip-nsi-service": "http://develop.ursip.local/ws-nsi/v1",
@@ -16,5 +16,5 @@
     "redux-saga-requests": "^0.25.0"
   },
   "license": "MIT",
-  "gitHead": "96bb27ca5a5904b76674baecb095706d83a11a3e"
+  "gitHead": "a1d2d0177b1d74480de25b85b81c323aa4624b0e"
 }
