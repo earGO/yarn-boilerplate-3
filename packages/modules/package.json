@@ -25,5 +25,6 @@
     "fetch-mock": "^7.3.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
-  }
+  },
+  "gitHead": "a02b5536512fcc1d36c10141fccf2a8b65bc32db"
 }

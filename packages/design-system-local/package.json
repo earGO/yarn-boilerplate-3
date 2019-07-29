@@ -62,5 +62,6 @@
     "styled-system": "^3.2.0",
     "url-loader": "^2.0.1",
     "webpack": "^4.29.0"
-  }
+  },
+  "gitHead": "a02b5536512fcc1d36c10141fccf2a8b65bc32db"
 }
