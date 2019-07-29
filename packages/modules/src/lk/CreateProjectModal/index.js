@@ -43,6 +43,14 @@ const localTemplates = [
 	{value: 'template5', label: `Шаблон ИМ торгового центра`}
 ]
 
+const existingProjects = [
+	{value: 'existing1', label: `Существующий проект 1`},
+	{value: 'existing2', label: `Существующий проект 2`},
+	{value: 'existing3', label: `Существующий проект 3`},
+	{value: 'existing4', label: `Существующий проект 4`},
+	{value: 'existing5', label: `Существующий проект 5`}
+]
+
 const projectTypes = [
 	{value: 'type1', label: `ПН`},
 	{value: 'type2', label: `НН`},
@@ -58,12 +66,20 @@ const localStages = [
 ]
 
 const localConstructionTypes = [
-	{value: 'ConstructionType1', label: `Промышленное`},
-	{value: 'ConstructionType2', label: `Транспортное`},
-	{value: 'ConstructionType3', label: `Гражданское`},
-	{value: 'ConstructionType4', label: `Военное`},
-	{value: 'ConstructionType5', label: `Гидротехническое`},
-	{value: 'ConstructionType6', label: `Гидромелиоративное`}
+	{
+		value: 'ConstructionType1',
+		label: `НН - Объект непроизводственного назначения`
+	},
+	{
+		value: 'ConstructionType2',
+		label: `ПН - Объект производственного назначения`
+	},
+	{value: 'ConstructionType3', label: `ЛО - линейный объект`},
+	{
+		value: 'ConstructionType4',
+		label: `НН и ПН - Объект непроизводственного и производственного назначения`
+	},
+	{value: 'ConstructionType5', label: `все виды ОКС`}
 ]
 
 const ModalBox = styled(Box)`
@@ -75,13 +91,17 @@ function CreateProjectModal({...props}) {
 	const [functional, setFunctional] = useState(localFunctional[4])
 	const [reason, setReason] = useState(localReasons[4])
 	const [AIPMoscowChecked, setAIPMoscowChecked] = useState(false)
-	const [selectedTemplate, setSelectedTemplate] = useState(localTemplates[1])
+	const [selectedTemplate, setSelectedTemplate] = useState(localTemplates[0])
 	const [projectType, setProjectType] = useState(projectTypes[1])
 	const [projectStage, setProjectStage] = useState(localStages[1])
+	const [existingProject, setExistingProject] = useState(existingProjects[0])
 	const [projectConstructionType, setConstructionTypes] = useState(
 		localConstructionTypes[1]
 	)
 	const scrollBarsRef = useRef(null)
+	/* Local state for disabling two bottom dropdowns when one of them used */
+	const [disableTemplates, setTemplatesDisabled] = useState(false)
+	const [disableExisting, setExistingDisabled] = useState(false)
 
 	const handleChangeFunctional = newOption => {
 		setFunctional(newOption)
@@ -94,6 +114,7 @@ function CreateProjectModal({...props}) {
 	}
 	const handleSelectedTemplate = template => {
 		setSelectedTemplate(template)
+		setExistingDisabled(true)
 	}
 	const handleProjectTypeSelect = selectedType => {
 		setProjectType(selectedType)
@@ -105,6 +126,10 @@ function CreateProjectModal({...props}) {
 	const handleConstructionTypesSelect = projectConstructionType => {
 		setConstructionTypes(projectConstructionType)
 	}
+	const handleExistingProjectSelection = existingProject => {
+		setExistingProject(existingProject)
+		setTemplatesDisabled(true)
+	}
 
 	/* Redux state */
 	const modalOpened = useSelector(
@@ -112,6 +137,18 @@ function CreateProjectModal({...props}) {
 	)
 	const dispatch = useDispatch()
 	const closeModal = () => dispatch(localActions.closeCreateModal())
+
+	const handleCreate = () => {
+		setTemplatesDisabled(false)
+		setExistingDisabled(false)
+		closeModal()
+	}
+
+	const handleCancel = () => {
+		setTemplatesDisabled(false)
+		setExistingDisabled(false)
+		closeModal()
+	}
 
 	return (
 		<Modal isOpen={modalOpened}>
@@ -154,6 +191,7 @@ function CreateProjectModal({...props}) {
 										}
 										onChange={handleChangeFunctional}
 										size="medium"
+										closeMenuOnScroll
 									/>
 								</Box>
 								<Box width={352} mb={3}>
@@ -169,6 +207,7 @@ function CreateProjectModal({...props}) {
 										placeholder={'Выбор из списка'}
 										onChange={handleChangeReason}
 										size="medium"
+										closeMenuOnScroll
 									/>
 									<Box>
 										<Checkbox
@@ -198,6 +237,8 @@ function CreateProjectModal({...props}) {
 										value={selectedTemplate}
 										onChange={handleSelectedTemplate}
 										size="medium"
+										closeMenuOnScroll
+										isDisabled={disableTemplates}
 									/>
 								</Box>
 							</Flex>
@@ -219,6 +260,7 @@ function CreateProjectModal({...props}) {
 										placeholder={'Выберите Вид ОКС'}
 										onChange={handleProjectTypeSelect}
 										size="medium"
+										closeMenuOnScroll
 									/>
 								</Box>
 								<Box width={352} mb={4}>
@@ -234,6 +276,7 @@ function CreateProjectModal({...props}) {
 										placeholder={'Выбор из списка'}
 										onChange={handleProjectStageSelect}
 										size="medium"
+										closeMenuOnScroll
 									/>
 								</Box>
 								<Box width={352} mb={3} mt={2} p={1}>
@@ -246,6 +289,7 @@ function CreateProjectModal({...props}) {
 										value={projectConstructionType}
 										onChange={handleConstructionTypesSelect}
 										size="medium"
+										closeMenuOnScroll
 									/>
 								</Box>
 								<Box width={352} mt={2} pt={1}>
@@ -257,12 +301,16 @@ function CreateProjectModal({...props}) {
 										Выбор готового проекта
 									</Text>
 									<Select
-										options={localTemplates}
-										value={selectedTemplate}
-										onChange={handleSelectedTemplate}
+										options={existingProjects}
+										value={existingProject}
+										onChange={
+											handleExistingProjectSelection
+										}
 										size="medium"
 										maxHeight={200}
 										placement={'auto'}
+										closeMenuOnScroll
+										isDisabled={disableExisting}
 									/>
 								</Box>
 							</Flex>
@@ -277,7 +325,7 @@ function CreateProjectModal({...props}) {
 								m={2}
 								type="primary"
 								size="small"
-								onClick={closeModal}
+								onClick={handleCreate}
 							>
 								Создать
 							</Button>
@@ -285,7 +333,7 @@ function CreateProjectModal({...props}) {
 								m={2}
 								type="secondary"
 								size="small"
-								onClick={closeModal}
+								onClick={handleCancel}
 							>
 								Отмена
 							</Button>
