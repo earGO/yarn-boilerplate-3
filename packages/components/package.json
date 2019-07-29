@@ -37,5 +37,7 @@
     "react-custom-scrollbars": "^4.2.1",
     "styled-system": "^5.0.12"
   },
-  "gitHead": "a1d2d0177b1d74480de25b85b81c323aa4624b0e"
+  "publishConfig": {
+    "registry": "http://localhost:4873/"
+  }
 }

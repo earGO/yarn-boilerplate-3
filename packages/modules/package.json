@@ -26,5 +26,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
-  "gitHead": "a1d2d0177b1d74480de25b85b81c323aa4624b0e"
+  "publishConfig": {
+    "registry": "http://localhost:4873/"
+  }
 }

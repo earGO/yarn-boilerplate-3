@@ -63,5 +63,7 @@
     "url-loader": "^2.0.1",
     "webpack": "^4.29.0"
   },
-  "gitHead": "a1d2d0177b1d74480de25b85b81c323aa4624b0e"
+  "publishConfig": {
+    "registry": "http://localhost:4873/"
+  }
 }

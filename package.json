@@ -80,5 +80,8 @@
       "!src/serviceWorker.{js,jsx}",
       "!src/**/*.(spec|test|stories).{js,jsx}"
     ]
+  },
+  "publishConfig": {
+    "registry": "http://localhost:4873/"
   }
 }

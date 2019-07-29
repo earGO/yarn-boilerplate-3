@@ -16,5 +16,7 @@
     "redux-saga-requests": "^0.25.0"
   },
   "license": "MIT",
-  "gitHead": "a1d2d0177b1d74480de25b85b81c323aa4624b0e"
+  "publishConfig": {
+    "registry": "http://localhost:4873/"
+  }
 }
