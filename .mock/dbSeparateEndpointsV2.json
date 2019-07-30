@@ -1719,30 +1719,76 @@
       "value": "НСИ"
     }
   ],
-  "personal_nav": [
-    {
-      "id": "All",
-      "value": "Все стадии"
-    },
-    {
-      "id": "OBIN",
-      "value": "ОБИН"
-    },
-    {
-      "id": "PROJECTING",
-      "value": "Проектирование"
-    },
-    {
-      "id": "SMR",
-      "value": "Строительство"
-    },
-    {
-      "id": "OPER",
-      "value": "Эксплуатация"
-    },
-    {
-      "id": "SNOS",
-      "value": "Снос"
-    }
-  ]
+  "personal_nav":{
+    "main":[
+      {
+        "id": "All",
+        "value": "Все стадии"
+      },
+      {
+        "id": "OBIN",
+        "value": "ОБИН"
+      },
+      {
+        "id": "PROJECTING",
+        "value": "Проектирование"
+      },
+      {
+        "id": "SMR",
+        "value": "Строительство"
+      },
+      {
+        "id": "OPER",
+        "value": "Эксплуатация"
+      },
+      {
+        "id": "SNOS",
+        "value": "Снос"
+      }
+    ],
+    "tools": [
+      {
+        "id": "Audit",
+        "value": "Аудит"
+      },
+      {
+        "id": "NSI",
+        "value": "НСИ"
+      },
+      {
+        "id": "Viewer",
+        "value": "Вьювер"
+      },
+      {
+        "id": "Templates",
+        "value": "Шаблоны"
+      }
+    ],
+    "services": [
+      {
+        "id": "All",
+        "value": "Все стадии"
+      },
+      {
+        "id": "OBIN",
+        "value": "ОБИН"
+      },
+      {
+        "id": "PROJECTING",
+        "value": "Проектирование"
+      },
+      {
+        "id": "SMR",
+        "value": "Строительство"
+      },
+      {
+        "id": "OPER",
+        "value": "Эксплуатация"
+      },
+      {
+        "id": "SNOS",
+        "value": "Снос"
+      }
+    ]
+  }
 }
