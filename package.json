@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "unit": "jest --watchAll",
-    "make-patch": "lerna version patch --conventional-commits --create-release gitlab --changelog-preset react && yarn",
-    "make-minor": "lerna version minor --conventional-commits --create-release gitlab --changelog-preset react && yarn",
-    "make-major": "lerna version major --conventional-commits --create-release gitlab --changelog-preset react && yarn",
+    "make-patch": "lerna version patch --conventional-commits --create-release github --changelog-preset react && yarn",
+    "make-minor": "lerna version minor --conventional-commits --create-release github --changelog-preset react && yarn",
+    "make-major": "lerna version major --conventional-commits --create-release github --changelog-preset react && yarn",
     "publish": "lerna publish from-package --yes --conventional-commits --changelog-preset react",
     "storybook": "cd packages/storybook && start-storybook -p 9009 -s public",
     "build-storybook": "lerna exec --scope library-name -- babel src -d dist --copy-files --ignore \"src/stories/\"",
